@@ -27,7 +27,9 @@ namespace GameProject.Sprites
 		{
 			///Health regen
 			HealthRegen(gameTime);
-			///Player movement
+			//Hide/Show inventory (keyboard input)
+			HideShowInventory();
+			///Player movement (keyboard input)
 			Move();
 			//Play animations
 			PlayAnimations();
@@ -53,6 +55,17 @@ namespace GameProject.Sprites
 			}
 		}
 
+		private void HideShowInventory()
+		{
+			if (Keyboard.GetState().IsKeyDown(input.ShowInventory))
+			{
+				if (InventoryManager.Hidden == true)
+					InventoryManager.Hidden = false;
+				else
+					InventoryManager.Hidden = true;
+			}
+		}
+
 		private void Move()
 		{
 			if (canMove)
@@ -73,6 +86,7 @@ namespace GameProject.Sprites
 				}
 			}
 		}
+
 		private void PlayAnimations()
 		{
 			if (Velocity.X > 0)
@@ -81,6 +95,10 @@ namespace GameProject.Sprites
 				animationManager.Play(animations["WalkLeft"]);
 			else
 				animationManager.Play(animations["Idle"]);
+		}
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		{
+			animationManager.Draw(spriteBatch);
 		}
 	}
 }

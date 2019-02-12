@@ -27,13 +27,26 @@ namespace GameProject.Sprites
 		{
 			///Health regen
 			HealthRegen(gameTime);
-			///Player movement
+			//Hide/Show inventory (keyboard input)
+			HideShowInventory();
+			///Player movement (keyboard input)
 			Move();
 			//Play animations
 			PlayAnimations();
 			animationManager.Update(gameTime);
 			Position += Velocity;
 			Velocity = Vector2.Zero;
+		}
+
+		private void HideShowInventory()
+		{
+			if (Keyboard.GetState().IsKeyDown(input.ShowInventory))
+			{
+				if (InventoryManager.Hidden == true)
+					InventoryManager.Hidden = false;
+				else
+					InventoryManager.Hidden = true;
+			}
 		}
 
 		private void PlayAnimations()

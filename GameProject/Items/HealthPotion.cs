@@ -26,7 +26,7 @@ namespace GameProject
 		}
 		public override void Update(GameTime gameTime)
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 		public override void Use()
 		{

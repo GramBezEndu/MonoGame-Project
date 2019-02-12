@@ -22,6 +22,11 @@ namespace GameProject.States
 		public Village(Game1 g, GraphicsDevice gd, ContentManager c, PlayerClasses playerClass) : base(g, gd, c)
 		{
 			var playerScale = 1f;
+			var inventoryTexture = content.Load<Texture2D>("Inventory");
+			var slotTexture = content.Load<Texture2D>("InventorySlot");
+			int inventorySlots = 10;
+			var healthPotionTexture = content.Load<Texture2D>("HealthPotion");
+			var font = content.Load<SpriteFont>("Font");
 			switch (playerClass)
 			{
 				case PlayerClasses.Warrior:
@@ -55,6 +60,8 @@ namespace GameProject.States
 					}
 			}
 			player.Position = new Vector2(0.05f * game.Width, 0.4f * game.Height);
+			player.InventoryManager = new InventoryManager(inventoryTexture, slotTexture, font, inventorySlots, game.Scale);
+			player.InventoryManager.AddItem(new HealthPotion(healthPotionTexture, game.Scale), 14);
 
 			var background = content.Load<Texture2D>("VillageBackground");
 			components = new List<Component>
@@ -80,6 +87,7 @@ namespace GameProject.States
 			spriteBatch.Begin();
 			foreach (var c in components)
 				c.Draw(gameTime, spriteBatch);
+			player.InventoryManager.Draw(gameTime, spriteBatch);
 			//spriteBatch.DrawString(font, player.Position.ToString(), new Vector2(10, 10), Color.White);
 			spriteBatch.End();
 

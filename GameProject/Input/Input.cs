@@ -13,6 +13,7 @@ namespace GameProject
 		public Keys Sprint { get; set; }
 		public Keys DodgeBlock { get; set; }
 		public Keys PickUp { get; set; }
+		public Keys ShowInventory { get; set; }
 		/// <summary>
 		/// Sets default key binds
 		/// </summary>
@@ -23,6 +24,7 @@ namespace GameProject
 			Sprint = Keys.LeftShift;
 			DodgeBlock = Keys.Space;
 			PickUp = Keys.Z;
+			ShowInventory = Keys.Tab;
 		}
 		public void RestoreToDefault()
 		{

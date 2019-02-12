@@ -31,7 +31,7 @@ namespace GameProject.Sprites
 		protected int healthRegen = 1;
 		protected GameTimer HealthRegenTimer = new GameTimer(2f);
 
-		//protected InventoryManager InventoryManager = new InventoryManager(24);
+		public InventoryManager InventoryManager;
 
 		public int CurrentHealth { get => currentHealth; }
 	}
