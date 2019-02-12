@@ -35,12 +35,14 @@ namespace GameProject.States
 				new Button(buttonTexture,buttonFont,g.Scale)
 				{
 					Text = "Settings",
-					Position = new Vector2(0.01f*g.Width, 0.7f*g.Height)
+					Position = new Vector2(0.01f*g.Width, 0.7f*g.Height),
+					Click = SettingsState
 				},
 				new Button(buttonTexture,buttonFont,g.Scale)
 				{
 					Text = "Credits",
-					Position = new Vector2(0.01f*g.Width, 0.8f*g.Height)
+					Position = new Vector2(0.01f*g.Width, 0.8f*g.Height),
+					Click = CreditsState
 				},
 				new Button(buttonTexture, buttonFont, g.Scale)
 				{
@@ -49,6 +51,16 @@ namespace GameProject.States
 				Click = QuitGame
 				}
 			};
+		}
+
+		private void CreditsState(object sender, EventArgs e)
+		{
+			game.ChangeState(new Credits(game, graphicsDevice, content));
+		}
+
+		private void SettingsState(object sender, EventArgs e)
+		{
+			game.ChangeState(new Settings(game, graphicsDevice, content));
 		}
 
 		private void PlayClick(object sender, EventArgs e)

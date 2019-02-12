@@ -11,7 +11,7 @@ namespace GameProject.Animations
 {
 	public class AnimationManager
 	{
-		private Animation animation;
+		public Animation animation;
 		private float millisecondsTimer;
 		public Vector2 Position { get; set; }
 		public AnimationManager(Animation a)
@@ -20,11 +20,24 @@ namespace GameProject.Animations
 		}
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(
-				animation.Texture,
+			spriteBatch.Draw(animation.Texture,
 				Position,
-				new Rectangle(animation.CurrentFrame * animation.FrameWidth, 0, animation.FrameWidth, animation.FrameHeight),
-				Color.White);
+				new Rectangle(animation.CurrentFrame * animation.FrameWidth,
+					0,
+					animation.FrameWidth,
+					animation.FrameHeight),
+				Color.White,
+				0f,
+				Vector2.Zero,
+				animation.Scale,
+				SpriteEffects.None,
+				0f);
+			////skalowanie tutaj
+			//spriteBatch.Draw(
+			//	animation.Texture,
+			//	Position,
+			//	new Rectangle(animation.CurrentFrame * animation.FrameWidth, 0, animation.FrameWidth, animation.FrameHeight),
+			//	Color.White);
 		}
 		public void Play(Animation a)
 		{

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using GameProject.Sprites;
+using GameProject.Animations;
 
 namespace GameProject.States
 {
@@ -20,16 +21,31 @@ namespace GameProject.States
 	{
 		public Village(Game1 g, GraphicsDevice gd, ContentManager c, PlayerClasses playerClass) : base(g, gd, c)
 		{
+			var playerScale = 1f;
 			switch (playerClass)
 			{
 				case PlayerClasses.Warrior:
 					{
-						player = new Warrior(content.Load<Texture2D>("Warrior"), g.Scale);
+						var animations = new Dictionary<string, Animation>()
+						{
+							{"Idle", new Animation(content.Load<Texture2D>("Warrior"), 1, playerScale*game.Scale) },
+							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, playerScale*game.Scale)},
+							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, playerScale*game.Scale) }
+						};
+						player = new Warrior(animations);
+						//player = new Warrior(content.Load<Texture2D>("Warrior"), g.Scale);
 						break;
 					}
 				case PlayerClasses.Archer:
 					{
-						player = new Archer(content.Load<Texture2D>("Archer"), g.Scale);
+						var animations = new Dictionary<string, Animation>()
+						{
+							{"Idle", new Animation(content.Load<Texture2D>("Archer"), 1, playerScale*game.Scale) },
+							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, playerScale*game.Scale)},
+							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, playerScale*game.Scale) }
+						};
+						player = new Archer(animations);
+						//player = new Archer(content.Load<Texture2D>("Archer"), g.Scale);
 						break;
 					}
 				case PlayerClasses.Wizard:

@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using GameProject.Animations;
 
 namespace GameProject.Sprites
 {
 	public abstract class Player : Sprite
 	{
 		public Player(Texture2D t, float scale) : base(t, scale) { }
+		public Player(Dictionary<string, Animation> a) : base(a) { }
 		protected Input input = new Input();
 		protected float moveDistance = 1f;
 		protected float sprintDistance = 2f;

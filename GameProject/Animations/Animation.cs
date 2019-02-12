@@ -13,9 +13,9 @@ namespace GameProject.Animations
 	{
 		public int CurrentFrame { get; set; }
 		public int FrameCount { get; private set; }
-		public int FrameHeight { get { return (int)(Texture.Height * Scale); } }
+		public int FrameHeight { get { return (int)(Texture.Height); } }
 		public float FrameTime { get; set; }
-		public int FrameWidth { get { return (int)(Texture.Width * Scale); } }
+		public int FrameWidth { get { return (int)(Texture.Width/FrameCount); } }
 		public Texture2D Texture { get; set; }
 		public bool IsLooping { get; set; }
 		public float Scale { get; set; }
@@ -26,7 +26,7 @@ namespace GameProject.Animations
 
 			IsLooping = true;
 
-			FrameTime = 0.2f;
+			FrameTime = 0.5f;
 			Scale = scale;
 		}
 	}

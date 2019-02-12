@@ -18,7 +18,8 @@ namespace GameProject.Sprites
 		protected Texture2D texture;
 		protected AnimationManager animationManager;
 		protected Dictionary<string, Animation> animations;
-		public Vector2 Position;
+		protected Vector2 position;
+		public Vector2 Velocity;
 		//protected Vector2 position;
 		public float Scale { get; set; }
 		//public Vector2 Velocity { get; set; }
@@ -27,22 +28,34 @@ namespace GameProject.Sprites
 			texture = t;
 			Scale = scale;
 		}
-		//public Vector2 Position
-		//{
-		//	get { return position; }
-		//	set
-		//	{
-		//		position = value;
-		//		if (animationManager != null)
-		//			animationManager.Position = value;
-		//	}
-		//}
+		public Sprite(Dictionary<string,Animation> a)
+		{
+			animations = a;
+			animationManager = new AnimationManager(a.First().Value);
+		}
+		public Vector2 Position
+		{
+			get { return position; }
+			set
+			{
+				position = value;
+				if (animationManager != null)
+					animationManager.Position = value;
+			}
+		}
 		/// <summary>
 		/// Returns the object rectangle (includes scaling)
 		/// </summary>
 		public Rectangle rectangle
 		{
-			get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(texture.Width*Scale), (int)(texture.Height*Scale)); }
+			get
+			{
+				if (texture != null)
+					return new Rectangle((int)Position.X, (int)Position.Y, (int)(texture.Width * Scale), (int)(texture.Height * Scale));
+				else if (animationManager != null)
+					return new Rectangle((int)Position.X, (int)Position.Y, (int)(animationManager.animation.FrameWidth * animationManager.animation.Scale), (int)(animationManager.animation.FrameHeight * animationManager.animation.Scale));
+				else throw new Exception("Invalid rectangle sprite");
+			}
 		}
 		public override void Update(GameTime gameTime)
 		{
@@ -50,7 +63,12 @@ namespace GameProject.Sprites
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+			if (texture != null)
+				spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+			else if (animationManager != null)
+				animationManager.Draw(spriteBatch);
+			else
+				throw new Exception("Invalid sprite");
 			//spriteBatch.Draw()
 		}
 	}
