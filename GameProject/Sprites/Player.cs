@@ -12,11 +12,18 @@ namespace GameProject.Sprites
 {
 	public abstract class Player : Sprite
 	{
-		public Player(Texture2D t, float scale) : base(t, scale) { }
-		public Player(Dictionary<string, Animation> a) : base(a) { }
+		//public Player(Texture2D t, float scale) : base(t, scale)
+		//{
+		//}
+		public Player(Dictionary<string, Animation> a, float scale) : base(a)
+		{
+			//Scale player distance per step
+			moveDistance = 1f * scale;
+			sprintDistance = 2f * scale;
+		}
 		protected Input input = new Input();
-		protected float moveDistance = 1f;
-		protected float sprintDistance = 2f;
+		protected float moveDistance;
+		protected float sprintDistance;
 		protected bool canSprint = true;
 		protected bool canMove = true;
 		protected int maxHealth = 20;

@@ -32,7 +32,7 @@ namespace GameProject.States
 							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, playerScale*game.Scale)},
 							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, playerScale*game.Scale) }
 						};
-						player = new Warrior(animations);
+						player = new Warrior(animations, g.Scale);
 						//player = new Warrior(content.Load<Texture2D>("Warrior"), g.Scale);
 						break;
 					}
@@ -44,13 +44,13 @@ namespace GameProject.States
 							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, playerScale*game.Scale)},
 							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, playerScale*game.Scale) }
 						};
-						player = new Archer(animations);
+						player = new Archer(animations, g.Scale);
 						//player = new Archer(content.Load<Texture2D>("Archer"), g.Scale);
 						break;
 					}
 				case PlayerClasses.Wizard:
 					{
-						player = new Wizard(content.Load<Texture2D>("Archer"), g.Scale);
+						//player = new Wizard(content.Load<Texture2D>("Archer"), g.Scale);
 						break;
 					}
 			}
@@ -71,7 +71,7 @@ namespace GameProject.States
 			{
 				new Sprite(box, g.Scale)
 				{
-					Position = new Vector2(0.5f*game.Width,0.7f*game.Height)
+					Position = new Vector2(3.513f*game.Width,0.7f*game.Height)
 				},
 			};
 		}

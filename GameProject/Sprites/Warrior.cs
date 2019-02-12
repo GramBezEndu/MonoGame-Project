@@ -12,17 +12,17 @@ namespace GameProject.Sprites
 {
 	public class Warrior : Player
 	{
-		public Warrior(Dictionary<string, Animation> a) : base(a)
+		public Warrior(Dictionary<string, Animation> a, float scale) : base(a, scale)
 		{
 			animations = a;
 			animationManager = new AnimationManager(a.First().Value);
 			//Scale = scale;
 		}
-		public Warrior(Texture2D t, float scale) : base(t, scale)
-		{
-			texture = t;
-			Scale = scale;
-		}
+		//public Warrior(Texture2D t, float scale) : base(t, scale)
+		//{
+		//	texture = t;
+		//	Scale = scale;
+		//}
 		public override void Update(GameTime gameTime)
 		{
 			///Health regen

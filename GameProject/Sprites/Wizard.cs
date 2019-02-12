@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using GameProject.Animations;
 
 namespace GameProject.Sprites
 {
 	public class Wizard : Player
 	{
-		public Wizard(Texture2D t, float scale) : base(t, scale)
+		public Wizard(Dictionary<string, Animation> a, float scale) : base(a, scale)
 		{
+			animations = a;
+			animationManager = new AnimationManager(a.First().Value);
+			//Scale = scale;
 		}
 	}
 }

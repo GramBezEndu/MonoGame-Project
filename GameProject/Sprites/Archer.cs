@@ -12,17 +12,17 @@ namespace GameProject.Sprites
 {
 	public class Archer : Player
 	{
-		public Archer(Dictionary<string, Animation> a) : base(a)
+		public Archer(Dictionary<string, Animation> a, float scale) : base(a, scale)
 		{
 			animations = a;
 			animationManager = new AnimationManager(a.First().Value);
 			//Scale = scale;
 		}
-		public Archer(Texture2D t, float scale) :base(t, scale)
-		{
-			texture = t;
-			Scale = scale;
-		}
+		//public Archer(Texture2D t, float scale) :base(t, scale)
+		//{
+		//	texture = t;
+		//	Scale = scale;
+		//}
 		public override void Update(GameTime gameTime)
 		{
 			///Health regen

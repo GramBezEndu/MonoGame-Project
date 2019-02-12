@@ -26,7 +26,7 @@ namespace GameProject.Animations
 
 			IsLooping = true;
 
-			FrameTime = 0.5f;
+			FrameTime = 0.3f;
 			Scale = scale;
 		}
 	}
