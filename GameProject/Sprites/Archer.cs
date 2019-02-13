@@ -64,13 +64,13 @@ namespace GameProject.Sprites
 			HealthRegenTimer.Update(gameTime);
 			if (HealthRegenTimer.CurrentTime <= 0)
 			{
-				if (currentHealth + healthRegen < maxHealth)
+				if (HealthBar.Health.CurrentHealth + healthRegen < HealthBar.Health.MaxHealth)
 				{
-					currentHealth += healthRegen;
+					HealthBar.Health.CurrentHealth += healthRegen;
 				}
 				else
 				{
-					currentHealth = maxHealth;
+					HealthBar.Health.CurrentHealth = HealthBar.Health.MaxHealth;
 				}
 				HealthRegenTimer.Restart();
 			}

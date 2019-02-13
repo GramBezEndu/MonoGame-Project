@@ -46,6 +46,8 @@
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="EnemyManager.cs" />
+    <Compile Include="Health.cs" />
+    <Compile Include="HealthBar.cs" />
     <Compile Include="Inventory\InventoryManager.cs" />
     <Compile Include="Inventory\InventorySlot.cs" />
     <Compile Include="Items\Item.cs" />

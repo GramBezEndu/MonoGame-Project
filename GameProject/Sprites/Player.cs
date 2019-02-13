@@ -26,13 +26,10 @@ namespace GameProject.Sprites
 		protected float sprintDistance;
 		protected bool canSprint = true;
 		protected bool canMove = true;
-		protected int maxHealth = 20;
-		protected int currentHealth = 5;
 		protected int healthRegen = 1;
-		protected GameTimer HealthRegenTimer = new GameTimer(2f);
+		protected GameTimer HealthRegenTimer = new GameTimer(2f, true);
 
 		public InventoryManager InventoryManager;
-
-		public int CurrentHealth { get => currentHealth; }
+		public HealthBar HealthBar { get; set; }
 	}
 }

@@ -28,6 +28,7 @@ namespace GameProject
 			//Drop actual item and quantity (string)
 			if (Item != null)
 			{
+				Item.Position = this.Position;
 				Item.Draw(gameTime, spriteBatch);
 				spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
 				//throw new NotImplementedException();
