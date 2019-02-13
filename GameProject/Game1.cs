@@ -39,8 +39,8 @@ namespace GameProject
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-			graphics.PreferredBackBufferWidth = 1600; //1600
-			graphics.PreferredBackBufferHeight = 900; //900
+			graphics.PreferredBackBufferWidth = 1280; //1600
+			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;
 			//Fullscreen check
 			if (false)

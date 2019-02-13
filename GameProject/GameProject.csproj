@@ -62,6 +62,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="Stamina.cs" />
+    <Compile Include="StaminaBar.cs" />
+    <Compile Include="StaminaUser.cs" />
     <Compile Include="States\ClassSelect.cs" />
     <Compile Include="States\Credits.cs" />
     <Compile Include="States\Dungeon.cs" />

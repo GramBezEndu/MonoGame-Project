@@ -17,9 +17,10 @@ namespace GameProject
 		/// Initializes new inventory
 		/// </summary>
 		/// <param name="quantitySlots">How many slots will inventory have</param>
-		public InventoryManager(Texture2D inventoryTexture, Texture2D slotTexture, SpriteFont font, int quantitySlots, float scale) : base(inventoryTexture, scale)
+		public InventoryManager(Texture2D inventoryTexture, Texture2D slotTexture, SpriteFont font, int quantitySlots, Vector2 position, float scale) : base(inventoryTexture, scale)
 		{
 			Hidden = true;
+			Position = position;
 			slots = new List<InventorySlot>();
 			for(int i=0;i<quantitySlots;i++)
 			{
@@ -42,8 +43,12 @@ namespace GameProject
 		}
 		public override void Update(GameTime gameTime)
 		{
-			foreach (var s in slots)
-				s.Update(gameTime);
+			//It might be incorrect later, watch out! (InventorySlot Update() now checks only for player input and item Use() or Equip() so it's correct, but if you want to update here Item it won't be correct)
+			if (!Hidden)
+			{
+				foreach (var s in slots)
+					s.Update(gameTime);
+			}
 		}
 		/// <summary>
 		/// Item is simply not added to inventory if it is full

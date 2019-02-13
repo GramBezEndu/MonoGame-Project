@@ -10,91 +10,16 @@ using GameProject.Animations;
 
 namespace GameProject.Sprites
 {
-	public class Archer : Player
+	public class Archer : StaminaUser
 	{
 		public Archer(Dictionary<string, Animation> a, float scale) : base(a, scale)
 		{
 			animations = a;
 			animationManager = new AnimationManager(a.First().Value);
-			//Scale = scale;
 		}
-		//public Archer(Texture2D t, float scale) :base(t, scale)
-		//{
-		//	texture = t;
-		//	Scale = scale;
-		//}
 		public override void Update(GameTime gameTime)
 		{
-			///Health regen
-			HealthRegen(gameTime);
-			//Hide/Show inventory (keyboard input)
-			HideShowInventory();
-			///Player movement (keyboard input)
-			Move();
-			//Play animations
-			PlayAnimations();
-			animationManager.Update(gameTime);
-			Position += Velocity;
-			Velocity = Vector2.Zero;
-		}
-
-		private void HideShowInventory()
-		{
-			if (Keyboard.GetState().IsKeyDown(input.ShowInventory))
-			{
-				if (InventoryManager.Hidden == true)
-					InventoryManager.Hidden = false;
-				else
-					InventoryManager.Hidden = true;
-			}
-		}
-
-		private void PlayAnimations()
-		{
-			if (Velocity.X > 0)
-				animationManager.Play(animations["WalkRight"]);
-			else if (Velocity.X < 0)
-				animationManager.Play(animations["WalkLeft"]);
-			else
-				animationManager.Play(animations["Idle"]);
-		}
-
-		private void HealthRegen(GameTime gameTime)
-		{
-			HealthRegenTimer.Update(gameTime);
-			if (HealthRegenTimer.CurrentTime <= 0)
-			{
-				if (HealthBar.Health.CurrentHealth + healthRegen < HealthBar.Health.MaxHealth)
-				{
-					HealthBar.Health.CurrentHealth += healthRegen;
-				}
-				else
-				{
-					HealthBar.Health.CurrentHealth = HealthBar.Health.MaxHealth;
-				}
-				HealthRegenTimer.Restart();
-			}
-		}
-
-		private void Move()
-		{
-			if (canMove)
-			{
-				if (Keyboard.GetState().IsKeyDown(input.MoveRight))
-				{
-					if (Keyboard.GetState().IsKeyDown(input.Sprint) && canSprint)
-						Velocity.X += sprintDistance;
-					else
-						Velocity.X += moveDistance;
-				}
-				if (Keyboard.GetState().IsKeyDown(input.MoveLeft))
-				{
-					if (Keyboard.GetState().IsKeyDown(input.Sprint) && canSprint)
-						Velocity.X -= sprintDistance;
-					else
-						Velocity.X -= moveDistance;
-				}
-			}
+			base.Update(gameTime);
 		}
 	}
 }

@@ -10,15 +10,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameProject
 {
-	public class HealthBar : Sprite
+	public class StaminaBar : Sprite
 	{
-		public Health Health { get; set; }
-		//private Texture2D healthTexture;
-		//private Rectangle healthRectangle;
-		public HealthBar(Texture2D healthBardBorder, Texture2D healthTexture, Vector2 position, float scale) : base(healthBardBorder, scale)
+		public Stamina Stamina { get; set; }
+		public StaminaBar(Texture2D staminaBorderTexture, Texture2D staminaTexture, Vector2 position, float scale) : base(staminaBorderTexture, scale)
 		{
 			Position = position;
-			Health = new Health(healthTexture, scale)
+			Stamina = new Stamina(staminaTexture, scale)
 			{
 				Position = position
 			};
@@ -28,7 +26,7 @@ namespace GameProject
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			//Health.Position = this.Position;
-			Health.Draw(gameTime, spriteBatch);
+			Stamina.Draw(gameTime, spriteBatch);
 			base.Draw(gameTime, spriteBatch);
 		}
 		public override void Update(GameTime gameTime)

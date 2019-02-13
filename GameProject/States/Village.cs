@@ -26,12 +26,13 @@ namespace GameProject.States
 			var playerScale = 1f;
 			var inventoryTexture = content.Load<Texture2D>("Inventory");
 			var slotTexture = content.Load<Texture2D>("InventorySlot");
-			int inventorySlots = 10;
+			int inventorySlots = 5;
 			var healthPotionTexture = content.Load<Texture2D>("HealthPotion");
 			var manaPotionTexture = content.Load<Texture2D>("ManaPotion");
 			var font = content.Load<SpriteFont>("Font");
 			var healthBarTexture = content.Load<Texture2D>("HealthBarBorder");
 			var healthTexture = content.Load<Texture2D>("Health");
+			var staminaTexture = content.Load<Texture2D>("Stamina");
 			#endregion
 			switch (playerClass)
 			{
@@ -66,13 +67,20 @@ namespace GameProject.States
 					}
 			}
 			player.Position = new Vector2(0.05f * game.Width, 0.4f * game.Height);
-			player.InventoryManager = new InventoryManager(inventoryTexture, slotTexture, font, inventorySlots, game.Scale);
+			player.InventoryManager = new InventoryManager(inventoryTexture,
+				slotTexture,
+				font,
+				inventorySlots,
+				new Vector2(0.05f * game.Width, 0.1f * game.Height),
+				game.Scale);
 			player.InventoryManager.AddItem(new ManaPotion(manaPotionTexture, game.Scale), 8);
 			player.InventoryManager.AddItem(new HealthPotion(healthPotionTexture, game.Scale), 7);
-			player.HealthBar = new HealthBar(healthBarTexture, healthTexture, game.Scale)
+			player.HealthBar = new HealthBar(healthBarTexture, healthTexture, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
+
+			if(player is StaminaUser)
 			{
-				Position = new Vector2(0.03f * game.Width, 0.9f * game.Height)
-			};
+				(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, staminaTexture, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
+			}
 
 			var background = content.Load<Texture2D>("VillageBackground");
 			components = new List<Component>
@@ -89,7 +97,7 @@ namespace GameProject.States
 			{
 				new Sprite(box, g.Scale)
 				{
-					Position = new Vector2(3.513f*game.Width,0.7f*game.Height)
+					Position = new Vector2(0.513f*game.Width,0.7f*game.Height)
 				},
 			};
 		}
@@ -100,6 +108,10 @@ namespace GameProject.States
 				c.Draw(gameTime, spriteBatch);
 			player.InventoryManager.Draw(gameTime, spriteBatch);
 			player.HealthBar.Draw(gameTime, spriteBatch);
+			if (player is StaminaUser)
+			{
+				(player as StaminaUser).StaminaBar.Draw(gameTime, spriteBatch);
+			}
 			//spriteBatch.DrawString(font, player.Position.ToString(), new Vector2(10, 10), Color.White);
 			spriteBatch.End();
 
@@ -120,6 +132,7 @@ namespace GameProject.States
 			foreach (var c in components)
 				c.Update(gameTime);
 			player.Update(gameTime);
+			//player.InventoryManager.Update(gameTime);
 			camera.Follow(game, player);
 		}
 	}

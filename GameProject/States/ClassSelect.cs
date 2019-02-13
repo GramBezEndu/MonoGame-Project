@@ -39,7 +39,7 @@ namespace GameProject.States
 				new Button(classCard, buttonFont, g.Scale)
 				{
 					Position = new Vector2(0.73f*g.Width, 0.2f*g.Height),
-					Text = "Gdybym byl magiem i mogl spelnic twoje 3 zyczenia"
+					Text = "Wizard (coming soon)"
 				}
 			};
 		}
