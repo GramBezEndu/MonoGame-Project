@@ -11,6 +11,7 @@ namespace GameProject
 {
 	public class InventoryManager : Sprite
 	{
+		public EquipmentManager EquipmentManager { get; set; }
 		public bool Hidden { get; set; }
 		private List<InventorySlot> slots;
 		/// <summary>
@@ -37,6 +38,7 @@ namespace GameProject
 			if(!Hidden)
 			{
 				spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+				EquipmentManager.Draw(gameTime, spriteBatch);
 				foreach (var s in slots)
 					s.Draw(gameTime, spriteBatch);
 			}

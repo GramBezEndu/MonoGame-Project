@@ -29,7 +29,7 @@ namespace GameProject.Sprites
 		protected int healthRegen = 1;
 		protected GameTimer HealthRegenTimer = new GameTimer(1f);
 
-		public InventoryManager InventoryManager;
+		public InventoryManager InventoryManager { get; set; }
 		public HealthBar HealthBar { get; set; }
 		public override void Update(GameTime gameTime)
 		{
@@ -48,6 +48,7 @@ namespace GameProject.Sprites
 			Velocity = Vector2.Zero;
 			HealthBar.Update(gameTime);
 			InventoryManager.Update(gameTime);
+			InventoryManager.EquipmentManager.Update(gameTime);
 		}
 		private void HealthRegen(GameTime gameTime)
 		{

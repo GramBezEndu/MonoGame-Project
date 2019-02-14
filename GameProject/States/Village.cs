@@ -83,7 +83,12 @@ namespace GameProject.States
 				slotTexture,
 				font,
 				inventorySlots,
-				new Vector2(0.05f * game.Width, 0.1f * game.Height),
+				new Vector2(0.75f * game.Width, 0.05f * game.Height),
+				game.Scale);
+			player.InventoryManager.EquipmentManager = new EquipmentManager(inventoryTexture,
+				slotTexture,
+				font,
+				new Vector2(0.02f * game.Width, 0.05f * game.Height),
 				game.Scale);
 			player.InventoryManager.AddItem(new ManaPotion(manaPotionTexture, game.Scale), 8);
 			player.InventoryManager.AddItem(new HealthPotion(healthPotionTexture, game.Scale), 7);
@@ -127,6 +132,7 @@ namespace GameProject.States
 			foreach (var c in components)
 				c.Draw(gameTime, spriteBatch);
 			player.InventoryManager.Draw(gameTime, spriteBatch);
+			//player.InventoryManager.EquipmentManager.Draw(gameTime, spriteBatch);
 			player.HealthBar.Draw(gameTime, spriteBatch);
 			if (player is StaminaUser)
 			{
