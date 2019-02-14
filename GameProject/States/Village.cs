@@ -94,6 +94,7 @@ namespace GameProject.States
 					}
 				case PlayerClasses.Wizard:
 					{
+						//Not implemented yet
 						//player = new Wizard(content.Load<Texture2D>("Archer"), g.Scale);
 						if (player is ManaUser)
 						{
@@ -134,28 +135,32 @@ namespace GameProject.States
 				new Sprite(anivilTexture, g.Scale)
 				{
 					Position = new Vector2(0.813f*game.Width,0.45f*game.Height)
-				}
+				},
+				player
 			};
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale)
 		{
+			//Static background batch
 			spriteBatch.Begin();
 			foreach (var c in components)
 				c.Draw(gameTime, spriteBatch);
+			spriteBatch.End();
+
+			//Moving objects sprite batch (contains player (he should be last in moving components))
+			spriteBatch.Begin(transformMatrix: camera.Transform);
+			foreach(var mc in movingComponents)
+				mc.Draw(gameTime, spriteBatch);
+			spriteBatch.End();
+
+			//Static objects over the moving objects (UI)
+			spriteBatch.Begin();
 			player.InventoryManager.Draw(gameTime, spriteBatch);
-			//player.InventoryManager.EquipmentManager.Draw(gameTime, spriteBatch);
 			player.HealthBar.Draw(gameTime, spriteBatch);
 			if (player is StaminaUser)
 			{
 				(player as StaminaUser).StaminaBar.Draw(gameTime, spriteBatch);
 			}
-			//spriteBatch.DrawString(font, player.Position.ToString(), new Vector2(10, 10), Color.White);
-			spriteBatch.End();
-
-			spriteBatch.Begin(transformMatrix: camera.Transform);
-			foreach(var mc in movingComponents)
-				mc.Draw(gameTime, spriteBatch);
-			player.Draw(gameTime, spriteBatch);
 			spriteBatch.End();
 		}
 
@@ -168,10 +173,8 @@ namespace GameProject.States
 		{
 			foreach (var c in components)
 				c.Update(gameTime);
-			player.Update(gameTime);
 			foreach (var mc in movingComponents)
 				mc.Update(gameTime);
-			//player.InventoryManager.Update(gameTime);
 			camera.Follow(game, player);
 		}
 	}

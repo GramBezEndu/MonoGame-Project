@@ -50,6 +50,8 @@
     <Compile Include="HealthBar.cs" />
     <Compile Include="Inventory\InventoryManager.cs" />
     <Compile Include="Inventory\InventorySlot.cs" />
+    <Compile Include="Items\ArcherBreastplate.cs" />
+    <Compile Include="Items\ArcherHelmet.cs" />
     <Compile Include="Items\Boots.cs" />
     <Compile Include="Items\Bow.cs" />
     <Compile Include="Items\Breastplate.cs" />
@@ -58,11 +60,17 @@
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\HealthPotion.cs" />
     <Compile Include="Items\ManaPotion.cs" />
+    <Compile Include="Items\Ring.cs" />
+    <Compile Include="Items\Shield.cs" />
     <Compile Include="Items\Staff.cs" />
     <Compile Include="Items\StartingBow.cs" />
     <Compile Include="Items\StartingSword.cs" />
     <Compile Include="Items\Sword.cs" />
+    <Compile Include="Items\WarriorBreastplate.cs" />
+    <Compile Include="Items\WarriorHelmet.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Items\WizardBreastplate.cs" />
+    <Compile Include="Items\WizardHelmet.cs" />
     <Compile Include="Sprites\Archer.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Game1.cs" />

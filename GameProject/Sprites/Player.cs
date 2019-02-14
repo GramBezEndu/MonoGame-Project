@@ -112,5 +112,9 @@ namespace GameProject.Sprites
 		{
 			animationManager.Draw(spriteBatch);
 		}
+		//public void CreateEquipmentSlots()
+		//{
+		//	this.InventoryManager.EquipmentManager.S
+		//}
 	}
 }
