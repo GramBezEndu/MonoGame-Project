@@ -33,6 +33,18 @@ namespace GameProject.States
 			var healthBarTexture = content.Load<Texture2D>("HealthBarBorder");
 			var healthTexture = content.Load<Texture2D>("Health");
 			var staminaTexture = content.Load<Texture2D>("Stamina");
+			var anivilTexture = content.Load<Texture2D>("Anvil");
+			var background = content.Load<Texture2D>("VillageBackground");
+			var box = content.Load<Texture2D>("Box");
+
+			var blackSmithAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("Blacksmith"), 3, game.Scale) },
+			};
+			var shopkeeperAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("Shopkeeper"), 1, game.Scale) },
+			};
 			#endregion
 			switch (playerClass)
 			{
@@ -81,8 +93,6 @@ namespace GameProject.States
 			{
 				(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, staminaTexture, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
 			}
-
-			var background = content.Load<Texture2D>("VillageBackground");
 			components = new List<Component>
 			{
 				new Sprite(background, g.Scale)
@@ -91,14 +101,24 @@ namespace GameProject.States
 				},
 			};
 
-			var box = content.Load<Texture2D>("Box");
-
 			movingComponents = new List<Component>
 			{
+				new Blacksmith(blackSmithAnimations)
+				{
+					Position = new Vector2(0.813f*game.Width,0.33f*game.Height)
+				},
+				new Shopkeeper(shopkeeperAnimations)
+				{
+					Position = new Vector2(0.513f*game.Width,0.40f*game.Height)
+				},
 				new Sprite(box, g.Scale)
 				{
-					Position = new Vector2(0.513f*game.Width,0.7f*game.Height)
+					Position = new Vector2(0.813f*game.Width,0.55f*game.Height)
 				},
+				new Sprite(anivilTexture, g.Scale)
+				{
+					Position = new Vector2(0.813f*game.Width,0.45f*game.Height)
+				}
 			};
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale)
@@ -132,6 +152,8 @@ namespace GameProject.States
 			foreach (var c in components)
 				c.Update(gameTime);
 			player.Update(gameTime);
+			foreach (var mc in movingComponents)
+				mc.Update(gameTime);
 			//player.InventoryManager.Update(gameTime);
 			camera.Follow(game, player);
 		}

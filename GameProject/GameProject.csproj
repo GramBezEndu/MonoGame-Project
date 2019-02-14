@@ -58,9 +58,12 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameTimer.cs" />
     <Compile Include="Input\Input.cs" />
+    <Compile Include="Sprites\Blacksmith.cs" />
+    <Compile Include="Sprites\Character.cs" />
     <Compile Include="Sprites\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprites\Shopkeeper.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Stamina.cs" />
     <Compile Include="StaminaBar.cs" />

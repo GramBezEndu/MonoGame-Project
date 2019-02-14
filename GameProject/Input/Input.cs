@@ -8,6 +8,8 @@ namespace GameProject
 {
 	public class Input
 	{
+		public KeyboardState CurrentState;
+		public KeyboardState PreviousState;
 		public Keys MoveRight { get; set; }
 		public Keys MoveLeft { get; set; }
 		public Keys Sprint { get; set; }
@@ -25,6 +27,11 @@ namespace GameProject
 			DodgeBlock = Keys.Space;
 			PickUp = Keys.Z;
 			ShowInventory = Keys.Tab;
+		}
+		public void Update(GameTime gameTime)
+		{
+			PreviousState = CurrentState;
+			CurrentState = Keyboard.GetState();
 		}
 		public void RestoreToDefault()
 		{

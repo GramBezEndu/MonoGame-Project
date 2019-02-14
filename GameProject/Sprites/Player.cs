@@ -19,7 +19,7 @@ namespace GameProject.Sprites
 		{
 			//Scale player distance per step
 			moveDistance = 1f * scale;
-			sprintDistance = 2f * scale;
+			sprintDistance = 2.5f * scale;
 		}
 		protected Input input = new Input();
 		protected float moveDistance;
@@ -35,6 +35,8 @@ namespace GameProject.Sprites
 		{
 			//Health regen
 			HealthRegen(gameTime);
+			//Update keyboard states
+			input.Update(gameTime);
 			//Hide/Show inventory (keyboard input)
 			HideShowInventory();
 			//Player movement (keyboard input)
@@ -66,7 +68,7 @@ namespace GameProject.Sprites
 
 		private void HideShowInventory()
 		{
-			if (Keyboard.GetState().IsKeyDown(input.ShowInventory))
+			if (input.CurrentState.IsKeyDown(input.ShowInventory) && input.PreviousState.IsKeyUp(input.ShowInventory))
 			{
 				if (InventoryManager.Hidden == true)
 					InventoryManager.Hidden = false;
