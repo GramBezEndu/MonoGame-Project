@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
+using GameProject.Items;
 
 namespace GameProject
 {
@@ -39,7 +40,8 @@ namespace GameProject
 			{
 				Item.Position = this.Position;
 				Item.Draw(gameTime, spriteBatch);
-				spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
+				if(Item.IsStackable)
+					spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
 				//throw new NotImplementedException();
 			}
 		}

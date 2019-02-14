@@ -19,14 +19,14 @@ namespace GameProject.Animations
 		public Texture2D Texture { get; set; }
 		public bool IsLooping { get; set; }
 		public float Scale { get; set; }
-		public Animation(Texture2D texture, int frameCount, float scale)
+		public Animation(Texture2D texture, int frameCount, float scale, float frameTime = 0.3f)
 		{
 			Texture = texture;
 			FrameCount = frameCount;
 
 			IsLooping = true;
 
-			FrameTime = 0.3f;
+			FrameTime = frameTime;
 			Scale = scale;
 		}
 	}

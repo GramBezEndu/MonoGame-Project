@@ -51,12 +51,17 @@
     <Compile Include="Inventory\InventoryManager.cs" />
     <Compile Include="Inventory\InventorySlot.cs" />
     <Compile Include="Items\Boots.cs" />
+    <Compile Include="Items\Bow.cs" />
     <Compile Include="Items\Breastplate.cs" />
     <Compile Include="Items\Equippable.cs" />
     <Compile Include="Items\Helmet.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\HealthPotion.cs" />
     <Compile Include="Items\ManaPotion.cs" />
+    <Compile Include="Items\Staff.cs" />
+    <Compile Include="Items\StartingBow.cs" />
+    <Compile Include="Items\StartingSword.cs" />
+    <Compile Include="Items\Sword.cs" />
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Sprites\Archer.cs" />
     <Compile Include="Component.cs" />
@@ -66,6 +71,7 @@
     <Compile Include="Sprites\Blacksmith.cs" />
     <Compile Include="Sprites\Character.cs" />
     <Compile Include="Sprites\EquipmentManager.cs" />
+    <Compile Include="Sprites\ManaUser.cs" />
     <Compile Include="Sprites\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

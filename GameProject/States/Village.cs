@@ -36,6 +36,8 @@ namespace GameProject.States
 			var anivilTexture = content.Load<Texture2D>("Anvil");
 			var background = content.Load<Texture2D>("VillageBackground");
 			var box = content.Load<Texture2D>("Box");
+			var startingSwordTexture = content.Load<Texture2D>("StartingSword");
+			var startingBowTexture = content.Load<Texture2D>("StartingBow");
 
 			var blackSmithAnimations = new Dictionary<string, Animation>()
 			{
@@ -56,8 +58,17 @@ namespace GameProject.States
 							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, playerScale*game.Scale)},
 							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, playerScale*game.Scale) }
 						};
-						player = new Warrior(animations, g.Scale);
-						//player = new Warrior(content.Load<Texture2D>("Warrior"), g.Scale);
+						player = new Warrior(animations, g.Scale)
+						{
+							Position = new Vector2(0.05f * game.Width, 0.4f * game.Height),
+							InventoryManager = new InventoryManager(inventoryTexture, slotTexture, font, inventorySlots, new Vector2(0.75f * game.Width, 0.05f * game.Height), game.Scale),
+							HealthBar = new HealthBar(healthBarTexture, healthTexture, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale)
+						};
+						if (player is StaminaUser)
+						{
+							(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, staminaTexture, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
+						}
+						player.InventoryManager.AddItem(new StartingSword(startingSwordTexture, game.Scale));
 						break;
 					}
 				case PlayerClasses.Archer:
@@ -68,36 +79,36 @@ namespace GameProject.States
 							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, playerScale*game.Scale)},
 							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, playerScale*game.Scale) }
 						};
-						player = new Archer(animations, g.Scale);
-						//player = new Archer(content.Load<Texture2D>("Archer"), g.Scale);
+						player = new Archer(animations, g.Scale)
+						{
+							Position = new Vector2(0.05f * game.Width, 0.4f * game.Height),
+							InventoryManager = new InventoryManager(inventoryTexture, slotTexture, font, inventorySlots, new Vector2(0.75f * game.Width, 0.05f * game.Height), game.Scale),
+							HealthBar = new HealthBar(healthBarTexture, healthTexture, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale)
+					};
+						if (player is StaminaUser)
+						{
+							(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, staminaTexture, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
+						}
+						player.InventoryManager.AddItem(new StartingBow(startingBowTexture, game.Scale));
 						break;
 					}
 				case PlayerClasses.Wizard:
 					{
 						//player = new Wizard(content.Load<Texture2D>("Archer"), g.Scale);
+						if (player is ManaUser)
+						{
+							(player as ManaUser).InventoryManager.AddItem(new ManaPotion(manaPotionTexture, game.Scale), 2);
+						}
 						break;
 					}
 			}
-			player.Position = new Vector2(0.05f * game.Width, 0.4f * game.Height);
-			player.InventoryManager = new InventoryManager(inventoryTexture,
-				slotTexture,
-				font,
-				inventorySlots,
-				new Vector2(0.75f * game.Width, 0.05f * game.Height),
-				game.Scale);
 			player.InventoryManager.EquipmentManager = new EquipmentManager(inventoryTexture,
 				slotTexture,
 				font,
 				new Vector2(0.02f * game.Width, 0.05f * game.Height),
 				game.Scale);
-			player.InventoryManager.AddItem(new ManaPotion(manaPotionTexture, game.Scale), 8);
-			player.InventoryManager.AddItem(new HealthPotion(healthPotionTexture, game.Scale), 7);
-			player.HealthBar = new HealthBar(healthBarTexture, healthTexture, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
+			player.InventoryManager.AddItem(new HealthPotion(healthPotionTexture, game.Scale), 2);
 
-			if(player is StaminaUser)
-			{
-				(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, staminaTexture, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
-			}
 			components = new List<Component>
 			{
 				new Sprite(background, g.Scale)
