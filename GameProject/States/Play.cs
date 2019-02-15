@@ -44,9 +44,15 @@ namespace GameProject.States
 				new Button(buttonTexture,buttonFont,g.Scale)
 				{
 					Text = "Back",
-					Position = new Vector2(0.01f*g.Width, 0.9f*g.Height)
+					Position = new Vector2(0.01f*g.Width, 0.9f*g.Height),
+					Click = MainMenuState
 				}
 			};
+		}
+
+		private void MainMenuState(object sender, EventArgs e)
+		{
+			game.ChangeState(new MainMenu(game, graphicsDevice, content));
 		}
 
 		private void NewGameClick(object sender, EventArgs e)

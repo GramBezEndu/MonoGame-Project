@@ -6,50 +6,20 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using GameProject.Animations;
 
 namespace GameProject.Sprites
 {
-	public class Warrior : Player
+	public class Warrior : StaminaUser
 	{
-		public Warrior(Texture2D t, float scale) : base(t, scale)
+		public Warrior(Dictionary<string, Animation> a, float scale) : base(a, scale)
 		{
-			texture = t;
-			Scale = scale;
+			animations = a;
+			animationManager = new AnimationManager(a.First().Value);
 		}
 		public override void Update(GameTime gameTime)
 		{
-			///Health regen -> make a method
-			HealthRegenTimer.Update(gameTime);
-			if(HealthRegenTimer.CurrentTime <=0)
-			{
-				if (currentHealth + healthRegen < maxHealth)
-				{
-					currentHealth += healthRegen;
-				}
-				else
-				{
-					currentHealth = maxHealth;
-				}
-				HealthRegenTimer.Restart();
-			}
-			///Player movement -> make a method
-			if (canMove)
-			{
-				if (Keyboard.GetState().IsKeyDown(input.MoveRight))
-				{
-					if (Keyboard.GetState().IsKeyDown(input.Sprint) && canSprint)
-						Position.X += sprintDistance;
-					else
-						Position.X += moveDistance;
-				}
-				if (Keyboard.GetState().IsKeyDown(input.MoveLeft))
-				{
-					if (Keyboard.GetState().IsKeyDown(input.Sprint) && canSprint)
-						Position.X -= sprintDistance;
-					else
-						Position.X -= moveDistance;
-				}
-			}
+			base.Update(gameTime);
 		}
 	}
 }

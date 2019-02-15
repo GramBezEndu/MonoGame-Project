@@ -13,20 +13,20 @@ namespace GameProject.Animations
 	{
 		public int CurrentFrame { get; set; }
 		public int FrameCount { get; private set; }
-		public int FrameHeight { get { return (int)(Texture.Height * Scale); } }
+		public int FrameHeight { get { return (int)(Texture.Height); } }
 		public float FrameTime { get; set; }
-		public int FrameWidth { get { return (int)(Texture.Width * Scale); } }
+		public int FrameWidth { get { return (int)(Texture.Width/FrameCount); } }
 		public Texture2D Texture { get; set; }
 		public bool IsLooping { get; set; }
 		public float Scale { get; set; }
-		public Animation(Texture2D texture, int frameCount, float scale)
+		public Animation(Texture2D texture, int frameCount, float scale, float frameTime = 0.3f)
 		{
 			Texture = texture;
 			FrameCount = frameCount;
 
 			IsLooping = true;
 
-			FrameTime = 0.2f;
+			FrameTime = frameTime;
 			Scale = scale;
 		}
 	}

@@ -13,6 +13,11 @@ namespace GameProject
 	public class Camera
 	{
 		public Matrix Transform { get; private set; }
+		/// <summary>
+		/// Sets the camera ON THE MIDDLE of the sprite
+		/// </summary>
+		/// <param name="game"></param>
+		/// <param name="target"></param>
 		public void Follow(Game1 game, Sprite target)
 		{
 			var position = Matrix.CreateTranslation(-target.Position.X - target.rectangle.Width / 2, -target.Position.Y - target.rectangle.Height / 2, 0);

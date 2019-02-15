@@ -11,20 +11,37 @@ namespace GameProject.Animations
 {
 	public class AnimationManager
 	{
-		private Animation animation;
+		public Animation animation;
 		private float millisecondsTimer;
 		public Vector2 Position { get; set; }
+		/// <summary>
+		/// If not declared in Update method, animation manager will play first animation
+		/// </summary>
+		/// <param name="a"></param>
 		public AnimationManager(Animation a)
 		{
 			animation = a;
 		}
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(
-				animation.Texture,
+			spriteBatch.Draw(animation.Texture,
 				Position,
-				new Rectangle(animation.CurrentFrame * animation.FrameWidth, 0, animation.FrameWidth, animation.FrameHeight),
-				Color.White);
+				new Rectangle(animation.CurrentFrame * animation.FrameWidth,
+					0,
+					animation.FrameWidth,
+					animation.FrameHeight),
+				Color.White,
+				0f,
+				Vector2.Zero,
+				animation.Scale,
+				SpriteEffects.None,
+				0f);
+			////skalowanie tutaj
+			//spriteBatch.Draw(
+			//	animation.Texture,
+			//	Position,
+			//	new Rectangle(animation.CurrentFrame * animation.FrameWidth, 0, animation.FrameWidth, animation.FrameHeight),
+			//	Color.White);
 		}
 		public void Play(Animation a)
 		{
