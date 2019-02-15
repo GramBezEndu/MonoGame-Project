@@ -20,5 +20,6 @@ namespace GameProject.States
 		protected EnemyManager enemyManager;
 		protected Player player;
 		protected List<Component> movingComponents;
+		protected List<Component> uiComponents;
 	}
 }
