@@ -145,7 +145,10 @@ namespace GameProject
 			}
 
 			// TODO: Add your update logic here
-			currentState.Update(gameTime);
+
+			//If the window had no focus, we do not update
+			if(this.IsActive)
+				currentState.Update(gameTime);
 
 			currentState.PostUpdate();
 			base.Update(gameTime);
