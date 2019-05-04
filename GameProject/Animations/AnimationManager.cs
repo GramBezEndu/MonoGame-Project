@@ -15,7 +15,7 @@ namespace GameProject.Animations
 		private float millisecondsTimer;
 		public Vector2 Position { get; set; }
 		/// <summary>
-		/// If not declared in Update method, animation manager will play first animation
+		/// If not declared, animation manager will play first animation from dictionary
 		/// </summary>
 		/// <param name="a"></param>
 		public AnimationManager(Animation a)

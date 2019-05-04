@@ -43,15 +43,14 @@ namespace GameProject.Sprites
 		{
 			normalAttacking = false;
 			//animations["NormalAttack"].CurrentFrame = 0;
-			gameState.AttackEnemies();
-
+			gameState.AttackEnemiesWithCritChance();
 		}
 
 		private void OnFastAttackEnd(object sender, EventArgs e)
 		{
 			fastAttacking = false;
 			//animations["FastAttack"].CurrentFrame = 0;
-			gameState.AttackEnemies();
+			gameState.AttackEnemiesWithoutCrit();
 		}
 
 		public override void Update(GameTime gameTime)

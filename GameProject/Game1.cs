@@ -64,6 +64,15 @@ namespace GameProject
             var value = this.Random.Next(min, max + 1);
             return value;
         }
+		/// <summary>
+		/// Draw a random float between 2 and 3
+		/// </summary>
+		/// <returns></returns>
+		public float RandomCriticalMultiplier()
+		{
+			float rnd = (float)Random.NextDouble();
+			return 2f + rnd;
+		}
 
 		public Game1()
 		{

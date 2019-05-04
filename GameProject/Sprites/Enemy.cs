@@ -31,6 +31,7 @@ namespace GameProject.Sprites
 		private const float DamageReceivedTime = 1f;
 		private GameTimer DamageReceiveTimer = new GameTimer(1f);
 		private int lastDamageReceived = 0;
+		private bool lastDamageCriticalHit;
 		public bool AgroActivated { get; private set; }
 		public int Health { get; protected set; }
 		public Enemy(SpriteFont f, Dictionary<string, Animation> a) : base(a)
@@ -70,7 +71,10 @@ namespace GameProject.Sprites
 			//If there is time left - draw
 			if(DamageReceiveTimer.Enabled && DamageReceiveTimer.CurrentTime > 0)
 			{
-				spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width/2, this.Position.Y), Color.Red);
+				if(lastDamageCriticalHit)
+					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width/2, this.Position.Y), Color.Gold);
+				else
+					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width / 2, this.Position.Y), Color.DarkRed);
 			}
 			//There is no time left - turn off timer and set lastDamageDealt to 0
 			else if(DamageReceiveTimer.Enabled && DamageReceiveTimer.CurrentTime <= 0)
@@ -80,13 +84,14 @@ namespace GameProject.Sprites
 			}
 		}
 
-		public void DealDmg(int dmg)
+		public void DealDmg(int dmg, bool criticalHit)
 		{
 			//We do not want to attack a dead enemy
 			if (IsDead)
 				return;
 			Health -= dmg;
 			lastDamageReceived = dmg;
+			lastDamageCriticalHit = criticalHit;
 		}
 	}
 }

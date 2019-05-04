@@ -167,7 +167,7 @@ namespace GameProject.States
 		/// <summary>
 		/// Call this function WHEN PLAYER IS PERFORMING ATTACK (we check for X axis only now)
 		/// </summary>
-		public void AttackEnemies()
+		public void AttackEnemiesWithCritChance()
 		{
 			foreach(var e in enemies)
 			{
@@ -178,11 +178,42 @@ namespace GameProject.States
 				if(player.IsTouching(e))
 				{
 					int dmg = game.RandomNumber(player.InventoryManager.EquipmentManager.DamageMin, player.InventoryManager.EquipmentManager.DamageMax);
-					//Check if critical strike (not implemented yet)
-					//Deal damage to enemy
-					e.DealDmg(dmg);
+					//Check if critical strike was drawn
+					int criticalStrike = game.RandomPercent();
+					//Was critical
+					if (criticalStrike <= player.InventoryManager.EquipmentManager.CriticalStrikeChance * 100)
+					{
+						float multiplier = 1f;
+						multiplier = game.RandomCriticalMultiplier();
+						dmg = (int)(dmg * multiplier);
+						//Deal damage to enemy
+						e.DealDmg(dmg, true);
+					}
+					//Was not critical
+					else
+					{
+						e.DealDmg(dmg, false);
+					}
 				}
 			}
 		}
-    }
+		/// <summary>
+		/// Call this function WHEN PLAYER IS PERFORMING ATTACK (we check for X axis only now)
+		/// </summary>
+		public void AttackEnemiesWithoutCrit()
+		{
+			foreach (var e in enemies)
+			{
+				//Enemy should be hit
+				//We should use player attack range here
+				//Now we use just IsTouching function
+				//if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
+				if (player.IsTouching(e))
+				{
+					int dmg = game.RandomNumber(player.InventoryManager.EquipmentManager.DamageMin, player.InventoryManager.EquipmentManager.DamageMax);
+					e.DealDmg(dmg, false);
+				}
+			}
+		}
+	}
 }
