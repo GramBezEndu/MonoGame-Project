@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GameProject.Animations;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 
 namespace GameProject.Sprites
 {
@@ -15,8 +17,9 @@ namespace GameProject.Sprites
         /// </summary>
         private Player player { get; set; }
 		private bool DyingAnimationFinished;
-		public SkeletonWarrior(Dictionary<string, Animation> a, Player p) : base(a)
+		public SkeletonWarrior(SpriteFont f, Dictionary<string, Animation> a, Player p) : base(f, a)
 		{
+			Health = 15;
             player = p;
 			animations["Die"].OnAnimationEnd = Die;
 		}

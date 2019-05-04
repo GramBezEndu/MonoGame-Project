@@ -19,6 +19,7 @@ namespace GameProject.States
 		{
 			camera = new Camera();
             LoadTextures();
+			Font = content.Load<SpriteFont>("Font");
         }
 		//public static bool SpeedrunTimerEnabled = false;
 		//public static GameTimer SpeedrunTimer = new GameTimer(0f, true);
@@ -35,6 +36,7 @@ namespace GameProject.States
         protected List<MysteriousChest> mysteriousChests = new List<MysteriousChest>();
         protected List<Item> itemsToSpawn = new List<Item>();
         protected List<Item> itemsToRemove = new List<Item>();
+		protected SpriteFont Font;
         //Should add all textures to one dictionary
         public Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 
@@ -68,7 +70,7 @@ namespace GameProject.States
             }
 			if(!Paused)
 			{
-				//Check for enemies aggro
+				//Check for enemies aggro and update enemies
 				foreach (var e in enemies)
 				{
 					e.IsPlayerClose(this.player);
@@ -98,7 +100,7 @@ namespace GameProject.States
         {
             for (int i = 0; i < 3; i++)
             {
-                enemies.Add(new SkeletonWarrior((animations), player)
+                enemies.Add(new SkeletonWarrior(Font, (animations), player)
                 {
                     Position = new Vector2((0.7f + i * 0.1f) * game.Width, 0.6f * game.Height),
                 });
