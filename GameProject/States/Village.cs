@@ -258,6 +258,17 @@ namespace GameProject.States
 				player,
 			};
 
+			var trainingDummyAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("TrainingDummy"), 1, game.Scale)}
+			};
+
+			enemies.Add(new TrainingDummy(font, trainingDummyAnimations)
+			{
+				Position = new Vector2(0.95f* game.Width, 0.4f* game.Height)
+			}
+			);
+
 			pausedComponents = new List<Component>
 			{
 				new Sprite(pauseBorderTexture, g.Scale)
