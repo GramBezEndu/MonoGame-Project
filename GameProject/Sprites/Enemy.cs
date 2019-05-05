@@ -63,24 +63,20 @@ namespace GameProject.Sprites
 			base.Draw(gameTime, spriteBatch);
 			//Draw damage recieved from player
 
-			//Start the timer if there was a damage and timer is not already started (that way we do not restart the timer over and over again)
-			if(lastDamageReceived > 0 && !DamageReceiveTimer.Enabled)
-			{
-				DamageReceiveTimer.Start();
-			}
 			//If there is time left - draw
 			if(DamageReceiveTimer.Enabled && DamageReceiveTimer.CurrentTime > 0)
 			{
+				string dmgReceived = "-" + lastDamageReceived.ToString();
+				Vector2 size = font.MeasureString(dmgReceived);
 				if(lastDamageCriticalHit)
-					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width/2, this.Position.Y), Color.Gold);
+					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width/2 - size.X/2, this.Position.Y), Color.Gold);
 				else
-					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width / 2, this.Position.Y), Color.DarkRed);
+					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width / 2 - size.X/2, this.Position.Y), Color.DarkRed);
 			}
 			//There is no time left - turn off timer and set lastDamageDealt to 0
 			else if(DamageReceiveTimer.Enabled && DamageReceiveTimer.CurrentTime <= 0)
 			{
 				DamageReceiveTimer.Reset();
-				lastDamageReceived = 0;
 			}
 		}
 
@@ -92,6 +88,7 @@ namespace GameProject.Sprites
 			Health -= dmg;
 			lastDamageReceived = dmg;
 			lastDamageCriticalHit = criticalHit;
+			DamageReceiveTimer.Start();
 		}
 	}
 }

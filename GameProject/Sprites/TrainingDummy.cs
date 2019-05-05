@@ -12,5 +12,10 @@ namespace GameProject.Sprites
 	public class TrainingDummy : Enemy
 	{
 		public TrainingDummy(SpriteFont f, Dictionary<string, Animation> a) : base(f, a){ }
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+			Health = Int32.MaxValue;
+		}
 	}
 }
