@@ -310,7 +310,8 @@ namespace GameProject.Sprites
 				spriteBatch.DrawString(debuggerFont, "Fast Attacking: " + fastAttacking.ToString(), new Vector2(0, 30), Color.Red);
 				spriteBatch.DrawString(debuggerFont, "Normal Attacking: " + normalAttacking.ToString(), new Vector2(0, 60), Color.Red);
 				spriteBatch.DrawString(debuggerFont, "Fast counter: " + fastAttackCounter.ToString(), new Vector2(0, 90), Color.Red);
-				spriteBatch.DrawString(debuggerFont, "Normal counter " + normalAttackCounter.ToString(), new Vector2(0, 120), Color.Red);
+				spriteBatch.DrawString(debuggerFont, "Normal counter: " + normalAttackCounter.ToString(), new Vector2(0, 120), Color.Red);
+				spriteBatch.DrawString(debuggerFont, "Pos: " + Position.ToString(), new Vector2(0, 150), Color.Red);
 			}
 		}
 	}

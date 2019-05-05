@@ -103,6 +103,12 @@ namespace GameProject.States
             foreach (var x in mysteriousChests)
                 movingComponents.Add(x);
 
+			collisionSprites.Add(new Sprite(Textures["Wall"], g.Scale)
+			{
+				Position = new Vector2(-0.5f* game.Width,0)
+			}
+			);
+
             //foreach (var x in enemies)
             //    movingComponents.Add(x);
             movingComponents.Add(player);
@@ -158,10 +164,13 @@ namespace GameProject.States
 				c.Draw(gameTime, spriteBatch);
 			spriteBatch.End();
 
-			//Moving objects sprite batch (contains player (he should be last in moving staticComponents))
+			//Moving sprite
 			spriteBatch.Begin(transformMatrix: camera.Transform);
+			foreach (var cs in collisionSprites)
+				cs.Draw(gameTime, spriteBatch);
 			foreach (var e in enemies)
 				e.Draw(gameTime, spriteBatch);
+			//Moving objects sprite batch (contains player (he should be last in movingComponents))
 			foreach (var mc in movingComponents)
 				mc.Draw(gameTime, spriteBatch);
 			spriteBatch.End();

@@ -27,12 +27,13 @@ namespace GameProject.States
 		protected KeyboardState PreviousState { get; set; }
 		protected KeyboardState CurrentState { get; set; }
 		protected Camera camera;
-		protected EnemyManager enemyManager;
+		//protected EnemyManager enemyManager;
 		protected Player player;
 		protected List<Component> movingComponents;
 		protected List<Component> uiComponents;
 		protected List<Component> pausedComponents;
-        protected List<Enemy> enemies = new List<Enemy>();
+		public List<Sprite> collisionSprites { get; protected set; } = new List<Sprite>();
+		protected List<Enemy> enemies = new List<Enemy>();
         protected List<MysteriousChest> mysteriousChests = new List<MysteriousChest>();
         protected List<Item> itemsToSpawn = new List<Item>();
         protected List<Item> itemsToRemove = new List<Item>();
@@ -75,6 +76,11 @@ namespace GameProject.States
 				{
 					e.IsPlayerClose(this.player);
 					e.Update(gameTime);
+				}
+				//Update walls (static sprites don't need to be updated but we might add moving walls or sth later)
+				foreach(var cs in collisionSprites)
+				{
+					cs.Update(gameTime);
 				}
 			}
             //Add every item that is waiting to be spawned

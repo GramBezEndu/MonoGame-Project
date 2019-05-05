@@ -111,9 +111,10 @@ namespace GameProject.States
                 Position = new Vector2(-0.5f* game.Width, 0)
             };
 
+			collisionSprites.Add(wall);
+
             movingComponents = new List<Component>()
             {
-                wall,
                 nextLevelEntrance,
             };
 
@@ -175,6 +176,8 @@ namespace GameProject.States
 
 			//Moving objects sprite batch (contains player (he should be last in movingComponents))
 			spriteBatch.Begin(transformMatrix: camera.Transform);
+			foreach (var cs in collisionSprites)
+				cs.Draw(gameTime, spriteBatch);
             foreach (var mc in optionalEntrances)
                 mc.Draw(gameTime, spriteBatch);
 			foreach (var e in enemies)

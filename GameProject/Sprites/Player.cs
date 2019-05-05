@@ -66,6 +66,8 @@ namespace GameProject.Sprites
 			HideShowInventory();
 			//Player movement (keyboard input)
 			Move();
+			//Check collision with walls etc.
+			CheckCollision();
 			//Play animations
 			PlayAnimations();
 			animationManager.Update(gameTime);
@@ -125,7 +127,9 @@ namespace GameProject.Sprites
 					InventoryManager.Hidden = true;
 			}
 		}
-
+		/// <summary>
+		/// Sets the player velocity
+		/// </summary>
 		private void Move()
 		{
 			if (canMove)
@@ -144,6 +148,21 @@ namespace GameProject.Sprites
 					else
 						Velocity.X -= moveDistance;
 				}
+			}
+		}
+		/// <summary>
+		/// Checks for collision with walls - if player is about to dump into wall - velocity is reset
+		/// </summary>
+		private void CheckCollision()
+		{
+			foreach(var sprite in gameState.collisionSprites)
+			{
+				if (Velocity.X > 0 && IsTouchingLeft(sprite))
+					Velocity.X = 0;
+				if (Velocity.X < 0 && IsTouchingRight(sprite))
+					Velocity.X = 0;
+				//if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) || (this.Velocity.Y < 0 & this.IsTouchingBottom(sprite)))
+				//	this.Velocity.Y = 0;
 			}
 		}
 
