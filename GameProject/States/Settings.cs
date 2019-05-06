@@ -21,6 +21,8 @@ namespace GameProject.States
 			var buttonFont = content.Load<SpriteFont>("Font");
 			var settingsTexture = content.Load<Texture2D>("SettingsBackground");
 			var keyBorderTexture = content.Load<Texture2D>("SettingsBorder");
+            var c1 = content.Load<Texture2D>("Checkbox");
+            var c2 = content.Load<Texture2D>("CheckboxChecked");
 			font = content.Load<SpriteFont>("Font");
 
 			staticComponents = new List<Component>
@@ -35,14 +37,18 @@ namespace GameProject.States
 				},
 				new Button(keyBorderTexture, buttonFont, g.Scale)
 				{
-					Position = new Vector2(1f/4f*game.Width, 0.03f*game.Height)
+					Position = new Vector2(0.25f*game.Width, 0.03f*game.Height)
 				},
 				new Button(buttonTexture, buttonFont, g.Scale)
 				{
 				Text = "Back",
 				Position = new Vector2(0.01f * g.Width, 0.9f * g.Height),
 				Click = Back
-				}
+				},
+                new Checkbox(c1, c2, g.Scale)
+                {
+                    Position = new Vector2(0.25f*game.Width, 0.6f*game.Height)
+                }
 			};
 		}
 

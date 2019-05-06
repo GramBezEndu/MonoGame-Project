@@ -82,8 +82,8 @@ namespace GameProject
             //Note:
             //Screen resolution affects enemies aggro
             //Handling this issue is not included yet
-			graphics.PreferredBackBufferWidth = 1600; //1600
-			graphics.PreferredBackBufferHeight = 900; //900
+			graphics.PreferredBackBufferWidth = 1280; //1600
+			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;
 			//Fullscreen check (will only work for 16:9 monitors)
 			if (false)
