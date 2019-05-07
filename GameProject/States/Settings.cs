@@ -58,12 +58,15 @@ namespace GameProject.States
                 size.X = Math.Max(size.X, currentSize.X);
             }
 
+            var tempButton = new Button(buttonTexture, font, g.Scale);
+
             //Make keybinds buttons (need to set correct Y still)
-            for (int i = 0; i < inputKeybindStrings.Count; i++)
+            for (int i = 0; i < game.Input.KeyBindings.Count; i++)
             {
                 staticComponents.Add(new Button(buttonTexture, font, g.Scale)
                 {
-                    Position = new Vector2(0.255f * game.Width + size.X, 0)
+                    Position = new Vector2(0.255f * game.Width + size.X, 0.033f * game.Height + i*tempButton.Height),
+                    Text = game.Input.KeyBindings.ElementAt(i).Value.ToString()
                 }
                 );
             }
@@ -83,7 +86,7 @@ namespace GameProject.States
             //Make it a list of strings in constructor
 			for(int i=0;i<inputKeybindStrings.Count;i++)
 			{
-                //Should be done with measure string (needs a fix later)
+                //Should be done with on Y with Max(font.MeasureString, button.Y) (needs a fix later)
 				spriteBatch.DrawString(font, inputKeybindStrings.ElementAt(i), new Vector2(0.255f*game.Width, (i * 0.04f + 0.05f) * game.Height), Color.Black);
 			}
 			spriteBatch.End();
