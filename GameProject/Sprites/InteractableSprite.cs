@@ -84,6 +84,9 @@ namespace GameProject.Sprites
             InteractButton.Draw(gameTime, spriteBatch);
         }
 
-        protected virtual void OnActivate() { }
+        protected virtual void OnActivate()
+        {
+            InteractButton.Hidden = true;
+        }
     }
 }

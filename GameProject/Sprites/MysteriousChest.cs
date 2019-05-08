@@ -13,7 +13,7 @@ namespace GameProject.Sprites
 {
     public class MysteriousChest : InteractableSprite
     {
-        private bool startOpening;
+        private bool isOpening;
         //Chest is opened when opening animation ends
         public bool Opened { get; private set; }
         public MysteriousChest(Game1 g, GameState gameState, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gameState, mainSprite, interactButton, p)
@@ -54,21 +54,22 @@ namespace GameProject.Sprites
                 });
             }
             //Reset flag
-            startOpening = false;
+            isOpening = false;
             //Chest was already opened
             Opened = true;
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            if(!Opened && !isOpening)
+                base.Update(gameTime);
             MainSprite.animationManager.Update(gameTime);
             PlayAnimations();
         }
 
         private void PlayAnimations()
         {
-            if (startOpening)
+            if (isOpening)
                 MainSprite.animationManager.Play(MainSprite.animations["MysteriousChestOpen"]);
             else if (Opened)
                 MainSprite.animationManager.Play(MainSprite.animations["MysteriousChestOpened"]);
@@ -78,9 +79,10 @@ namespace GameProject.Sprites
 
         protected override void OnActivate()
         {
+            base.OnActivate();
             if (!Opened)
             {
-                startOpening = true;
+                isOpening = true;
             }
         }
     }
