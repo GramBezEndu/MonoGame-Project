@@ -178,7 +178,7 @@ namespace GameProject.Sprites
 			}*/
 		}
 		/// <summary>
-		/// Common attack requirements (sword equipped, not using shield, inventory not opened)
+		/// Common attack requirements (sword equipped, not using shield, inventory not opened, any extra window not opened)
 		/// </summary>
 		/// <returns></returns>
 		private bool AttackRequirements()
@@ -199,6 +199,11 @@ namespace GameProject.Sprites
 			{
 				return false;
 			}
+            //if has any window opened (blacsmith/shopkeeper etc.)
+            if(UsingWindow)
+            {
+                return false;
+            }
 			return true;
 		}
 

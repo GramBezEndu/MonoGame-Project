@@ -49,6 +49,10 @@ namespace GameProject.Sprites
 		/// </summary>
 		public int HealthToRestore { get; private set; }
 		public GameTimer HealthRegenTimer = new GameTimer(1f);
+        /// <summary>
+        /// Determines if player has opened any window (blacksmith/shopkeeper etc.)
+        /// </summary>
+        public bool UsingWindow { get; set; }
 
 		public InventoryManager InventoryManager { get; set; }
 		public HealthBar HealthBar { get; set; }

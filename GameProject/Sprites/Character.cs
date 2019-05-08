@@ -65,12 +65,15 @@ namespace GameProject.Sprites
             Hidden = true;
             foreach (var ui in UiElements)
                 ui.Hidden = Hidden;
+            //Allow attacking!
+            player.UsingWindow = false;
         }
         protected override void OnActivate()
         {
             base.OnActivate();
             //Change hidden flag (also for each element in uiElements [window])
             //Those are the same objects that are in uiElements in current gameState
+            player.UsingWindow = true;
             Hidden = false;
             foreach (var ui in UiElements)
                 ui.Hidden = Hidden;
