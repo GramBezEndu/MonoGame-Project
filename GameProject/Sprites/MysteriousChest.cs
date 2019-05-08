@@ -13,46 +13,74 @@ namespace GameProject.Sprites
 {
     public class MysteriousChest : InteractableSprite
     {
+        private bool startOpening;
+        //Chest is opened when opening animation ends
         public bool Opened { get; private set; }
         public MysteriousChest(Game1 g, GameState gameState, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gameState, mainSprite, interactButton, p)
         {
+            mainSprite.animations["MysteriousChestOpen"].OnAnimationEnd = Open;
         }
+
+        private void Open(object sender, EventArgs e)
+        {
+            int value = game.RandomPercent();
+            //Roll an item
+            //Actual drop chance:
+            //50% improvement scroll
+            //35% defence ring
+            //15% legendary improvement scroll
+            if (value <= 50)
+            {
+                this.GameState.SpawnItem(
+                new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], MainSprite.Scale)
+                {
+                    Position = MainSprite.Position
+                });
+            }
+            else if (value <= 85)
+            {
+                this.GameState.SpawnItem(
+                new DefenceRing(GameState.Textures["DefenceRing"], MainSprite.Scale)
+                {
+                    Position = MainSprite.Position
+                });
+            }
+            else
+            {
+                this.GameState.SpawnItem(
+                new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], MainSprite.Scale)
+                {
+                    Position = MainSprite.Position
+                });
+            }
+            //Reset flag
+            startOpening = false;
+            //Chest was already opened
+            Opened = true;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            MainSprite.animationManager.Update(gameTime);
+            PlayAnimations();
+        }
+
+        private void PlayAnimations()
+        {
+            if (startOpening)
+                MainSprite.animationManager.Play(MainSprite.animations["MysteriousChestOpen"]);
+            else if (Opened)
+                MainSprite.animationManager.Play(MainSprite.animations["MysteriousChestOpened"]);
+            else
+                MainSprite.animationManager.Play(MainSprite.animations["MysteriousChest"]);
+        }
+
         protected override void OnActivate()
         {
-            if(!Opened)
+            if (!Opened)
             {
-                int value = game.RandomPercent();
-                //TODO: spawn scrolls
-                //Roll an item
-                //Actual drop chance:
-                //50% improvement scroll
-                //35% defence ring
-                //15% legendary improvement scroll
-                if(value <= 50)
-                {
-                    this.GameState.SpawnItem(
-                    new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], MainSprite.Scale)
-                    {
-                        Position = MainSprite.Position
-                    });
-                }
-                else if(value <= 85)
-                {
-                    this.GameState.SpawnItem(
-                    new DefenceRing(GameState.Textures["DefenceRing"], MainSprite.Scale)
-                    {
-                        Position = MainSprite.Position
-                    });
-                }
-                else
-                {
-                    this.GameState.SpawnItem(
-                    new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], MainSprite.Scale)
-                    {
-                        Position = MainSprite.Position
-                    });
-                }
-                Opened = true;
+                startOpening = true;
             }
         }
     }

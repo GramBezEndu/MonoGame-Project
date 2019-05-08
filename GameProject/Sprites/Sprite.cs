@@ -16,8 +16,8 @@ namespace GameProject.Sprites
 	public class Sprite : Component
 	{
 		protected Texture2D texture;
-		protected AnimationManager animationManager;
-		protected Dictionary<string, Animation> animations;
+		public AnimationManager animationManager { get; protected set; }
+		public Dictionary<string, Animation> animations { get; protected set; }
 		protected Vector2 position;
 		public Vector2 Velocity;
 		public bool Hidden { get; set; }
@@ -51,6 +51,8 @@ namespace GameProject.Sprites
 		{
 			animations = a.ToDictionary(x => x.Key, x => (Animation)x.Value.Clone());
 			animationManager = new AnimationManager(a.First().Value);
+            //Set scale even if there are animations (the scale will equal scale of first animation, so you should provide same scale for every animation)
+            Scale = animations.First().Value.Scale;
 		}
 		public Vector2 Position
 		{

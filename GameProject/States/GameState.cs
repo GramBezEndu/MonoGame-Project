@@ -114,12 +114,22 @@ namespace GameProject.States
         }
         protected void SpawnMysteriousChest(Vector2 position)
         {
+            var animations = new Dictionary<string, Animation>()
+            {
+                {"MysteriousChest", new Animation(content.Load<Texture2D>("MysteriousChest"), 1, game.Scale) },
+                {"MysteriousChestOpen", new Animation(content.Load<Texture2D>("MysteriousChestOpen"), 2, game.Scale) },
+                {"MysteriousChestOpened", new Animation(content.Load<Texture2D>("MysteriousChestOpened"), 1, game.Scale) }
+            };
             mysteriousChests.Add(new MysteriousChest(game,
                 this,
-                new Sprite(Textures["MysteriousChest"], game.Scale)
+                new Sprite(animations)
                 {
                     Position = position
                 },
+                //new Sprite(Textures["MysteriousChest"], game.Scale)
+                //{
+                //    Position = position
+                //},
                 new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale),
                 player));
         }
