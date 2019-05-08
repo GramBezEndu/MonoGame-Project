@@ -293,13 +293,10 @@ namespace GameProject.States
 
 			if (player is StaminaUser)
 			{
-				uiComponents = new List<Component>
-				{
-				player.InventoryManager,
-				player.HealthBar,
-				(player as StaminaUser).StaminaBar
-				};
-			}
+                uiComponents.Add(player.InventoryManager);
+                uiComponents.Add(player.HealthBar);
+                uiComponents.Add((player as StaminaUser).StaminaBar);
+            }
 			else
 				throw new NotImplementedException();
 		}

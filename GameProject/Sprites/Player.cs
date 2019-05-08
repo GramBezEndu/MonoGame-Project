@@ -34,7 +34,7 @@ namespace GameProject.Sprites
 		//Game state reference to attack enemies
 		public GameState gameState;
 		protected bool canSprint = true;
-		protected bool canMove = true;
+		protected bool CanMove = true;
 		/// <summary>
 		/// Attack range for diffrent classes
 		/// </summary>
@@ -132,7 +132,7 @@ namespace GameProject.Sprites
 		/// </summary>
 		private void Move()
 		{
-			if (canMove)
+			if (CanMove)
 			{
 				if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveRight"]))
 				{

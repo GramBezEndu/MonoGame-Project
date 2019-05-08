@@ -30,7 +30,7 @@ namespace GameProject.States
 		//protected EnemyManager enemyManager;
 		protected Player player;
 		protected List<Component> movingComponents;
-		protected List<Component> uiComponents;
+		protected List<Component> uiComponents = new List<Component>();
 		protected List<Component> pausedComponents;
 		public List<Sprite> collisionSprites { get; protected set; } = new List<Sprite>();
 		protected List<Enemy> enemies = new List<Enemy>();
@@ -178,6 +178,17 @@ namespace GameProject.States
                         player.InventoryManager.AddItem(i as Item);
                     }
                 }
+            }
+        }
+        /// <summary>
+        /// Add UI elements (they are displayed in UI spritebatch)
+        /// </summary>
+        /// <param name="components"></param>
+        public void AddUiElements(List<Component> components)
+        {
+            foreach(var c in components)
+            {
+                uiComponents.Add(c);
             }
         }
 		/// <summary>

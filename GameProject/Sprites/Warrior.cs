@@ -123,9 +123,9 @@ namespace GameProject.Sprites
 		private void BlockMovementWhileAttackingAndShielding()
 		{
 			if (normalAttacking || fastAttacking || blockingLeft || blockingRight || blockingUp)
-				canMove = false;
+				CanMove = false;
 			else
-				canMove = true;
+				CanMove = true;
 		}
 
 		private void ManageAttacks(GameTime gameTime)

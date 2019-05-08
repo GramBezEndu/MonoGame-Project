@@ -20,7 +20,6 @@ namespace GameProject.Sprites
 		public Dictionary<string, Animation> animations { get; protected set; }
 		protected Vector2 position;
 		public Vector2 Velocity;
-		public bool Hidden { get; set; }
 		//protected Vector2 position;
 		public float Scale { get; set; }
 		//public Vector2 Velocity { get; set; }

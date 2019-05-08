@@ -11,7 +11,8 @@ namespace GameProject
 {
 	public abstract class Component
 	{
-		public abstract void Update(GameTime gameTime);
+        public bool Hidden { get; set; }
+        public abstract void Update(GameTime gameTime);
 		public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 	}
 }

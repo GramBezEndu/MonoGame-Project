@@ -21,7 +21,7 @@ namespace GameProject.Sprites
     public class InteractableSprite : Component
     {
         /// <summary>
-        /// Game reference for changing state on door interaction
+        /// Game reference for changing state on door interaction etc.
         /// </summary>
         protected Game1 game { get; set; }
         /// <summary>
