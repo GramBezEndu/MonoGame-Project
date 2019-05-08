@@ -20,15 +20,15 @@ namespace GameProject.Sprites
         {
             //Hide shop on default
             Hidden = true;
-            shop.Add(new Sprite(gs.Textures["Inventory"], g.Scale)
-            {
-                Position = this.MainSprite.Position,
-                Hidden = true
-            }
-);
+            Sprite background = new Sprite(gs.Textures["Inventory"], g.Scale);
+            Vector2 pos = new Vector2(g.Width / 2 - background.Width/2, g.Height / 2 - background.Width / 2);
+            background.Position = pos;
+            background.Hidden = true;
+
+            shop.Add(background);
             shop.Add(new Button(gs.Textures["Button"], gs.Font, g.Scale)
             {
-                Position = this.MainSprite.Position,
+                Position = pos,
                 Text = "Exit shop",
                 Hidden = true,
                 Click = CloseShop
