@@ -160,16 +160,23 @@ namespace GameProject.Sprites
 
 		public bool IsTouching(Sprite sprite)
 		{
-			if (IsTouchingRight(sprite))
-				return true;
-			if (IsTouchingLeft(sprite))
-				return true;
-			if (IsTouchingTop(sprite))
-				return true;
-			if (IsTouchingBottom(sprite))
-				return true;
-			else
-				return false;
+            //We use Intersects method here, we do not care how we are touching the object
+            //Intersects also checks if rectangle is inside other rectangle
+            //and we do not have a method for it
+            if (this.Rectangle.Intersects(sprite.Rectangle))
+                return true;
+            else
+                return false;
+			//if (IsTouchingRight(sprite))
+			//	return true;
+			//if (IsTouchingLeft(sprite))
+			//	return true;
+			//if (IsTouchingTop(sprite))
+			//	return true;
+			//if (IsTouchingBottom(sprite))
+			//	return true;
+			//else
+			//	return false;
 		}
 
 		#endregion

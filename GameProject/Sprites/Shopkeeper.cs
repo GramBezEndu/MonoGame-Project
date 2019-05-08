@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using GameProject.Animations;
 using Microsoft.Xna.Framework;
 using GameProject.States;
+using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace GameProject.Sprites
 {
@@ -25,6 +27,11 @@ namespace GameProject.Sprites
         private void PlayAnimations()
         {
             MainSprite.animationManager.Play(MainSprite.animations["Idle"]);
+        }
+        protected override void OnActivate()
+        {
+            base.OnActivate();
+            //Make a window where you can buy items
         }
     }
 }

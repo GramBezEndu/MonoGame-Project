@@ -37,7 +37,7 @@ namespace GameProject.States
         protected List<MysteriousChest> mysteriousChests = new List<MysteriousChest>();
         protected List<Item> itemsToSpawn = new List<Item>();
         protected List<Item> itemsToRemove = new List<Item>();
-		protected SpriteFont Font;
+		public SpriteFont Font { get; protected set; }
         //Should add all textures to one dictionary
         public Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 
