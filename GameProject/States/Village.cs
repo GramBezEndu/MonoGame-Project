@@ -216,10 +216,6 @@ namespace GameProject.States
 				{
 					Position = new Vector2(0,0)
 				},
-				//new Sprite(Keys["e"], g.Scale)
-				//{
-				//	Position = new Vector2(0,0)
-				//}
 			};
 
 			dungeonEntrance = new Sprite(dungeonEntranceTexture, g.Scale)
@@ -237,16 +233,22 @@ namespace GameProject.States
                 new Door(game, this, dungeonEntrance, interactionButton, player),
             };
 
-			movingComponents = new List<Component>(optionalEntrances)
+            var blacksmithSprite = new Sprite(blackSmithAnimations)
+            {
+                Position = new Vector2(0.813f * game.Width, 0.33f * game.Height)
+            };
+            var blacksmithButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
+
+            var shopkeeperSprite = new Sprite(shopkeeperAnimations)
+            {
+                Position = new Vector2(0.513f * game.Width, 0.40f * game.Height)
+            };
+            var shopkeeperButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
+
+            movingComponents = new List<Component>(optionalEntrances)
 			{
-				new Blacksmith(blackSmithAnimations)
-				{
-					Position = new Vector2(0.813f*game.Width,0.33f*game.Height)
-				},
-				new Shopkeeper(shopkeeperAnimations)
-				{
-					Position = new Vector2(0.513f*game.Width,0.40f*game.Height)
-				},
+				new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player),
+				new Shopkeeper(game, this, shopkeeperSprite, shopkeeperButton, player),
 				new Sprite(box, g.Scale)
 				{
 					Position = new Vector2(0.813f*game.Width,0.55f*game.Height)
