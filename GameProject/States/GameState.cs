@@ -106,7 +106,7 @@ namespace GameProject.States
         {
             for (int i = 0; i < 3; i++)
             {
-                enemies.Add(new SkeletonWarrior(Font, (animations), player)
+                enemies.Add(new SkeletonWarrior(game, this, Font, (animations), player)
                 {
                     Position = new Vector2((0.7f + i * 0.1f) * game.Width, 0.6f * game.Height),
                 });
@@ -194,7 +194,7 @@ namespace GameProject.States
 		/// <summary>
 		/// Call this function WHEN PLAYER IS PERFORMING ATTACK (we check for X axis only now)
 		/// </summary>
-		public void AttackEnemiesWithCritChance()
+		public void MeleeAttackWithCrit()
 		{
 			foreach(var e in enemies)
 			{
@@ -227,7 +227,7 @@ namespace GameProject.States
 		/// <summary>
 		/// Call this function WHEN PLAYER IS PERFORMING ATTACK (we check for X axis only now)
 		/// </summary>
-		public void AttackEnemiesWithoutCrit()
+		public void MeleeAttackWithoutCrit()
 		{
 			foreach (var e in enemies)
 			{

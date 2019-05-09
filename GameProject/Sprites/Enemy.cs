@@ -8,6 +8,7 @@ using GameProject.Sprites;
 using GameProject.Items;
 using GameProject.Inventory;
 using GameProject.Controls;
+using GameProject.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -26,18 +27,31 @@ namespace GameProject.Sprites
 		protected bool IsDead;
 		private SpriteFont font;
 		/// <summary>
-		/// For how long we will be displaying how much damage enemy recieved
+		/// For how long we will be displaying how much damage enemy received
 		/// </summary>
 		private const float DamageReceivedTime = 1f;
+        /// <summary>
+        /// Timer to display how much damage enemy received
+        /// </summary>
 		private GameTimer DamageReceiveTimer = new GameTimer(1f);
 		private int lastDamageReceived = 0;
 		private bool lastDamageCriticalHit;
 		public bool AgroActivated { get; private set; }
 		public int Health { get; protected set; }
-		public Enemy(SpriteFont f, Dictionary<string, Animation> a) : base(a)
+        /// <summary>
+        /// Game reference for Random numbers
+        /// </summary>
+        protected Game1 game;
+        /// <summary>
+        /// Game state reference to drop items
+        /// </summary>
+        protected GameState gameState;
+		public Enemy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a) : base(a)
 		{
 			Health = Int32.MaxValue;
 			font = f;
+            game = g;
+            gameState = gs;
 		}
 		/// <summary>
 		///Check if player is close (in agro range [we check for X axis only]) then perform action (probably run enemy to player)

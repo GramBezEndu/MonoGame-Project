@@ -10,14 +10,35 @@ using GameProject.Sprites;
 
 namespace GameProject
 {
-	public abstract class Item : Sprite
-	{
-		public Item(Texture2D t, float scale) : base(t, scale)
+    public abstract class Item : Sprite
+    {
+        private int _quantity;
+
+        public Item(Texture2D t, float scale) : base(t, scale)
         {
             Name = "Not assigned name";
+            _quantity = 1;
         }
-		public bool IsStackable { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-	}
+        public bool IsStackable { get; set; }
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                if (value <= 0)
+                    throw new Exception("Invalid quantity in Item (below 0)\n");
+                else if (value == 1)
+                    _quantity = value;
+                else if(value > 1)
+                {
+                    if (IsStackable)
+                        _quantity = value;
+                    else
+                        throw new Exception("Invalud quantity (grater than 1): Item is not stackable\n");
+                }
+            }
+        }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
 }

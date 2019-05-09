@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameProject.Animations;
+using GameProject.States;
 
 namespace GameProject.Sprites
 {
 	public class TrainingDummy : Enemy
 	{
-		public TrainingDummy(SpriteFont f, Dictionary<string, Animation> a) : base(f, a){ }
+		public TrainingDummy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a) : base(g, gs, f, a){ }
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);

@@ -45,7 +45,7 @@ namespace GameProject
 		}
 
         /// <summary>
-        /// Generates a number in 1-100 range
+        /// Generates a number in 1-100 range (includes 1 and 100)
         /// </summary>
         /// <returns></returns>
         public int RandomPercent()
@@ -54,7 +54,7 @@ namespace GameProject
             return value;
         }
         /// <summary>
-        /// Generate random number from min to max range
+        /// Generate random number from min to max range (includes min and max)
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>

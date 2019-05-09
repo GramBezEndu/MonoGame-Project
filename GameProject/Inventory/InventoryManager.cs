@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameProject.Sprites;
+using GameProject.Items;
 
 namespace GameProject
 {
@@ -81,20 +82,28 @@ namespace GameProject
 					s.Update(gameTime);
 			}
 		}
+
 		/// <summary>
 		/// Item is simply not added to inventory if it is full
 		/// </summary>
 		/// <param name="i"></param>
 		/// <param name="quantity"></param>
-		public void AddItem(Item i, int quantity = 1)
+		public void AddItem(Item i)
 		{
+            //We handle gold differently -> redirect to correct fuunction
+            if(i is GoldCoin)
+            {
+                player.Gold += i.Quantity;
+                return;
+            }
+
 			if(i.IsStackable == true)
 			{
 				foreach(var s in slots)
 				{
 					if(s.Item == i)
 					{
-						s.Quantity += quantity;
+						s.Quantity += i.Quantity;
 						return;
 					}
 				}
@@ -103,7 +112,7 @@ namespace GameProject
 					if (s.Item == null)
 					{
 						s.Item = i;
-						s.Quantity = quantity;
+						s.Quantity = i.Quantity;
 						return;
 					}
 				}
@@ -115,11 +124,7 @@ namespace GameProject
 					if(s.Item == null)
 					{
 						s.Item = i;
-						if(quantity != 1)
-						{
-							throw new Exception("Item is not stackable, can't add other value than 1");
-						}
-						s.Quantity = quantity;
+						s.Quantity = i.Quantity;
 						return;
 					}
 				}

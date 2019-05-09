@@ -67,6 +67,7 @@
     <Compile Include="Items\Breastplate.cs" />
     <Compile Include="Items\DefenceRing.cs" />
     <Compile Include="Items\Equippable.cs" />
+    <Compile Include="Items\GoldCoin.cs" />
     <Compile Include="Items\Helmet.cs" />
     <Compile Include="Items\ImprovementScroll.cs" />
     <Compile Include="Items\Item.cs" />

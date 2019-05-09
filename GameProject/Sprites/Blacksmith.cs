@@ -14,21 +14,21 @@ namespace GameProject.Sprites
 	{
         public Blacksmith(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
         {
+            //Add special elements to window
             var background = UiElements.First();
             Vector2 pos = new Vector2(0,0);
             if(background is Sprite)
             {
                 pos = (background as Sprite).Position;
             }
-            var itemUpgradeButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            var addRemoveScroll = new Button(gs.Textures["Button"], gs.Font, g.Scale)
             {
                 Position = pos,
-                Text = "Item upgrade",
+                Text = "Add/Remove Scroll",
                 Hidden = true
             };
-            //Add special elements to window
-            UiElements.Add(itemUpgradeButton);
-            pos += new Vector2(0, itemUpgradeButton.Height);
+            UiElements.Add(addRemoveScroll);
+            pos += new Vector2(0, addRemoveScroll.Height);
             var scrollUpgrade = new Button(gs.Textures["Button"], gs.Font, g.Scale)
             {
                 Position = pos,

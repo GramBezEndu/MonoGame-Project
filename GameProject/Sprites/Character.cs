@@ -45,6 +45,7 @@ namespace GameProject.Sprites
             Hidden = true;
             foreach (var ui in UiElements)
                 ui.Hidden = Hidden;
+            player.UsingWindow = false;
         }
         public override void Update(GameTime gameTime)
         {

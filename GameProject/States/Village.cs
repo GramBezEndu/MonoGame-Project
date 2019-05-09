@@ -201,13 +201,21 @@ namespace GameProject.States
 						//player = new Wizard(content.Load<Texture2D>("Archer"), g.Scale);
 						if (player is ManaUser)
 						{
-							(player as ManaUser).InventoryManager.AddItem(new ManaPotion(manaPotionTexture, game.Scale), 2);
+                            (player as ManaUser).InventoryManager.AddItem(new ManaPotion(manaPotionTexture, game.Scale)
+                            {
+                                Quantity = 5
+                            });
 						}
 						break;
 					}
 			}
 
-			player.InventoryManager.AddItem(new HealthPotion(healthPotionTexture, game.Scale), 5);
+            player.InventoryManager.AddItem(
+                new HealthPotion(healthPotionTexture, game.Scale)
+                {
+                    Quantity = 5
+                }
+            );
 
 			//Static background
 			staticComponents = new List<Component>
@@ -265,7 +273,7 @@ namespace GameProject.States
 				{"Idle", new Animation(content.Load<Texture2D>("TrainingDummy"), 1, game.Scale)}
 			};
 
-			enemies.Add(new TrainingDummy(font, trainingDummyAnimations)
+			enemies.Add(new TrainingDummy(game, this, font, trainingDummyAnimations)
 			{
 				Position = new Vector2(0.95f* game.Width, 0.4f* game.Height)
 			}
