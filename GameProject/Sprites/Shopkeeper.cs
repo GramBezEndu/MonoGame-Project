@@ -14,11 +14,12 @@ namespace GameProject.Sprites
 {
     public class Shopkeeper : Character
     {
-        //Components that are displayed when shop is opened
-        List<Component> shop = new List<Component>();
         public Shopkeeper(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
         {
-            //Add special elements to window
+            //Add special elements to window here
+
+            //Apply changes to state
+            gs.AddUiElements(UiElements);
         }
 
         public override void Update(GameTime gameTime)

@@ -26,16 +26,16 @@ namespace GameProject.Sprites
             background.Position = pos;
             background.Hidden = true;
 
-            UiElements.Add(background);
-            UiElements.Add(new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            var exitButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
             {
-                Position = pos,
                 Text = "Exit",
                 Hidden = true,
                 Click = OnClose
-            }
-);
-            gs.AddUiElements(UiElements);
+            };
+            exitButton.Position = new Vector2(background.Position.X, background.Rectangle.Bottom - exitButton.Height);
+            var exitButtonPos = background.Rectangle.Bottom;
+            UiElements.Add(background);
+            UiElements.Add(exitButton);
         }
         /// <summary>
         ///  Call this method to correctly hide window and all its components

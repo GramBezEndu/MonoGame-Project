@@ -6,16 +6,47 @@ using System.Threading.Tasks;
 using GameProject.Animations;
 using Microsoft.Xna.Framework;
 using GameProject.States;
+using GameProject.Controls;
 
 namespace GameProject.Sprites
 {
 	public class Blacksmith : Character
 	{
-        //Components that are displayed when interacting
-        List<Component> uiElements = new List<Component>();
         public Blacksmith(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
         {
+            var background = UiElements.First();
+            Vector2 pos = new Vector2(0,0);
+            if(background is Sprite)
+            {
+                pos = (background as Sprite).Position;
+            }
+            var itemUpgradeButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            {
+                Position = pos,
+                Text = "Item upgrade",
+                Hidden = true
+            };
             //Add special elements to window
+            UiElements.Add(itemUpgradeButton);
+            pos += new Vector2(0, itemUpgradeButton.Height);
+            var scrollUpgrade = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            {
+                Position = pos,
+                //It could be "Joining scrolls" or sth like that
+                Text = "Scroll upgrade",
+                Hidden = true
+            };
+            UiElements.Add(scrollUpgrade);
+            pos += new Vector2(0, scrollUpgrade.Height);
+            var shieldRepair = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            {
+                Position = pos,
+                Text = "Shield repair",
+                Hidden = true
+            };
+            UiElements.Add(shieldRepair);
+            //Apply changes to state
+            gs.AddUiElements(UiElements);
         }
         public override void Update(GameTime gameTime)
         {
