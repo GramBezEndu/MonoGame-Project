@@ -111,7 +111,14 @@ namespace GameProject.States
                 Position = new Vector2(-0.5f* game.Width, 0)
             };
 
+            //Wall at the end of the level
+            Sprite endWall = new Sprite(Textures["Wall2"], g.Scale)
+            {
+                Position = new Vector2(levelWidth + 0.1f * game.Width, 0)
+            };
+
 			collisionSprites.Add(wall);
+            collisionSprites.Add(endWall);
 
             movingComponents = new List<Component>()
             {
