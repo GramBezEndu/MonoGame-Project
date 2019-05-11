@@ -22,6 +22,15 @@ namespace GameProject.Inventory
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+			var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
+			if (mouseRectangle.Intersects(Rectangle))
+			{
+				if (currentState.RightButton == ButtonState.Released && previousState.RightButton == ButtonState.Pressed)
+				{
+					//We now just add this item without any checks
+					player.InventoryManager.AddItem(this.Item);
+				}
+			}
 		}
 	}
 }

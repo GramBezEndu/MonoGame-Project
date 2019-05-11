@@ -102,7 +102,13 @@ namespace GameProject
 			{
 				foreach(var s in slots)
 				{
-					if(s.Item == i)
+					//Check if the item already exists in inventory and just increase it's amount
+					//We have to check runtime type since '==' will also check Item quantity
+					if(s.Item == null)
+					{
+						continue;
+					}
+					if(s.Item.GetType() == i.GetType())
 					{
 						s.Quantity += i.Quantity;
 						return;

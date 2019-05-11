@@ -40,7 +40,7 @@ namespace GameProject.Sprites
         /// <summary>
         ///  Call this method to correctly hide window and all its components
         /// </summary>
-        protected void Hide()
+        protected virtual void Hide()
         {
             Hidden = true;
             foreach (var ui in UiElements)

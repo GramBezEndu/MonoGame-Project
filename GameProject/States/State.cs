@@ -14,7 +14,7 @@ namespace GameProject
     public abstract class State
     {
         protected ContentManager content;
-        protected GraphicsDevice graphicsDevice;
+        public GraphicsDevice graphicsDevice { get; protected set; }
         protected Game1 game;
         public Input Input { get; private set; }
         protected List<Component> staticComponents;

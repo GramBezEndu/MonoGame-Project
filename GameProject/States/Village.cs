@@ -211,7 +211,7 @@ namespace GameProject.States
 			}
 
             player.InventoryManager.AddItem(
-                new HealthPotion(healthPotionTexture, game.Scale)
+                new HealthPotion(Textures["HealthPotion"], game.Scale)
                 {
                     Quantity = 5
                 }

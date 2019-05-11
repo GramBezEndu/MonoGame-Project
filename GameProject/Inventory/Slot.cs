@@ -52,6 +52,29 @@ namespace GameProject.Inventory
 			graphicsDevice = gd;
 		}
 
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		{
+			if (!Hidden)
+			{
+				var color = Color.White;
+
+				if (isHovering)
+				{
+					color = Color.Gray;
+				}
+				//throw new NotImplementedException();
+				//Item?.Draw(gameTime, spriteBatch, scale);
+				spriteBatch.Draw(texture, Position, null, color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+				//Drop actual item and quantity (string)
+				if (Item != null)
+				{
+					Item.Position = this.Position;
+					Item.Draw(gameTime, spriteBatch);
+					//throw new NotImplementedException();
+				}
+			}
+		}
+
 		protected void GenerateBackgroundSprite()
 		{
 			if (Item != null)
@@ -108,18 +131,52 @@ namespace GameProject.Inventory
 			};
 		}
 
+		/// <summary>
+		/// Draw item description, item count and invalid usage message
+		/// </summary>
+		/// <param name="gameTime"></param>
+		/// <param name="spriteBatch"></param>
+		public void DrawMessages(GameTime gameTime, SpriteBatch spriteBatch)
+		{
+			if (Item != null)
+			{
+				if (isHovering)
+				{
+					descriptionAndNameBackground.Draw(gameTime, spriteBatch);
+					spriteBatch.DrawString(font, Item.Name, descriptionAndNameBackground.Position, Color.Gold);
+					if (Item.Description != null)
+						spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);
+				}
+				if (Item.IsStackable)
+					spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
+			}
+			if (invalidUseTime > 0)
+			{
+				//It should be moved from here
+				_inavalidUseBackground.Position = this.Position;
+				_inavalidUseBackground.Draw(gameTime, spriteBatch);
+				spriteBatch.DrawString(font, invalidUse, Position, Color.Black);
+			}
+		}
+
 		public override void Update(GameTime gameTime)
 		{
-			previousState = currentState;
-			currentState = Mouse.GetState();
-
-			var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
-
-			isHovering = false;
-
-			if (mouseRectangle.Intersects(Rectangle))
+			if(!Hidden)
 			{
-				isHovering = true;
+				previousState = currentState;
+				currentState = Mouse.GetState();
+
+				var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
+
+				isHovering = false;
+
+				if (mouseRectangle.Intersects(Rectangle))
+				{
+					isHovering = true;
+				}
+				//Invalid use timer decrease if >0
+				if (invalidUseTime > 0)
+					invalidUseTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 			}
 		}
 	}
