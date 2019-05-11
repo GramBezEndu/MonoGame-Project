@@ -10,7 +10,7 @@ using GameProject.Sprites;
 
 namespace GameProject
 {
-    public abstract class Item : Sprite
+    public abstract class Item : Sprite, ICloneable
     {
         private int _quantity;
 
@@ -25,20 +25,26 @@ namespace GameProject
             get => _quantity;
             set
             {
-                if (value <= 0)
-                    throw new Exception("Invalid quantity in Item (below 0)\n");
-                else if (value == 1)
-                    _quantity = value;
-                else if(value > 1)
-                {
-                    if (IsStackable)
-                        _quantity = value;
-                    else
-                        throw new Exception("Invalud quantity (grater than 1): Item is not stackable\n");
-                }
+				if (value <= 0)
+					//throw new Exception("Invalid quantity in Item (below 0)\n");
+					_quantity = value;
+				else if (value == 1)
+					_quantity = value;
+				else if (value > 1)
+				{
+					if (IsStackable)
+						_quantity = value;
+					else
+						throw new Exception("Invalud quantity (grater than 1): Item is not stackable\n");
+				}
             }
         }
         public string Name { get; set; }
         public string Description { get; set; }
-    }
+
+		public object Clone()
+		{
+			return MemberwiseClone();
+		}
+	}
 }

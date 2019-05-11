@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Items;
 
-namespace GameProject
+namespace GameProject.Inventory
 {
     public class InventorySlot : Sprite
     {
@@ -27,7 +27,7 @@ namespace GameProject
 		/// Determines if player wants to drag current slot
 		/// </summary>
 		public bool IsDragging { get; set; }
-        public int Quantity { get; set; }
+        //public int Quantity { get; set; }
         /// <summary>
         /// For how long text will be displayed after invalid item usage (in seconds)
         /// </summary>
@@ -152,7 +152,7 @@ namespace GameProject
                         spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);
                 }
                 if (Item.IsStackable)
-                    spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
+                    spriteBatch.DrawString(font, Item.Quantity.ToString(), Position, Color.Black);
             }
             if (invalidUseTime > 0)
             {
@@ -187,18 +187,18 @@ namespace GameProject
                     {
                         bool result = (Item as Usable).Use(player);
                         if (result == true)
-                            --Quantity;
+                            Item.Quantity--;
                         else
                             invalidUseTime = 2f;
                     }
                     else if (Item is Equippable)
                     {
                         bool result = (Item as Equippable).Equip(player);
-                        if (result == true)
-                            --Quantity;
-                        else
-                            invalidUseTime = 2f;
-                    }
+						if (result == true)
+							Item.Quantity--;
+						else
+							invalidUseTime = 2f;
+					}
                 }
 				//Drag items
 				else if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
@@ -209,7 +209,23 @@ namespace GameProject
 					//End dragging within diffrent slot
 					else if(player.InventoryManager.IsAlreadyDragging())
 					{
-
+						InventorySlot slotDragging = player.InventoryManager.WhichSlotIsDragging();
+						//Type typeOfSlot = slotDragging.GetType();
+						//Type t = typeof(InventorySlot);
+						//if (typeOfSlot.Equals(t))
+						//{
+						//	var item = slotDragging.Item;
+						//	slotDragging.Item = this.Item;
+						//	this.Item = item;
+						//	slotDragging.IsDragging = false;
+						//}
+						if (slotDragging is InventorySlot)
+						{
+							var item = slotDragging.Item;
+							slotDragging.Item = this.Item;
+							this.Item = item;
+							slotDragging.IsDragging = false;
+						}
 					}
 					//Try to start dragging
 					else if(!IsDragging)
@@ -223,9 +239,10 @@ namespace GameProject
 				}
             }
             //Item could be used or equipped
-            if (Quantity <= 0)
+            if (Item != null)
             {
-                Item = null;
+				if (Item.Quantity <= 0)
+					Item = null;
             }
             //Invalid use timer decrease if >0
             if (invalidUseTime > 0)

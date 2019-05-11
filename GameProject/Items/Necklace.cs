@@ -23,8 +23,7 @@ namespace GameProject.Items
 				{
 					if (i.Item == null)
 					{
-						i.Item = this;
-						i.Quantity = 1;
+						i.Item = (Item)this.Clone();
 						return true;
 					}
 					else
@@ -36,7 +35,6 @@ namespace GameProject.Items
 							var x = i.Item;
 							p.InventoryManager.AddItem(x);
 							i.Item = this;
-							i.Quantity = 1;
 							return true;
 						}
 					}

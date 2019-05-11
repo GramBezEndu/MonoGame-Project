@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameProject.Sprites;
 using GameProject.Items;
+using GameProject.Inventory;
 
 namespace GameProject
 {
@@ -103,7 +104,7 @@ namespace GameProject
 				{
 					if(s.Item == i)
 					{
-						s.Quantity += i.Quantity;
+						s.Item.Quantity += i.Quantity;
 						return;
 					}
 				}
@@ -112,7 +113,6 @@ namespace GameProject
 					if (s.Item == null)
 					{
 						s.Item = i;
-						s.Quantity = i.Quantity;
 						return;
 					}
 				}
@@ -123,8 +123,7 @@ namespace GameProject
 				{
 					if(s.Item == null)
 					{
-						s.Item = i;
-						s.Quantity = i.Quantity;
+						s.Item = (Item)i.Clone();
 						return;
 					}
 				}
@@ -144,6 +143,21 @@ namespace GameProject
 					return true;
 			}
 			return false;
+		}
+
+		public InventorySlot WhichSlotIsDragging()
+		{
+			foreach (var s in slots)
+			{
+				if (s.IsDragging)
+					return s;
+			}
+			foreach (var s in EquipmentManager.EquipmentSlots)
+			{
+				if (s.IsDragging)
+					return s;
+			}
+			throw new Exception("WhichSlotIsDragging(): Invalid inventory slot\n");
 		}
 
 		public bool IsFull()

@@ -25,7 +25,6 @@ namespace GameProject.Items
 					if (i.Item == null)
 					{
 						i.Item = this;
-						i.Quantity = 1;
 						return true;
 					}
 					//BootsSlot is not empty (add old boots to inventory (if inventory is full return false) then equip new boots)
@@ -38,7 +37,6 @@ namespace GameProject.Items
 							var x = i.Item;
 							p.InventoryManager.AddItem(x);
 							i.Item = this;
-							i.Quantity = 1;
 							return true;
 						}
 					}

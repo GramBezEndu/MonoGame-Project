@@ -19,17 +19,16 @@ namespace GameProject.Items
 		{
 			foreach (InventorySlot i in p.InventoryManager.EquipmentManager.EquipmentSlots)
 			{
-				//We found the BootsSlot
+				//We found the SwordSlot
 				if (i is SwordSlot)
 				{
 					//BootsSlot it is empty
 					if (i.Item == null)
 					{
-						i.Item = this;
-						i.Quantity = 1;
+						i.Item = (Item)this.Clone();
 						return true;
 					}
-					//BootsSlot is not empty (add old boots to inventory (if inventory is full return false) then equip new boots)
+					//SwordSlot is not empty (add old sword to inventory (if inventory is full return false) then equip new sword)
 					else
 					{
 						if (p.InventoryManager.IsFull())
@@ -39,13 +38,12 @@ namespace GameProject.Items
 							var x = i.Item;
 							p.InventoryManager.AddItem(x);
 							i.Item = this;
-							i.Quantity = 1;
 							return true;
 						}
 					}
 				}
 			}
-			//We did not find BootsSlot -> return false
+			//We did not find SwordSlot -> return false
 			return false;
 		}
 	}
