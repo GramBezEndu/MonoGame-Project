@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameProject.Sprites;
 using GameProject.Items;
+using GameProject.Inventory;
 
 namespace GameProject
 {

@@ -58,6 +58,8 @@
     <Compile Include="Inventory\NecklaceSlot.cs" />
     <Compile Include="Inventory\RingSlot.cs" />
     <Compile Include="Inventory\ShieldSlot.cs" />
+    <Compile Include="Inventory\ShoppingSlot.cs" />
+    <Compile Include="Inventory\Slot.cs" />
     <Compile Include="Inventory\WarriorBreastplateSlot.cs" />
     <Compile Include="Inventory\WarriorHelmetSlot.cs" />
     <Compile Include="Items\ArcherBreastplate.cs" />

@@ -9,102 +9,17 @@ using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Items;
 
-namespace GameProject
+namespace GameProject.Inventory
 {
-    public class InventorySlot : Sprite
+    public class InventorySlot : Slot
     {
-        private Player player;
-        private SpriteFont font;
-        public Item Item
-        { get => _item;
-            set
-            {
-                _item = value;
-                GenerateBackgroundSprite();
-            }
-        }
-        public int Quantity { get; set; }
-        /// <summary>
-        /// For how long text will be displayed after invalid item usage (in seconds)
-        /// </summary>
-        private float invalidUseTime;
-        MouseState currentState;
-        MouseState previousState;
-        //If is hovering then 1. Gray out the slot 2. print item name and description if inventory slot contains item (it is done in Item drawing)
-        bool isHovering;
-        //GraphicsDevice reference to generate texture
-        private GraphicsDevice graphicsDevice;
-        //Generate background texture for displaying description
-        private Texture2D descriptionBackground;
-        private Sprite descriptionAndNameBackground;
-        private Texture2D invalidUseTexture;
-
-        private void SetInvalidUsageBackgroundSprite()
+        public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
         {
-            Vector2 size = font.MeasureString(invalidUse);
-            invalidUseTexture = new Texture2D(graphicsDevice, (int)size.X, (int)size.Y);
-            Color[] data = new Color[(int)size.X * (int)size.Y];
-            //Paint every pixel
-            for (int i = 0; i < data.Length; i++)
-            {
-                data[i] = Color.LemonChiffon;
-            }
-            //try
-            //{
-                invalidUseTexture.SetData(data);
-            //}
-            //catch
-            //{
-            //    throw new NotImplementedException();
-            //}
-            //Set sprite
-            Vector2 pos = this.Position;
-            _inavalidUseBackground = new Sprite(invalidUseTexture, 1f)
-            {
-                Position = pos
-            };
-        }
+			//Message to display if you can't use/equip item
+			invalidUse = "You can't use this item";
+			SetInvalidUsageBackgroundSprite();
+		}
 
-        private Sprite _inavalidUseBackground;
-        private string invalidUse = "You can't use this item";
-        private Item _item;
-
-        public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(t, scale)
-        {
-            font = f;
-            player = p;
-            graphicsDevice = gd;
-            SetInvalidUsageBackgroundSprite();
-        }
-        private void GenerateBackgroundSprite()
-        {
-            if (Item != null)
-            {
-                //Note: Every item should have name (not named items will have name: "Not assigned name")
-                Vector2 size = font.MeasureString(Item.Name);
-                //Item description is not required
-                if (Item.Description != null)
-                {
-                    size.X = Math.Max(font.MeasureString(Item.Description).X, font.MeasureString(Item.Name).X);
-                    size.Y += font.MeasureString(Item.Description).Y;
-                }
-                //Make texture
-                descriptionBackground = new Texture2D(graphicsDevice, (int)size.X, (int)size.Y);
-                Color[] data = new Color[(int)size.X * (int)size.Y];
-                //Paint every pixel
-                for (int i = 0; i < data.Length; i++)
-                {
-                    data[i] = Color.LemonChiffon;
-                }
-                descriptionBackground.SetData(data);
-                //Set sprite
-                Vector2 pos = new Vector2(Position.X, Position.Y + Height);
-                descriptionAndNameBackground = new Sprite(descriptionBackground, 1f)
-                {
-                    Position = pos
-                };
-            }
-        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var color = Color.White;
@@ -155,17 +70,10 @@ namespace GameProject
 
         public override void Update(GameTime gameTime)
         {
-            previousState = currentState;
-            currentState = Mouse.GetState();
-
-            var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
-
-            isHovering = false;
-
-            if (mouseRectangle.Intersects(Rectangle))
+			base.Update(gameTime);
+			var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
+			if (mouseRectangle.Intersects(Rectangle))
             {
-                isHovering = true;
-
                 if (currentState.RightButton == ButtonState.Released && previousState.RightButton == ButtonState.Pressed)
                 {
                     //Click?.Invoke(this, new EventArgs());
