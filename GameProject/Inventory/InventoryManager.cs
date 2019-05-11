@@ -130,6 +130,22 @@ namespace GameProject
 				}
 			}
 		}
+
+		public bool IsAlreadyDragging()
+		{
+			foreach (var s in slots)
+			{
+				if (s.IsDragging)
+					return true;
+			}
+			foreach(var s in EquipmentManager.EquipmentSlots)
+			{
+				if (s.IsDragging)
+					return true;
+			}
+			return false;
+		}
+
 		public bool IsFull()
 		{
 			foreach(var s in slots)

@@ -23,6 +23,10 @@ namespace GameProject
                 GenerateBackgroundSprite();
             }
         }
+		/// <summary>
+		/// Determines if player wants to drag current slot
+		/// </summary>
+		public bool IsDragging { get; set; }
         public int Quantity { get; set; }
         /// <summary>
         /// For how long text will be displayed after invalid item usage (in seconds)
@@ -120,7 +124,13 @@ namespace GameProject
             if (Item != null)
             {
                 Item.Position = this.Position;
-                Item.Draw(gameTime, spriteBatch);
+				if (IsDragging)
+				{
+					var mousePos = Mouse.GetState().Position;
+					Vector2 pos = new Vector2(mousePos.X, mousePos.Y);
+					Item.Position = pos;
+				}
+				Item.Draw(gameTime, spriteBatch);
                 //throw new NotImplementedException();
             }
         }
@@ -166,6 +176,7 @@ namespace GameProject
             {
                 isHovering = true;
 
+				//Use/Equip
                 if (currentState.RightButton == ButtonState.Released && previousState.RightButton == ButtonState.Pressed)
                 {
                     //Click?.Invoke(this, new EventArgs());
@@ -189,6 +200,27 @@ namespace GameProject
                             invalidUseTime = 2f;
                     }
                 }
+				//Drag items
+				else if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
+				{
+					//End dragging within the same slot
+					if (IsDragging)
+						IsDragging = false;
+					//End dragging within diffrent slot
+					else if(player.InventoryManager.IsAlreadyDragging())
+					{
+
+					}
+					//Try to start dragging
+					else if(!IsDragging)
+					{
+						//You can't start dragging two items
+						if (player.InventoryManager.IsAlreadyDragging())
+							return;
+						else
+							IsDragging = true;
+					}
+				}
             }
             //Item could be used or equipped
             if (Quantity <= 0)
@@ -199,6 +231,7 @@ namespace GameProject
             if (invalidUseTime > 0)
                 invalidUseTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
+
         //Po co to lol
         public bool IsFull()
         {
