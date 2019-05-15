@@ -26,18 +26,12 @@ namespace GameProject.States
 		public Village(Game1 g, GraphicsDevice gd, ContentManager c, PlayerClasses playerClass) : base(g, gd, c)
 		{
 			#region local variables
-			var inventoryTexture = content.Load<Texture2D>("Inventory");
 			var slotTexture = content.Load<Texture2D>("InventorySlot");
 			int inventorySlots = 12;
-			var healthPotionTexture = content.Load<Texture2D>("HealthPotion");
-			var manaPotionTexture = content.Load<Texture2D>("ManaPotion");
 			var font = content.Load<SpriteFont>("Font");
 			var healthBarTexture = content.Load<Texture2D>("HealthBarBorder");
-			var healthTexture = content.Load<Texture2D>("Health");
-			var staminaTexture = content.Load<Texture2D>("Stamina");
 			var anivilTexture = content.Load<Texture2D>("Anvil");
 			var background = content.Load<Texture2D>("VillageBackground");
-			var box = content.Load<Texture2D>("Box");
 			var startingSwordTexture = content.Load<Texture2D>("StartingSword");
 			var startingBowTexture = content.Load<Texture2D>("StartingBow");
 			var startingWarriorBreastplate = content.Load<Texture2D>("StartingWarriorBreastplate");
@@ -83,11 +77,11 @@ namespace GameProject.States
 						{
 							Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 						};
-						player.InventoryManager = new InventoryManager(gd, player, inventoryTexture, slotTexture, goldTexture, font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
-						player.HealthBar = new HealthBar(healthBarTexture, healthTexture, font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
+						player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], slotTexture, goldTexture, font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+						player.HealthBar = new HealthBar(healthBarTexture, Textures["Health"], font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 						if (player is StaminaUser)
 						{
-							(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, staminaTexture, font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
+							(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, Textures["Stamina"], font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
 						}
 						player.InventoryManager.AddItem(new StartingSword(startingSwordTexture, game.Scale));
 						player.InventoryManager.AddItem(new StartingWarriorHelmet(startingWarriorHelmet, game.Scale));
@@ -95,7 +89,7 @@ namespace GameProject.States
 						player.InventoryManager.AddItem(new StartingBoots(startingBoots, game.Scale));
 						player.InventoryManager.AddItem(new StartingShield(startingShieldTexture, game.Scale));
 
-						player.InventoryManager.EquipmentManager = new EquipmentManager(inventoryTexture,
+						player.InventoryManager.EquipmentManager = new EquipmentManager(Textures["Inventory"],
 							slotTexture,
 							font,
 							new Vector2(0.02f * game.Width, 0.05f * game.Height),
@@ -147,18 +141,18 @@ namespace GameProject.States
 						{
 							Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 						};
-						player.InventoryManager = new InventoryManager(gd, player, inventoryTexture, slotTexture, goldTexture, font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
-						player.HealthBar = new HealthBar(healthBarTexture, healthTexture, font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
+						player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], slotTexture, goldTexture, font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+						player.HealthBar = new HealthBar(healthBarTexture, Textures["Health"], font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 						if (player is StaminaUser)
 						{
-							(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, staminaTexture, font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
+							(player as StaminaUser).StaminaBar = new StaminaBar(healthBarTexture, Textures["Stamina"], font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
 						}
 						player.InventoryManager.AddItem(new StartingBow(startingBowTexture, game.Scale));
 						player.InventoryManager.AddItem(new StartingArcherHelmet(startingArcherHelmet, game.Scale));
 						player.InventoryManager.AddItem(new StartingArcherBreastplate(startingArcherBreastplate, game.Scale));
 						player.InventoryManager.AddItem(new StartingBoots(startingBoots, game.Scale));
 
-						player.InventoryManager.EquipmentManager = new EquipmentManager(inventoryTexture,
+						player.InventoryManager.EquipmentManager = new EquipmentManager(Textures["Inventory"],
 							slotTexture,
 							font,
 							new Vector2(0.02f * game.Width, 0.05f * game.Height),
@@ -201,7 +195,7 @@ namespace GameProject.States
 						//player = new Wizard(content.Load<Texture2D>("Archer"), g.Scale);
 						if (player is ManaUser)
 						{
-                            (player as ManaUser).InventoryManager.AddItem(new ManaPotion(manaPotionTexture, game.Scale)
+                            (player as ManaUser).InventoryManager.AddItem(new ManaPotion(Textures["ManaPotion"], game.Scale)
                             {
                                 Quantity = 5
                             });
@@ -257,7 +251,7 @@ namespace GameProject.States
 			{
 				new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player),
 				new Shopkeeper(game, this, shopkeeperSprite, shopkeeperButton, player),
-				new Sprite(box, g.Scale)
+				new Sprite(Textures["box"], g.Scale)
 				{
 					Position = new Vector2(0.813f*game.Width,0.55f*game.Height)
 				},
