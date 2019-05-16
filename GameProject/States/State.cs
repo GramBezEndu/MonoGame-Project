@@ -22,6 +22,27 @@ namespace GameProject
         /// Key textures
         /// </summary>
         protected Dictionary<string, Texture2D> Keys = new Dictionary<string, Texture2D>();
+        public SpriteFont Font { get; protected set; }
+        /// <summary>
+        /// Contains all textures from main content folder
+        /// </summary>
+        public Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
+
+        private void LoadTextures()
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(content.RootDirectory);
+            if (!directoryInfo.Exists)
+                throw new DirectoryNotFoundException();
+            FileInfo[] files = directoryInfo.GetFiles("*.*");
+            foreach (FileInfo file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file.Name);
+                if (key == "Font")
+                    continue;
+                //Keys[key] = content.Load<Texture2D>(directoryInfo.ToString() + key);
+                Textures[key] = content.Load<Texture2D>(Directory.GetCurrentDirectory() + "/Content/" + key);
+            }
+        }
         public State(Game1 g, GraphicsDevice gd, ContentManager c)
         {
             content = c;
@@ -29,6 +50,8 @@ namespace GameProject
             graphicsDevice = gd;
             Input = game.Input;
             LoadKeyTextures();
+            LoadTextures();
+            Font = content.Load<SpriteFont>("Font");
         }
         /// <summary>
         /// Load all key textures

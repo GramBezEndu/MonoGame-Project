@@ -18,8 +18,6 @@ namespace GameProject.States
 		public GameState(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
 			camera = new Camera();
-            LoadTextures();
-			Font = content.Load<SpriteFont>("Font");
         }
 		//public static bool SpeedrunTimerEnabled = false;
 		//public static GameTimer SpeedrunTimer = new GameTimer(0f, true);
@@ -37,25 +35,6 @@ namespace GameProject.States
         protected List<MysteriousChest> mysteriousChests = new List<MysteriousChest>();
         protected List<Item> itemsToSpawn = new List<Item>();
         protected List<Item> itemsToRemove = new List<Item>();
-		public SpriteFont Font { get; protected set; }
-        //Should add all textures to one dictionary
-        public Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
-
-        private void LoadTextures()
-        {
-            DirectoryInfo directoryInfo = new DirectoryInfo(content.RootDirectory);
-            if (!directoryInfo.Exists)
-                throw new DirectoryNotFoundException();
-            FileInfo[] files = directoryInfo.GetFiles("*.*");
-            foreach (FileInfo file in files)
-            {
-                string key = Path.GetFileNameWithoutExtension(file.Name);
-                if (key == "Font")
-                    continue;
-                //Keys[key] = content.Load<Texture2D>(directoryInfo.ToString() + key);
-                Textures[key] = content.Load<Texture2D>(Directory.GetCurrentDirectory() + "/Content/" + key);
-            }
-        }
 
         //TODO: Update input in state, not in player
         public override void Update(GameTime gameTime)

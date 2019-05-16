@@ -27,7 +27,6 @@ namespace GameProject.States
 		{
 			#region local variables
 			int inventorySlots = 12;
-			var font = content.Load<SpriteFont>("Font");
 
             Sprite dungeonEntrance;
             //"E" button
@@ -57,15 +56,15 @@ namespace GameProject.States
 							{"FastAttack", new Animation(content.Load<Texture2D>("WarriorFastAttack"), 3, game.Scale, 0.1f) },
 							{"NormalAttack", new Animation(content.Load<Texture2D>("WarriorNormalAttack"), 3, game.Scale, 0.25f) }
 						};
-						player = new Warrior(this, animations, Input, g.Scale, font)
+						player = new Warrior(this, animations, Input, g.Scale, Font)
 						{
 							Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 						};
-						player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
-						player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
+						player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+						player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 						if (player is StaminaUser)
 						{
-							(player as StaminaUser).StaminaBar = new StaminaBar(Textures["HealthBarBorder"], Textures["Stamina"], font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
+							(player as StaminaUser).StaminaBar = new StaminaBar(Textures["HealthBarBorder"], Textures["Stamina"], Font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
 						}
 						player.InventoryManager.AddItem(new StartingSword(Textures["StartingSword"], game.Scale));
 						player.InventoryManager.AddItem(new StartingWarriorHelmet(Textures["StartingWarriorHelmet"], game.Scale));
@@ -75,37 +74,37 @@ namespace GameProject.States
 
 						player.InventoryManager.EquipmentManager = new EquipmentManager(Textures["Inventory"],
 							Textures["InventorySlot"],
-							font,
+							Font,
 							new Vector2(0.02f * game.Width, 0.05f * game.Height),
 							game.Scale)
 						{
 							EquipmentSlots = new List<InventorySlot>()
 							{
-								new WarriorHelmetSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new WarriorHelmetSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height)
 								},
-								new NecklaceSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + Textures["InventorySlot"].Height*game.Scale)
 								},
-								new WarriorBreastplateSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new WarriorBreastplateSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								},
-								new BootsSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new BootsSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + 3*Textures["InventorySlot"].Height*game.Scale)
 								},
-								new SwordSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new SwordSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								},
-								new ShieldSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new ShieldSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.125f * game.Width, 0.07f * game.Height + 1*Textures["InventorySlot"].Height*game.Scale),
 								},
-								new RingSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new RingSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.125f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								}
@@ -125,11 +124,11 @@ namespace GameProject.States
 						{
 							Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 						};
-						player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
-						player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
+						player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+						player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 						if (player is StaminaUser)
 						{
-							(player as StaminaUser).StaminaBar = new StaminaBar(Textures["HealthBarBorder"], Textures["Stamina"], font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
+							(player as StaminaUser).StaminaBar = new StaminaBar(Textures["HealthBarBorder"], Textures["Stamina"], Font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
 						}
 						player.InventoryManager.AddItem(new StartingBow(Textures["StartingBow"], game.Scale));
 						player.InventoryManager.AddItem(new StartingArcherHelmet(Textures["StartingArcherHelmet"], game.Scale));
@@ -138,33 +137,33 @@ namespace GameProject.States
 
 						player.InventoryManager.EquipmentManager = new EquipmentManager(Textures["Inventory"],
 							Textures["InventorySlot"],
-							font,
+							Font,
 							new Vector2(0.02f * game.Width, 0.05f * game.Height),
 							game.Scale)
 						{
 							EquipmentSlots = new List<InventorySlot>()
 							{
-								new ArcherHelmetSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new ArcherHelmetSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height)
 								},
-								new NecklaceSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.075f * game.Height + Textures["InventorySlot"].Height*game.Scale)
 								},
-								new ArcherBreastplateSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new ArcherBreastplateSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								},
-								new BootsSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new BootsSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + 3*Textures["InventorySlot"].Height*game.Scale)
 								},
-								new BowSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new BowSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								},
-								new RingSlot(gd, player, Textures["InventorySlot"], font, game.Scale)
+								new RingSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.125f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								}
@@ -251,7 +250,7 @@ namespace GameProject.States
 				{"Idle", new Animation(content.Load<Texture2D>("TrainingDummy"), 1, game.Scale)}
 			};
 
-			enemies.Add(new TrainingDummy(game, this, font, trainingDummyAnimations)
+			enemies.Add(new TrainingDummy(game, this, Font, trainingDummyAnimations)
 			{
 				Position = new Vector2(0.95f* game.Width, 0.4f* game.Height)
 			}
@@ -263,13 +262,13 @@ namespace GameProject.States
 				{
 					Position = new Vector2(0, 0.63f * g.Height),
 				},
-				new Button(Textures["Button"], font, g.Scale)
+				new Button(Textures["Button"], Font, g.Scale)
 				{
 				Text = "Main Menu",
 				Position = new Vector2(0.01f * g.Width, 0.7f * g.Height),
 				Click = MainMenuClick
 				},
-				new Button(Textures["Button"], font, g.Scale)
+				new Button(Textures["Button"], Font, g.Scale)
 				{
 				Text = "Exit",
 				Position = new Vector2(0.01f * g.Width, 0.8f * g.Height),
