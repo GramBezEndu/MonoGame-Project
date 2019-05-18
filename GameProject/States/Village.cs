@@ -30,10 +30,6 @@ namespace GameProject.States
 
 			AddCommonItemsToPlayer();
 
-			Sprite dungeonEntrance;
-			//"E" button
-			Sprite interactionButton;
-
 			var blackSmithAnimations = new Dictionary<string, Animation>()
 			{
 				{"Idle", new Animation(content.Load<Texture2D>("Blacksmith"), 3, game.Scale) },
@@ -53,12 +49,12 @@ namespace GameProject.States
 				},
 			};
 
-			dungeonEntrance = new Sprite(Textures["DungeonEntrance"], g.Scale)
+			var dungeonEntrance = new Sprite(Textures["DungeonEntrance"], g.Scale)
 			{
 				Position = new Vector2(1.113f * game.Width, 0.4f * game.Height)
 			};
 
-			interactionButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale)
+			var interactionButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale)
 			{
 				Position = dungeonEntrance.Position
 			};

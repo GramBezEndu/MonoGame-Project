@@ -13,11 +13,13 @@ namespace GameProject.Inventory
 {
 	public class ShoppingSlot : Slot
 	{
+		public int Prize { get; set; }
 		public ShoppingSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
 			//Message to display if you can't buy item
 			invalidUse = "You can't buy this item";
 			SetInvalidUsageBackgroundSprite();
+			Prize = Int32.MaxValue;
 		}
 		public override void Update(GameTime gameTime)
 		{
@@ -27,8 +29,12 @@ namespace GameProject.Inventory
 			{
 				if (currentState.RightButton == ButtonState.Released && previousState.RightButton == ButtonState.Pressed)
 				{
-					//We now just add this item without any checks
-					player.InventoryManager.AddItem(this.Item);
+					//Player has enough gold -> buy
+					if(player.Gold >= Prize)
+					{
+						player.InventoryManager.AddItem(this.Item);
+						player.Gold -= Prize;
+					}
 				}
 			}
 		}

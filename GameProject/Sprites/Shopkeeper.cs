@@ -22,6 +22,7 @@ namespace GameProject.Sprites
 			slots.Add(new ShoppingSlot(gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Font, g.Scale)
 			{
 				Item = new HealthPotion(gs.Textures["HealthPotion"], g.Scale),
+				Prize = 30,
 				Hidden = true,
 				Position = mainSprite.Position
 			}
