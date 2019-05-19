@@ -138,24 +138,27 @@ namespace GameProject.Inventory
 		/// <param name="spriteBatch"></param>
 		public void DrawMessages(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			if (Item != null)
+			if(!Hidden)
 			{
-				if (isHovering)
+				if (Item != null)
 				{
-					descriptionAndNameBackground.Draw(gameTime, spriteBatch);
-					spriteBatch.DrawString(font, Item.Name, descriptionAndNameBackground.Position, Color.Gold);
-					if (Item.Description != null)
-						spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);
+					if (isHovering)
+					{
+						descriptionAndNameBackground.Draw(gameTime, spriteBatch);
+						spriteBatch.DrawString(font, Item.Name, descriptionAndNameBackground.Position, Color.Gold);
+						if (Item.Description != null)
+							spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);
+					}
+					if (Item.IsStackable)
+						spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
 				}
-				if (Item.IsStackable)
-					spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
-			}
-			if (invalidUseTime > 0)
-			{
-				//It should be moved from here
-				_inavalidUseBackground.Position = this.Position;
-				_inavalidUseBackground.Draw(gameTime, spriteBatch);
-				spriteBatch.DrawString(font, invalidUse, Position, Color.Black);
+				if (invalidUseTime > 0)
+				{
+					//It should be moved from here
+					_inavalidUseBackground.Position = this.Position;
+					_inavalidUseBackground.Draw(gameTime, spriteBatch);
+					spriteBatch.DrawString(font, invalidUse, Position, Color.Black);
+				}
 			}
 		}
 

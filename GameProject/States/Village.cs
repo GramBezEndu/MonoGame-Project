@@ -121,15 +121,23 @@ namespace GameProject.States
 				Click = ExitClick
 				}
 			};
+		}
 
-			if (player is StaminaUser)
-			{
-				uiComponents.Add(player.InventoryManager);
-				uiComponents.Add(player.HealthBar);
-				uiComponents.Add((player as StaminaUser).StaminaBar);
-			}
-			else
-				throw new NotImplementedException();
+		private void AddCommonPlayerUiComponents()
+		{
+			uiComponents.Add(player.InventoryManager);
+			uiComponents.Add(player.HealthBar);
+		}
+
+		private void AddStaminaBarUi()
+		{
+			uiComponents.Add((player as StaminaUser).StaminaBar);
+		}
+
+		private void AddManaBarUi()
+		{
+			throw new NotImplementedException();
+			//uiComponents.Add((player as ManaUser).);
 		}
 
 		private void AddCommonItemsToPlayer()
@@ -176,6 +184,8 @@ namespace GameProject.States
 					Quantity = 5
 				});
 			}
+			AddCommonPlayerUiComponents();
+			AddManaBarUi();
 		}
 
 		private void CreateArcher(Game1 g, GraphicsDevice gd, int inventorySlots)
@@ -235,6 +245,8 @@ namespace GameProject.States
 								}
 							}
 			};
+			AddCommonPlayerUiComponents();
+			AddStaminaBarUi();
 		}
 
 		private void CreateWarrior(Game1 g, GraphicsDevice gd, int inventorySlots)
@@ -304,6 +316,8 @@ namespace GameProject.States
 								}
 							}
 			};
+			AddCommonPlayerUiComponents();
+			AddStaminaBarUi();
 		}
 
 		private void ExitClick(object sender, EventArgs e)

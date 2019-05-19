@@ -35,6 +35,10 @@ namespace GameProject.Inventory
 						player.InventoryManager.AddItem(this.Item);
 						player.Gold -= Prize;
 					}
+					else
+					{
+						invalidUseTime = 2f;
+					}
 				}
 			}
 		}
