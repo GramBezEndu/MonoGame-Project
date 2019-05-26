@@ -30,12 +30,7 @@ namespace GameProject.States
 
 			AddCommonItemsToPlayer();
 
-			var blackSmithAnimations = new Dictionary<string, Animation>()
-			{
-				{"Idle", new Animation(content.Load<Texture2D>("Blacksmith"), 3, game.Scale) },
-			};
-
-			//Static Textures["VillageBackground"]
+			//Static Textures (VillageBackground)
 			staticComponents = new List<Component>
 			{
 				new Sprite(Textures["VillageBackground"], g.Scale)
@@ -59,15 +54,9 @@ namespace GameProject.States
 				new Door(game, this, dungeonEntrance, interactionButton, player),
 			};
 
-			var blacksmithSprite = new Sprite(blackSmithAnimations)
-			{
-				Position = new Vector2(0.813f * game.Width, 0.33f * game.Height)
-			};
-			var blacksmithButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
-
 			movingComponents = new List<Component>(optionalEntrances)
 			{
-				new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player),
+				//new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player),
 				new Sprite(Textures["box"], g.Scale)
 				{
 					Position = new Vector2(0.813f*game.Width,0.55f*game.Height)
@@ -80,6 +69,7 @@ namespace GameProject.States
 			};
 
 			SpawnShopkeeper(new Vector2(0.513f * game.Width, 0.4f * game.Height));
+			SpawnBlacksmith(new Vector2(0.813f * game.Width, 0.33f * game.Height));
 
 			var trainingDummyAnimations = new Dictionary<string, Animation>()
 			{

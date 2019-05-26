@@ -106,6 +106,28 @@ namespace GameProject.States
 			movingComponents.Add(new Shopkeeper(game, this, shopkeeperSprite, shopkeeperButton, player));
 		}
 
+		protected void SpawnBlacksmith(Vector2 posiition)
+		{
+			var blackSmithAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("Blacksmith"), 3, game.Scale) },
+			};
+			var blacksmithSprite = new Sprite(blackSmithAnimations)
+			{
+				Position = posiition
+			};
+			var blacksmithButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
+			movingComponents.Add(new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player));
+			movingComponents.Add(new Sprite(Textures["box"], game.Scale)
+			{
+				Position = new Vector2(posiition.X, posiition.Y + 0.21f*game.Height)
+			});
+			movingComponents.Add(new Sprite(Textures["Anvil"], game.Scale)
+			{
+				Position = new Vector2(posiition.X, posiition.Y + 0.11f * game.Height)
+			});
+		}
+
         protected void SpawnMysteriousChest(Vector2 position)
         {
             var animations = new Dictionary<string, Animation>()

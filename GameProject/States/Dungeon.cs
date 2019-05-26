@@ -61,8 +61,9 @@ namespace GameProject.States
 				nextLevelEntrance,
 			};
 
-			//Spawn shopkeeper at the end of the level
-			SpawnShopkeeper(new Vector2(levelWidth - 0.35f*game.Width, 0.59f*game.Height));
+			//Spawn shopkeeper & blacksmith at the end of the level
+			SpawnShopkeeper(new Vector2(levelWidth - 0.45f*game.Width, 0.59f*game.Height));
+			SpawnBlacksmith(new Vector2(levelWidth - 0.22f * game.Width, 0.5f * game.Height));
 
 			//Draw optional rooms quantity
 			optionalRoomsQuantity = g.Random.Next(0, currentLevel / 2);
