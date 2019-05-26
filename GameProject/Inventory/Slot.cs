@@ -75,7 +75,7 @@ namespace GameProject.Inventory
 			}
 		}
 
-		protected void GenerateBackgroundSprite()
+		protected virtual void GenerateBackgroundSprite()
 		{
 			if (Item != null)
 			{
@@ -136,7 +136,7 @@ namespace GameProject.Inventory
 		/// </summary>
 		/// <param name="gameTime"></param>
 		/// <param name="spriteBatch"></param>
-		public void DrawMessages(GameTime gameTime, SpriteBatch spriteBatch)
+		public virtual void DrawMessages(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			if(!Hidden)
 			{

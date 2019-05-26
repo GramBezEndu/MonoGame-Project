@@ -18,13 +18,14 @@ namespace GameProject.Sprites
 		private List<Component> slots = new List<Component>();
         public Shopkeeper(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
         {
-			var slotOne = new ShoppingSlot(gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Font, g.Scale)
+			var slotOne = new ShoppingSlot(gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Textures["Gold"], gs.Font, g.Scale)
 			{
-				Item = new HealthPotion(gs.Textures["HealthPotion"], g.Scale),
 				Prize = 30,
 				Hidden = true,
 				Position = mainSprite.Position
 			};
+			//Set item to slot 1
+			slotOne.Item = new HealthPotion(gs.Textures["HealthPotion"], g.Scale);
 			//Add special elements to window here
 			slots.Add(slotOne);
             //Apply changes to state
