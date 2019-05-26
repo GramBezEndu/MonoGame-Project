@@ -17,10 +17,9 @@ namespace GameProject.Sprites
 {
 	public abstract class Enemy : Sprite
 	{
-        /// <summary>
-        /// Need to add scaling based on screen resolution (or make map tile-based)
-        /// </summary>
-		protected float agroRange = 600f;
+		protected float runStepDistance;
+		protected float agroRange;
+		protected bool isAttacking;
 		/// <summary>
 		/// Determines if enemy is dead (note: enemy is dead equals True before corpses has fallen)
 		/// </summary>
@@ -46,23 +45,53 @@ namespace GameProject.Sprites
         /// Game state reference to drop items
         /// </summary>
         protected GameState gameState;
+		protected bool Melee;
 		public Enemy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a) : base(a)
 		{
 			Health = Int32.MaxValue;
 			font = f;
             game = g;
             gameState = gs;
+			agroRange = 600f * g.Scale;
+			runStepDistance = 4.5f * g.Scale;
 		}
 		/// <summary>
 		///Check if player is close (in agro range [we check for X axis only]) then perform action (probably run enemy to player)
 		/// </summary>
 		public void IsPlayerClose(Player p)
 		{
+			if (IsDead)
+				return;
 			if (p.Position.X > this.Position.X - agroRange && p.Position.X < this.Position.X + agroRange)
+			{
 				AgroActivated = true;
-			else
-				AgroActivated = false;
+				RunToPlayer(p);
+			}
 		}
+		/// <summary>
+		/// Run to player if aggro was activated
+		/// </summary>
+		public void RunToPlayer(Player player)
+		{
+			if(Melee && AgroActivated && !IsDead)
+			{
+				//We can attack
+				if(this.IsTouching(player))
+				{
+					return;
+				}
+				//We need to run to player
+				else if(player.Position.X < Position.X)
+				{
+					Position -= new Vector2(runStepDistance, 0);
+				}
+				else if(player.Position.X > Position.X)
+				{
+					Position += new Vector2(runStepDistance, 0);
+				}
+			}
+		}
+
 		public override void Update(GameTime gameTime)
 		{
 			if (Health <= 0)

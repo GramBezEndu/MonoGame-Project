@@ -24,6 +24,7 @@ namespace GameProject.Sprites
 			Health = 15;
             player = p;
 			animations["Die"].OnAnimationEnd = Die;
+			Melee = true;
 		}
 
 		private void Die(object sender, EventArgs e)

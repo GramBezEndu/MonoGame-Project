@@ -79,9 +79,6 @@ namespace GameProject
 			Window.Title = "Defeat The Vapula";
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-            //Note:
-            //Screen resolution affects enemies aggro
-            //Handling this issue is not included yet
 			graphics.PreferredBackBufferWidth = 1280; //1600
 			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;
