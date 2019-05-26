@@ -91,6 +91,21 @@ namespace GameProject.States
                 });
             }
         }
+
+		protected void SpawnShopkeeper(Vector2 position)
+		{
+			var shopkeeperAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("Shopkeeper"), 1, game.Scale) },
+			};
+			var shopkeeperSprite = new Sprite(shopkeeperAnimations)
+			{
+				Position = position
+			};
+			var shopkeeperButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
+			movingComponents.Add(new Shopkeeper(game, this, shopkeeperSprite, shopkeeperButton, player));
+		}
+
         protected void SpawnMysteriousChest(Vector2 position)
         {
             var animations = new Dictionary<string, Animation>()

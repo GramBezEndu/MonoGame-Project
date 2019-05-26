@@ -15,13 +15,15 @@ namespace GameProject.Sprites
     {
         //Components that are displayed when interaction window is opened
         protected List<Component> UiElements = new List<Component>();
+		//Save background sprite to access its position while adding/managing components to window
+		protected Sprite background;
         public Character(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
         {
             //Hide window on default
             //Note: if Hidden equals true only ui componenets are hidden
             //It is not possible to hide character
             Hidden = true;
-            Sprite background = new Sprite(gs.Textures["Inventory"], g.Scale);
+			background = new Sprite(gs.Textures["Inventory"], g.Scale);
             Vector2 pos = new Vector2(g.Width / 2 - background.Width / 2, g.Height / 2 - background.Width / 2);
             background.Position = pos;
             background.Hidden = true;

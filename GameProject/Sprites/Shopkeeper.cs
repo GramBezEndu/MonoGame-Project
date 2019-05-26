@@ -22,7 +22,8 @@ namespace GameProject.Sprites
 			{
 				Prize = 30,
 				Hidden = true,
-				Position = mainSprite.Position
+				//Position should be related to window (that pop up while shopping)
+				Position = background.Position
 			};
 			//Set item to slot 1
 			slotOne.Item = new HealthPotion(gs.Textures["HealthPotion"], g.Scale);

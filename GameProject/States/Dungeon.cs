@@ -56,8 +56,16 @@ namespace GameProject.States
                 new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale),
                 player);
 
-            //Draw optional rooms quantity
-            optionalRoomsQuantity = g.Random.Next(0, currentLevel / 2);
+			movingComponents = new List<Component>()
+			{
+				nextLevelEntrance,
+			};
+
+			//Spawn shopkeeper at the end of the level
+			SpawnShopkeeper(new Vector2(levelWidth - 0.35f*game.Width, 0.59f*game.Height));
+
+			//Draw optional rooms quantity
+			optionalRoomsQuantity = g.Random.Next(0, currentLevel / 2);
             //optionalRoomsQuantity = 3;
 
             //Place entrances to optional rooms (can be less rooms than drawn if they are touching each other)
@@ -119,11 +127,6 @@ namespace GameProject.States
 
 			collisionSprites.Add(wall);
             collisionSprites.Add(endWall);
-
-            movingComponents = new List<Component>()
-            {
-                nextLevelEntrance,
-            };
 
             //foreach (var x in enemies)
             //    movingComponents.Add(x);

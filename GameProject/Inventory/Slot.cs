@@ -150,7 +150,7 @@ namespace GameProject.Inventory
 							spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);
 					}
 					if (Item.IsStackable)
-						spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
+						spriteBatch.DrawString(font, Item.Quantity.ToString(), Position, Color.Black);
 				}
 				if (invalidUseTime > 0)
 				{

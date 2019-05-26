@@ -34,11 +34,6 @@ namespace GameProject.States
 			{
 				{"Idle", new Animation(content.Load<Texture2D>("Blacksmith"), 3, game.Scale) },
 			};
-			var shopkeeperAnimations = new Dictionary<string, Animation>()
-			{
-				{"Idle", new Animation(content.Load<Texture2D>("Shopkeeper"), 1, game.Scale) },
-			};
-
 
 			//Static Textures["VillageBackground"]
 			staticComponents = new List<Component>
@@ -70,16 +65,9 @@ namespace GameProject.States
 			};
 			var blacksmithButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
 
-			var shopkeeperSprite = new Sprite(shopkeeperAnimations)
-			{
-				Position = new Vector2(0.513f * game.Width, 0.40f * game.Height)
-			};
-			var shopkeeperButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
-
 			movingComponents = new List<Component>(optionalEntrances)
 			{
 				new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player),
-				new Shopkeeper(game, this, shopkeeperSprite, shopkeeperButton, player),
 				new Sprite(Textures["box"], g.Scale)
 				{
 					Position = new Vector2(0.813f*game.Width,0.55f*game.Height)
@@ -90,6 +78,8 @@ namespace GameProject.States
 				},
 				player,
 			};
+
+			SpawnShopkeeper(new Vector2(0.513f * game.Width, 0.4f * game.Height));
 
 			var trainingDummyAnimations = new Dictionary<string, Animation>()
 			{

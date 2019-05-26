@@ -111,7 +111,7 @@ namespace GameProject.Inventory
 						}
 					}
 					if (Item.IsStackable)
-						spriteBatch.DrawString(font, Quantity.ToString(), Position, Color.Black);
+						spriteBatch.DrawString(font, Item.Quantity.ToString(), Position, Color.Black);
 				}
 				if (invalidUseTime > 0)
 				{
