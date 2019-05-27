@@ -36,7 +36,13 @@ namespace GameProject.Sprites
 			debuggerFont = debugFont;
 			animations["FastAttack"].OnAnimationEnd = OnFastAttackEnd;
 			animations["NormalAttack"].OnAnimationEnd = OnNormalAttackEnd;
+			animations["Die"].OnAnimationEnd = Dead;
 			attackRange = 40f * scale;
+		}
+
+		private void Dead(object sender, EventArgs e)
+		{
+			DyingAnimationFinished = true;
 		}
 
 		private void OnNormalAttackEnd(object sender, EventArgs e)
@@ -55,9 +61,12 @@ namespace GameProject.Sprites
 
 		public override void Update(GameTime gameTime)
 		{
-			ShieldBlocking();
-			ManageAttacks(gameTime);
-			BlockMovementWhileAttackingAndShielding();
+			if(!IsDead)
+			{
+				ShieldBlocking();
+				ManageAttacks(gameTime);
+				BlockMovementWhileAttackingAndShielding();
+			}
 			base.Update(gameTime);
 		}
 
@@ -289,7 +298,11 @@ namespace GameProject.Sprites
         }
 		protected override void PlayAnimations()
 		{
-			if (Velocity.X > 0)
+			if (IsDead && DyingAnimationFinished)
+				animationManager.Play(animations["Dead"]);
+			else if (IsDead)
+				animationManager.Play(animations["Die"]);
+			else if (Velocity.X > 0)
 				animationManager.Play(animations["WalkRight"]);
 			else if (Velocity.X < 0)
 				animationManager.Play(animations["WalkLeft"]);

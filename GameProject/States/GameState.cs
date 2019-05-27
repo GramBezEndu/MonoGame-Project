@@ -53,6 +53,7 @@ namespace GameProject.States
 				//Check for enemies aggro and update enemies
 				foreach (var e in enemies)
 				{
+					//Order 1.IsPlayerClose 2.Update (due to Velocity, we might change it to call IsPlayerClose in Update)
 					e.IsPlayerClose(this.player);
 					e.Update(gameTime);
 				}

@@ -18,5 +18,9 @@ namespace GameProject.Sprites
 			base.Update(gameTime);
 			Health = Int32.MaxValue;
 		}
+		protected override void PlayAnimations()
+		{
+			//We do not play any animations in Dummy (yet)
+		}
 	}
 }

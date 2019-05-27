@@ -22,5 +22,10 @@ namespace GameProject.Sprites
 		{
 			base.Update(gameTime);
 		}
+
+		protected override void PlayAnimations()
+		{
+			//throw new NotImplementedException();
+		}
 	}
 }

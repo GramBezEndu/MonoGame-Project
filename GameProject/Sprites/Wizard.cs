@@ -19,5 +19,9 @@ namespace GameProject.Sprites
 			animationManager = new AnimationManager(a.First().Value);
 			//Scale = scale;
 		}
+		protected override void PlayAnimations()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

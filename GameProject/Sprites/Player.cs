@@ -26,6 +26,7 @@ namespace GameProject.Sprites
 			sprintDistance = baseSprintDistance;
 			gameState = currentGameState;
 		}
+
 		protected Input input;
 		protected float baseMoveDistance;
 		protected float baseSprintDistance;
@@ -35,6 +36,8 @@ namespace GameProject.Sprites
 		public GameState gameState;
 		protected bool canSprint = true;
 		protected bool CanMove = true;
+		public bool IsDead { get; protected set; }
+		protected bool DyingAnimationFinished;
 		/// <summary>
 		/// Attack range for diffrent classes
 		/// </summary>
@@ -58,36 +61,53 @@ namespace GameProject.Sprites
 		public HealthBar HealthBar { get; set; }
 		public override void Update(GameTime gameTime)
 		{
-			//Health regen
-			if (HealthToRestore > 0)
-				HealthRegenTimer.Enabled = true;
-			else
-				HealthRegenTimer.Enabled = false;
-			HealthRegen(gameTime);
-			//Update keyboard states
-			input.Update(gameTime);
-			//Hide/Show inventory (keyboard input)
-			HideShowInventory();
-			//Player movement (keyboard input)
-			Move();
-			//Check collision with walls etc.
-			CheckCollision();
+			if (!IsDead)
+			{
+				//Health regen
+				if (HealthToRestore > 0)
+					HealthRegenTimer.Enabled = true;
+				else
+					HealthRegenTimer.Enabled = false;
+				HealthRegen(gameTime);
+				//Update keyboard states
+				input.Update(gameTime);
+				//Hide/Show inventory (keyboard input)
+				HideShowInventory();
+				//Player movement (keyboard input)
+				Move();
+				//Check collision with walls etc.
+				CheckCollision();
+			}
 			//Play animations
-			PlayAnimations();
 			animationManager.Update(gameTime);
-			Position += Velocity;
-			//Reset velocity after updating position
-			Velocity = Vector2.Zero;
-			HealthBar.Update(gameTime);
-			InventoryManager.Update(gameTime);
-			//Update player movement speed bonus
-			moveDistance = (1 + InventoryManager.EquipmentManager.MovementSpeedBonus) * baseMoveDistance;
-			sprintDistance = (1 + InventoryManager.EquipmentManager.MovementSpeedBonus) * baseSprintDistance;
+			PlayAnimations();
+			if(!IsDead)
+			{
+				Position += Velocity;
+				//Reset velocity after updating position
+				Velocity = Vector2.Zero;
+
+				HealthBar.Update(gameTime);
+
+				InventoryManager.Update(gameTime);
+				//Update player movement speed bonus
+				moveDistance = (1 + InventoryManager.EquipmentManager.MovementSpeedBonus) * baseMoveDistance;
+				sprintDistance = (1 + InventoryManager.EquipmentManager.MovementSpeedBonus) * baseSprintDistance;
+				//Die (should be after updating health bar)
+				if (HealthBar.Health.CurrentHealth <= 0)
+					Die();
+			}
 		}
+
+		protected void Die()
+		{
+			IsDead = true;
+		}
+
 		private void HealthRegen(GameTime gameTime)
 		{
 			HealthRegenTimer.Update(gameTime);
-			//Evemt activated
+			//Event activated
 			if (HealthRegenTimer.CurrentTime <= 0)
 			{
 				HealthToRestore -= healthRegen;
@@ -117,8 +137,11 @@ namespace GameProject.Sprites
 		/// <param name="x"></param>
 		public void GetDamage(int x)
 		{
-			int dmg = (int)(x * (1f - this.InventoryManager.EquipmentManager.DamageReduction));
-			this.HealthBar.Health.CurrentHealth -= dmg;
+			if(!IsDead)
+			{
+				int dmg = (int)(x * (1f - this.InventoryManager.EquipmentManager.DamageReduction));
+				this.HealthBar.Health.CurrentHealth -= dmg;
+			}
 		}
 
 		private void HideShowInventory()
@@ -170,15 +193,17 @@ namespace GameProject.Sprites
 			}
 		}
 
-		protected virtual void PlayAnimations()
-		{
-			if (Velocity.X > 0)
-				animationManager.Play(animations["WalkRight"]);
-			else if (Velocity.X < 0)
-				animationManager.Play(animations["WalkLeft"]);
-			else
-				animationManager.Play(animations["Idle"]);
-		}
+		protected abstract void PlayAnimations();
+
+		//protected virtual void PlayAnimations()
+		//{
+		//	if (Velocity.X > 0)
+		//		animationManager.Play(animations["WalkRight"]);
+		//	else if (Velocity.X < 0)
+		//		animationManager.Play(animations["WalkLeft"]);
+		//	else
+		//		animationManager.Play(animations["Idle"]);
+		//}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			animationManager.Draw(spriteBatch);

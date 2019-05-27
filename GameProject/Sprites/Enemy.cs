@@ -86,23 +86,30 @@ namespace GameProject.Sprites
 				//We are already attacking -> take no action (return)
 				if (isAttacking)
 					return;
+				//player is dead -> take no action (return)
+				else if (player.IsDead)
+					return;
 				//We can start attacking
-				else if(this.IsTouching(player))
+				else if (this.IsTouching(player))
 				{
 					isAttacking = true;
 					return;
 				}
 				//We need to run to player
-				else if(player.Position.X < Position.X)
+				else if (player.Position.X < Position.X)
 				{
-					Position -= new Vector2(runStepDistance, 0);
+					Velocity = new Vector2(-runStepDistance, 0);
+					//Position -= new Vector2(runStepDistance, 0);
 				}
-				else if(player.Position.X > Position.X)
+				else if (player.Position.X > Position.X)
 				{
-					Position += new Vector2(runStepDistance, 0);
+					Velocity = new Vector2(runStepDistance, 0);
+					//Position += new Vector2(runStepDistance, 0);
 				}
 			}
 		}
+
+		protected abstract void PlayAnimations();
 
 		public override void Update(GameTime gameTime)
 		{
@@ -111,7 +118,10 @@ namespace GameProject.Sprites
 				IsDead = true;
 			}
 			DamageReceiveTimer.Update(gameTime);
-			base.Update(gameTime);
+			animationManager.Update(gameTime);
+			PlayAnimations();
+			Position += Velocity;
+			Velocity = Vector2.Zero;
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{

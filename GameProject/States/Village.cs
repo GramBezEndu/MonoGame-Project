@@ -234,6 +234,8 @@ namespace GameProject.States
 		{
 			var animations = new Dictionary<string, Animation>()
 						{
+							{"Die", new Animation(Textures["Die"], 3, game.Scale)},
+							{"Dead", new Animation(Textures["Dead"], 1, game.Scale)},
 							{"Idle", new Animation(content.Load<Texture2D>("Warrior"), 1, game.Scale) },
 							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, game.Scale)},
 							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, game.Scale) },

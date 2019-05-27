@@ -47,10 +47,8 @@ namespace GameProject.Sprites
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			animationManager.Update(gameTime);
-			PlayAnimations();
 		}
-		private void PlayAnimations()
+		protected override void PlayAnimations()
 		{
 			if (IsDead && DyingAnimationFinished)
 				animationManager.Play(animations["Dead"]);
@@ -58,7 +56,8 @@ namespace GameProject.Sprites
 				animationManager.Play(animations["Die"]);
 			else if (isAttacking)
 				animationManager.Play(animations["Attack"]);
-			else if (AgroActivated)
+			//If enemy is moving
+			else if (Velocity != Vector2.Zero)
 				animationManager.Play(animations["Run"]);
 			else
 				animationManager.Play(animations["Idle"]);

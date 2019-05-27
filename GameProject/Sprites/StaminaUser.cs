@@ -12,7 +12,7 @@ using GameProject.States;
 
 namespace GameProject
 {
-	public class StaminaUser : Player
+	public abstract class StaminaUser : Player
 	{
 		GameTimer StaminaRegenTimer = new GameTimer(1f, true);
 		//Restore x stamina every tick
@@ -23,18 +23,21 @@ namespace GameProject
 		{
 			base.Update(gameTime);
 			//Stamina regen
-			StaminaRegenTimer.Update(gameTime);
-			if (StaminaRegenTimer.CurrentTime <= 0)
+			if(!IsDead)
 			{
-				if (StaminaBar.Stamina.CurrentStamina + staminaRegen < StaminaBar.Stamina.MaxStamina)
+				StaminaRegenTimer.Update(gameTime);
+				if (StaminaRegenTimer.CurrentTime <= 0)
 				{
-					StaminaBar.Stamina.CurrentStamina += staminaRegen;
+					if (StaminaBar.Stamina.CurrentStamina + staminaRegen < StaminaBar.Stamina.MaxStamina)
+					{
+						StaminaBar.Stamina.CurrentStamina += staminaRegen;
+					}
+					else
+					{
+						StaminaBar.Stamina.CurrentStamina = StaminaBar.Stamina.MaxStamina;
+					}
+					StaminaRegenTimer.Start();
 				}
-				else
-				{
-					StaminaBar.Stamina.CurrentStamina = StaminaBar.Stamina.MaxStamina;
-				}
-				StaminaRegenTimer.Start();
 			}
 		}
 	}
