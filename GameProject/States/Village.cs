@@ -76,7 +76,7 @@ namespace GameProject.States
 				{"Idle", new Animation(content.Load<Texture2D>("TrainingDummy"), 1, game.Scale)}
 			};
 
-			enemies.Add(new TrainingDummy(game, this, Font, trainingDummyAnimations)
+			enemies.Add(new TrainingDummy(game, this, Font, trainingDummyAnimations, player)
 			{
 				Position = new Vector2(0.95f * game.Width, 0.4f * game.Height)
 			}
@@ -101,6 +101,7 @@ namespace GameProject.States
 				Click = ExitClick
 				}
 			};
+			player.Gold = 300;
 		}
 
 		private void AddCommonPlayerUiComponents()

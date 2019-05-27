@@ -36,24 +36,30 @@ namespace GameProject.Sprites
 		private int lastDamageReceived = 0;
 		private bool lastDamageCriticalHit;
 		public bool AgroActivated { get; private set; }
-		public int Health { get; protected set; }
-        /// <summary>
-        /// Game reference for Random numbers
-        /// </summary>
-        protected Game1 game;
+		public int Health { get; protected set; } = Int32.MaxValue;
+		/// <summary>
+		/// Game reference for Random numbers
+		/// </summary>
+		protected Game1 game;
         /// <summary>
         /// Game state reference to drop items
         /// </summary>
         protected GameState gameState;
+		/// <summary>
+		/// Player reference
+		/// </summary>
+		protected Player player { get; set; }
 		protected bool Melee;
-		public Enemy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a) : base(a)
+		protected int damageMin = Int32.MaxValue;
+		protected int damageMax = Int32.MaxValue;
+		public Enemy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a, Player p) : base(a)
 		{
-			Health = Int32.MaxValue;
 			font = f;
             game = g;
             gameState = gs;
+			player = p;
 			agroRange = 600f * g.Scale;
-			runStepDistance = 4.5f * g.Scale;
+			runStepDistance = 2.5f * g.Scale;
 		}
 		/// <summary>
 		///Check if player is close (in agro range [we check for X axis only]) then perform action (probably run enemy to player)
@@ -62,22 +68,28 @@ namespace GameProject.Sprites
 		{
 			if (IsDead)
 				return;
+			//If player is close activate the aggro
 			if (p.Position.X > this.Position.X - agroRange && p.Position.X < this.Position.X + agroRange)
 			{
 				AgroActivated = true;
-				RunToPlayer(p);
 			}
+			if (AgroActivated && Melee)
+				RunToPlayer(p);
 		}
 		/// <summary>
 		/// Run to player if aggro was activated
 		/// </summary>
 		public void RunToPlayer(Player player)
 		{
-			if(Melee && AgroActivated && !IsDead)
+			if(AgroActivated)
 			{
-				//We can attack
-				if(this.IsTouching(player))
+				//We are already attacking -> take no action (return)
+				if (isAttacking)
+					return;
+				//We can start attacking
+				else if(this.IsTouching(player))
 				{
+					isAttacking = true;
 					return;
 				}
 				//We need to run to player
@@ -123,7 +135,18 @@ namespace GameProject.Sprites
 			}
 		}
 
-		public void DealDmg(int dmg, bool criticalHit)
+		protected void Attack(object sender, EventArgs e)
+		{
+			isAttacking = false;
+			player.GetDamage(game.RandomNumber(damageMin, damageMax));
+		}
+
+		/// <summary>
+		/// Get damage, Note: getting damage activates aggro
+		/// </summary>
+		/// <param name="dmg"></param>
+		/// <param name="criticalHit"></param>
+		public void GetDamage(int dmg, bool criticalHit)
 		{
 			//We do not want to attack a dead enemy
 			if (IsDead)
@@ -131,6 +154,7 @@ namespace GameProject.Sprites
 			Health -= dmg;
 			lastDamageReceived = dmg;
 			lastDamageCriticalHit = criticalHit;
+			AgroActivated = true;
 			DamageReceiveTimer.Start();
 		}
 	}

@@ -110,7 +110,7 @@ namespace GameProject
 					}
 					if(s.Item.GetType() == i.GetType())
 					{
-						s.Quantity += i.Quantity;
+						s.Item.Quantity += i.Quantity;
 						return;
 					}
 				}
@@ -118,8 +118,9 @@ namespace GameProject
 				{
 					if (s.Item == null)
 					{
-						s.Item = i;
+						s.Item = (Item)i.Clone();
 						s.Quantity = i.Quantity;
+						s.Item.Quantity = i.Quantity;
 						return;
 					}
 				}

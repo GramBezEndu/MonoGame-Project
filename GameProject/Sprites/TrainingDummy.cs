@@ -12,7 +12,7 @@ namespace GameProject.Sprites
 {
 	public class TrainingDummy : Enemy
 	{
-		public TrainingDummy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a) : base(g, gs, f, a){ }
+		public TrainingDummy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a, Player p) : base(g, gs, f, a, p){ }
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);

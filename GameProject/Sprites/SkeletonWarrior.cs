@@ -14,17 +14,15 @@ namespace GameProject.Sprites
 {
 	public class SkeletonWarrior : Enemy
 	{
-        /// <summary>
-        /// Player reference
-        /// </summary>
-        private Player player { get; set; }
 		private bool DyingAnimationFinished;
-		public SkeletonWarrior(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a, Player p) : base(g, gs, f, a)
+		public SkeletonWarrior(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a, Player p) : base(g, gs, f, a, p)
 		{
 			Health = 15;
-            player = p;
+			animations["Attack"].OnAnimationEnd = Attack;
 			animations["Die"].OnAnimationEnd = Die;
 			Melee = true;
+			damageMin = 3;
+			damageMax = 5;
 		}
 
 		private void Die(object sender, EventArgs e)
@@ -58,6 +56,8 @@ namespace GameProject.Sprites
 				animationManager.Play(animations["Dead"]);
 			else if (IsDead)
 				animationManager.Play(animations["Die"]);
+			else if (isAttacking)
+				animationManager.Play(animations["Attack"]);
 			else if (AgroActivated)
 				animationManager.Play(animations["Run"]);
 			else

@@ -81,9 +81,18 @@ namespace GameProject.States
         /// Spawn 3 skeleton warriors (in the beginning of the level)
         /// </summary>
         /// <param name="animations"></param>
-        protected void SpawnWarriorsGroup(Dictionary<string, Animation> animations)
+        protected void SpawnWarriorsGroup()
         {
-            for (int i = 0; i < 3; i++)
+			//skeleton animations
+			var animations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
+				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Attack"), 3, game.Scale) },
+				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, game.Scale, 0.5f) },
+				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale, 0.5f, false) },
+				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, game.Scale) }
+			};
+			for (int i = 0; i < 3; i++)
             {
                 enemies.Add(new SkeletonWarrior(game, this, Font, (animations), player)
                 {
@@ -230,12 +239,12 @@ namespace GameProject.States
 						multiplier = game.RandomCriticalMultiplier();
 						dmg = (int)(dmg * multiplier);
 						//Deal damage to enemy
-						e.DealDmg(dmg, true);
+						e.GetDamage(dmg, true);
 					}
 					//Was not critical
 					else
 					{
-						e.DealDmg(dmg, false);
+						e.GetDamage(dmg, false);
 					}
 				}
 			}
@@ -254,7 +263,7 @@ namespace GameProject.States
 				if (player.IsTouching(e))
 				{
 					int dmg = game.RandomNumber(player.InventoryManager.EquipmentManager.DamageMin, player.InventoryManager.EquipmentManager.DamageMax);
-					e.DealDmg(dmg, false);
+					e.GetDamage(dmg, false);
 				}
 			}
 		}

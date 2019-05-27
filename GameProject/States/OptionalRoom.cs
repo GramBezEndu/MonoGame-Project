@@ -25,14 +25,6 @@ namespace GameProject.States
 			var optionalEntranceTexture = content.Load<Texture2D>("OptionalEntrance");
 			var pauseBorderTexture = content.Load<Texture2D>("PauseBorder");
 			var buttonTexture = content.Load<Texture2D>("Button");
-            //skeleton animations
-            var skeletonWarriorAnimations = new Dictionary<string, Animation>()
-                        {
-                            {"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
-                            {"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, game.Scale, 0.5f) },
-							{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale, 0.5f, false) },
-							{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, game.Scale) }
-						};
             #endregion
             player = p;
 			oldPlayerPosition = player.Position;
@@ -60,7 +52,7 @@ namespace GameProject.States
                 //Monsters
                 if (value <= 70)
                 {
-                    SpawnWarriorsGroup(skeletonWarriorAnimations);
+                    SpawnWarriorsGroup();
                 }
                 else if (value <=85)
                 {
@@ -77,7 +69,7 @@ namespace GameProject.States
                 //Monsters
                 if(value <= 85)
                 {
-                    SpawnWarriorsGroup(skeletonWarriorAnimations);
+                    SpawnWarriorsGroup();
                 }
                 //Treasure chest
                 else

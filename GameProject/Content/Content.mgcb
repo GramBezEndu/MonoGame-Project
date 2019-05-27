@@ -1700,6 +1700,18 @@
 /processorParam:TextureFormat=Color
 /build:Shopkeeper.png
 
+#begin Skeleton/Warrior/Attack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Skeleton/Warrior/Attack.png
+
 #begin Skeleton/Warrior/Dead.png
 /importer:TextureImporter
 /processor:TextureProcessor

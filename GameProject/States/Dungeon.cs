@@ -103,16 +103,7 @@ namespace GameProject.States
                 },
             };
 
-            //skeleton animations
-            var animations = new Dictionary<string, Animation>()
-                        {
-                            {"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
-                            {"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, game.Scale, 0.5f) },
-							{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale, 0.5f, false) },
-							{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, game.Scale) }
-						};
-
-            SpawnWarriorsGroup(animations);
+            SpawnWarriorsGroup();
 
             //Wall at beginning of level
             Sprite wall = new Sprite(wallTexture, g.Scale)
