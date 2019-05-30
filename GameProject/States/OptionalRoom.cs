@@ -54,9 +54,10 @@ namespace GameProject.States
                 {
                     SpawnWarriorsGroup();
                 }
+				//Mysterious chest
                 else if (value <=85)
                 {
-                    SpawnMysteriousChest(new Vector2(0.5f * game.Width, 0.65f * game.Height));
+                    SpawnMysteriousChest(new Vector2(0.5f * game.Width, 0.82f * game.Height));
                 }
                 else
                 {
@@ -101,9 +102,15 @@ namespace GameProject.States
 			}
 			);
 
-            //foreach (var x in enemies)
-            //    movingComponents.Add(x);
-            movingComponents.Add(player);
+			collisionSprites.Add(new Sprite(Textures["Wall2"], g.Scale)
+			{
+				Position = new Vector2(1.2f * game.Width, 0)
+			}
+);
+
+			//foreach (var x in enemies)
+			//    movingComponents.Add(x);
+			movingComponents.Add(player);
 
 			pausedComponents = new List<Component>
 			{
