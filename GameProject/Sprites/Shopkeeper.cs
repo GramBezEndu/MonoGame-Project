@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using GameProject.Controls;
 using GameProject.Inventory;
+using GameProject.Items;
 
 namespace GameProject.Sprites
 {
@@ -27,8 +28,17 @@ namespace GameProject.Sprites
 			};
 			//Set item to slot 1
 			slotOne.Item = new HealthPotion(gs.Textures["HealthPotion"], g.Scale);
+			var slotTwo = new ShoppingSlot(gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Textures["Gold"], gs.Font, g.Scale)
+			{
+				Prize = 5000,
+				Hidden = true,
+				//Position should be related to window (that pop up while shopping)
+				Position = new Vector2(background.Position.X + slotOne.Width, background.Position.Y)
+			};
+			slotTwo.Item = new PurificationStone(gs.Textures["PurificationStone"], g.Scale);
 			//Add special elements to window here
 			slots.Add(slotOne);
+			slots.Add(slotTwo);
             //Apply changes to state
             gs.AddUiElements(UiElements);
 			gs.AddUiElements(slots);

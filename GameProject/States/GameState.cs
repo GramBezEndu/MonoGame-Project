@@ -218,7 +218,7 @@ namespace GameProject.States
         }
 
 		/// <summary>
-		/// Note: Training dummy is not treated like enemy in this method
+		/// Note: Training dummy is not treated like an enemy in this method
 		/// </summary>
 		/// <returns></returns>
 		public bool AllEnemiesAreKilled()

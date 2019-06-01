@@ -24,7 +24,7 @@ namespace GameProject.Sprites
             var addRemoveScroll = new Button(gs.Textures["Button"], gs.Font, g.Scale)
             {
                 Position = pos,
-                Text = "Add/Remove Scroll",
+                Text = "Add Scroll",
                 Hidden = true
             };
             UiElements.Add(addRemoveScroll);
