@@ -17,18 +17,21 @@ namespace GameProject.Sprites
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			//Restore players HP, mana and stamina if player is near
-			if(player.IsTouching(this.MainSprite))
+			//Restore players HP, mana and stamina if player is near && all enemies are killed
+			if(GameState.AllEnemiesAreKilled())
 			{
-				player.HealthBar.Health.CurrentHealth = player.HealthBar.Health.MaxHealth;
-				if (player is StaminaUser)
+				if (player.IsTouching(this.MainSprite))
 				{
-					(player as StaminaUser).StaminaBar.Stamina.CurrentStamina = (player as StaminaUser).StaminaBar.Stamina.MaxStamina;
-				}
-				else if (player is ManaUser)
-				{
-					throw new NotImplementedException();
-					int x;
+					player.HealthBar.Health.CurrentHealth = player.HealthBar.Health.MaxHealth;
+					if (player is StaminaUser)
+					{
+						(player as StaminaUser).StaminaBar.Stamina.CurrentStamina = (player as StaminaUser).StaminaBar.Stamina.MaxStamina;
+					}
+					else if (player is ManaUser)
+					{
+						throw new NotImplementedException();
+						int x;
+					}
 				}
 			}
 		}

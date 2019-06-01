@@ -216,6 +216,24 @@ namespace GameProject.States
                 }
             }
         }
+
+		/// <summary>
+		/// Note: Training dummy is not treated like enemy in this method
+		/// </summary>
+		/// <returns></returns>
+		public bool AllEnemiesAreKilled()
+		{
+			foreach(var e in enemies)
+			{
+				//Skip training dummy
+				if (e is TrainingDummy)
+					continue;
+				if (!e.IsDead)
+					return false;
+			}
+			return true;
+		}
+
         /// <summary>
         /// Add UI elements (they are displayed in UI spritebatch)
         /// </summary>

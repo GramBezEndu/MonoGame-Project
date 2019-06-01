@@ -23,7 +23,7 @@ namespace GameProject.Sprites
 		/// <summary>
 		/// Determines if enemy is dead (note: enemy is dead equals True before corpses has fallen)
 		/// </summary>
-		protected bool IsDead;
+		public bool IsDead { get; protected set; }
 		private SpriteFont font;
 		/// <summary>
 		/// For how long we will be displaying how much damage enemy received
