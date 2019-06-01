@@ -147,6 +147,19 @@ namespace GameProject.States
 			var button = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
 			movingComponents.Add(new StatueOfGods(game, this, Statue, button, player));
 		}
+		protected void SpawnTrainingDummy(Vector2 position)
+		{
+			var trainingDummyAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(Textures["TrainingDummy"], 1, game.Scale)}
+			};
+
+			enemies.Add(new TrainingDummy(game, this, Font, trainingDummyAnimations, player)
+			{
+				Position = position
+			}
+			);
+		}
 
         protected void SpawnMysteriousChest(Vector2 position)
         {

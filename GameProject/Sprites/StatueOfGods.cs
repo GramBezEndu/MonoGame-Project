@@ -30,7 +30,7 @@ namespace GameProject.Sprites
 					else if (player is ManaUser)
 					{
 						throw new NotImplementedException();
-						int x;
+						return;
 					}
 				}
 			}

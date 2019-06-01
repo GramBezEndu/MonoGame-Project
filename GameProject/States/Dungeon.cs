@@ -16,7 +16,6 @@ namespace GameProject.States
 	{
 		float dungeonLevelStringTimer = 2f;
 		int currentLevel;
-		SpriteFont font;
 		string dungeonLevelText;
 		Door nextLevelEntrance;
         //Note:
@@ -28,29 +27,22 @@ namespace GameProject.States
 		int optionalRoomsQuantity;
 		public Dungeon(Game1 g, GraphicsDevice gd, ContentManager c, Player p, int level = 1) : base(g, gd, c)
         {
-            #region variables
-            var background = content.Load<Texture2D>("DungeonBackground");
-            font = content.Load<SpriteFont>("Font");
-            var pauseBorderTexture = content.Load<Texture2D>("PauseBorder");
-            var buttonTexture = content.Load<Texture2D>("Button");
-            var dungeonEntranceTexture = content.Load<Texture2D>("DungeonEntrance");
-            var optionalEntranceTexture = content.Load<Texture2D>("OptionalEntrance");
-            var wallTexture = content.Load<Texture2D>("Wall");
-            #endregion
             currentLevel = level;
             dungeonLevelText = String.Format("Dungeon Level {0}", currentLevel);
             player = p;
+			//Reset player position
             player.Position = new Vector2(0.05f * game.Width, 0.6f * game.Height);
 
             //Roll a level width
             levelWidth = g.Random.Next((currentLevel + 10) / 5, (currentLevel + 10) / 2) * game.Width;
 
-            //Place next level entrance at the end
-            nextLevelEntrance = new Door(
+			//Place next level entrance at the end
+			nextLevelEntrance = new Door(
                 game,
                 this,
-                new Sprite(dungeonEntranceTexture, g.Scale)
-                {
+                new Sprite(Textures["DungeonEntrance"], g.Scale)
+
+				{
                     Position = new Vector2(levelWidth, 0.55f * game.Height)
                 },
                 new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale),
@@ -62,7 +54,7 @@ namespace GameProject.States
 			};
 
 			//Spawn shopkeeper, blacksmith & Statue of Gods at the end of the level
-			SpawnShopkeeper(new Vector2(levelWidth - 0.68f*game.Width, 0.59f*game.Height));
+			SpawnShopkeeper(new Vector2(levelWidth - 0.68f * game.Width, 0.59f * game.Height));
 			SpawnBlacksmith(new Vector2(levelWidth - 0.43f * game.Width, 0.5f * game.Height));
 			SpawnStatueOfGods(new Vector2(levelWidth - 0.22f * game.Width, 0.65f * game.Height));
 
@@ -73,7 +65,7 @@ namespace GameProject.States
             //Place entrances to optional rooms (can be less rooms than drawn if they are touching each other)
             for (int i = 0; i < optionalRoomsQuantity; i++)
             {
-                var temp = new Sprite(optionalEntranceTexture, g.Scale)
+                var temp = new Sprite(Textures["OptionalEntrance"], g.Scale)
                 {
                     Position = new Vector2(g.Random.Next(0, levelWidth), 0.55f * game.Height)
                 };
@@ -98,8 +90,8 @@ namespace GameProject.States
             //Static background
             staticComponents = new List<Component>
             {
-                new Sprite(background, g.Scale)
-                {
+                new Sprite(Textures["DungeonBackground"], g.Scale)
+				{
                     Position = new Vector2(0,0)
                 },
             };
@@ -107,7 +99,7 @@ namespace GameProject.States
             SpawnWarriorsGroup();
 
             //Wall at beginning of level
-            Sprite wall = new Sprite(wallTexture, g.Scale)
+            Sprite wall = new Sprite(Textures["Wall"], g.Scale)
             {
                 Position = new Vector2(-0.5f* game.Width, 0)
             };
@@ -128,18 +120,18 @@ namespace GameProject.States
 
             pausedComponents = new List<Component>
             {
-                new Sprite(pauseBorderTexture, g.Scale)
-                {
+                new Sprite(Textures["PauseBorder"], g.Scale)
+				{
                     Position = new Vector2(0, 0.63f * g.Height),
                 },
-                new Button(buttonTexture, font, g.Scale)
-                {
+                new Button(Textures["Button"], Font, g.Scale)
+				{
                 Text = "Main Menu",
                 Position = new Vector2(0.01f * g.Width, 0.7f * g.Height),
                 Click = MainMenuClick
                 },
-                new Button(buttonTexture, font, g.Scale)
-                {
+                new Button(Textures["Button"], Font, g.Scale)
+				{
                 Text = "Exit",
                 Position = new Vector2(0.01f * g.Width, 0.8f * g.Height),
                 Click = ExitClick
@@ -193,8 +185,8 @@ namespace GameProject.States
 			//Current dungeon level display text
 			if (dungeonLevelStringTimer > 0)
 			{
-                float halfTextWidth = font.MeasureString(dungeonLevelText).X/2;
-				spriteBatch.DrawString(font, dungeonLevelText, new Vector2(game.Width / 2 - halfTextWidth, game.Height / 3), Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+                float halfTextWidth = Font.MeasureString(dungeonLevelText).X/2;
+				spriteBatch.DrawString(Font, dungeonLevelText, new Vector2(game.Width / 2 - halfTextWidth, game.Height / 3), Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
 				//spriteBatch.DrawString(font, currentLevel.ToString(), new Vector2(game.Width / 2, game.Height / 2), Color.Red);
 			}
 			//paused UI

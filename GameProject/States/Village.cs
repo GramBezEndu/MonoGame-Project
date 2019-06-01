@@ -61,18 +61,8 @@ namespace GameProject.States
 
 			SpawnShopkeeper(new Vector2(0.3f * game.Width, 0.4f * game.Height));
 			SpawnBlacksmith(new Vector2(0.52f * game.Width, 0.33f * game.Height));
+			SpawnTrainingDummy(new Vector2(0.7f * game.Width, 0.4f * game.Height));
 			SpawnStatueOfGods(new Vector2(0.9f * game.Width, 0.47f * game.Height));
-
-			var trainingDummyAnimations = new Dictionary<string, Animation>()
-			{
-				{"Idle", new Animation(content.Load<Texture2D>("TrainingDummy"), 1, game.Scale)}
-			};
-
-			enemies.Add(new TrainingDummy(game, this, Font, trainingDummyAnimations, player)
-			{
-				Position = new Vector2(0.7f * game.Width, 0.4f * game.Height)
-			}
-			);
 
 			pausedComponents = new List<Component>
 			{
@@ -93,7 +83,6 @@ namespace GameProject.States
 				Click = ExitClick
 				}
 			};
-			player.Gold = 300;
 		}
 
 		private void AddCommonPlayerUiComponents()
