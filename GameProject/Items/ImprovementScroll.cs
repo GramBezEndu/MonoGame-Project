@@ -12,9 +12,11 @@ namespace GameProject.Items
         public float ImprovementPercent { get; protected set; }
         public ImprovementScroll(Game1 g, Texture2D t, float scale) : base(t, scale)
         {
-            ImprovementPercent = g.RandomNumber(20, 30);
+			int min = 10;
+			int max = 20;
+            ImprovementPercent = g.RandomNumber(min, max);
             Name = "Improvement Scroll";
-            Description = "Improves bonuses in item.\n" +
+            Description = "Improves bonuses in item by " + min.ToString() + "-" + max.ToString() + "%.\n" +
                 "Visit Blacksmith to use it.\n" +
                 "Scroll power: " + ImprovementPercent.ToString() + "%";
         }

@@ -11,12 +11,14 @@ namespace GameProject.Items
     {
         public LegendaryImprovementScroll(Game1 g, Texture2D t, float scale) : base(g, t, scale)
         {
-            ImprovementPercent = g.RandomNumber(40, 50);
+			int min = 21;
+			int max = 30;
+			ImprovementPercent = g.RandomNumber(min, max);
             //Update description
             Name = "Legendary Improvement Scroll";
-            Description = "Improves bonuses in item.\n" +
-            "Visit Blacksmith to use it.\n" +
-            "Scroll power: " + ImprovementPercent.ToString() + "%";
-        }
+			Description = "Improves bonuses in item by " + min.ToString() + "-" + max.ToString() + "%.\n" +
+				"Visit Blacksmith to use it.\n" +
+				"Scroll power: " + ImprovementPercent.ToString() + "%";
+		}
     }
 }
