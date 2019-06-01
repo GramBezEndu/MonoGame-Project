@@ -97,7 +97,7 @@ namespace GameProject.Inventory
 					if (isHovering)
 					{
 						descriptionAndNameBackground.Draw(gameTime, spriteBatch);
-						spriteBatch.DrawString(font, Item.Name, descriptionAndNameBackground.Position, Color.Gold);
+						spriteBatch.DrawString(font, Item.Name, descriptionAndNameBackground.Position, Color.Green);
 						if (Item.Description != null)
 						{
 							spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);

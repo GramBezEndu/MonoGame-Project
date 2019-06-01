@@ -10,7 +10,7 @@ namespace GameProject.Items
 {
 	public class StartingSword : Sword
 	{
-		public StartingSword(Texture2D t, float scale) : base(t, scale)
+		public StartingSword(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 			DamageMin = 7;
 			DamageMax = 10;

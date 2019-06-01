@@ -11,7 +11,7 @@ namespace GameProject.Items
 {
 	public abstract class Staff : Weapon
 	{
-		public Staff(Texture2D t, float scale) : base(t, scale)
+		public Staff(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 		}
 		public override bool Equip(Player p)

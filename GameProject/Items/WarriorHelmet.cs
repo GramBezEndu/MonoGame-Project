@@ -11,7 +11,7 @@ namespace GameProject.Items
 {
 	public abstract class WarriorHelmet : Helmet
 	{
-		public WarriorHelmet(Texture2D t, float scale) : base(t, scale)
+		public WarriorHelmet(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 		}
 		public override bool Equip(Player p)

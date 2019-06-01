@@ -53,6 +53,7 @@
     <Compile Include="Inventory\ArcherHelmetSlot.cs" />
     <Compile Include="Inventory\BootsSlot.cs" />
     <Compile Include="Inventory\BowSlot.cs" />
+    <Compile Include="Inventory\ImprovementScrollSlot.cs" />
     <Compile Include="Inventory\InventoryManager.cs" />
     <Compile Include="Inventory\InventorySlot.cs" />
     <Compile Include="Inventory\NecklaceSlot.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Items\StartingWarriorHelmet.cs" />
     <Compile Include="Items\Sword.cs" />
     <Compile Include="Inventory\SwordSlot.cs" />
+    <Compile Include="Items\UpgradeableWithScroll.cs" />
     <Compile Include="Items\WarriorBreastplate.cs" />
     <Compile Include="Items\WarriorHelmet.cs" />
     <Compile Include="Items\Weapon.cs" />

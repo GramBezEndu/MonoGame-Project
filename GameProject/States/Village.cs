@@ -168,10 +168,10 @@ namespace GameProject.States
 			{
 				(player as StaminaUser).StaminaBar = new StaminaBar(Textures["HealthBarBorder"], Textures["Stamina"], Font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
 			}
-			player.InventoryManager.AddItem(new StartingBow(Textures["StartingBow"], game.Scale));
-			player.InventoryManager.AddItem(new StartingArcherHelmet(Textures["StartingArcherHelmet"], game.Scale));
-			player.InventoryManager.AddItem(new StartingArcherBreastplate(Textures["StartingArcherBreastplate"], game.Scale));
-			player.InventoryManager.AddItem(new StartingBoots(Textures["StartingBoots"], game.Scale));
+			player.InventoryManager.AddItem(new StartingBow(gd, player, Textures["InventorySlot"], Font, Textures["StartingBow"], game.Scale));
+			player.InventoryManager.AddItem(new StartingArcherHelmet(gd, player, Textures["InventorySlot"], Font, Textures["StartingArcherHelmet"], game.Scale));
+			player.InventoryManager.AddItem(new StartingArcherBreastplate(gd, player, Textures["InventorySlot"], Font, Textures["StartingArcherBreastplate"], game.Scale));
+			player.InventoryManager.AddItem(new StartingBoots(gd, player, Textures["InventorySlot"], Font, Textures["StartingBoots"], game.Scale));
 
 			player.InventoryManager.EquipmentManager = new EquipmentManager(Textures["Inventory"],
 				Textures["InventorySlot"],
@@ -236,10 +236,14 @@ namespace GameProject.States
 			{
 				(player as StaminaUser).StaminaBar = new StaminaBar(Textures["HealthBarBorder"], Textures["Stamina"], Font, new Vector2(0.03f * game.Width, 0.95f * game.Height), game.Scale);
 			}
-			player.InventoryManager.AddItem(new StartingSword(Textures["StartingSword"], game.Scale));
-			player.InventoryManager.AddItem(new StartingWarriorHelmet(Textures["StartingWarriorHelmet"], game.Scale));
-			player.InventoryManager.AddItem(new StartingWarriorBreastplate(Textures["StartingWarriorBreastplate"], game.Scale));
-			player.InventoryManager.AddItem(new StartingBoots(Textures["StartingBoots"], game.Scale));
+			player.InventoryManager.AddItem(new StartingSword(gd, player, Textures["InventorySlot"], Font, Textures["StartingSword"], game.Scale));
+			//var startingSword = new StartingSword(gd, player, Textures["InventorySlot"], Font, Textures["StartingSword"], game.Scale);
+			//startingSword.ImprovementScrollSlot.Item = new ImprovementScroll(game, Textures["ImprovementScroll"], game.Scale);
+			//player.InventoryManager.AddItem(startingSword);
+			//startingSword.Upgrade(new ImprovementScroll(game, Textures["ImprovementScroll"], game.Scale));
+			player.InventoryManager.AddItem(new StartingWarriorHelmet(gd, player, Textures["InventorySlot"], Font, Textures["StartingWarriorHelmet"], game.Scale));
+			player.InventoryManager.AddItem(new StartingWarriorBreastplate(gd, player, Textures["InventorySlot"], Font, Textures["StartingWarriorBreastplate"], game.Scale));
+			player.InventoryManager.AddItem(new StartingBoots(gd, player, Textures["InventorySlot"], Font, Textures["StartingBoots"], game.Scale));
 			player.InventoryManager.AddItem(new StartingShield(Textures["StartingShield"], game.Scale));
 
 			player.InventoryManager.EquipmentManager = new EquipmentManager(Textures["Inventory"],

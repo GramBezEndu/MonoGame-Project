@@ -10,7 +10,7 @@ namespace GameProject.Items
 {
 	public class StartingBow : Bow
 	{
-		public StartingBow(Texture2D t, float scale) : base(t, scale)
+		public StartingBow(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 		}
 	}

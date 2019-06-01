@@ -10,7 +10,7 @@ namespace GameProject.Items
 {
 	public class StartingBoots : Boots
 	{
-		public StartingBoots(Texture2D t, float scale) : base(t, scale)
+		public StartingBoots(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 			DamageReduction = 0.05f;
 			MovementSpeed = 0.2f;

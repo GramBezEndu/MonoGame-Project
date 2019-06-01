@@ -74,6 +74,7 @@ namespace GameProject.States
                 bool canBeAdded = true;
                 foreach (var x in optionalEntrances)
                 {
+					//Bug: It can touch shopkeeper/statue of gods/blacksmith
                     //If it is touching any optional entrance or next level entrance it can't be added
                     if (temp.IsTouching(x.MainSprite) || temp.IsTouching(nextLevelEntrance.MainSprite))
                     {

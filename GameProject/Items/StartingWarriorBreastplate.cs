@@ -10,7 +10,7 @@ namespace GameProject.Items
 {
 	public class StartingWarriorBreastplate : WarriorBreastplate
 	{
-		public StartingWarriorBreastplate(Texture2D t, float scale) : base(t, scale)
+		public StartingWarriorBreastplate(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 			DamageReduction = 0.2f;
 			Description = "Damage Reduction: " + DamageReduction.ToString();

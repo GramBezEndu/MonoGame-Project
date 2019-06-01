@@ -11,7 +11,7 @@ namespace GameProject.Items
 {
 	public abstract class Bow : Weapon
 	{
-		public Bow(Texture2D t, float scale) : base(t, scale)
+		public Bow(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 		}
 		public override bool Equip(Player p)

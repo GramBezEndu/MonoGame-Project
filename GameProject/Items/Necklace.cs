@@ -12,7 +12,7 @@ namespace GameProject.Items
 {
 	public abstract class Necklace : Equippable
 	{
-		public Necklace(Texture2D t, float scale) : base(t, scale)
+		public Necklace(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(t, scale)
 		{
 		}
 		public override bool Equip(Player p)

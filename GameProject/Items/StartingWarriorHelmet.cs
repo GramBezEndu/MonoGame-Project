@@ -10,7 +10,7 @@ namespace GameProject.Items
 {
 	public class StartingWarriorHelmet : WarriorHelmet
 	{
-		public StartingWarriorHelmet(Texture2D t, float scale) : base(t, scale)
+		public StartingWarriorHelmet(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 			DamageReduction = 0.08f;
 			Description = "Damage Reduction " + DamageReduction.ToString();
