@@ -56,20 +56,12 @@ namespace GameProject.States
 
 			movingComponents = new List<Component>(optionalEntrances)
 			{
-				//new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player),
-				new Sprite(Textures["box"], g.Scale)
-				{
-					Position = new Vector2(0.813f*game.Width,0.55f*game.Height)
-				},
-				new Sprite(Textures["Anvil"], g.Scale)
-				{
-					Position = new Vector2(0.813f*game.Width,0.45f*game.Height)
-				},
 				player,
 			};
 
-			SpawnShopkeeper(new Vector2(0.513f * game.Width, 0.4f * game.Height));
-			SpawnBlacksmith(new Vector2(0.813f * game.Width, 0.33f * game.Height));
+			SpawnShopkeeper(new Vector2(0.3f * game.Width, 0.4f * game.Height));
+			SpawnBlacksmith(new Vector2(0.52f * game.Width, 0.33f * game.Height));
+			SpawnStatueOfGods(new Vector2(0.9f * game.Width, 0.47f * game.Height));
 
 			var trainingDummyAnimations = new Dictionary<string, Animation>()
 			{
@@ -78,7 +70,7 @@ namespace GameProject.States
 
 			enemies.Add(new TrainingDummy(game, this, Font, trainingDummyAnimations, player)
 			{
-				Position = new Vector2(0.95f * game.Width, 0.4f * game.Height)
+				Position = new Vector2(0.7f * game.Width, 0.4f * game.Height)
 			}
 			);
 

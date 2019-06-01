@@ -138,6 +138,16 @@ namespace GameProject.States
 			});
 		}
 
+		protected void SpawnStatueOfGods(Vector2 position)
+		{
+			var Statue = new Sprite(Textures["StatueOfGods"], game.Scale)
+			{
+				Position = position
+			};
+			var button = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
+			movingComponents.Add(new StatueOfGods(game, this, Statue, button, player));
+		}
+
         protected void SpawnMysteriousChest(Vector2 position)
         {
             var animations = new Dictionary<string, Animation>()

@@ -114,6 +114,7 @@
     <Compile Include="Sprites\Shopkeeper.cs" />
     <Compile Include="Sprites\SkeletonWarrior.cs" />
     <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="Sprites\StatueOfGods.cs" />
     <Compile Include="Sprites\TrainingDummy.cs" />
     <Compile Include="Stamina.cs" />
     <Compile Include="StaminaBar.cs" />
