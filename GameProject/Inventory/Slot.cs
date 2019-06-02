@@ -45,6 +45,8 @@ namespace GameProject.Inventory
 		protected string invalidUse;
 		protected Item _item;
 
+		protected string UpgradedItemString;
+
 		public Slot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(t, scale)
 		{
 			font = f;
@@ -91,8 +93,11 @@ namespace GameProject.Inventory
 				{
 					if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 					{
-						size.X = Math.Max(size.X, (Item as UpgradeableWithScroll).ImprovementScrollSlot.Width);
-						size.Y += (Item as UpgradeableWithScroll).ImprovementScrollSlot.Height;
+						//Set the message
+						UpgradedItemString = "Scroll Power: " + (Item as UpgradeableWithScroll).ImprovementScrollSlot.Item.ImprovementPercent * 100 + "%";
+						//Texture (Slot) width and height + string "Scroll Power: xx%"
+						size.X = Math.Max(size.X, (Item as UpgradeableWithScroll).ImprovementScrollSlot.Width + font.MeasureString(UpgradedItemString).X);
+						size.Y += Math.Max((Item as UpgradeableWithScroll).ImprovementScrollSlot.Height, font.MeasureString(UpgradedItemString).Y);
 					}
 				}
 				//Make texture
@@ -178,6 +183,11 @@ namespace GameProject.Inventory
 									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
 										descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y + font.MeasureString(Item.Description).Y);
 									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Draw(gameTime, spriteBatch);
+									//Draw improvement percent
+									spriteBatch.DrawString(font, UpgradedItemString, 
+										new Vector2(descriptionAndNameBackground.Position.X + (Item as UpgradeableWithScroll).ImprovementScrollSlot.Width,
+											descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y + font.MeasureString(Item.Description).Y), 
+										Color.Green);
 								}
 							}
 						}
@@ -191,6 +201,11 @@ namespace GameProject.Inventory
 									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
 										descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y);
 									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Draw(gameTime, spriteBatch);
+									//Draw improvement percent
+									spriteBatch.DrawString(font, UpgradedItemString,
+										new Vector2(descriptionAndNameBackground.Position.X + (Item as UpgradeableWithScroll).ImprovementScrollSlot.Width,
+											descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y),
+										Color.Green);
 								}
 							}
 						}

@@ -14,11 +14,13 @@ namespace GameProject.Items
         {
 			int min = 10;
 			int max = 20;
-            ImprovementPercent = g.RandomNumber(min, max);
+			//Make sure it is float
+			ImprovementPercent = g.RandomNumber(min, max)/100f;
             Name = "Improvement Scroll";
-            Description = "Improves bonuses in item by " + min.ToString() + "-" + max.ToString() + "%.\n" +
+			//We create special description for this item
+			Description = "Improves bonuses in item by " + min * 100 + "-" + max * 100 + "%.\n" +
                 "Visit Blacksmith to use it.\n" +
-                "Scroll power: " + ImprovementPercent.ToString() + "%";
+                "Scroll power: " + ImprovementPercent * 100 + "%";
         }
     }
 }

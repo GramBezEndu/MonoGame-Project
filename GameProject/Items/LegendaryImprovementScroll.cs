@@ -13,12 +13,13 @@ namespace GameProject.Items
         {
 			int min = 21;
 			int max = 30;
-			ImprovementPercent = g.RandomNumber(min, max);
-            //Update description
+			//Make sure it is float
+			ImprovementPercent = g.RandomNumber(min, max)/100f;
             Name = "Legendary Improvement Scroll";
-			Description = "Improves bonuses in item by " + min.ToString() + "-" + max.ToString() + "%.\n" +
+			//We create special description for this item
+			Description = "Improves bonuses in item by " + min * 100 + "-" + max * 100 + "%.\n" +
 				"Visit Blacksmith to use it.\n" +
-				"Scroll power: " + ImprovementPercent.ToString() + "%";
+				"Scroll power: " + ImprovementPercent * 100 + "%";
 		}
     }
 }

@@ -29,7 +29,22 @@ namespace GameProject.Items
 		public void Upgrade(ImprovementScroll improvementScroll)
 		{
 			ImprovementScrollSlot.Item = improvementScroll;
-
+			//Update attributes
+			//Remember to correctly round numbers
+			foreach(var a in Attributes.Keys.ToList())
+			{
+				if(a == "DamageMin" || a == "DamageMax")
+				{
+					//Round to int
+					Attributes[a] = (float)(Math.Round((1 + improvementScroll.ImprovementPercent) * Attributes[a]));
+				}
+				//Round to 2 decimal places
+				else
+				{
+					Attributes[a] = (float)(Math.Round((1 + improvementScroll.ImprovementPercent) * Attributes[a], 2));
+				}
+			}
+			UpdateDescription();
 		}
 	}
 }
