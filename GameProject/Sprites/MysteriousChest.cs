@@ -27,27 +27,36 @@ namespace GameProject.Sprites
             //Roll an item
             //Actual drop chance:
             //50% improvement scroll
-            //35% defence ring
-            //15% legendary improvement scroll
+            //10% defence ring
+			//10% damage ring
+            //30% legendary improvement scroll
             if (value <= 50)
             {
-                this.GameState.SpawnItem(
+                GameState.SpawnItem(
                 new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], MainSprite.Scale)
                 {
                     Position = MainSprite.Position
                 });
             }
-            else if (value <= 85)
+            else if (value <= 60)
             {
-                this.GameState.SpawnItem(
+                GameState.SpawnItem(
                 new DefenceRing(GameState.Textures["DefenceRing"], MainSprite.Scale)
                 {
                     Position = MainSprite.Position
                 });
             }
-            else
+			else if (value <= 70)
+			{
+				GameState.SpawnItem(
+				new DamageRing(GameState.Textures["DamageRing"], MainSprite.Scale)
+				{
+					Position = MainSprite.Position
+				});
+			}
+			else
             {
-                this.GameState.SpawnItem(
+                GameState.SpawnItem(
                 new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], MainSprite.Scale)
                 {
                     Position = MainSprite.Position

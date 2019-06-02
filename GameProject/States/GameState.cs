@@ -90,7 +90,7 @@ namespace GameProject.States
 				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
 				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Attack"), 3, game.Scale, 0.2f) },
 				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, game.Scale, 0.5f) },
-				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale, 0.5f, false) },
+				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale) },
 				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, game.Scale) }
 			};
 			for (int i = 0; i < 3; i++)

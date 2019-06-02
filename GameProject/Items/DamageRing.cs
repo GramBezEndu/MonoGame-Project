@@ -11,6 +11,7 @@ namespace GameProject.Items
 	{
 		public DamageRing(Texture2D t, float scale) : base(t, scale)
 		{
+			Name = "Damage Ring";
 			Attributes["BonusDamage"] = 0.15f;
 			UpdateDescription();
 		}

@@ -38,7 +38,6 @@ namespace GameProject.Items
 		/// </summary>
 		public virtual void UpdateDescription()
 		{
-			Description = "";
 			//new Dictionary containing only attributes that have real values (not 0)
 			Dictionary<string, float> temp = Attributes.Where(p => p.Value != 0).ToDictionary(p => p.Key, p => p.Value);
 			foreach(var a in temp)
