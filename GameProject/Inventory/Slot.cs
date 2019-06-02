@@ -87,12 +87,12 @@ namespace GameProject.Inventory
 					size.X = Math.Max(font.MeasureString(Item.Description).X, font.MeasureString(Item.Name).X);
 					size.Y += font.MeasureString(Item.Description).Y;
 				}
-				if(Item.ImprovementScrollSlot != null)
+				if(Item is UpgradeableWithScroll)
 				{
-					if(Item.ImprovementScrollSlot.Item != null)
+					if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 					{
-						size.X = Math.Max(size.X, Item.ImprovementScrollSlot.Width);
-						size.Y += Item.ImprovementScrollSlot.Height;
+						size.X = Math.Max(size.X, (Item as UpgradeableWithScroll).ImprovementScrollSlot.Width);
+						size.Y += (Item as UpgradeableWithScroll).ImprovementScrollSlot.Height;
 					}
 				}
 				//Make texture
@@ -153,10 +153,10 @@ namespace GameProject.Inventory
 					if (isHovering)
 					{
 						descriptionAndNameBackground.Draw(gameTime, spriteBatch);
-						if(Item.ImprovementScrollSlot != null)
+						if(Item is UpgradeableWithScroll)
 						{
-							//item has scroll - goldenRot
-							if (Item.ImprovementScrollSlot.Item != null)
+							//item has scroll - goldenrod
+							if ((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 								spriteBatch.DrawString(font, Item.Name, descriptionAndNameBackground.Position, Color.Goldenrod);
 							//Item is upgradeable - blue
 							else
@@ -171,26 +171,26 @@ namespace GameProject.Inventory
 						if (Item.Description != null)
 						{
 							spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);
-							if (Item.ImprovementScrollSlot != null)
+							if (Item is UpgradeableWithScroll)
 							{
-								if(Item.ImprovementScrollSlot.Item != null)
+								if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 								{
-									Item.ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
+									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
 										descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y + font.MeasureString(Item.Description).Y);
-									Item.ImprovementScrollSlot.Draw(gameTime, spriteBatch);
+									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Draw(gameTime, spriteBatch);
 								}
 							}
 						}
 						//No desc
 						else
 						{
-							if (Item.ImprovementScrollSlot != null)
+							if (Item is UpgradeableWithScroll)
 							{
-								if(Item.ImprovementScrollSlot.Item != null)
+								if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 								{
-									Item.ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
+									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
 										descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y);
-									Item.ImprovementScrollSlot.Draw(gameTime, spriteBatch);
+									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Draw(gameTime, spriteBatch);
 								}
 							}
 						}

@@ -11,8 +11,8 @@ namespace GameProject.Items
     {
         public DefenceRing(Texture2D t, float scale) : base(t, scale)
         {
-            DamageReduction = 0.25f;
-            Description = "Damage Reduction: " + DamageReduction.ToString();
+			Attributes["DamageReduction"] = 0.25f;
+            Description = "Damage Reduction: " + Attributes["DamageReduction"].ToString();
         }
     }
 }

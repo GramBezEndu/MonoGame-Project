@@ -10,8 +10,6 @@ namespace GameProject.Items
 {
 	public abstract class Weapon : UpgradeableWithScroll
 	{
-		public int DamageMin { get; protected set; }
-		public int DamageMax { get; protected set; }
 		public Weapon(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
 		}

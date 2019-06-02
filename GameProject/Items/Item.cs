@@ -16,10 +16,6 @@ namespace GameProject
 	{
 		private int _quantity;
 
-		/// <summary>
-		/// If this slot is not null, it means item can be upgraded
-		/// </summary>
-		public ImprovementScrollSlot ImprovementScrollSlot { get; set; }
 		public Item(Texture2D t, float scale) : base(t, scale)
 		{
 			Name = "Not assigned name";

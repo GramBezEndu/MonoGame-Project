@@ -91,8 +91,8 @@ namespace GameProject.Sprites
 
 				InventoryManager.Update(gameTime);
 				//Update player movement speed bonus
-				moveDistance = (1 + InventoryManager.EquipmentManager.MovementSpeedBonus) * baseMoveDistance;
-				sprintDistance = (1 + InventoryManager.EquipmentManager.MovementSpeedBonus) * baseSprintDistance;
+				moveDistance = (1 + InventoryManager.EquipmentManager.Attributes["MovementSpeed"]) * baseMoveDistance;
+				sprintDistance = (1 + InventoryManager.EquipmentManager.Attributes["MovementSpeed"]) * baseSprintDistance;
 				//Die (should be after updating health bar)
 				if (HealthBar.Health.CurrentHealth <= 0)
 					Die();
@@ -139,7 +139,7 @@ namespace GameProject.Sprites
 		{
 			if(!IsDead)
 			{
-				int dmg = (int)(x * (1f - this.InventoryManager.EquipmentManager.DamageReduction));
+				int dmg = (int)(x * (1f - this.InventoryManager.EquipmentManager.Attributes["DamageReduction"]));
 				this.HealthBar.Health.CurrentHealth -= dmg;
 			}
 		}

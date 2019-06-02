@@ -24,11 +24,22 @@ namespace GameProject
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			base.Draw(gameTime, spriteBatch);
-			string damageStr = "Damage: " + equipmentManager.DamageMin.ToString() + '-' + equipmentManager.DamageMax.ToString();
-			string criticalStrikeChanceStr = "Critical Strike Chance: " + equipmentManager.CriticalStrikeChance.ToString();
-			string damageReductionStr = "Damage reduction: " + equipmentManager.DamageReduction.ToString();
-			string magicDamangeReductionStr = "Magic damage reduction: " + equipmentManager.MagicDamangeReduction.ToString();
-			string movementSpeedBonusStr = "Movement speed bonus: " + equipmentManager.MovementSpeedBonus.ToString();
+			//Will contain window size
+			Vector2 windowSize = Vector2.Zero;
+			foreach(var a in equipmentManager.Attributes)
+			{
+				//We should handle damage min/max differently
+				string temp = a.Key + ": " + a.Value.ToString();
+				Vector2 tempSize = font.MeasureString(temp);
+				windowSize.X = Math.Max(windowSize.X, tempSize.X);
+				windowSize.Y += tempSize.Y;
+			}
+			string damageStr = "Damage: " + equipmentManager.Attributes["DamageMin"].ToString() + '-' + equipmentManager.Attributes["DamageMax"].ToString();
+			string criticalStrikeChanceStr = "Critical Strike Chance: " + equipmentManager.Attributes["CriticalStrikeChance"] * 100 + "%";
+			string damageReductionStr = "Damage reduction: " + equipmentManager.Attributes["DamageReduction"] * 100 + "%";
+			string magicDamangeReductionStr = "Magic damage reduction: " + equipmentManager.Attributes["MagicDamageReduction"] * 100 + "%";
+			string movementSpeedBonusStr = "Movement speed bonus: " + equipmentManager.Attributes["MovementSpeed"] * 100 + "%";
+			string bonusDamage = "Bonus damage: " + equipmentManager.Attributes["BonusDamage"] * 100 + "%";
 
 			spriteBatch.DrawString(font, damageStr, this.Position, Color.Black);
 			Vector2 size = font.MeasureString(damageStr);
@@ -43,6 +54,9 @@ namespace GameProject
 			size += font.MeasureString(magicDamangeReductionStr);
 
 			spriteBatch.DrawString(font, movementSpeedBonusStr, new Vector2(this.Position.X, this.Position.Y + size.Y), Color.Black);
+			size += font.MeasureString(movementSpeedBonusStr);
+
+			spriteBatch.DrawString(font, bonusDamage, new Vector2(this.Position.X, this.Position.Y + size.Y), Color.Black);
 		}
 	}
 }

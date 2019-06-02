@@ -271,11 +271,12 @@ namespace GameProject.States
 				//if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
 				if(player.IsTouching(e))
 				{
-					int dmg = game.RandomNumber(player.InventoryManager.EquipmentManager.DamageMin, player.InventoryManager.EquipmentManager.DamageMax);
+					int dmg = game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1+ player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
+						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
 					//Check if critical strike was drawn
 					int criticalStrike = game.RandomPercent();
 					//Was critical
-					if (criticalStrike <= player.InventoryManager.EquipmentManager.CriticalStrikeChance * 100)
+					if (criticalStrike <= player.InventoryManager.EquipmentManager.Attributes["CriticalStrikeChance"] * 100)
 					{
 						float multiplier = 1f;
 						multiplier = game.RandomCriticalMultiplier();
@@ -304,7 +305,8 @@ namespace GameProject.States
 				//if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
 				if (player.IsTouching(e))
 				{
-					int dmg = game.RandomNumber(player.InventoryManager.EquipmentManager.DamageMin, player.InventoryManager.EquipmentManager.DamageMax);
+					int dmg = game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
+						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
 					e.GetDamage(dmg, false);
 				}
 			}

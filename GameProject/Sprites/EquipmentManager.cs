@@ -12,12 +12,7 @@ namespace GameProject.Sprites
 {
 	public class EquipmentManager : Sprite
 	{
-		public float DamageReduction { get; set; }
-		public float MagicDamangeReduction { get; set; }
-		public float MovementSpeedBonus { get; set; }
-		public float CriticalStrikeChance { get; set; }
-		public int DamageMin { get; set; }
-		public int DamageMax { get; set; }
+		public Dictionary<string, float> Attributes = new Dictionary<string, float>();
 		public StatisticsManager StatisticsManager {get; set;}
 		public List<InventorySlot> EquipmentSlots { get; set; }
 		public EquipmentManager(Texture2D t, Texture2D slotTexture, SpriteFont font, Vector2 position, float scale) : base(t, scale)
@@ -27,6 +22,19 @@ namespace GameProject.Sprites
 			{
 				Position = new Vector2(this.Position.X, this.Position.Y+this.Height)
 			};
+
+			//Attributes copy from equippable
+			Attributes.Add("DamageReduction", 0f);
+			Attributes.Add("MagicDamageReduction", 0f);
+			//Movement speed bonus
+			Attributes.Add("MovementSpeed", 0f);
+			Attributes.Add("CriticalStrikeChance", 0f);
+			//Attack value from <min;max> range
+			Attributes.Add("DamageMin", 0f);
+			Attributes.Add("DamageMax", 0f);
+			//Damage increase in %
+			Attributes.Add("BonusDamage", 0f);
+
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
@@ -44,39 +52,32 @@ namespace GameProject.Sprites
 		/// <param name="gameTime"></param>
 		public override void Update(GameTime gameTime)
 		{
-			float tempReduction = 0f;
-			float tempMovementSpeed = 0f;
-			float tempMagicReduction = 0f;
-			int tempDamageMin = 0;
-			int tempDamageMax = 0;
-			float tempCriticalStrikeChance = 0f;
+			var TempDictionary = Attributes.ToDictionary(entry => entry.Key, entry => 0f);
 			foreach (var eq in EquipmentSlots)
 			{
 				eq.Update(gameTime);
 				if(eq.Item != null && (eq.Item is Equippable))
 				{
+					////No dictionary yet - copy it from any equippable item
+					//if(Attributes == null)
+					//{
+					//	Attributes = (eq.Item as Equippable).Attributes.ToDictionary(entry => entry.Key,
+					//						   entry => entry.Value);
+					//}
 					eq.Item.Update(gameTime);
-					tempReduction += (eq.Item as Equippable).DamageReduction;
-					tempMovementSpeed += (eq.Item as Equippable).MovementSpeed;
-					tempMagicReduction += (eq.Item as Equippable).MagicDamageReduction;
-				}
-				if(eq.Item is Weapon)
-				{
-					tempDamageMin = (eq.Item as Weapon).DamageMin;
-					tempDamageMax = (eq.Item as Weapon).DamageMax;
-				}
-				//Critical strike chance - only sword
-				if (eq.Item is Sword)
-				{
-					tempCriticalStrikeChance += (eq.Item as Sword).CriticalStrikeChance;
+					TempDictionary["DamageReduction"] += (eq.Item as Equippable).Attributes["DamageReduction"];
+					TempDictionary["MovementSpeed"] += (eq.Item as Equippable).Attributes["MovementSpeed"];
+					TempDictionary["MagicDamageReduction"] += (eq.Item as Equippable).Attributes["MagicDamageReduction"];
+					TempDictionary["DamageMin"] += (eq.Item as Equippable).Attributes["DamageMin"];
+					TempDictionary["DamageMax"] += (eq.Item as Equippable).Attributes["DamageMax"];
+					TempDictionary["CriticalStrikeChance"] += (eq.Item as Equippable).Attributes["CriticalStrikeChance"];
+					TempDictionary["BonusDamage"] += (eq.Item as Equippable).Attributes["BonusDamage"];
 				}
 			}
-			DamageReduction = tempReduction;
-			MovementSpeedBonus = tempMovementSpeed;
-			MagicDamangeReduction = tempMagicReduction;
-			DamageMin = tempDamageMin;
-			DamageMax = tempDamageMax;
-			CriticalStrikeChance = tempCriticalStrikeChance;
+			foreach(var v in TempDictionary)
+			{
+				Attributes[v.Key.ToString()] = TempDictionary[v.Key.ToString()];
+			}
 			StatisticsManager.Update(gameTime);
 		}
 	}

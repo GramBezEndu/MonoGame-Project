@@ -12,9 +12,9 @@ namespace GameProject.Items
 	{
 		public StartingBoots(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(gd, p, slotTexture, f, t, scale)
 		{
-			DamageReduction = 0.05f;
-			MovementSpeed = 0.2f;
-			Description = "Damage Reduction: " + DamageReduction.ToString() + "\nMovement speed: " + MovementSpeed.ToString();
+			Attributes["DamageReduction"] = 0.05f;
+			Attributes["MovementSpeed"] = 0.2f;
+			Description = "Damage Reduction: " + Attributes["DamageReduction"].ToString() + "\nMovement speed: " + Attributes["MovementSpeed"].ToString();
 		}
 	}
 }
