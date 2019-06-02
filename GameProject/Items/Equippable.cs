@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using GameProject.Sprites;
 using GameProject.Inventory;
+using System.Text.RegularExpressions;
 
 namespace GameProject.Items
 {
@@ -20,17 +21,52 @@ namespace GameProject.Items
 		//public float MovementSpeed { get; set; }
 		public Equippable(Texture2D t, float scale) : base(t, scale)
 		{
+			//Attack value from <min;max> range
+			Attributes.Add("DamageMin", 0);
+			Attributes.Add("DamageMax", 0);
 			Attributes.Add("DamageReduction", 0f);
 			Attributes.Add("MagicDamageReduction", 0f);
 			//Movement speed bonus
 			Attributes.Add("MovementSpeed", 0f);
 			Attributes.Add("CriticalStrikeChance", 0f);
-			//Attack value from <min;max> range
-			Attributes.Add("DamageMin", 0f);
-			Attributes.Add("DamageMax", 0f);
 			//Damage increase in %
 			Attributes.Add("BonusDamage", 0f);
 		}
+
+		/// <summary>
+		/// Update description after modyfing attributes (it should be probably called in constructor)
+		/// </summary>
+		public virtual void UpdateDescription()
+		{
+			Description = "";
+			//new Dictionary containing only attributes that have real values (not 0)
+			Dictionary<string, float> temp = Attributes.Where(p => p.Value != 0).ToDictionary(p => p.Key, p => p.Value);
+			foreach(var a in temp)
+			{
+				//NOTE: It will only work if DamageMin and DamageMax are next to each other in dictionary
+				if(a.Key == "DamageMin")
+				{
+					Description += "Damage: " + a.Value + "-";
+				}
+				else if(a.Key == "DamageMax")
+				{
+					Description += a.Value + "\n";
+				}
+				else
+				{
+					//No \n character at last item
+					if(a.Equals(temp.Last()))
+					{
+						Description += Regex.Replace(a.Key, "(\\B[A-Z])", " $1") + ": " + a.Value * 100 + "%";
+					}
+					else
+					{
+						Description += Regex.Replace(a.Key, "(\\B[A-Z])", " $1") + ": " + a.Value * 100 + "%\n";
+					}
+				}
+			}
+		}
+
 		public abstract bool Equip(Player p);
 	}
 }

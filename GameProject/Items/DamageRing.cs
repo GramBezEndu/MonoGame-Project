@@ -7,12 +7,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameProject.Items
 {
-    public class DefenceRing : Ring
-    {
-        public DefenceRing(Texture2D t, float scale) : base(t, scale)
-        {
-			Attributes["DamageReduction"] = 0.25f;
+	public class DamageRing : Ring
+	{
+		public DamageRing(Texture2D t, float scale) : base(t, scale)
+		{
+			Attributes["BonusDamage"] = 0.15f;
 			UpdateDescription();
 		}
-    }
+	}
 }

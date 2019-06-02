@@ -14,7 +14,7 @@ namespace GameProject.Items
 		{
 			Attributes["DamageReduction"] = 0.05f;
 			Attributes["MovementSpeed"] = 0.2f;
-			Description = "Damage Reduction: " + Attributes["DamageReduction"].ToString() + "\nMovement speed: " + Attributes["MovementSpeed"].ToString();
+			UpdateDescription();
 		}
 	}
 }

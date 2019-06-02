@@ -15,7 +15,7 @@ namespace GameProject.Items
 			Attributes["DamageMin"] = 7;
 			Attributes["DamageMax"] = 10;
 			Attributes["CriticalStrikeChance"] = 0.05f;
-			Description = "Damage: " + Attributes["DamageMin"].ToString() + "-" + Attributes["DamageMax"].ToString() + '\n' + "Critical Strike Chance: " + Attributes["CriticalStrikeChance"].ToString();
+			UpdateDescription();
 		}
 	}
 }

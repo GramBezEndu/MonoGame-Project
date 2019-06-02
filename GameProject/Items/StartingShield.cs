@@ -15,11 +15,11 @@ namespace GameProject.Items
 			BlockingDamageReduction = 0.4f;
 			MaxDurability = 100;
 			CurrentDurability = MaxDurability;
-			Description = "Damage Reduction while blocking: " + BlockingDamageReduction.ToString() + "\nDurability: " + CurrentDurability.ToString() + "/" + MaxDurability.ToString();
+			Description = "Damage Reduction while blocking: " + BlockingDamageReduction * 100 + "%" + "\nDurability: " + CurrentDurability.ToString() + "/" + MaxDurability.ToString();
 		}
 		public override void Update(GameTime gameTime)
 		{
-			Description = "Damage Reduction while blocking: " + BlockingDamageReduction.ToString() + "\nDurability: " + CurrentDurability.ToString() + "/" + MaxDurability.ToString();
+			Description = "Damage Reduction while blocking: " + BlockingDamageReduction * 100 + "%" + "\nDurability: " + CurrentDurability.ToString() + "/" + MaxDurability.ToString();
 		}
 	}
 }

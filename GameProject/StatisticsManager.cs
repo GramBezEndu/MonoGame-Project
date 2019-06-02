@@ -34,6 +34,7 @@ namespace GameProject
 				windowSize.X = Math.Max(windowSize.X, tempSize.X);
 				windowSize.Y += tempSize.Y;
 			}
+			//We should create those strings based on Attributes, might fix it later
 			string damageStr = "Damage: " + equipmentManager.Attributes["DamageMin"].ToString() + '-' + equipmentManager.Attributes["DamageMax"].ToString();
 			string criticalStrikeChanceStr = "Critical Strike Chance: " + equipmentManager.Attributes["CriticalStrikeChance"] * 100 + "%";
 			string damageReductionStr = "Damage reduction: " + equipmentManager.Attributes["DamageReduction"] * 100 + "%";
