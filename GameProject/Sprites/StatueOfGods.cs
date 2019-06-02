@@ -22,15 +22,20 @@ namespace GameProject.Sprites
 			{
 				if (player.IsTouching(this.MainSprite))
 				{
-					player.HealthBar.Health.CurrentHealth = player.HealthBar.Health.MaxHealth;
 					if (player is StaminaUser)
 					{
-						(player as StaminaUser).StaminaBar.Stamina.CurrentStamina = (player as StaminaUser).StaminaBar.Stamina.MaxStamina;
+						//Something has to be restored -> we can display a message here
+						if(player.HealthBar.Health.CurrentHealth != player.HealthBar.Health.MaxHealth ||
+							(player as StaminaUser).StaminaBar.Stamina.CurrentStamina != (player as StaminaUser).StaminaBar.Stamina.MaxStamina)
+						{
+							player.HealthBar.Health.CurrentHealth = player.HealthBar.Health.MaxHealth;
+							(player as StaminaUser).StaminaBar.Stamina.CurrentStamina = (player as StaminaUser).StaminaBar.Stamina.MaxStamina;
+						}
 					}
 					else if (player is ManaUser)
 					{
 						throw new NotImplementedException();
-						return;
+						player.HealthBar.Health.CurrentHealth = player.HealthBar.Health.MaxHealth;
 					}
 				}
 			}
