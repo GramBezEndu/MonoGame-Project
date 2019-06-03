@@ -7,6 +7,7 @@ using GameProject.Animations;
 using Microsoft.Xna.Framework;
 using GameProject.States;
 using GameProject.Controls;
+using GameProject.Inventory;
 
 namespace GameProject.Sprites
 {
@@ -102,14 +103,36 @@ namespace GameProject.Sprites
 			};
 			scrollUpgradeBackground.Position = new Vector2(g.Width / 2 - scrollUpgradeBackground.Width / 2, g.Height / 2 - scrollUpgradeBackground.Height / 2);
 			scrollUpgradeComponents.Add(scrollUpgradeBackground);
-			scrollUpgradeComponents.Add(new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Position = scrollUpgradeBackground.Position,
-				Text = "Exit",
-				Hidden = true,
-				Click = HideWindow
-			});
-		}
+            var exitButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            {
+                Text = "Exit",
+                Hidden = true,
+                Click = HideWindow
+            };
+            exitButton.Position = new Vector2(scrollUpgradeBackground.Position.X, scrollUpgradeBackground.Rectangle.Bottom - exitButton.Height);
+            scrollUpgradeComponents.Add(exitButton);
+
+            var improvementSlotOne = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
+            {
+                Position = scrollUpgradeBackground.Position,
+                Hidden = true
+            };
+            scrollUpgradeComponents.Add(improvementSlotOne);
+
+            var improvementSlotTwo = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
+            {
+                Position = new Vector2(scrollUpgradeBackground.Position.X + improvementSlotOne.Width, scrollUpgradeBackground.Position.Y),
+                Hidden = true
+            };
+            scrollUpgradeComponents.Add(improvementSlotTwo);
+
+            var improvementSlotThree = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
+            {
+                Position = new Vector2(scrollUpgradeBackground.Position.X + improvementSlotOne.Width + improvementSlotTwo.Width, scrollUpgradeBackground.Position.Y),
+                Hidden = true
+            };
+            scrollUpgradeComponents.Add(improvementSlotThree);
+        }
 
 		private void ShieldRepairWindow(Game1 g, GameState gs)
 		{
