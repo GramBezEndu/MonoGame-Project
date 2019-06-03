@@ -132,9 +132,24 @@ namespace GameProject.Sprites
                 Hidden = true
             };
             scrollUpgradeComponents.Add(improvementSlotThree);
+
+            var upgradeButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            {
+                Position = new Vector2(scrollUpgradeBackground.Position.X, scrollUpgradeBackground.Position.Y + improvementSlotOne.Height),
+                Text = "Upgrade",
+                Hidden = true,
+                Click = UpgradeScrolls
+            };
+
+            scrollUpgradeComponents.Add(upgradeButton);
         }
 
-		private void ShieldRepairWindow(Game1 g, GameState gs)
+        private void UpgradeScrolls(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void ShieldRepairWindow(Game1 g, GameState gs)
 		{
 			var shieldRepairWindow = new Sprite(gs.Textures["Inventory"], g.Scale)
 			{
