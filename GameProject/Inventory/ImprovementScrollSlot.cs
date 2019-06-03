@@ -19,11 +19,14 @@ namespace GameProject.Inventory
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			base.Draw(gameTime, spriteBatch);
-			if(Item != null)
-			{
-				Item.Position = this.Position;
-				Item.Draw(gameTime, spriteBatch);
-			}
+            if(!Hidden)
+            {
+                if (Item != null)
+                {
+                    Item.Position = this.Position;
+                    Item.Draw(gameTime, spriteBatch);
+                }
+            }
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace GameProject.Items
 			ImprovementPercent = g.RandomNumber(min, max)/100f;
             Name = "Legendary Improvement Scroll";
 			//We create special description for this item
-			Description = "Improves bonuses in item by " + min * 100 + "-" + max * 100 + "%.\n" +
+			Description = "Improves bonuses in item by " + min + "-" + max + "%.\n" +
 				"Visit Blacksmith to use it.\n" +
 				"Scroll power: " + ImprovementPercent * 100 + "%";
 		}

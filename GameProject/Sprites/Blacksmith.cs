@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using GameProject.States;
 using GameProject.Controls;
 using GameProject.Inventory;
+using GameProject.Items;
 
 namespace GameProject.Sprites
 {
@@ -16,6 +17,11 @@ namespace GameProject.Sprites
 		//UiElements list -> base components
 		List<Component> addingScrollComponents = new List<Component>();
 		List<Component> scrollUpgradeComponents = new List<Component>();
+        /// <summary>
+        /// List of improvements slots (used in upgrade) method
+        /// Note: They are added in scrollUpgradedComponents, just object references
+        /// </summary>
+        List<ImprovementScrollSlot> improvementScrollSlots = new List<ImprovementScrollSlot>();
 		List<Component> shieldRepairComponents = new List<Component>();
         public Blacksmith(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
 		{
@@ -118,6 +124,7 @@ namespace GameProject.Sprites
                 Hidden = true
             };
             scrollUpgradeComponents.Add(improvementSlotOne);
+            improvementScrollSlots.Add(improvementSlotOne);
 
             var improvementSlotTwo = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
             {
@@ -125,6 +132,7 @@ namespace GameProject.Sprites
                 Hidden = true
             };
             scrollUpgradeComponents.Add(improvementSlotTwo);
+            improvementScrollSlots.Add(improvementSlotTwo);
 
             var improvementSlotThree = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
             {
@@ -132,6 +140,7 @@ namespace GameProject.Sprites
                 Hidden = true
             };
             scrollUpgradeComponents.Add(improvementSlotThree);
+            improvementScrollSlots.Add(improvementSlotThree);
 
             var upgradeButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
             {
@@ -146,7 +155,36 @@ namespace GameProject.Sprites
 
         private void UpgradeScrolls(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            if (improvementScrollSlots[0].Item == null || improvementScrollSlots[1].Item == null)
+            {
+                //Message: one of required slots is missing
+                return;
+            }
+            if(improvementScrollSlots[2].Item != null)
+            {
+                //Message: you need to take upgraded scroll first
+                return;
+            }
+            if(improvementScrollSlots[0].Item.GetType() != improvementScrollSlots[1].Item.GetType())
+            {
+                //Message: Scroll needs to be the same type
+                return;
+            }
+            //We can now upgrade scroll
+
+            //It will be legendary scroll
+            if(improvementScrollSlots[0].Item is LegendaryImprovementScroll)
+            {
+                improvementScrollSlots[2].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale);
+            }
+            //Normal scroll
+            else
+            {
+                improvementScrollSlots[2].Item = new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], game.Scale);
+            }
+            //Destroy previous scrolls
+            improvementScrollSlots[0].Item = null;
+            improvementScrollSlots[1].Item = null;
         }
 
         private void ShieldRepairWindow(Game1 g, GameState gs)
