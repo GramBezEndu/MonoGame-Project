@@ -30,14 +30,14 @@ namespace GameProject
 				////If quantity is set to 0 or below, we should delete the item (in InventoryManger or somewhere where is belongs)
 				//if (value <= 0)
 				//    throw new Exception("Invalid quantity in Item (below 0)\n");
-				if (value < 1)
+				if (value <= 1)
 					_quantity = value;
 				else
 				{
 					if (IsStackable)
 						_quantity = value;
 					else
-						throw new Exception("Invalud quantity (grater than 1): Item is not stackable\n");
+						throw new Exception("Invalid quantity (grater than 1): Item is not stackable\n");
 				}
 			}
 		}

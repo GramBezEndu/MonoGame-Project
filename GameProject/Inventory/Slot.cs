@@ -24,7 +24,6 @@ namespace GameProject.Inventory
 				GenerateBackgroundSprite();
 			}
 		}
-		public int Quantity { get; set; }
 		/// <summary>
 		/// For how long text will be displayed after invalid item usage (in seconds)
 		/// </summary>

@@ -44,14 +44,14 @@ namespace GameProject.Inventory
 					{
 						bool result = (Item as Equippable).Equip(player);
 						if (result == true)
-							--Quantity;
+							Item.Quantity--;
 						else
 							invalidUseTime = 2f;
 					}
 				}
 			}
 			//Item could be used or equipped
-			if (Quantity <= 0 || Item?.Quantity <= 0)
+			if (Item?.Quantity <= 0)
             {
                 Item = null;
             }

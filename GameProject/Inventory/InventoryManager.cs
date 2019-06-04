@@ -114,25 +114,27 @@ namespace GameProject
 						return;
 					}
 				}
+                //Look for empty slot
 				foreach (var s in slots)
 				{
 					if (s.Item == null)
 					{
 						s.Item = (Item)i.Clone();
-						s.Quantity = i.Quantity;
-						s.Item.Quantity = i.Quantity;
+						//s.Item.Quantity = i.Quantity;
+						//s.Item.Quantity = i.Quantity;
 						return;
 					}
 				}
 			}
+            //Not stackable
 			else
 			{
 				foreach(var s in slots)
 				{
 					if(s.Item == null)
 					{
-						s.Item = i;
-						s.Quantity = i.Quantity;
+						s.Item = (Item)i.Clone();
+						//s.Quantity = i.Quantity;
 						return;
 					}
 				}
