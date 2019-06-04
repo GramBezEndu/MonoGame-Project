@@ -92,14 +92,15 @@ namespace GameProject.Sprites
 			};
 			backgroundWindow.Position = new Vector2(g.Width / 2 - backgroundWindow.Width / 2, g.Height / 2 - backgroundWindow.Height / 2);
 			addingScrollComponents.Add(backgroundWindow);
-			addingScrollComponents.Add(new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Position = backgroundWindow.Position,
-				Text = "Exit",
-				Hidden = true,
-				Click = HideWindow
-			});
-		}
+            var exitButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            {
+                Text = "Exit",
+                Hidden = true,
+                Click = HideWindow
+            };
+            exitButton.Position = new Vector2(backgroundWindow.Position.X, backgroundWindow.Rectangle.Bottom - exitButton.Height);
+            addingScrollComponents.Add(exitButton);
+        }
 
 		private void ScrollUpgradeWindow(Game1 g, GameState gs)
 		{
@@ -195,14 +196,15 @@ namespace GameProject.Sprites
 			};
 			shieldRepairWindow.Position = new Vector2(g.Width / 2 - shieldRepairWindow.Width / 2, g.Height / 2 - shieldRepairWindow.Height / 2);
 			shieldRepairComponents.Add(shieldRepairWindow);
-			shieldRepairComponents.Add(new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Position = shieldRepairWindow.Position,
-				Text = "Exit",
-				Hidden = true,
-				Click = HideWindow
-			});
-		}
+            var exitButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+            {
+                Text = "Exit",
+                Hidden = true,
+                Click = HideWindow
+            };
+            exitButton.Position = new Vector2(shieldRepairWindow.Position.X, shieldRepairWindow.Rectangle.Bottom - exitButton.Height);
+            shieldRepairComponents.Add(exitButton);
+        }
 
 		private void ActivateRepairShieldWindow(object sender, EventArgs e)
 		{
