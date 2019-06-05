@@ -93,7 +93,7 @@ namespace GameProject.Inventory
 					if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 					{
 						//Set the message
-						UpgradedItemString = "Scroll Power: " + (Item as UpgradeableWithScroll).ImprovementScrollSlot.Item.ImprovementPercent * 100 + "%";
+						UpgradedItemString = "Scroll Power: " + (Item as UpgradeableWithScroll).ImprovementScrollSlot.Item.ImprovementPower * 100 + "%";
 						//Texture (Slot) width and height + string "Scroll Power: xx%"
 						size.X = Math.Max(size.X, (Item as UpgradeableWithScroll).ImprovementScrollSlot.Width + font.MeasureString(UpgradedItemString).X);
 						size.Y += Math.Max((Item as UpgradeableWithScroll).ImprovementScrollSlot.Height, font.MeasureString(UpgradedItemString).Y);

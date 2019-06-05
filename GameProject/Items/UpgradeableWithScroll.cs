@@ -36,12 +36,12 @@ namespace GameProject.Items
 				if(a == "DamageMin" || a == "DamageMax")
 				{
 					//Round to int
-					Attributes[a] = (float)(Math.Round((1 + improvementScroll.ImprovementPercent) * Attributes[a]));
+					Attributes[a] = (float)(Math.Round((1 + improvementScroll.ImprovementPower) * Attributes[a]));
 				}
 				//Round to 2 decimal places
 				else
 				{
-					Attributes[a] = (float)(Math.Round((1 + improvementScroll.ImprovementPercent) * Attributes[a], 2));
+					Attributes[a] = (float)(Math.Round((1 + improvementScroll.ImprovementPower) * Attributes[a], 2));
 				}
 			}
 			UpdateDescription();

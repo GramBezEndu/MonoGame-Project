@@ -156,6 +156,8 @@ namespace GameProject.Sprites
 
         private void UpgradeScrolls(object sender, EventArgs e)
         {
+            //improvementScrollSlots[0].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale);
+            //improvementScrollSlots[1].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale);
             if (improvementScrollSlots[0].Item == null || improvementScrollSlots[1].Item == null)
             {
                 //Message: one of required slots is missing
@@ -176,12 +178,22 @@ namespace GameProject.Sprites
             //It will be legendary scroll
             if(improvementScrollSlots[0].Item is LegendaryImprovementScroll)
             {
-                improvementScrollSlots[2].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale);
+                improvementScrollSlots[2].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale)
+                {
+                    ImprovementPower = game.RandomNumber(
+                        (int)Math.Round((improvementScrollSlots[0].Item.ImprovementPower + improvementScrollSlots[1].Item.ImprovementPower) * 100f  / 2f),
+                        (int)Math.Round(improvementScrollSlots[0].Item.MaxPower * 100f)) / 100f,
+                };
             }
             //Normal scroll
             else
             {
-                improvementScrollSlots[2].Item = new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], game.Scale);
+                improvementScrollSlots[2].Item = new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], game.Scale)
+                {
+                    ImprovementPower = game.RandomNumber(
+                        (int)Math.Round((improvementScrollSlots[0].Item.ImprovementPower + improvementScrollSlots[1].Item.ImprovementPower) * 100f / 2f),
+                        (int)Math.Round(improvementScrollSlots[0].Item.MaxPower * 100f)) / 100f,
+                };
             }
             //Destroy previous scrolls
             improvementScrollSlots[0].Item = null;
