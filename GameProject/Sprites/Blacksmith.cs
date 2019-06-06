@@ -16,13 +16,15 @@ namespace GameProject.Sprites
 	{
 		//UiElements list -> base components
 		List<Component> addingScrollComponents = new List<Component>();
+
 		List<Component> scrollUpgradeComponents = new List<Component>();
         /// <summary>
         /// List of improvements slots (used in upgrade) method
         /// Note: They are added in scrollUpgradedComponents, just object references
         /// </summary>
         List<ImprovementScrollSlot> improvementScrollSlots = new List<ImprovementScrollSlot>();
-		List<Component> shieldRepairComponents = new List<Component>();
+
+        List<Component> shieldRepairComponents = new List<Component>();
         public Blacksmith(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
 		{
 			MainWindowAddElements(g, gs);
@@ -100,6 +102,13 @@ namespace GameProject.Sprites
             };
             exitButton.Position = new Vector2(backgroundWindow.Position.X, backgroundWindow.Rectangle.Bottom - exitButton.Height);
             addingScrollComponents.Add(exitButton);
+
+            var upgradeCostDisplay = new Text(gs.Font, "Upgrade cost: 0")
+            {
+                Hidden = true,
+            };
+            upgradeCostDisplay.Position = new Vector2(exitButton.Position.X, exitButton.Position.Y - upgradeCostDisplay.Height);
+            addingScrollComponents.Add(upgradeCostDisplay);
         }
 
 		private void ScrollUpgradeWindow(Game1 g, GameState gs)

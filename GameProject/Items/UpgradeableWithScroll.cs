@@ -11,6 +11,7 @@ namespace GameProject.Items
 {
 	public abstract class UpgradeableWithScroll : Equippable
 	{
+        public int UpgradeCost { get; set; } = 500;
 		public ImprovementScrollSlot ImprovementScrollSlot { get; set; }
 		/// <summary>
 		/// Rings, Necklaces, shields are not upgradeable
