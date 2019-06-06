@@ -26,11 +26,12 @@ namespace GameProject.Sprites
             int value = game.RandomPercent();
             //Roll an item
             //Actual drop chance:
-            //50% improvement scroll
+            //40% improvement scroll
             //10% defence ring
 			//10% damage ring
+            //10% Life fruit
             //30% legendary improvement scroll
-            if (value <= 50)
+            if (value <= 40)
             {
                 GameState.SpawnItem(
                 new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], MainSprite.Scale)
@@ -38,7 +39,7 @@ namespace GameProject.Sprites
                     Position = MainSprite.Position
                 });
             }
-            else if (value <= 60)
+            else if (value <= 50)
             {
                 GameState.SpawnItem(
                 new DefenceRing(GameState.Textures["DefenceRing"], MainSprite.Scale)
@@ -46,7 +47,7 @@ namespace GameProject.Sprites
                     Position = MainSprite.Position
                 });
             }
-			else if (value <= 70)
+			else if (value <= 60)
 			{
 				GameState.SpawnItem(
 				new DamageRing(GameState.Textures["DamageRing"], MainSprite.Scale)
@@ -54,7 +55,15 @@ namespace GameProject.Sprites
 					Position = MainSprite.Position
 				});
 			}
-			else
+            else if (value <= 70)
+            {
+                GameState.SpawnItem(
+                new LifeFruit(GameState.Textures["LifeFruit"], MainSprite.Scale)
+                {
+                    Position = MainSprite.Position
+                });
+            }
+            else
             {
                 GameState.SpawnItem(
                 new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], MainSprite.Scale)
