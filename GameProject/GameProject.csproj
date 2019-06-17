@@ -66,6 +66,7 @@
     <Compile Include="Inventory\WarriorHelmetSlot.cs" />
     <Compile Include="Items\ArcherBreastplate.cs" />
     <Compile Include="Items\ArcherHelmet.cs" />
+    <Compile Include="Items\Bone.cs" />
     <Compile Include="Items\Boots.cs" />
     <Compile Include="Items\Bow.cs" />
     <Compile Include="Items\Breastplate.cs" />

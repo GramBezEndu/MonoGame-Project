@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Animations;
+using GameProject.Items;
 
 namespace GameProject.States
 {
@@ -41,6 +42,7 @@ namespace GameProject.States
         {
             PreviousState = CurrentState;
             CurrentState = Keyboard.GetState();
+            //Manage pause on button press
             if (CurrentState.IsKeyDown(Input.KeyBindings["Pause"]) && PreviousState.IsKeyUp(Input.KeyBindings["Pause"]))
             {
                 if (Paused)
@@ -48,6 +50,7 @@ namespace GameProject.States
                 else
                     Paused = true;
             }
+            //Note: If the window has no focus, we should automaticly pause the game
 			if(!Paused)
 			{
 				//Check for enemies aggro and update enemies
@@ -219,7 +222,17 @@ namespace GameProject.States
             {
                 if(i is Item)
                 {
-                    if(player.IsTouching(i as Item) 
+                    //Gold is pick up automaticly
+                    if(i is GoldCoin)
+                    {
+                        if(player.IsTouching(i as Item))
+                        {
+                            RemoveItem(i as Item);
+                            player.InventoryManager.AddItem(i as Item);
+                        }
+                    }
+                    //Else you have to use pick up key
+                    else if(player.IsTouching(i as Item) 
                         && Input.PreviousState.IsKeyDown(Input.KeyBindings["PickUp"])
                         && Input.CurrentState.IsKeyUp(Input.KeyBindings["PickUp"]))
                     {
