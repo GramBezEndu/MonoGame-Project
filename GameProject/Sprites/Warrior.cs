@@ -21,11 +21,11 @@ namespace GameProject.Sprites
 		private bool blockingUp = false;
 		private bool normalAttacking = false;
 		private bool fastAttacking = false;
-		private GameTimer attackTypeTimer = new GameTimer(0.2f);
+		//private GameTimer attackTypeTimer = new GameTimer(0.2f);
 		/// <summary>
 		/// If last attack was normal, we do not want to perform fast attack before activating timer again (clicking again left button in game)
 		/// </summary>
-		private bool lastAttackWasNormal;
+		//private bool lastAttackWasNormal;
 		private SpriteFont debuggerFont;
 		private int fastAttackCounter = 0;
 		private int normalAttackCounter = 0;
@@ -137,54 +137,22 @@ namespace GameProject.Sprites
 				CanMove = true;
 		}
 
+		/// <summary>
+		/// New attacking - left mouse button -> fast attack, right mouse button -> normal attack
+		/// </summary>
+		/// <param name="gameTime"></param>
 		private void ManageAttacks(GameTime gameTime)
 		{
-			//Mouse was just clicked - enable timer
-			if (input.PreviousMouseState.LeftButton == ButtonState.Released && input.CurrentMouseState.LeftButton == ButtonState.Pressed)
+			//Left mouse is in pressed state
+			if (input.CurrentMouseState.LeftButton == ButtonState.Pressed)
 			{
-				attackTypeTimer.Start();
+				SetFastAttack();
 			}
-			//If left mouse was clicked - check type of attack
-			if(attackTypeTimer.Enabled == true)
+			//Right mouse is in pressed state
+			else if (input.CurrentMouseState.RightButton == ButtonState.Pressed)
 			{
-				//Update timer
-				attackTypeTimer.Update(gameTime);
-				//Mouse was released
-				if (input.CurrentMouseState.LeftButton == ButtonState.Released)
-				{
-					//Check if it was up short time - FastAttack
-					//if (attackTypeTimer.CurrentTime < attackTypeTimer.Interval)
-					if (attackTypeTimer.CurrentTime <  attackTypeTimer.Interval)
-					{
-						attackTypeTimer.Reset();
-						SetFastAttack();
-					}
-				}
-				//Mouse was being held for more than Normal attack time - Normal Attack
-				//else if(attackTypeTimer.CurrentTime >= attackTypeTimer.Interval)
-				else if (attackTypeTimer.CurrentTime <= 0.0f)
-				{
-					SetNormalAttack();
-					attackTypeTimer.Start();
-				}
-				////Reset normal attack if button is not being held
-				//if(input.CurrentMouseState.LeftButton == ButtonState.Released)
-				//{
-				//	normalAttacking = false;
-				//}
+				SetNormalAttack();
 			}
-			//Reset attacks when animations ends
-			/*
-			if (animations["NormalAttack"].CurrentFrame == animations["NormalAttack"].FrameCount - 1)
-			{
-				normalAttacking = false;
-				animations["NormalAttack"].CurrentFrame = 0;
-			}
-			if (animations["FastAttack"].CurrentFrame == animations["FastAttack"].FrameCount - 1)
-			{
-				fastAttacking = false;
-				animations["FastAttack"].CurrentFrame = 0;
-			}*/
 		}
 		/// <summary>
 		/// Common attack requirements (sword equipped, not using shield, inventory not opened, any extra window not opened)
@@ -237,7 +205,6 @@ namespace GameProject.Sprites
 				{
 					StaminaBar.Stamina.CurrentStamina -= 5;
 					normalAttacking = true;
-					lastAttackWasNormal = true;
 					normalAttackCounter++;
 				}
 			}
@@ -281,18 +248,9 @@ namespace GameProject.Sprites
 				}
 				else
 				{
-					//If last was normal and current timer is less then Interval (if current timer equals interval it is a new click)
-					if(lastAttackWasNormal && attackTypeTimer.CurrentTime < attackTypeTimer.Interval)
-					{
-						lastAttackWasNormal = false;
-					}
-					//Else perform attack normally
-					else
-					{
-						StaminaBar.Stamina.CurrentStamina -= 10;
-						fastAttacking = true;
-						fastAttackCounter++;
-					}
+					StaminaBar.Stamina.CurrentStamina -= 10;
+					fastAttacking = true;
+					fastAttackCounter++;
 				}
 			}
         }
@@ -324,7 +282,6 @@ namespace GameProject.Sprites
 			base.Draw(gameTime, spriteBatch);
 			if(Debugger.IsAttached)
 			{
-				spriteBatch.DrawString(debuggerFont, "Enabled: " + attackTypeTimer.Enabled.ToString() + " currentTime: " + attackTypeTimer.CurrentTime.ToString(), new Vector2(0, 0), Color.Red);
 				spriteBatch.DrawString(debuggerFont, "Fast Attacking: " + fastAttacking.ToString(), new Vector2(0, 30), Color.Red);
 				spriteBatch.DrawString(debuggerFont, "Normal Attacking: " + normalAttacking.ToString(), new Vector2(0, 60), Color.Red);
 				spriteBatch.DrawString(debuggerFont, "Fast counter: " + fastAttackCounter.ToString(), new Vector2(0, 90), Color.Red);
