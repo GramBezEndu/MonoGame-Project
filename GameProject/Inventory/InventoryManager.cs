@@ -36,7 +36,7 @@ namespace GameProject
 			font = f;
 			Trashcan = new Sprite(trashcan, scale)
 			{
-				Position = new Vector2(Position.X + 0.1f * inventoryTexture.Width * scale, Position.Y + 0.75f * inventoryTexture.Height * scale)
+				Position = new Vector2(Position.X + 0.01f * inventoryTexture.Width * scale, Position.Y + 0.75f * inventoryTexture.Height * scale)
 			};
 			goldTexturePos = new Vector2(Position.X + 0.6f * inventoryTexture.Width * scale, Position.Y + 0.8f * inventoryTexture.Height * scale);
 			goldCountTextPos = new Vector2(goldTexturePos.X * 1.035f, goldTexturePos.Y * 1.025f);

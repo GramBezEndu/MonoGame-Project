@@ -74,12 +74,19 @@ namespace GameProject.Inventory
 						{
 							var slot = player.InventoryManager.WhichSlotIsDragging();
 							if (slot.Item == null)
+							{
+								slot.IsDragging = false;
 								return;
+							}
 							else if(slot.Item.CanBeDeleted)
+							{
 								slot.Item = null;
+								slot.IsDragging = false;
+							}
 							else
 							{
 								//We should display message that this item can not be deleted
+								slot.IsDragging = false;
 							}
 						}
 					}

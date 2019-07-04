@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using GameProject.States;
 using System;
 using System.Diagnostics;
@@ -38,6 +39,28 @@ namespace GameProject
 		public Random Random { get; private set; }
 
 		public Input Input { get; private set; }
+
+		/// <summary>
+		/// Contains actually played song
+		/// </summary>
+		private Song currentBackgroundSong { get; set; }
+		private Song nextBackgroundSong { get; set; }
+
+		public void ChangeBackgroundSong(Song song)
+		{
+			//We do not allow to change song to the same song
+			if (IsThisSongPlaying(song))
+				return;
+			nextBackgroundSong = song;
+		}
+		
+		public bool IsThisSongPlaying(Song song)
+		{
+			if (currentBackgroundSong == song)
+				return true;
+			else
+				return false;
+		}
 
 		public void ChangeState(State state)
 		{
@@ -79,6 +102,10 @@ namespace GameProject
 			Window.Title = "Defeat The Vapula";
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+			//Loop songs
+			MediaPlayer.IsRepeating = true;
+			//Default volume for songs
+			MediaPlayer.Volume = 0.5f;
 			graphics.PreferredBackBufferWidth = 1280; //1600
 			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;
@@ -148,6 +175,15 @@ namespace GameProject
 			{
 				currentState = nextState;
 				nextState = null;
+			}
+
+			if(nextBackgroundSong != null)
+			{
+				MediaPlayer.Stop();
+				currentBackgroundSong = nextBackgroundSong;
+				nextBackgroundSong = null;
+				if(currentBackgroundSong != null)
+					MediaPlayer.Play(currentBackgroundSong);
 			}
 
 			// TODO: Add your update logic here

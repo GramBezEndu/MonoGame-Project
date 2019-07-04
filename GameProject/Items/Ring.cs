@@ -14,6 +14,7 @@ namespace GameProject.Items
 	{
 		public Ring(Texture2D t, float scale) : base(t, scale)
 		{
+			CanBeDeleted = true;
 		}
 		public override bool Equip(Player p)
 		{

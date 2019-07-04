@@ -21,7 +21,7 @@ namespace GameProject.Items
 		//public float MovementSpeed { get; set; }
 		public Equippable(Texture2D t, float scale) : base(t, scale)
 		{
-			//All equippable items can not be deleted now
+			//All equippable items can not be deleted unless stated different in class (now: rings and necklaces can be deleted)
 			CanBeDeleted = false;
 			//Attack value from <min;max> range
 			Attributes.Add("DamageMin", 0);

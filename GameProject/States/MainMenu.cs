@@ -51,6 +51,7 @@ namespace GameProject.States
 				Click = QuitGame
 				}
 			};
+			g.ChangeBackgroundSong(Songs["MainMenu"]);
 		}
 
 		private void CreditsState(object sender, EventArgs e)

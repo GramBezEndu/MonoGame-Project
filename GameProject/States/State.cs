@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameProject
 {
@@ -28,7 +29,9 @@ namespace GameProject
         /// </summary>
         public Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 
-        private void LoadTextures()
+		public Dictionary<string, Song> Songs = new Dictionary<string, Song>();
+
+		private void LoadTextures()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(content.RootDirectory);
             if (!directoryInfo.Exists)
@@ -43,6 +46,21 @@ namespace GameProject
                 Textures[key] = content.Load<Texture2D>(Directory.GetCurrentDirectory() + "/Content/" + key);
             }
         }
+
+		private void LoadSongs()
+		{
+			DirectoryInfo directoryInfo = new DirectoryInfo(content.RootDirectory + "/Songs/");
+			if (!directoryInfo.Exists)
+				throw new DirectoryNotFoundException();
+			FileInfo[] files = directoryInfo.GetFiles("*.*");
+			foreach (FileInfo file in files)
+			{
+				string key = Path.GetFileNameWithoutExtension(file.Name);
+				//Keys[key] = content.Load<Texture2D>(directoryInfo.ToString() + key);
+				Songs[key] = content.Load<Song>(Directory.GetCurrentDirectory() + "/Content/Songs/" + key);
+			}
+		}
+
         public State(Game1 g, GraphicsDevice gd, ContentManager c)
         {
             content = c;
@@ -51,6 +69,7 @@ namespace GameProject
             Input = game.Input;
             LoadKeyTextures();
             LoadTextures();
+			LoadSongs();
             Font = content.Load<SpriteFont>("Font");
         }
         /// <summary>
