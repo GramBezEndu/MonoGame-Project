@@ -24,6 +24,10 @@ namespace GameProject.Inventory
 				GenerateBackgroundSprite();
 			}
 		}
+
+		public bool Draggable { get; set; }
+		public bool IsDragging { get; set; }
+
 		/// <summary>
 		/// For how long text will be displayed after invalid item usage (in seconds)
 		/// </summary>
@@ -70,6 +74,12 @@ namespace GameProject.Inventory
 				if (Item != null)
 				{
 					Item.Position = this.Position;
+					if (IsDragging)
+					{
+						var mousePos = Mouse.GetState().Position;
+						Vector2 pos = new Vector2(mousePos.X, mousePos.Y);
+						Item.Position = pos;
+					}
 					Item.Draw(gameTime, spriteBatch);
 					//throw new NotImplementedException();
 				}
@@ -209,8 +219,9 @@ namespace GameProject.Inventory
 							}
 						}
 					}
+					//Draw quantity where Item is (not where slot is) because items can be dragged
 					if (Item.IsStackable)
-						spriteBatch.DrawString(font, Item.Quantity.ToString(), Position, Color.Black);
+						spriteBatch.DrawString(font, Item.Quantity.ToString(), Item.Position, Color.Black);
 				}
 				if (invalidUseTime > 0)
 				{
@@ -236,6 +247,69 @@ namespace GameProject.Inventory
 				if (mouseRectangle.Intersects(Rectangle))
 				{
 					isHovering = true;
+
+					//Item dragging
+					if (this.Draggable)
+					{
+						if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
+						{
+							if (this is EquipmentSlot)
+							{
+								//We did not handle it yet
+								return;
+								Console.WriteLine("x");
+							}
+							//End dragging within the same slot
+							if (IsDragging)
+								IsDragging = false;
+							//End dragging within different slot
+							else if (player.InventoryManager.IsAlreadyDragging())
+							{
+								Slot slotDragging = player.InventoryManager.WhichSlotIsDragging();
+								//Swap normally
+								var item = slotDragging.Item;
+								slotDragging.Item = this.Item;
+								this.Item = item;
+								slotDragging.IsDragging = false;
+								////Swap equipment Slot
+								///If atleast one of two slots is equipment slot we have to handle it differently
+								//if (slotDragging is EquipmentSlot)
+								//{
+								//	if(this.Item is Equippable)
+								//	{
+								//		Item temp = slotDragging.Item;
+								//		bool result = (this.Item as Equippable).Equip(player);
+								//		if(result)
+								//		{
+								//			if(this is EquipmentSlot)
+								//			{
+								//				//It will never be correct
+								//			}
+								//			else
+								//			{
+								//				this.Item = temp;
+								//			}
+								//		}
+								//	}
+								//	//Any errors - end dragging
+								//	else
+								//	{
+								//		slotDragging.IsDragging = false;
+								//		return;
+								//	}
+								//}
+							}
+							//Try to start dragging
+							else if (!IsDragging)
+							{
+								//You can't start dragging two items -> extra check
+								if (player.InventoryManager.IsAlreadyDragging())
+									return;
+								else
+									IsDragging = true;
+							}
+						}
+					}
 				}
 				//Invalid use timer decrease if >0
 				if (invalidUseTime > 0)

@@ -9,7 +9,7 @@ using GameProject.Sprites;
 
 namespace GameProject.Inventory
 {
-	public class SwordSlot : InventorySlot
+	public class SwordSlot : EquipmentSlot
 	{
 		public new Sword Item { get; set; }
 		public SwordSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)

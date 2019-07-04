@@ -21,7 +21,6 @@ namespace GameProject.Items
             {
                 if(value < MinPower || value > MaxPower)
                 {
-                    int x;
                     throw new Exception("Invalid improvement power percent\n");
                 }
                 else

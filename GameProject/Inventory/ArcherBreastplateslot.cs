@@ -9,7 +9,7 @@ using GameProject.Sprites;
 
 namespace GameProject.Inventory
 {
-	public class ArcherBreastplateSlot : InventorySlot
+	public class ArcherBreastplateSlot : EquipmentSlot
 	{
 		public new ArcherBreastplateSlot Item { get; set; }
 		public ArcherBreastplateSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)

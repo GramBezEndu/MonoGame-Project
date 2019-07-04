@@ -54,6 +54,7 @@
     <Compile Include="Inventory\ArcherHelmetSlot.cs" />
     <Compile Include="Inventory\BootsSlot.cs" />
     <Compile Include="Inventory\BowSlot.cs" />
+    <Compile Include="Inventory\EquipmentSlot.cs" />
     <Compile Include="Inventory\ImprovementScrollSlot.cs" />
     <Compile Include="Inventory\InventoryManager.cs" />
     <Compile Include="Inventory\InventorySlot.cs" />

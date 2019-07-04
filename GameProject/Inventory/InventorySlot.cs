@@ -16,6 +16,9 @@ namespace GameProject.Inventory
 		public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
 			//Message to display if you can't use/equip item
+
+			//Every inventory slot (and classes inherited from this class) are draggable
+			Draggable = true;
 			invalidUse = "You can't use this item";
 			SetInvalidUsageBackgroundSprite();
 		}

@@ -140,6 +140,37 @@ namespace GameProject
 				}
 			}
 		}
+
+		public bool IsAlreadyDragging()
+		{
+			foreach (var s in slots)
+			{
+				if (s.Draggable && s.IsDragging)
+					return true;
+			}
+			//foreach (var s in EquipmentManager.EquipmentSlots)
+			//{
+			//	if (s.IsDragging)
+			//		return true;
+			//}
+			return false;
+		}
+
+		public Slot WhichSlotIsDragging()
+		{
+			foreach (var s in slots)
+			{
+				if (s.Draggable && s.IsDragging)
+					return s;
+			}
+			//foreach (var s in EquipmentManager.EquipmentSlots)
+			//{
+			//	if (s.IsDragging)
+			//		return s;
+			//}
+			throw new Exception("WhichSlotIsDragging(): Invalid inventory slot\n");
+		}
+
 		public bool IsFull()
 		{
 			foreach(var s in slots)

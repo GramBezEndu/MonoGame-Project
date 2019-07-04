@@ -224,7 +224,7 @@ namespace GameProject.States
 							{"BlockLeft", new Animation(content.Load<Texture2D>("BlockLeft"), 1, game.Scale) },
 							{"BlockUp", new Animation(content.Load<Texture2D>("BlockUp"), 1, game.Scale) },
 							{"FastAttack", new Animation(content.Load<Texture2D>("WarriorFastAttack"), 3, game.Scale, 0.1f) },
-							{"NormalAttack", new Animation(content.Load<Texture2D>("WarriorNormalAttack"), 3, game.Scale, 0.25f) }
+							{"NormalAttack", new Animation(content.Load<Texture2D>("WarriorNormalAttack"), 3, game.Scale, 0.2f) }
 						};
 			player = new Warrior(this, animations, Input, g.Scale, Font)
 			{

@@ -9,7 +9,7 @@ using GameProject.Sprites;
 
 namespace GameProject.Inventory
 {
-	public class BowSlot : InventorySlot
+	public class BowSlot : EquipmentSlot
 	{
 		public new Bow Item { get; set; }
 		public BowSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)

@@ -9,7 +9,7 @@ using GameProject.Sprites;
 
 namespace GameProject.Inventory
 {
-	public class NecklaceSlot : InventorySlot
+	public class NecklaceSlot : EquipmentSlot
 	{
 		public new Necklace Item { get; set; }
 		public NecklaceSlot(GraphicsDevice gd, Player p,Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)

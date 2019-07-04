@@ -69,5 +69,18 @@ namespace GameProject.Items
 		}
 
 		public abstract bool Equip(Player p);
+
+		//public virtual bool Equip(Player p)
+		//{
+		//	string realType = this.GetType().ToString();
+		//	switch(realType)
+		//	{
+		//		case "Sword":
+		//			int x;
+		//			return true;
+		//		default:
+		//			throw new Exception("Item type not handled\n");
+		//	}
+		//}
 	}
 }

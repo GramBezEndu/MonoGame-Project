@@ -21,11 +21,7 @@ namespace GameProject.Sprites
 		private bool blockingUp = false;
 		private bool normalAttacking = false;
 		private bool fastAttacking = false;
-		//private GameTimer attackTypeTimer = new GameTimer(0.2f);
-		/// <summary>
-		/// If last attack was normal, we do not want to perform fast attack before activating timer again (clicking again left button in game)
-		/// </summary>
-		//private bool lastAttackWasNormal;
+
 		private SpriteFont debuggerFont;
 		private int fastAttackCounter = 0;
 		private int normalAttackCounter = 0;
