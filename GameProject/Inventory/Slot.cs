@@ -247,74 +247,16 @@ namespace GameProject.Inventory
 				if (mouseRectangle.Intersects(Rectangle))
 				{
 					isHovering = true;
-
-					//Item dragging
-					if (this.Draggable)
-					{
-						if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
-						{
-							if (this is EquipmentSlot)
-							{
-								//We did not handle it yet
-								return;
-								Console.WriteLine("x");
-							}
-							//End dragging within the same slot
-							if (IsDragging)
-								IsDragging = false;
-							//End dragging within different slot
-							else if (player.InventoryManager.IsAlreadyDragging())
-							{
-								Slot slotDragging = player.InventoryManager.WhichSlotIsDragging();
-								//Swap normally
-								var item = slotDragging.Item;
-								slotDragging.Item = this.Item;
-								this.Item = item;
-								slotDragging.IsDragging = false;
-								////Swap equipment Slot
-								///If atleast one of two slots is equipment slot we have to handle it differently
-								//if (slotDragging is EquipmentSlot)
-								//{
-								//	if(this.Item is Equippable)
-								//	{
-								//		Item temp = slotDragging.Item;
-								//		bool result = (this.Item as Equippable).Equip(player);
-								//		if(result)
-								//		{
-								//			if(this is EquipmentSlot)
-								//			{
-								//				//It will never be correct
-								//			}
-								//			else
-								//			{
-								//				this.Item = temp;
-								//			}
-								//		}
-								//	}
-								//	//Any errors - end dragging
-								//	else
-								//	{
-								//		slotDragging.IsDragging = false;
-								//		return;
-								//	}
-								//}
-							}
-							//Try to start dragging
-							else if (!IsDragging)
-							{
-								//You can't start dragging two items -> extra check
-								if (player.InventoryManager.IsAlreadyDragging())
-									return;
-								else
-									IsDragging = true;
-							}
-						}
-					}
+					DragAndDrop();
 				}
 				//Invalid use timer decrease if >0
 				if (invalidUseTime > 0)
 					invalidUseTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 			}
+		}
+
+		public virtual void DragAndDrop()
+		{
 		}
 	}
 }

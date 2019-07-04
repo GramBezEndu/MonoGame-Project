@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Items;
 using GameProject.Inventory;
@@ -21,17 +22,22 @@ namespace GameProject
 		public EquipmentManager EquipmentManager { get; set; }
 		public bool Hidden { get; set; }
 		private List<InventorySlot> slots;
+		private Sprite Trashcan;
 		/// <summary>
 		/// Initializes new inventory
 		/// </summary>
 		/// <param name="quantitySlots">How many slots will inventory have</param>
-		public InventoryManager(GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, SpriteFont f, int quantitySlots, Vector2 position, float scale) : base(inventoryTexture, scale)
+		public InventoryManager(GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, Texture2D trashcan, SpriteFont f, int quantitySlots, Vector2 position, float scale) : base(inventoryTexture, scale)
 		{
 			Hidden = true;
 			Position = position;
 			player = p;
 			goldTexture = gold;
 			font = f;
+			Trashcan = new Sprite(trashcan, scale)
+			{
+				Position = new Vector2(Position.X + 0.1f * inventoryTexture.Width * scale, Position.Y + 0.75f * inventoryTexture.Height * scale)
+			};
 			goldTexturePos = new Vector2(Position.X + 0.6f * inventoryTexture.Width * scale, Position.Y + 0.8f * inventoryTexture.Height * scale);
 			goldCountTextPos = new Vector2(goldTexturePos.X * 1.035f, goldTexturePos.Y * 1.025f);
 			slots = new List<InventorySlot>();
@@ -52,7 +58,8 @@ namespace GameProject
 					slots.Add(
 						new InventorySlot(gd, player, slotTexture, f, scale)
 						{
-							Position = new Vector2(this.Position.X + (slotTexture.Width * Scale * j), this.Position.Y + (slotTexture.Height * Scale * i))
+							Position = new Vector2(this.Position.X + (slotTexture.Width * Scale * j), this.Position.Y + (slotTexture.Height * Scale * i)),
+							Trashcan = this.Trashcan
 						}
 					);
 				}
@@ -66,6 +73,7 @@ namespace GameProject
 				spriteBatch.Draw(goldTexture, goldTexturePos, null, Color.White, 0f, Vector2.Zero, Scale*0.5f, SpriteEffects.None, 0f);
 				spriteBatch.DrawString(font, player.Gold.ToString(), goldCountTextPos, Color.Black);
 				EquipmentManager.Draw(gameTime, spriteBatch);
+				Trashcan.Draw(gameTime, spriteBatch);
 				//Iterate twice over slots (first time draw items, second time messages [this way messages are always on top of items])
 				foreach (var s in slots)
 					s.Draw(gameTime, spriteBatch);
@@ -148,11 +156,11 @@ namespace GameProject
 				if (s.Draggable && s.IsDragging)
 					return true;
 			}
-			//foreach (var s in EquipmentManager.EquipmentSlots)
-			//{
-			//	if (s.IsDragging)
-			//		return true;
-			//}
+			foreach (var s in EquipmentManager.EquipmentSlots)
+			{
+				if (s.IsDragging)
+					return true;
+			}
 			return false;
 		}
 
@@ -163,11 +171,11 @@ namespace GameProject
 				if (s.Draggable && s.IsDragging)
 					return s;
 			}
-			//foreach (var s in EquipmentManager.EquipmentSlots)
-			//{
-			//	if (s.IsDragging)
-			//		return s;
-			//}
+			foreach (var s in EquipmentManager.EquipmentSlots)
+			{
+				if (s.IsDragging)
+					return s;
+			}
 			throw new Exception("WhichSlotIsDragging(): Invalid inventory slot\n");
 		}
 

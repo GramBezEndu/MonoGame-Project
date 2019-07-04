@@ -22,6 +22,7 @@ namespace GameProject
 			_quantity = 1;
 		}
 		public bool IsStackable { get; set; }
+		public bool CanBeDeleted { get; set; } = true;
 		public int Quantity
 		{
 			get => _quantity;

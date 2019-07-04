@@ -13,6 +13,10 @@ namespace GameProject.Inventory
 {
 	public class InventorySlot : Slot
 	{
+		/// <summary>
+		/// Trashcan sprite reference to delete items
+		/// </summary>
+		public Sprite Trashcan { get; set; }
 		public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
 			//Message to display if you can't use/equip item
@@ -31,9 +35,13 @@ namespace GameProject.Inventory
 			{
 				if (currentState.RightButton == ButtonState.Released && previousState.RightButton == ButtonState.Pressed)
 				{
+					//Reset dragging flag
+					IsDragging = false;
+
 					//Click?.Invoke(this, new EventArgs());
 					if (Item == null)
 						return;
+
 					//Usable
 					if (Item is Usable)
 					{
@@ -53,11 +61,68 @@ namespace GameProject.Inventory
 					}
 				}
 			}
+			//Maybe player wants to delete current item
+			//Player still might want to drop an item on the ground (not added yet)
+			//This check is equal to: If real type is InventorySlot
+			else if(Trashcan != null)
+			{
+				if (mouseRectangle.Intersects(Trashcan.Rectangle))
+				{
+					if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
+					{
+						if (player.InventoryManager.IsAlreadyDragging())
+						{
+							var slot = player.InventoryManager.WhichSlotIsDragging();
+							if (slot.Item == null)
+								return;
+							else if(slot.Item.CanBeDeleted)
+								slot.Item = null;
+							else
+							{
+								//We should display message that this item can not be deleted
+							}
+						}
+					}
+				}
+			}
 			//Item could be used or equipped
 			if (Item?.Quantity <= 0)
             {
                 Item = null;
             }
         }
-    }
+
+		public override void DragAndDrop()
+		{
+			//Item dragging
+			if (this.Draggable)
+			{
+				if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
+				{
+					//End dragging within the same slot
+					if (IsDragging)
+						IsDragging = false;
+					//End dragging within different slot
+					else if (player.InventoryManager.IsAlreadyDragging())
+					{
+						Slot slotDragging = player.InventoryManager.WhichSlotIsDragging();
+						//Swap normally
+						var item = slotDragging.Item;
+						slotDragging.Item = this.Item;
+						this.Item = item;
+						slotDragging.IsDragging = false;
+					}
+					//Try to start dragging
+					else if (!IsDragging)
+					{
+						//You can't start dragging two items -> extra check
+						if (player.InventoryManager.IsAlreadyDragging())
+							return;
+						else
+							IsDragging = true;
+					}
+				}
+			}
+		}
+	}
 }

@@ -162,7 +162,7 @@ namespace GameProject.States
 			{
 				Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 			};
-			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 			if (player is StaminaUser)
 			{
@@ -230,7 +230,7 @@ namespace GameProject.States
 			{
 				Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 			};
-			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 			if (player is StaminaUser)
 			{

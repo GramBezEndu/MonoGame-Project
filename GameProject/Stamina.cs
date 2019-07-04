@@ -18,7 +18,7 @@ namespace GameProject
 		public Stamina(Texture2D healthTexture, SpriteFont f, float scale) : base(healthTexture, scale)
 		{
 			font = f;
-			MaxStamina = 50;
+			MaxStamina = 100;
 			CurrentStamina = MaxStamina;
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
