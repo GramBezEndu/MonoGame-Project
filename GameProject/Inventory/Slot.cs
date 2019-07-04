@@ -26,7 +26,21 @@ namespace GameProject.Inventory
 		}
 
 		public bool Draggable { get; set; }
-		public bool IsDragging { get; set; }
+		public bool IsDragging
+		{
+			get => _isDragging;
+			set
+			{
+				if(value == true && !Draggable)
+				{
+						throw new Exception("This slot is not marked as draggable\n");
+				}
+				else
+				{
+					_isDragging = value;
+				}
+			}
+		}
 
 		/// <summary>
 		/// For how long text will be displayed after invalid item usage (in seconds)
@@ -49,6 +63,7 @@ namespace GameProject.Inventory
 		protected Item _item;
 
 		protected string UpgradedItemString;
+		private bool _isDragging;
 
 		public Slot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(t, scale)
 		{
@@ -98,9 +113,9 @@ namespace GameProject.Inventory
 					size.X = Math.Max(font.MeasureString(Item.Description).X, font.MeasureString(Item.Name).X);
 					size.Y += font.MeasureString(Item.Description).Y;
 				}
-				if(Item is UpgradeableWithScroll)
+				if (Item is UpgradeableWithScroll)
 				{
-					if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
+					if ((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 					{
 						//Set the message
 						UpgradedItemString = "Scroll Power: " + (Item as UpgradeableWithScroll).ImprovementScrollSlot.Item.ImprovementPower * 100 + "%";
@@ -160,14 +175,14 @@ namespace GameProject.Inventory
 		/// <param name="spriteBatch"></param>
 		public virtual void DrawMessages(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			if(!Hidden)
+			if (!Hidden)
 			{
 				if (Item != null)
 				{
 					if (isHovering)
 					{
 						descriptionAndNameBackground.Draw(gameTime, spriteBatch);
-						if(Item is UpgradeableWithScroll)
+						if (Item is UpgradeableWithScroll)
 						{
 							//item has scroll - goldenrod
 							if ((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
@@ -187,15 +202,15 @@ namespace GameProject.Inventory
 							spriteBatch.DrawString(font, Item.Description, new Vector2(descriptionAndNameBackground.Position.X, descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y), Color.Black);
 							if (Item is UpgradeableWithScroll)
 							{
-								if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
+								if ((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 								{
 									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
 										descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y + font.MeasureString(Item.Description).Y);
 									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Draw(gameTime, spriteBatch);
 									//Draw improvement percent
-									spriteBatch.DrawString(font, UpgradedItemString, 
+									spriteBatch.DrawString(font, UpgradedItemString,
 										new Vector2(descriptionAndNameBackground.Position.X + (Item as UpgradeableWithScroll).ImprovementScrollSlot.Width,
-											descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y + font.MeasureString(Item.Description).Y), 
+											descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y + font.MeasureString(Item.Description).Y),
 										Color.Green);
 								}
 							}
@@ -205,7 +220,7 @@ namespace GameProject.Inventory
 						{
 							if (Item is UpgradeableWithScroll)
 							{
-								if((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
+								if ((Item as UpgradeableWithScroll).ImprovementScrollSlot.Item != null)
 								{
 									(Item as UpgradeableWithScroll).ImprovementScrollSlot.Position = new Vector2(descriptionAndNameBackground.Position.X,
 										descriptionAndNameBackground.Position.Y + font.MeasureString(Item.Name).Y);
@@ -235,7 +250,7 @@ namespace GameProject.Inventory
 
 		public override void Update(GameTime gameTime)
 		{
-			if(!Hidden)
+			if (!Hidden)
 			{
 				previousState = currentState;
 				currentState = Mouse.GetState();

@@ -161,6 +161,14 @@ namespace GameProject
 				if (s.IsDragging)
 					return true;
 			}
+			if (player.activeSlots != null)
+			{
+				foreach (var s in player.activeSlots)
+				{
+					if (s.IsDragging)
+						return true;
+				}
+			}
 			return false;
 		}
 
@@ -175,6 +183,14 @@ namespace GameProject
 			{
 				if (s.IsDragging)
 					return s;
+			}
+			if(player.activeSlots != null)
+			{
+				foreach (var s in player.activeSlots)
+				{
+					if (s.IsDragging)
+						return s;
+				}
 			}
 			throw new Exception("WhichSlotIsDragging(): Invalid inventory slot\n");
 		}

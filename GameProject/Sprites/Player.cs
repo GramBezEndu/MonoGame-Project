@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Animations;
 using GameProject.States;
+using GameProject.Inventory;
 
 namespace GameProject.Sprites
 {
@@ -56,6 +57,10 @@ namespace GameProject.Sprites
         /// Determines if player has opened any window (blacksmith/shopkeeper etc.)
         /// </summary>
         public bool UsingWindow { get; set; }
+		/// <summary>
+		/// List of current active slots (while using window)
+		/// </summary>
+		public List<DraggableSlot> activeSlots { get; set; }
 
 		public InventoryManager InventoryManager { get; set; }
 		public HealthBar HealthBar { get; set; }

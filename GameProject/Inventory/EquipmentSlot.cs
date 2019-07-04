@@ -18,6 +18,10 @@ namespace GameProject.Inventory
 
 		}
 
+		/// <summary>
+		/// You can not equip/unequip items through item dragging now
+		/// Current implementation only ends dragging when trying to swap items using equipment slots
+		/// </summary>
 		public override void DragAndDrop()
 		{
 			//Item dragging

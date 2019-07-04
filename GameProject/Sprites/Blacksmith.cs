@@ -24,7 +24,7 @@ namespace GameProject.Sprites
         /// List of improvements slots (used in upgrade) method
         /// Note: They are added in scrollUpgradedComponents, they're used just for object reference
         /// </summary>
-        List<Slot> upgradeSlots = new List<Slot>();
+        List<DraggableSlot> upgradeSlots = new List<DraggableSlot>();
 
         List<Component> shieldRepairComponents = new List<Component>();
         public Blacksmith(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
@@ -282,7 +282,7 @@ namespace GameProject.Sprites
         {
 			LegendaryImprovementScroll scrollOne = (LegendaryImprovementScroll)upgradeSlots[0].Item;
 			LegendaryImprovementScroll scrollTwo = (LegendaryImprovementScroll)upgradeSlots[1].Item;
-			upgradeSlots[2].Item = new LegendaryImprovementScroll(game, GameState.Textures["ImprovementScroll"], game.Scale)
+			upgradeSlots[2].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale)
 			{
 				ImprovementPower = game.RandomNumber(
 					   (int)Math.Round((scrollOne.ImprovementPower + scrollTwo.ImprovementPower) * 100f / 2f),
@@ -333,6 +333,7 @@ namespace GameProject.Sprites
 			{
 				c.Hidden = false;
 			}
+			player.activeSlots = upgradeSlots;
 		}
 
 		private void ActivateScrollAddingWindow(object sender, EventArgs e)
@@ -368,13 +369,14 @@ namespace GameProject.Sprites
 		}
 
 		/// <summary>
-		/// Hides all blacksmith's components -> calls Hide() method
+		/// Hides all blacksmith's components -> calls Hide() method and resets activeSlots
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void HideWindow(object sender, EventArgs e)
 		{
 			Hide();
+			player.activeSlots = null;
 		}
 
 		protected override void Hide()

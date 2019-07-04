@@ -11,7 +11,7 @@ using GameProject.Items;
 
 namespace GameProject.Inventory
 {
-	public class InventorySlot : Slot
+	public class InventorySlot : DraggableSlot
 	{
 		/// <summary>
 		/// Trashcan sprite reference to delete items
@@ -61,9 +61,9 @@ namespace GameProject.Inventory
 					}
 				}
 			}
-			//Maybe player wants to delete current item
+			//Check if player wants to delete current item
 			//Player still might want to drop an item on the ground (not added yet)
-			//This check is equal to: If real type is InventorySlot
+			//This check is equal to: If real type is InventorySlot (should be rewritten later)
 			else if(Trashcan != null)
 			{
 				if (mouseRectangle.Intersects(Trashcan.Rectangle))
@@ -85,7 +85,7 @@ namespace GameProject.Inventory
 							}
 							else
 							{
-								//We should display message that this item can not be deleted
+								//Message: This item can not be deleted
 								slot.IsDragging = false;
 							}
 						}
@@ -98,38 +98,5 @@ namespace GameProject.Inventory
                 Item = null;
             }
         }
-
-		public override void DragAndDrop()
-		{
-			//Item dragging
-			if (this.Draggable)
-			{
-				if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
-				{
-					//End dragging within the same slot
-					if (IsDragging)
-						IsDragging = false;
-					//End dragging within different slot
-					else if (player.InventoryManager.IsAlreadyDragging())
-					{
-						Slot slotDragging = player.InventoryManager.WhichSlotIsDragging();
-						//Swap normally
-						var item = slotDragging.Item;
-						slotDragging.Item = this.Item;
-						this.Item = item;
-						slotDragging.IsDragging = false;
-					}
-					//Try to start dragging
-					else if (!IsDragging)
-					{
-						//You can't start dragging two items -> extra check
-						if (player.InventoryManager.IsAlreadyDragging())
-							return;
-						else
-							IsDragging = true;
-					}
-				}
-			}
-		}
 	}
 }
