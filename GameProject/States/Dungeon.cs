@@ -22,7 +22,7 @@ namespace GameProject.States
         //Optional room changes every time we enter it
         //It needs a change
 		List<Door> optionalEntrances = new List<Door>();
-        //List<OptionalRoom> optionalRooms;
+        List<OptionalRoom> optionalRooms = new List<OptionalRoom>();
 		int levelWidth;
 		int optionalRoomsQuantity;
 		public Dungeon(Game1 g, GraphicsDevice gd, ContentManager c, Player p, int level = 1) : base(g, gd, c)
@@ -85,6 +85,7 @@ namespace GameProject.States
                 if (canBeAdded)
                 {
                     optionalEntrances.Add(new Door(g, this, temp, temp2, p));
+					optionalRooms.Add(new OptionalRoom(g, gd, c, p, level, this));
                 }
             }
 
@@ -220,13 +221,13 @@ namespace GameProject.States
                 //Need to rethink this concept
                 foreach (var oe in optionalEntrances)
                     oe.Update(gameTime);
-                foreach (var i in optionalEntrances)
-                {
-                    if(i.Activated == true)
-                    {
-						EnterOptionalRoom();
-                    }
-                }
+				for(int i=0;i<optionalEntrances.Count;i++)
+				{
+					if(optionalEntrances[i].Activated)
+					{
+						EnterOptionalRoom(i);
+					}
+				}
                 //Next level entrance
                 nextLevelEntrance.Update(gameTime);
                 if(nextLevelEntrance.Activated)
@@ -243,9 +244,10 @@ namespace GameProject.States
 					pc.Update(gameTime);
 			}
 		}
-		private void EnterOptionalRoom()
+		private void EnterOptionalRoom(int i)
 		{
-			GameState newState = new OptionalRoom(game, graphicsDevice, content, player, currentLevel, this);
+			GameState newState = optionalRooms[i];
+			optionalRooms[i].Enter(player);
 			game.ChangeState(newState);
 			player.gameState = newState;
 		}

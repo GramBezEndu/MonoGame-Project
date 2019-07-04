@@ -16,7 +16,7 @@ namespace GameProject.States
 	{
 		Door GoBackDoor;
 		Dungeon dungeonLevel;
-		Vector2 oldPlayerPosition;
+		public Vector2 OldPlayerPosition { get; set; }
 		public OptionalRoom(Game1 g, GraphicsDevice gd, ContentManager c, Player p, int level, Dungeon gameLevel) : base(g, gd, c)
 		{
 			#region variables
@@ -27,9 +27,6 @@ namespace GameProject.States
 			var buttonTexture = content.Load<Texture2D>("Button");
             #endregion
             player = p;
-			oldPlayerPosition = player.Position;
-			//change the position in new state
-			player.Position = new Vector2(0.05f * game.Width, 0.6f * game.Height);
 			dungeonLevel = gameLevel;
 			//Place door at the end of dungeon level to come back
             GoBackDoor = new Door(g, 
@@ -56,20 +53,21 @@ namespace GameProject.States
                     SpawnWarriorsGroup();
                 }
 				//Mysterious chest
-                else if (value <=85)
+                else if (value <= 85)
                 {
                     SpawnMysteriousChest(new Vector2(0.5f * game.Width, 0.82f * game.Height));
                 }
+				//Not added yet -> Equals with empty room
                 else
                 {
 
                 }
             }
-			//Monsters 85%, Treasure chest 15%
+			//Monsters 70%, Treasure chest 30%
 			else
 			{
                 //Monsters
-                if(value <= 85)
+                if(value <= 70)
                 {
                     SpawnWarriorsGroup();
                 }
@@ -205,7 +203,7 @@ namespace GameProject.States
                 if(GoBackDoor.Activated)
                 {                    
                     //Bring back old player position and update gameState for player
-                    player.Position = oldPlayerPosition;
+                    player.Position = OldPlayerPosition;
 					player.gameState = dungeonLevel;
 					//We can change state now
                     game.ChangeState(dungeonLevel);
@@ -221,6 +219,14 @@ namespace GameProject.States
 				foreach (var pc in pausedComponents)
 					pc.Update(gameTime);
 			}
+		}
+
+		public void Enter(Player player)
+		{
+			//Assign old position
+			OldPlayerPosition = player.Position;
+			//change the position in new state
+			this.player.Position = new Vector2(0.1f * game.Width, 0.6f * game.Height);
 		}
 	}
 }
