@@ -31,11 +31,12 @@ namespace GameProject.States
 			//change the position in new state
 			player.Position = new Vector2(0.05f * game.Width, 0.6f * game.Height);
 			dungeonLevel = gameLevel;
+			//Place door at the end of dungeon level to come back
             GoBackDoor = new Door(g, 
                 this,
                 new Sprite(optionalEntranceTexture, g.Scale)
                 {
-            	    Position = new Vector2(0.05f*game.Width, 0.55f * game.Height)
+            	    Position = new Vector2(1.05f*game.Width, 0.55f * game.Height)
                 },
                 new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale),
                 player);
