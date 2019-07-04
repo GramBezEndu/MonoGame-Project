@@ -15,32 +15,36 @@ namespace GameProject.Sprites
 	public class Blacksmith : Character
 	{
 		//UiElements list -> base components
+
 		List<Component> addingScrollComponents = new List<Component>();
 
 		List<Component> scrollUpgradeComponents = new List<Component>();
+
         /// <summary>
         /// List of improvements slots (used in upgrade) method
-        /// Note: They are added in scrollUpgradedComponents, just object references
+        /// Note: They are added in scrollUpgradedComponents, they're used just for object reference
         /// </summary>
-        List<ImprovementScrollSlot> improvementScrollSlots = new List<ImprovementScrollSlot>();
+        List<Slot> upgradeSlots = new List<Slot>();
 
         List<Component> shieldRepairComponents = new List<Component>();
         public Blacksmith(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
 		{
 			MainWindowAddElements(g, gs);
 
-			//Extra window 1
-			ScrollAddingWindow(g, gs);
-			//Extra window 2
-			ShieldRepairWindow(g, gs);
+			//Note: Fused scroll adding and scroll upgrade to one window
+			//Shield Repair window is now disabled because repair feature might get removed
+			////Extra window 1
+			//ScrollAddingWindow(g, gs);
+			////Extra window 2
+			//ShieldRepairWindow(g, gs);
 			//Extra window 3
 			ScrollUpgradeWindow(g, gs);
 
 			//Apply changes to state
 			gs.AddUiElements(UiElements);
-			gs.AddUiElements(addingScrollComponents);
+			//gs.AddUiElements(addingScrollComponents);
 			gs.AddUiElements(scrollUpgradeComponents);
-			gs.AddUiElements(shieldRepairComponents);
+			//gs.AddUiElements(shieldRepairComponents);
 		}
 
 		private void MainWindowAddElements(Game1 g, GameState gs)
@@ -56,34 +60,34 @@ namespace GameProject.Sprites
 			{
 				throw new Exception("First component should be background sprite\n");
 			}
-			var addScroll = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Position = pos,
-				Text = "Add Scroll",
-				Hidden = true,
-				Click = ActivateScrollAddingWindow
-			};
-			UiElements.Add(addScroll);
-			pos += new Vector2(0, addScroll.Height);
+			//var addScroll = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+			//{
+			//	Position = pos,
+			//	Text = "Add Scroll",
+			//	Hidden = true,
+			//	Click = ActivateScrollAddingWindow
+			//};
+			//UiElements.Add(addScroll);
+			//pos += new Vector2(0, addScroll.Height);
 			var scrollUpgrade = new Button(gs.Textures["Button"], gs.Font, g.Scale)
 			{
 				Position = pos,
 				//It could be "Joining scrolls" or sth like that
-				Text = "Scroll upgrade",
+				Text = "Upgrade",
 				Click = ActivateScrollUpgradeWindow,
 				Hidden = true
 			};
 			UiElements.Add(scrollUpgrade);
 
-			pos += new Vector2(0, scrollUpgrade.Height);
-			var shieldRepair = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Position = pos,
-				Text = "Shield repair",
-				Click = ActivateRepairShieldWindow,
-				Hidden = true
-			};
-			UiElements.Add(shieldRepair);
+			//pos += new Vector2(0, scrollUpgrade.Height);
+			//var shieldRepair = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+			//{
+			//	Position = pos,
+			//	Text = "Shield repair",
+			//	Click = ActivateRepairShieldWindow,
+			//	Hidden = true
+			//};
+			//UiElements.Add(shieldRepair);
 		}
 
 		private void ScrollAddingWindow(Game1 g, GameState gs)
@@ -134,7 +138,7 @@ namespace GameProject.Sprites
                 Hidden = true
             };
             scrollUpgradeComponents.Add(improvementSlotOne);
-            improvementScrollSlots.Add(improvementSlotOne);
+            upgradeSlots.Add(improvementSlotOne);
 
             var improvementSlotTwo = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
             {
@@ -142,72 +146,152 @@ namespace GameProject.Sprites
                 Hidden = true
             };
             scrollUpgradeComponents.Add(improvementSlotTwo);
-            improvementScrollSlots.Add(improvementSlotTwo);
+            upgradeSlots.Add(improvementSlotTwo);
 
-            var improvementSlotThree = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
+			var arrow = new Sprite(gs.Textures["Arrow"], g.Scale)
+			{
+				Position = new Vector2(scrollUpgradeBackground.Position.X + improvementSlotOne.Width + improvementSlotTwo.Width, scrollUpgradeBackground.Position.Y),
+				Hidden = true
+			};
+			scrollUpgradeComponents.Add(arrow);
+
+			var improvementSlotThree = new ImprovementScrollSlot(gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
             {
-                Position = new Vector2(scrollUpgradeBackground.Position.X + improvementSlotOne.Width + improvementSlotTwo.Width, scrollUpgradeBackground.Position.Y),
+                Position = new Vector2(arrow.Position.X + arrow.Width, arrow.Position.Y),
                 Hidden = true
             };
             scrollUpgradeComponents.Add(improvementSlotThree);
-            improvementScrollSlots.Add(improvementSlotThree);
+            upgradeSlots.Add(improvementSlotThree);
 
-            var upgradeButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+			var upgradeCostDisplay = new Text(gs.Font, "Upgrade cost: 0")
+			{
+				Hidden = true,
+			};
+			upgradeCostDisplay.Position = new Vector2(improvementSlotOne.Position.X, improvementSlotOne.Position.Y + improvementSlotOne.Height);
+			scrollUpgradeComponents.Add(upgradeCostDisplay);
+
+			var upgradeButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
             {
-                Position = new Vector2(scrollUpgradeBackground.Position.X, scrollUpgradeBackground.Position.Y + improvementSlotOne.Height),
+                Position = new Vector2(upgradeCostDisplay.Position.X, upgradeCostDisplay.Position.Y + upgradeCostDisplay.Height),
                 Text = "Upgrade",
                 Hidden = true,
-                Click = UpgradeScrolls
+                Click = Upgrade
             };
 
             scrollUpgradeComponents.Add(upgradeButton);
         }
 
-        private void UpgradeScrolls(object sender, EventArgs e)
-        {
-            //improvementScrollSlots[0].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale);
-            //improvementScrollSlots[1].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale);
-            if (improvementScrollSlots[0].Item == null || improvementScrollSlots[1].Item == null)
-            {
-                //Message: one of required slots is missing
-                return;
-            }
-            if(improvementScrollSlots[2].Item != null)
-            {
-                //Message: you need to take upgraded scroll first
-                return;
-            }
-            if(improvementScrollSlots[0].Item.GetType() != improvementScrollSlots[1].Item.GetType())
-            {
-                //Message: Scroll needs to be the same type
-                return;
-            }
-            //We can now upgrade scroll
+		private void Upgrade(object sender, EventArgs e)
+		{
+			//Missing item
+			if (upgradeSlots[0].Item == null || upgradeSlots[1].Item == null)
+			{
+				//Message: one of required slots is missing
+				return;
+			}
+			//Need to take upgraded item first
+			if (upgradeSlots[2].Item != null)
+			{
+				//Message: you need to take upgraded item first
+				return;
+			}
+			//Scroll checking
+			var type1 = upgradeSlots[0].Item.GetType();
+			var type2 = upgradeSlots[1].Item.GetType();
+			//Check if it is normal scroll upgrade
+			if (type1 == typeof(ImprovementScroll))
+			{
+				if(type2 != type1)
+				{
+					//Message: You can't fuse Legendary Scroll with Normal Scroll
+					return;
+				}
+				UpgradeNormalScrolls();
+			}
+			//Check if it is legendary scroll upgrade
+			else if(type1 == typeof(LegendaryImprovementScroll))
+			{
+				if (type2 != type1)
+				{
+					//Message: You can't fuse Legendary Scroll with Normal Scroll
+					return;
+				}
+				UpgradeLegendaryScrolls();
+			}
+			//Check if it is equipment upgrade (not done yet)
+			else
+			{
+				//Any upgradeable item in slot one
+				if(upgradeSlots[0].Item is UpgradeableWithScroll)
+				{
+					if(upgradeSlots[1].Item is ImprovementScroll)
+					{
+						//It is ok
+						UpgradeEquipment();
+					}
+					else
+					{
+						//Message: Item can only be upgraded with scroll
+						return;
+					}
+				}
+				//Any upgradeable item in slot two
+				else if (upgradeSlots[1].Item is UpgradeableWithScroll)
+				{
+					if (upgradeSlots[0].Item is ImprovementScroll)
+					{
+						//It is ok
+						UpgradeEquipment();
+					}
+					else
+					{
+						//Message: Item can only be upgraded with scroll
+						return;
+					}
+				}
+				//No upgradeable item
+				else
+				{
+					//Message: You can't upgrade this item
+					return;
+				}
+			}
+		}
 
-            //It will be legendary scroll
-            if(improvementScrollSlots[0].Item is LegendaryImprovementScroll)
-            {
-                improvementScrollSlots[2].Item = new LegendaryImprovementScroll(game, GameState.Textures["LegendaryImprovementScroll"], game.Scale)
-                {
-                    ImprovementPower = game.RandomNumber(
-                        (int)Math.Round((improvementScrollSlots[0].Item.ImprovementPower + improvementScrollSlots[1].Item.ImprovementPower) * 100f  / 2f),
-                        (int)Math.Round(improvementScrollSlots[0].Item.MaxPower * 100f)) / 100f,
-                };
-            }
-            //Normal scroll
-            else
-            {
-                improvementScrollSlots[2].Item = new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], game.Scale)
-                {
-                    ImprovementPower = game.RandomNumber(
-                        (int)Math.Round((improvementScrollSlots[0].Item.ImprovementPower + improvementScrollSlots[1].Item.ImprovementPower) * 100f / 2f),
-                        (int)Math.Round(improvementScrollSlots[0].Item.MaxPower * 100f)) / 100f,
-                };
-            }
-            //Destroy previous scrolls
-            improvementScrollSlots[0].Item = null;
-            improvementScrollSlots[1].Item = null;
-        }
+		private void UpgradeEquipment()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void UpgradeNormalScrolls()
+		{
+			ImprovementScroll scrollOne = (ImprovementScroll)upgradeSlots[0].Item;
+			ImprovementScroll scrollTwo = (ImprovementScroll)upgradeSlots[1].Item;
+			upgradeSlots[2].Item = new ImprovementScroll(game, GameState.Textures["ImprovementScroll"], game.Scale)
+			{
+				ImprovementPower = game.RandomNumber(
+					   (int)Math.Round((scrollOne.ImprovementPower + scrollTwo.ImprovementPower) * 100f / 2f),
+					   (int)Math.Round(scrollOne.MaxPower * 100f)) / 100f,
+			};
+			//Destroy previous scrolls
+			upgradeSlots[0].Item = null;
+            upgradeSlots[1].Item = null;
+		}
+
+		private void UpgradeLegendaryScrolls()
+        {
+			LegendaryImprovementScroll scrollOne = (LegendaryImprovementScroll)upgradeSlots[0].Item;
+			LegendaryImprovementScroll scrollTwo = (LegendaryImprovementScroll)upgradeSlots[1].Item;
+			upgradeSlots[2].Item = new LegendaryImprovementScroll(game, GameState.Textures["ImprovementScroll"], game.Scale)
+			{
+				ImprovementPower = game.RandomNumber(
+					   (int)Math.Round((scrollOne.ImprovementPower + scrollTwo.ImprovementPower) * 100f / 2f),
+					   (int)Math.Round(scrollOne.MaxPower * 100f)) / 100f,
+			};
+			//Destroy previous scrolls
+			upgradeSlots[0].Item = null;
+			upgradeSlots[1].Item = null;
+		}
 
         private void ShieldRepairWindow(Game1 g, GameState gs)
 		{
