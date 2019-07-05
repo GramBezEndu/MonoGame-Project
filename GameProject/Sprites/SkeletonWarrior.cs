@@ -31,7 +31,7 @@ namespace GameProject.Sprites
             //base.OnDeath();
             //Drop gold and items here
             //30% chance for 30-50 gold
-            //30% chance for 1 bone
+            //25% chance for 1 bone
             int drop = game.RandomPercent();
             if(drop <= 30)
             {
@@ -44,7 +44,7 @@ namespace GameProject.Sprites
                 gameState.SpawnItem(goldCoin);
             }
             drop = game.RandomPercent();
-            if (drop <= 30)
+            if (drop <= 25)
             {
                 Bone bone = new Bone(gameState.Textures["Bone"], game.Scale)
                 {

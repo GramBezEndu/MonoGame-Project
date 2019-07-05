@@ -14,8 +14,9 @@ namespace GameProject.States
 	public class Settings : State
 	{
 		SpriteFont font;
+		List<Button> keybindsButtons = new List<Button>();
         List<string> inputKeybindStrings = new List<string>();
-        //Will represent max font width (from input keybinds strings)
+        ///Will represent max font width (from input keybinds strings), so buttons can be placed correctly
         Vector2 size = new Vector2(0, 0);
         public Settings(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
@@ -46,7 +47,7 @@ namespace GameProject.States
                 },
                 new Checkbox(c1, c2, g.Scale)
                 {
-                    Position = new Vector2(0.25f*game.Width, 0.6f*game.Height)
+                    Position = new Vector2(0.55f*game.Width, 0.6f*game.Height)
                 }
             };
 
@@ -63,13 +64,14 @@ namespace GameProject.States
             //Make keybinds buttons (need to set correct Y still)
             for (int i = 0; i < game.Input.KeyBindings.Count; i++)
             {
-                staticComponents.Add(new Button(buttonTexture, font, g.Scale)
+                keybindsButtons.Add(new Button(buttonTexture, font, g.Scale)
                 {
                     Position = new Vector2(0.255f * game.Width + size.X, 0.033f * game.Height + i*tempButton.Height),
                     Text = game.Input.KeyBindings.ElementAt(i).Value.ToString()
                 }
                 );
             }
+			staticComponents.AddRange(keybindsButtons);
 		}
 
 		private void Back(object sender, EventArgs e)
@@ -83,11 +85,11 @@ namespace GameProject.States
 			foreach (var c in staticComponents)
 				c.Draw(gameTime, spriteBatch);
 
-            //Make it a list of strings in constructor
+            //Iterate over string and draw in correct position (they might be "Text" components, maybe want to change it later)
 			for(int i=0;i<inputKeybindStrings.Count;i++)
 			{
                 //Should be done with on Y with Max(font.MeasureString, button.Y) (needs a fix later)
-				spriteBatch.DrawString(font, inputKeybindStrings.ElementAt(i), new Vector2(0.255f*game.Width, (i * 0.04f + 0.05f) * game.Height), Color.Black);
+				spriteBatch.DrawString(font, inputKeybindStrings[i], new Vector2(0.255f*game.Width, 0.05f * game.Height + i * keybindsButtons[i].Height), Color.Black);
 			}
 			spriteBatch.End();
 		}
