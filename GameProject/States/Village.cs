@@ -23,6 +23,14 @@ namespace GameProject.States
 	public class Village : GameState
 	{
         List<Door> optionalEntrances;
+		/// <summary>
+		/// Note: Need to rethink concept with adding elements to uiComponents etc.
+		/// Maybe it will be better to provide references to different spriteBatches to drawing objects
+		/// </summary>
+		/// <param name="g"></param>
+		/// <param name="gd"></param>
+		/// <param name="c"></param>
+		/// <param name="playerClass"></param>
 		public Village(Game1 g, GraphicsDevice gd, ContentManager c, PlayerClasses playerClass) : base(g, gd, c)
 		{
 			int inventorySlots = 12;
@@ -110,7 +118,6 @@ namespace GameProject.States
 					Quantity = 5
 				}
 			);
-			player.InventoryManager.AddItem(new ManaPotion(Textures["ManaPotion"], game.Scale));
 		}
 
 		private void CreatePlayer(Game1 g, GraphicsDevice gd, PlayerClasses playerClass, int inventorySlots)
@@ -165,7 +172,7 @@ namespace GameProject.States
 			};
 			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
 			//Create AccessSlotsManager
-			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * game.Width, 0.8f * game.Height));
+			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * game.Width, 0.8f * game.Height), Input);
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 			if (player is StaminaUser)
 			{
@@ -235,7 +242,7 @@ namespace GameProject.States
 			};
 			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
 			//Create AccessSlotsManager
-			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * game.Width, 0.8f * game.Height));
+			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * game.Width, 0.8f * game.Height), Input);
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 			if (player is StaminaUser)
 			{

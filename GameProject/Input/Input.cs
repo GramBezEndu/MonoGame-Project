@@ -29,7 +29,10 @@ namespace GameProject
 				{"PickUp",Keys.Z },
 				{"ShowInventory",Keys.Tab },
 				{"Pause",Keys.Escape },
-				{"Interact",Keys.E }
+				{"Interact",Keys.E },
+				{"FastSlot1",Keys.D1 },
+				{"FastSlot2",Keys.D2 },
+				{"FastSlot3",Keys.D3 },
 			};
 		}
 		public void Update(GameTime gameTime)

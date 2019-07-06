@@ -74,8 +74,8 @@ namespace GameProject.Sprites
 				else
 					HealthRegenTimer.Enabled = false;
 				HealthRegen(gameTime);
-				//Update keyboard states
-				input.Update(gameTime);
+				////Update keyboard states (it is done now in State base class, which is more appropriate)
+				//input.Update(gameTime);
 				//Hide/Show inventory (keyboard input)
 				HideShowInventory();
 				//Player movement (keyboard input)
@@ -92,9 +92,11 @@ namespace GameProject.Sprites
 				//Reset velocity after updating position
 				Velocity = Vector2.Zero;
 
-				HealthBar.Update(gameTime);
+				////Note: InventoryManager and Healthbar are updated in uiComponents in State (need to rethink this concept)
 
-				InventoryManager.Update(gameTime);
+				//HealthBar.Update(gameTime);
+				//InventoryManager.Update(gameTime);
+
 				//Update player movement speed bonus
 				moveDistance = (1 + InventoryManager.EquipmentManager.Attributes["MovementSpeed"]) * baseMoveDistance;
 				sprintDistance = (1 + InventoryManager.EquipmentManager.Attributes["MovementSpeed"]) * baseSprintDistance;

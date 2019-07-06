@@ -101,6 +101,7 @@ namespace GameProject.States
 
 		public override void Update(GameTime gameTime)
 		{
+			base.Update(gameTime);
 			foreach (var c in staticComponents)
 				c.Update(gameTime);
 		}

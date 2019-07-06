@@ -40,10 +40,9 @@ namespace GameProject.States
         //TODO: Update input in state, not in player
         public override void Update(GameTime gameTime)
         {
-            PreviousState = CurrentState;
-            CurrentState = Keyboard.GetState();
+			base.Update(gameTime);
             //Manage pause on button press
-            if (CurrentState.IsKeyDown(Input.KeyBindings["Pause"]) && PreviousState.IsKeyUp(Input.KeyBindings["Pause"]))
+            if (Input.CurrentState.IsKeyDown(Input.KeyBindings["Pause"]) && Input.PreviousState.IsKeyUp(Input.KeyBindings["Pause"]))
             {
                 if (Paused)
                     Paused = false;

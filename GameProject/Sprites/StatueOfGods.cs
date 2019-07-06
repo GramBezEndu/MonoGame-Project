@@ -35,7 +35,7 @@ namespace GameProject.Sprites
 					else if (player is ManaUser)
 					{
 						throw new NotImplementedException();
-						player.HealthBar.Health.CurrentHealth = player.HealthBar.Health.MaxHealth;
+						Console.WriteLine("o");
 					}
 				}
 			}

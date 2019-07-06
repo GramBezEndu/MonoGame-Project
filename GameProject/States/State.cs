@@ -89,7 +89,10 @@ namespace GameProject
             }
         }
 
-        public abstract void Update(GameTime gameTime);
+        public virtual void Update(GameTime gameTime)
+		{
+			Input.Update(gameTime);
+		}
 		public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale);
 		/// <summary>
 		/// Remove not needed resources etc.

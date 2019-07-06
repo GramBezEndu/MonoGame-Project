@@ -170,6 +170,7 @@ namespace GameProject.Inventory
 
 		/// <summary>
 		/// Draw item description, item count and invalid usage message
+		/// Different colors are provided for item names (based on ability to upgrade item with scroll)
 		/// </summary>
 		/// <param name="gameTime"></param>
 		/// <param name="spriteBatch"></param>

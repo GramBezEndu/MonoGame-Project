@@ -14,9 +14,15 @@ namespace GameProject.Inventory
 	public class AccessSlotsManager : Component
 	{
 		public List<FastAccessSlot> fastAccessSlots { get; set; }
-
-		public AccessSlotsManager(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, float scale, Vector2 position)
+		/// <summary>
+		/// Input reference for checking if keyboard key was pressed
+		/// </summary>
+		private Input input;
+		private Player player;
+		public AccessSlotsManager(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, float scale, Vector2 position, Input i)
 		{
+			input = i;
+			player = p;
 			//Make fast access slots
 			var slotOne = new FastAccessSlot(gd, p, slotTexture, f, scale)
 			{
@@ -42,6 +48,23 @@ namespace GameProject.Inventory
 		{
 			foreach (var s in fastAccessSlots)
 				s.Update(gameTime);
+			//Check if player pressed key to use item
+			for(int i=0;i<fastAccessSlots.Count();i++)
+			{
+				string actualKeybind = "FastSlot" + (i + 1).ToString();
+				if (input.CurrentState.IsKeyDown(input.KeyBindings[actualKeybind]) && input.PreviousState.IsKeyUp(input.KeyBindings[actualKeybind]))
+				{
+					if (fastAccessSlots[i].Item == null)
+						return;
+					var item = fastAccessSlots[i].Item as Usable;
+					bool result = item.Use(player);
+					if (result == true)
+					{
+						fastAccessSlots[i].Item.Quantity -= 1;
+						var debug = gameTime;
+					}
+				}
+			}
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
