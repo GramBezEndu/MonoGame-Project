@@ -195,21 +195,21 @@ namespace GameProject.States
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height)
 								},
-								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
-								{
-									Position = new Vector2(0.075f * game.Width, 0.075f * game.Height + Textures["InventorySlot"].Height*game.Scale)
-								},
 								new ArcherBreastplateSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
-									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
+									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + Textures["InventorySlot"].Height*game.Scale)
+								},
+								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
+								{
+									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								},
 								new BootsSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + 3*Textures["InventorySlot"].Height*game.Scale)
 								},
 								new BowSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
-								{
-									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
+								{							
+									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + Textures["InventorySlot"].Height*game.Scale)
 								},
 								new RingSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
@@ -272,13 +272,13 @@ namespace GameProject.States
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height)
 								},
-								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
+								new WarriorBreastplateSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
 									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + Textures["InventorySlot"].Height*game.Scale)
 								},
-								new WarriorBreastplateSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
+								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
-									Position = new Vector2(0.075f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
+									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
 								},
 								new BootsSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
@@ -286,7 +286,7 @@ namespace GameProject.States
 								},
 								new SwordSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
-									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + 2*Textures["InventorySlot"].Height*game.Scale)
+									Position = new Vector2(0.025f * game.Width, 0.07f * game.Height + Textures["InventorySlot"].Height*game.Scale)
 								},
 								new ShieldSlot(gd, player, Textures["InventorySlot"], Font, game.Scale)
 								{
