@@ -110,6 +110,8 @@ namespace GameProject.States
 					Quantity = 5
 				}
 			);
+			player.InventoryManager.AddItem(new LegendaryImprovementScroll(game, Textures["LegendaryImprovementScroll"], game.Scale));
+			player.Gold = 10000;
 		}
 
 		private void CreatePlayer(Game1 g, GraphicsDevice gd, PlayerClasses playerClass, int inventorySlots)
@@ -356,6 +358,7 @@ namespace GameProject.States
                     {
                         i.Activated = false;
                         NextState();
+						return;
                     }
                 }
 				foreach (var ui in uiComponents)
