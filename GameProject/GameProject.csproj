@@ -50,6 +50,7 @@
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Health.cs" />
     <Compile Include="HealthBar.cs" />
+    <Compile Include="Inventory\AccessSlotsManager.cs" />
     <Compile Include="Inventory\ArcherBreastplateslot.cs" />
     <Compile Include="Inventory\ArcherHelmetSlot.cs" />
     <Compile Include="Inventory\BootsSlot.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Inventory\DraggableBlacksmithSlot.cs" />
     <Compile Include="Inventory\DraggableSlot.cs" />
     <Compile Include="Inventory\EquipmentSlot.cs" />
+    <Compile Include="Inventory\FastAccessSlot.cs" />
     <Compile Include="Inventory\ImprovementScrollSlot.cs" />
     <Compile Include="Inventory\InventoryManager.cs" />
     <Compile Include="Inventory\InventorySlot.cs" />

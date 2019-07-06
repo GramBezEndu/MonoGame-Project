@@ -20,6 +20,7 @@ namespace GameProject
 		private Vector2 goldCountTextPos;
 		private SpriteFont font;
 		public EquipmentManager EquipmentManager { get; set; }
+		public AccessSlotsManager AccessSlotsManager { get; set; }
 		public bool Hidden { get; set; }
 		private List<InventorySlot> slots;
 		private Sprite Trashcan;
@@ -67,6 +68,9 @@ namespace GameProject
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
+			//Access slots are always visible
+			AccessSlotsManager.Draw(gameTime, spriteBatch);
+
 			if (!Hidden)
 			{
 				spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
@@ -83,6 +87,9 @@ namespace GameProject
 		}
 		public override void Update(GameTime gameTime)
 		{
+			//AccessSlots should always be updated (they are also always visable
+			AccessSlotsManager.Update(gameTime);
+
 			//It might be incorrect later, watch out! (InventorySlot Update() now checks only for player input and item Use() or Equip() so it's correct, but if you want to update here Item it won't be correct)
 			if (!Hidden)
 			{

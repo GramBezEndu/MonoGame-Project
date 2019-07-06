@@ -110,8 +110,7 @@ namespace GameProject.States
 					Quantity = 5
 				}
 			);
-			player.InventoryManager.AddItem(new LegendaryImprovementScroll(game, Textures["LegendaryImprovementScroll"], game.Scale));
-			player.Gold = 10000;
+			player.InventoryManager.AddItem(new ManaPotion(Textures["ManaPotion"], game.Scale));
 		}
 
 		private void CreatePlayer(Game1 g, GraphicsDevice gd, PlayerClasses playerClass, int inventorySlots)
@@ -165,6 +164,8 @@ namespace GameProject.States
 				Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 			};
 			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+			//Create AccessSlotsManager
+			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * game.Width, 0.8f * game.Height));
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 			if (player is StaminaUser)
 			{
@@ -233,6 +234,8 @@ namespace GameProject.States
 				Position = new Vector2(0.05f * game.Width, 0.4f * game.Height)
 			};
 			player.InventoryManager = new InventoryManager(gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * game.Width, 0.05f * game.Height), game.Scale);
+			//Create AccessSlotsManager
+			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * game.Width, 0.8f * game.Height));
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * game.Width, 0.9f * game.Height), game.Scale);
 			if (player is StaminaUser)
 			{

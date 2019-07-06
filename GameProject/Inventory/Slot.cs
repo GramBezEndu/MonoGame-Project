@@ -235,8 +235,8 @@ namespace GameProject.Inventory
 						}
 					}
 					//Draw quantity where Item is (not where slot is) because items can be dragged
-					if (Item.IsStackable)
-						spriteBatch.DrawString(font, Item.Quantity.ToString(), Item.Position, Color.Black);
+					//Fast inventory slot have different approach to this
+					DrawQuantity(spriteBatch);
 				}
 				if (invalidUseTime > 0)
 				{
@@ -246,6 +246,12 @@ namespace GameProject.Inventory
 					spriteBatch.DrawString(font, invalidUse, Position, Color.Black);
 				}
 			}
+		}
+
+		public virtual void DrawQuantity(SpriteBatch spriteBatch)
+		{
+			if (Item.IsStackable)
+				spriteBatch.DrawString(font, Item.Quantity.ToString(), Item.Position, Color.Black);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -267,6 +273,11 @@ namespace GameProject.Inventory
 				//Invalid use timer decrease if >0
 				if (invalidUseTime > 0)
 					invalidUseTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+			}
+			//Item could be used or equipped
+			if (Item?.Quantity <= 0)
+			{
+				Item = null;
 			}
 		}
 

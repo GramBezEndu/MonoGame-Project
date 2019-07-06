@@ -92,11 +92,6 @@ namespace GameProject.Inventory
 					}
 				}
 			}
-			//Item could be used or equipped
-			if (Item?.Quantity <= 0)
-            {
-                Item = null;
-            }
         }
 	}
 }
