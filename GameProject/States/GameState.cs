@@ -79,12 +79,12 @@ namespace GameProject.States
         }
 
         /// <summary>
-        /// Spawn 3 skeleton warriors (in the beginning of the level)
+        /// Spawn 3 skeleton warriors in the beginning of the level
         /// </summary>
         /// <param name="animations"></param>
         protected void SpawnWarriorsGroup()
         {
-			//skeleton animations
+			//skeleton warrior animations
 			var animations = new Dictionary<string, Animation>()
 			{
 				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
@@ -101,6 +101,50 @@ namespace GameProject.States
                 });
             }
         }
+
+		/// <summary>
+		/// Spawn skeleton group (2 warriors, 1 archer) in the beginning of the level
+		/// </summary>
+		protected void SpawnSkeletonGroup()
+		{
+			//skeleton warrior animations
+			var warriorAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
+				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Attack"), 3, game.Scale, 0.2f) },
+				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, game.Scale, 0.5f) },
+				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale) },
+				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, game.Scale) }
+			};
+			var archerAnimations = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Archer/Idle"), 1, game.Scale) },
+				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Archer/Attack"), 3, game.Scale, 0.2f) },
+				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Archer/Run"), 3, game.Scale, 0.5f) },
+				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Archer/Die"), 3, game.Scale) },
+				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Archer/Dead"), 1, game.Scale) }
+			};
+
+			for (int i = 0; i < 3; i++)
+			{
+				//Middle - archer
+				if(i == 1)
+				{
+					enemies.Add(new SkeletonArcher(game, this, Font, (archerAnimations), player)
+					{
+						Position = new Vector2((0.7f + i * 0.1f) * game.Width, 0.6f * game.Height),
+					});
+				}
+				//Warrior
+				else
+				{
+					enemies.Add(new SkeletonWarrior(game, this, Font, (warriorAnimations), player)
+					{
+						Position = new Vector2((0.7f + i * 0.1f) * game.Width, 0.6f * game.Height),
+					});
+				}
+			}
+		}
 
 		protected void SpawnShopkeeper(Vector2 position)
 		{

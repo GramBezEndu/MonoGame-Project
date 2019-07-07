@@ -15,7 +15,7 @@ namespace GameProject.Sprites
 		public TrainingDummy(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a, Player p) : base(g, gs, f, a, p){ }
 		public override void Update(GameTime gameTime)
 		{
-			base.Update(gameTime);
+			//base.Update(gameTime);
 			Health = Int32.MaxValue;
 		}
 		protected override void PlayAnimations()

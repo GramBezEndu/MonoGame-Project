@@ -98,7 +98,7 @@ namespace GameProject.States
                 },
             };
 
-            SpawnWarriorsGroup();
+			SpawnSkeletonGroup();
 
             //Wall at beginning of level
             Sprite wall = new Sprite(Textures["Wall"], g.Scale)

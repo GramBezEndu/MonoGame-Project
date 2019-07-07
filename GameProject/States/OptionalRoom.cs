@@ -50,7 +50,7 @@ namespace GameProject.States
                 //Monsters
                 if (value <= 70)
                 {
-                    SpawnWarriorsGroup();
+					SpawnSkeletonGroup();
                 }
 				//Mysterious chest
                 else if (value <= 85)
@@ -69,7 +69,7 @@ namespace GameProject.States
                 //Monsters
                 if(value <= 70)
                 {
-                    SpawnWarriorsGroup();
+					SpawnSkeletonGroup();
                 }
                 //Treasure chest
                 else
