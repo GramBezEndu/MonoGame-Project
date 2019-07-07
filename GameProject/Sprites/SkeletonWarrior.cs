@@ -14,7 +14,6 @@ namespace GameProject.Sprites
 {
 	public class SkeletonWarrior : Enemy
 	{
-		private bool DyingAnimationFinished;
 		public SkeletonWarrior(Game1 g, GameState gs, SpriteFont f, Dictionary<string, Animation> a, Player p) : base(g, gs, f, a, p)
 		{
 			Health = 15;

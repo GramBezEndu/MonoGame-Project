@@ -24,6 +24,7 @@ namespace GameProject.Sprites
 		/// Determines if enemy is dead (note: enemy is dead equals True before corpses has fallen)
 		/// </summary>
 		public bool IsDead { get; protected set; }
+		protected bool DyingAnimationFinished;
 		private SpriteFont font;
 		/// <summary>
 		/// For how long we will be displaying how much damage enemy received
@@ -62,7 +63,7 @@ namespace GameProject.Sprites
 			runStepDistance = 2.5f * g.Scale;
 		}
 		/// <summary>
-		///Check if player is close (in agro range [we check for X axis only]) then perform action (probably run enemy to player)
+		///Check if player is close (in agro range [we check for X axis only]) then perform action (probably run to player)
 		/// </summary>
 		public void IsPlayerClose(Player p)
 		{
@@ -113,6 +114,7 @@ namespace GameProject.Sprites
 
 		public override void Update(GameTime gameTime)
 		{
+			IsPlayerClose(player);
 			if (Health <= 0)
 			{
 				IsDead = true;
@@ -145,7 +147,7 @@ namespace GameProject.Sprites
 			}
 		}
 
-		protected void Attack(object sender, EventArgs e)
+		protected virtual void Attack(object sender, EventArgs e)
 		{
 			isAttacking = false;
 			player.GetDamage(game.RandomNumber(damageMin, damageMax));

@@ -52,11 +52,9 @@ namespace GameProject.States
             //Note: If the window has no focus, we should automaticly pause the game
 			if(!Paused)
 			{
-				//Check for enemies aggro and update enemies
+				//Update enemies
 				foreach (var e in enemies)
 				{
-					//Order 1.IsPlayerClose 2.Update (due to Velocity, we might change it to call IsPlayerClose in Update)
-					e.IsPlayerClose(this.player);
 					e.Update(gameTime);
 				}
 				//Update walls (static sprites don't need to be updated but we might add moving walls or sth later)
@@ -230,6 +228,7 @@ namespace GameProject.States
                             player.InventoryManager.AddItem(i as Item);
                         }
                     }
+					//We could display pick up button to make it more clear (default: Z)
                     //Else you have to use pick up key
                     else if(player.IsTouching(i as Item) 
                         && Input.PreviousState.IsKeyDown(Input.KeyBindings["PickUp"])
