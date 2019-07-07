@@ -27,6 +27,10 @@ namespace GameProject.Sprites
 		protected override void Attack(object sender, EventArgs e)
 		{
 			isAttacking = false;
+			gameState.SpawnProjectile(new SkeletonArrow(game, player, gameState.SkeletonArcherTextures["ArcherArrow"], Scale, true)
+			{
+				Position = new Vector2(this.Position.X, this.Position.Y + this.Height/2)
+			});
 		}
 
 		private void Die(object sender, EventArgs e)

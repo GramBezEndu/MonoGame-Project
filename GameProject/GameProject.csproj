@@ -115,6 +115,7 @@
     <Compile Include="Sprites\Blacksmith.cs" />
     <Compile Include="Sprites\Character.cs" />
     <Compile Include="Sprites\Door.cs" />
+    <Compile Include="Sprites\EnemyProjectile.cs" />
     <Compile Include="Sprites\InteractableSprite.cs" />
     <Compile Include="Sprites\Enemy.cs" />
     <Compile Include="Sprites\EquipmentManager.cs" />
@@ -123,8 +124,10 @@
     <Compile Include="Sprites\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprites\Projectile.cs" />
     <Compile Include="Sprites\Shopkeeper.cs" />
     <Compile Include="Sprites\SkeletonArcher.cs" />
+    <Compile Include="Sprites\SkeletonArrow.cs" />
     <Compile Include="Sprites\SkeletonWarrior.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\StatueOfGods.cs" />

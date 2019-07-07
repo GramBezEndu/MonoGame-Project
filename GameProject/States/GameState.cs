@@ -34,8 +34,15 @@ namespace GameProject.States
 		public List<Sprite> collisionSprites { get; protected set; } = new List<Sprite>();
 		protected List<Enemy> enemies = new List<Enemy>();
         protected List<MysteriousChest> mysteriousChests = new List<MysteriousChest>();
-        protected List<Item> itemsToSpawn = new List<Item>();
-        protected List<Item> itemsToRemove = new List<Item>();
+
+		/// <summary>
+		/// List of moving components that are waiting to be spawned on state (Items, projectiles etc.)
+		/// </summary>
+        protected List<Component> movingComponentsToSpawn = new List<Component>();
+		/// <summary>
+		/// List of moving components that are waiting to be removed from state (Items, projectiles etc.)
+		/// </summary>
+		protected List<Component> movingComponentsToRemove = new List<Component>();
 
         //TODO: Update input in state, not in player
         public override void Update(GameTime gameTime)
@@ -63,19 +70,19 @@ namespace GameProject.States
 					cs.Update(gameTime);
 				}
 			}
-            //Add every item that is waiting to be spawned
-            SpawnItems();
-            //Remove items
-            RemoveItems();
+            //Add every item, projectile etc. that is waiting to be spawned
+            SpawnMovingComponents();
+            //Remove items, projectiles from state
+            RemoveMovingComponents();
             //Pick up items
             PickUpItems();
         }
 
-        private void SpawnItems()
+        private void SpawnMovingComponents()
         {
-            foreach (Item i in itemsToSpawn)
+            foreach (Component i in movingComponentsToSpawn)
                 movingComponents.Add(i);
-            itemsToSpawn.Clear();
+            movingComponentsToSpawn.Clear();
         }
 
         /// <summary>
@@ -232,7 +239,7 @@ namespace GameProject.States
         /// <param name="item"></param>
         public void SpawnItem(Item item)
         {
-            itemsToSpawn.Add(item);
+            movingComponentsToSpawn.Add(item);
         }
         /// <summary>
         /// Remove item from scene
@@ -240,11 +247,12 @@ namespace GameProject.States
         /// <param name="i"></param>
         protected void RemoveItem(Item i)
         {
-            itemsToRemove.Add(i);
+            movingComponentsToRemove.Add(i);
         }
-        protected void RemoveItems()
+
+        protected void RemoveMovingComponents()
         {
-            foreach(var x in itemsToRemove)
+            foreach(var x in movingComponentsToRemove)
             {
                 if (movingComponents.Contains(x))
                 {
@@ -252,10 +260,10 @@ namespace GameProject.States
                 }
                 else
                 {
-                    throw new Exception("Item to remove was not found\n");
+                    throw new Exception("Moving component to remove was not found\n");
                 }
             }
-            itemsToRemove.Clear();
+            movingComponentsToRemove.Clear();
         }
         protected void PickUpItems()
         {
@@ -365,6 +373,11 @@ namespace GameProject.States
 					e.GetDamage(dmg, false);
 				}
 			}
+		}
+
+		public void SpawnProjectile(Projectile projectile)
+		{
+			movingComponentsToSpawn.Add(projectile);
 		}
 	}
 }

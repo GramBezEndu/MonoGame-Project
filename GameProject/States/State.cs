@@ -29,8 +29,16 @@ namespace GameProject
         /// </summary>
         public Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 
+		/// <summary>
+		/// Contatins all skeleton archer textures (includes arrow)
+		/// </summary>
+		public Dictionary<string, Texture2D> SkeletonArcherTextures = new Dictionary<string, Texture2D>();
+
 		public Dictionary<string, Song> Songs = new Dictionary<string, Song>();
 
+		/// <summary>
+		/// Loads textures from main directory to Textures dictionary
+		/// </summary>
 		private void LoadTextures()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(content.RootDirectory);
@@ -42,10 +50,27 @@ namespace GameProject
                 string key = Path.GetFileNameWithoutExtension(file.Name);
                 if (key == "Font")
                     continue;
-                //Keys[key] = content.Load<Texture2D>(directoryInfo.ToString() + key);
                 Textures[key] = content.Load<Texture2D>(Directory.GetCurrentDirectory() + "/Content/" + key);
             }
         }
+
+		/// <summary>
+		/// Loads skeleton archer textures to SkeletonArcherTextures dictionary
+		/// </summary>
+		private void LoadSkeletonArcherTextures()
+		{
+			DirectoryInfo directoryInfo = new DirectoryInfo(content.RootDirectory + "/Skeleton/Archer/");
+			if (!directoryInfo.Exists)
+				throw new DirectoryNotFoundException();
+			FileInfo[] files = directoryInfo.GetFiles("*.*");
+			foreach (FileInfo file in files)
+			{
+				string key = Path.GetFileNameWithoutExtension(file.Name);
+				if (key == "Font")
+					continue;
+				SkeletonArcherTextures[key] = content.Load<Texture2D>(Directory.GetCurrentDirectory() + "/Content/Skeleton/Archer/" + key);
+			}
+		}
 
 		private void LoadSongs()
 		{
@@ -69,6 +94,7 @@ namespace GameProject
             Input = game.Input;
             LoadKeyTextures();
             LoadTextures();
+			LoadSkeletonArcherTextures();
 			LoadSongs();
             Font = content.Load<SpriteFont>("Font");
         }
