@@ -250,6 +250,9 @@ namespace GameProject.States
             movingComponentsToRemove.Add(i);
         }
 
+		/// <summary>
+		/// Remove every moving component: items that were picked up and old projectiles
+		/// </summary>
         protected void RemoveMovingComponents()
         {
             foreach(var x in movingComponentsToRemove)
@@ -264,6 +267,8 @@ namespace GameProject.States
                 }
             }
             movingComponentsToRemove.Clear();
+			//Remove old projectiles -> if projectile is Hidden then it is not needed anymore
+			movingComponents.RemoveAll(i => i is Projectile && i.Hidden == true);
         }
         protected void PickUpItems()
         {
