@@ -13,9 +13,29 @@ namespace GameProject.Inventory
 {
 	public class FastAccessSlot : DraggableSlot
 	{
+		private Slot actualSlot;
 		public FastAccessSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
 
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+			//Update item
+			if(actualSlot != null)
+			{
+				if(actualSlot.Item != null)
+				{
+					if(!(actualSlot.Item is Usable))
+					{
+						actualSlot = null;
+						this.Item = null;
+						return;
+					}
+				}
+				this.Item = actualSlot.Item;
+			}
 		}
 
 		public override void DragAndDrop()
@@ -31,19 +51,19 @@ namespace GameProject.Inventory
 					//End dragging within different slot
 					else if (player.InventoryManager.IsAlreadyDragging())
 					{
-						Slot slotDragging = player.InventoryManager.WhichSlotIsDragging();
-						bool usable = slotDragging.Item is Usable;
+						actualSlot = player.InventoryManager.WhichSlotIsDragging();
+						bool usable = actualSlot.Item is Usable;
 						//If dragged item is not usable then you can't assign it to fast access slot
 						if (!usable)
 						{
-							//End dragging
-							slotDragging.IsDragging = false;
+							//End dragging and reset actual slot
+							actualSlot.IsDragging = false;
+							actualSlot = null;
 							return;
 						}
 						//Assign normally
-						var item = slotDragging.Item;
-						this.Item = item;
-						slotDragging.IsDragging = false;
+						this.Item = actualSlot.Item;
+						actualSlot.IsDragging = false;
 					}
 					////Try to start dragging
 					////You can not start dragging fast access slot now

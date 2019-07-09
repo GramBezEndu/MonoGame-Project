@@ -22,6 +22,7 @@ namespace GameProject.Sprites
 			Melee = true;
 			damageMin = 3;
 			damageMax = 5;
+			AttackTimer = new GameTimer(1.5f, true);
 		}
 
 		private void Die(object sender, EventArgs e)

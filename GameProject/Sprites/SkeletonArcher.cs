@@ -22,6 +22,7 @@ namespace GameProject.Sprites
 			attackRange = 450f * g.Scale;
 			damageMin = 2;
 			damageMax = 4;
+			AttackTimer = new GameTimer(2, true);
 		}
 
 		protected override void Attack(object sender, EventArgs e)

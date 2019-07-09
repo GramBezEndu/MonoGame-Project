@@ -46,7 +46,7 @@ namespace GameProject
 			CurrentTime = Interval;
 		}
 		/// <summary>
-		/// Sets timer Enabled on false
+		/// Disables timer and resets interval
 		/// </summary>
 		public void Reset()
 		{

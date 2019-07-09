@@ -38,6 +38,10 @@ namespace GameProject.Sprites
 		}
 		protected bool isAttacking;
 		/// <summary>
+		/// Enemy is able to attack every N seconds (stated in this timer)
+		/// </summary>
+		protected GameTimer AttackTimer;
+		/// <summary>
 		/// Determines if enemy is dead (note: enemy is dead equals True before corpses has fallen)
 		/// </summary>
 		public bool IsDead { get; protected set; }
@@ -118,7 +122,12 @@ namespace GameProject.Sprites
 			//Ranged - We can start attacking because we're in attack range
 			else if (inAttackRange)
 			{
-				isAttacking = true;
+				//Attack is not on cooldown
+				if(AttackTimer.CurrentTime <= 0)
+				{
+					isAttacking = true;
+					AttackTimer.Start();
+				}
 				return;
 			}
 			//We need to run to player
@@ -146,7 +155,12 @@ namespace GameProject.Sprites
 			//Melee - We can start attacking because we're touching player
 			else if (this.IsTouching(player))
 			{
-				isAttacking = true;
+				//Attack is not on cooldown
+				if (AttackTimer.CurrentTime <= 0)
+				{
+					isAttacking = true;
+					AttackTimer.Start();
+				}
 				return;
 			}
 			//We need to run to player
@@ -164,6 +178,7 @@ namespace GameProject.Sprites
 
 		public override void Update(GameTime gameTime)
 		{
+			AttackTimer.Update(gameTime);
 			IsPlayerClose(player);
 			if (Health <= 0)
 			{

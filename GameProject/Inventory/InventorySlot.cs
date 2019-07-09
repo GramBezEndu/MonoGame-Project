@@ -80,6 +80,7 @@ namespace GameProject.Inventory
 							}
 							else if(slot.Item.CanBeDeleted)
 							{
+								//NOTE: We should delete all references to item (it can be added to fast access slot)
 								slot.Item = null;
 								slot.IsDragging = false;
 							}
