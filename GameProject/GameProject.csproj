@@ -113,7 +113,7 @@
     <Compile Include="GameTimer.cs" />
     <Compile Include="Input\Input.cs" />
     <Compile Include="Sprites\Blacksmith.cs" />
-    <Compile Include="Sprites\Character.cs" />
+    <Compile Include="Sprites\InteractableSpriteWithWindows.cs" />
     <Compile Include="Sprites\Door.cs" />
     <Compile Include="Sprites\EnemyProjectile.cs" />
     <Compile Include="Sprites\InteractableSprite.cs" />

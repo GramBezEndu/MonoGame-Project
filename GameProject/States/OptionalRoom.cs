@@ -57,7 +57,7 @@ namespace GameProject.States
                 {
                     SpawnMysteriousChest(new Vector2(0.5f * game.Width, 0.82f * game.Height));
                 }
-				//Not added yet -> Equals with empty room
+				//Boss not added yet -> equals with empty room
                 else
                 {
 

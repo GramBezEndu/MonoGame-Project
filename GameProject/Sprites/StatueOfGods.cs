@@ -5,14 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using GameProject.States;
 using Microsoft.Xna.Framework;
+using GameProject.Controls;
 
 namespace GameProject.Sprites
 {
-	public class StatueOfGods : InteractableSprite
+	public class StatueOfGods : InteractableSpriteWithWindows
 	{
 		public StatueOfGods(Game1 g, GameState gameState, Sprite mainSprite, Sprite interactButton, Player p) : base(g,gameState,mainSprite,interactButton,p)
 		{
+			//We want to change background sprite and exit button in this case
+			UiElements.Clear();
+			background = new Sprite(gameState.Textures["BackgroundBig"], g.Scale);
+			Vector2 pos = new Vector2(g.Width / 2 - background.Width / 2, g.Height / 2 - background.Width / 2);
+			background.Position = pos;
+			background.Hidden = true;
 
+			var exitButton = new Button(gameState.Textures["Button"], gameState.Font, g.Scale)
+			{
+				Text = "Exit",
+				Hidden = true,
+				Click = OnClose
+			};
+			exitButton.Position = new Vector2(background.Position.X, background.Rectangle.Bottom - exitButton.Height);
+			var exitButtonPos = background.Rectangle.Bottom;
+			UiElements.Add(background);
+			UiElements.Add(exitButton);
+
+			//Apply changes to state
+			gameState.AddUiElements(UiElements);
 		}
 		public override void Update(GameTime gameTime)
 		{

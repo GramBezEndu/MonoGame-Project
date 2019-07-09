@@ -23,7 +23,7 @@ namespace GameProject.States
 			var background = content.Load<Texture2D>("Background");
 			var buttonTexture = content.Load<Texture2D>("Button");
 			var buttonFont = content.Load<SpriteFont>("Font");
-			var settingsTexture = content.Load<Texture2D>("SettingsBackground");
+			var settingsTexture = content.Load<Texture2D>("BackgroundBig");
 			var keyBorderTexture = content.Load<Texture2D>("SettingsBorder");
             var c1 = content.Load<Texture2D>("Checkbox");
             var c2 = content.Load<Texture2D>("CheckboxChecked");

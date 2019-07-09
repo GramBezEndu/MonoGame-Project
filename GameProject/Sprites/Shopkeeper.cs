@@ -14,7 +14,7 @@ using GameProject.Items;
 
 namespace GameProject.Sprites
 {
-    public class Shopkeeper : Character
+    public class Shopkeeper : InteractableSpriteWithWindows
     {
 		private List<Component> slots = new List<Component>();
         public Shopkeeper(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)

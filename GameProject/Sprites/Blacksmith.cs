@@ -12,7 +12,7 @@ using GameProject.Items;
 
 namespace GameProject.Sprites
 {
-	public class Blacksmith : Character
+	public class Blacksmith : InteractableSpriteWithWindows
 	{
 		//UiElements list -> base components
 
@@ -55,25 +55,8 @@ namespace GameProject.Sprites
 		private void MainWindowAddElements(Game1 g, GameState gs)
 		{
 			//Add special elements to window
-			var background = UiElements.First();
-			Vector2 pos = new Vector2(0, 0);
-			if (background is Sprite)
-			{
-				pos = (background as Sprite).Position;
-			}
-			else
-			{
-				throw new Exception("First component should be background sprite\n");
-			}
-			//var addScroll = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			//{
-			//	Position = pos,
-			//	Text = "Add Scroll",
-			//	Hidden = true,
-			//	Click = ActivateScrollAddingWindow
-			//};
-			//UiElements.Add(addScroll);
-			//pos += new Vector2(0, addScroll.Height);
+			Vector2 pos = background.Position;
+
 			var scrollUpgrade = new Button(gs.Textures["Button"], gs.Font, g.Scale)
 			{
 				Position = pos,
@@ -83,6 +66,16 @@ namespace GameProject.Sprites
 				Hidden = true
 			};
 			UiElements.Add(scrollUpgrade);
+
+			//var addScroll = new Button(gs.Textures["Button"], gs.Font, g.Scale)
+			//{
+			//	Position = pos,
+			//	Text = "Add Scroll",
+			//	Hidden = true,
+			//	Click = ActivateScrollAddingWindow
+			//};
+			//UiElements.Add(addScroll);
+			//pos += new Vector2(0, addScroll.Height);
 
 			//pos += new Vector2(0, scrollUpgrade.Height);
 			//var shieldRepair = new Button(gs.Textures["Button"], gs.Font, g.Scale)
