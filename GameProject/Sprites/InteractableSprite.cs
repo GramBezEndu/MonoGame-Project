@@ -65,7 +65,7 @@ namespace GameProject.Sprites
             if (player.IsTouching(MainSprite))
             {
                 InteractButton.Hidden = false;
-                if (input.CurrentState.IsKeyDown(input.KeyBindings["Interact"]) && input.PreviousState.IsKeyUp(input.KeyBindings["Interact"]))
+                if (input.CurrentState.IsKeyDown(input.KeyBindings["Interact"].GetValueOrDefault()) && input.PreviousState.IsKeyUp(input.KeyBindings["Interact"].GetValueOrDefault()))
                 {
                     Activated = true;
                 }

@@ -58,7 +58,7 @@ namespace GameProject.States
         {
 			base.Update(gameTime);
             //Manage pause on button press
-            if (Input.CurrentState.IsKeyDown(Input.KeyBindings["Pause"]) && Input.PreviousState.IsKeyUp(Input.KeyBindings["Pause"]))
+            if (Input.CurrentState.IsKeyDown(Input.KeyBindings["Pause"].GetValueOrDefault()) && Input.PreviousState.IsKeyUp(Input.KeyBindings["Pause"].GetValueOrDefault()))
             {
                 if (Paused)
                     Paused = false;
@@ -304,7 +304,7 @@ namespace GameProject.States
 							(i as Item).Position.X + (i as Item).Width / 2 - PickUpPrompt.Width/2,
 							(i as Item).Position.Y - PickUpPrompt.Height);
 						PickUpPrompt.Hidden = false;
-						if (Input.PreviousState.IsKeyDown(Input.KeyBindings["PickUp"]) && Input.CurrentState.IsKeyUp(Input.KeyBindings["PickUp"]))
+						if (Input.PreviousState.IsKeyDown(Input.KeyBindings["PickUp"].GetValueOrDefault()) && Input.CurrentState.IsKeyUp(Input.KeyBindings["PickUp"].GetValueOrDefault()))
 						{
 							RemoveItem(i as Item);
 							player.InventoryManager.AddItem(i as Item);

@@ -153,7 +153,7 @@ namespace GameProject.Sprites
 
 		private void HideShowInventory()
 		{
-			if (input.CurrentState.IsKeyDown(input.KeyBindings["ShowInventory"]) && input.PreviousState.IsKeyUp(input.KeyBindings["ShowInventory"]))
+			if (input.CurrentState.IsKeyDown(input.KeyBindings["ShowInventory"].GetValueOrDefault()) && input.PreviousState.IsKeyUp(input.KeyBindings["ShowInventory"].GetValueOrDefault()))
 			{
 				if (InventoryManager.Hidden == true)
 					InventoryManager.Hidden = false;
@@ -168,16 +168,16 @@ namespace GameProject.Sprites
 		{
 			if (CanMove)
 			{
-				if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveRight"]))
+				if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveRight"].GetValueOrDefault()))
 				{
-					if (Keyboard.GetState().IsKeyDown(input.KeyBindings["Sprint"]) && canSprint)
+					if (Keyboard.GetState().IsKeyDown(input.KeyBindings["Sprint"].GetValueOrDefault()) && canSprint)
 						Velocity.X += sprintDistance;
 					else
 						Velocity.X += moveDistance;
 				}
-				if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveLeft"]))
+				if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveLeft"].GetValueOrDefault()))
 				{
-					if (Keyboard.GetState().IsKeyDown(input.KeyBindings["Sprint"]) && canSprint)
+					if (Keyboard.GetState().IsKeyDown(input.KeyBindings["Sprint"].GetValueOrDefault()) && canSprint)
 						Velocity.X -= sprintDistance;
 					else
 						Velocity.X -= moveDistance;

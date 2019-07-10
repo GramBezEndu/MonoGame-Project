@@ -52,7 +52,7 @@ namespace GameProject.Inventory
 			for(int i=0;i<fastAccessSlots.Count();i++)
 			{
 				string actualKeybind = "FastSlot" + (i + 1).ToString();
-				if (input.CurrentState.IsKeyDown(input.KeyBindings[actualKeybind]) && input.PreviousState.IsKeyUp(input.KeyBindings[actualKeybind]))
+				if (input.CurrentState.IsKeyDown(input.KeyBindings[actualKeybind].GetValueOrDefault()) && input.PreviousState.IsKeyUp(input.KeyBindings[actualKeybind].GetValueOrDefault()))
 				{
 					if (fastAccessSlots[i].Item == null)
 						return;

@@ -12,13 +12,13 @@ namespace GameProject
 		public KeyboardState PreviousState;
 		public MouseState CurrentMouseState;
 		public MouseState PreviousMouseState;
-		public Dictionary<string, Keys> KeyBindings { get; private set; }
+		public Dictionary<string, Keys?> KeyBindings { get; private set; }
 		/// <summary>
 		/// Sets default key binds
 		/// </summary>
 		public Input()
 		{
-			KeyBindings = new Dictionary<string, Keys>
+			KeyBindings = new Dictionary<string, Keys?>
 			{
 				//Used for warrior shield blocking
 				{"MoveUp", Keys.W },
@@ -42,9 +42,24 @@ namespace GameProject
 			PreviousMouseState = CurrentMouseState;
 			CurrentMouseState = Mouse.GetState();
 		}
-		public void RestoreToDefault()
+		public void RestoreToDefaults()
 		{
-			throw new NotImplementedException();
+			KeyBindings = new Dictionary<string, Keys?>
+			{
+				//Used for warrior shield blocking
+				{"MoveUp", Keys.W },
+				{"MoveRight", Keys.D },
+				{"MoveLeft",Keys.A },
+				{"Sprint",Keys.LeftShift },
+				{"DodgeBlock",Keys.Space },
+				{"PickUp",Keys.Z },
+				{"ShowInventory",Keys.Tab },
+				{"Pause",Keys.Escape },
+				{"Interact",Keys.E },
+				{"FastSlot1",Keys.D1 },
+				{"FastSlot2",Keys.D2 },
+				{"FastSlot3",Keys.D3 },
+			};
 		}
 		public void Save()
 		{

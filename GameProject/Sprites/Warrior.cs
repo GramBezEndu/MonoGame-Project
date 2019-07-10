@@ -68,7 +68,7 @@ namespace GameProject.Sprites
 
 		private void ShieldBlocking()
 		{
-			if (Keyboard.GetState().IsKeyDown(input.KeyBindings["DodgeBlock"]))
+			if (Keyboard.GetState().IsKeyDown(input.KeyBindings["DodgeBlock"].GetValueOrDefault()))
 			{
 				//Check if warrior has shield equipped (with more than 0 durability), we need to check it every time
 				bool equippedShield = false;
@@ -88,21 +88,21 @@ namespace GameProject.Sprites
 				if (equippedShield)
 				{
 					//Right Block
-					if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveRight"]))
+					if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveRight"].GetValueOrDefault()))
 					{
 						blockingRight = true;
 						blockingLeft = false;
 						blockingUp = false;
 					}
 					//Left Block
-					else if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveLeft"]))
+					else if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveLeft"].GetValueOrDefault()))
 					{
 						blockingLeft = true;
 						blockingRight = false;
 						blockingUp = false;
 					}
 					//Up Block
-					else if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveUp"]))
+					else if (Keyboard.GetState().IsKeyDown(input.KeyBindings["MoveUp"].GetValueOrDefault()))
 					{
 						blockingUp = true;
 						blockingLeft = false;
