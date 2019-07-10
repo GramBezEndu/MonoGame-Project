@@ -19,6 +19,10 @@ namespace GameProject.States
 		public GameState(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
 			camera = new Camera();
+			PickUpPrompt = new Sprite(Keys[Input.KeyBindings["PickUp"].ToString()], g.Scale)
+			{
+				Hidden = true
+			};
         }
 		//public static bool SpeedrunTimerEnabled = false;
 		//public static GameTimer SpeedrunTimer = new GameTimer(0f, true);
@@ -43,6 +47,11 @@ namespace GameProject.States
 		/// List of moving components that are waiting to be removed from state (Items, projectiles etc.)
 		/// </summary>
 		protected List<Component> movingComponentsToRemove = new List<Component>();
+
+		/// <summary>
+		/// Displays a sprite with key to pick up item if player is touching item
+		/// </summary>
+		protected Sprite PickUpPrompt;
 
         //TODO: Update input in state, not in player
         public override void Update(GameTime gameTime)
@@ -272,6 +281,7 @@ namespace GameProject.States
         }
         protected void PickUpItems()
         {
+			bool promptVisible = false;
             foreach(var i in movingComponents)
             {
                 if(i is Item)
@@ -287,15 +297,23 @@ namespace GameProject.States
                     }
 					//We could display pick up button to make it more clear (default: Z)
                     //Else you have to use pick up key
-                    else if(player.IsTouching(i as Item) 
-                        && Input.PreviousState.IsKeyDown(Input.KeyBindings["PickUp"])
-                        && Input.CurrentState.IsKeyUp(Input.KeyBindings["PickUp"]))
-                    {
-                        RemoveItem(i as Item);
-                        player.InventoryManager.AddItem(i as Item);
-                    }
+                    else if(player.IsTouching(i as Item))
+					{
+						promptVisible = true;
+						PickUpPrompt.Position = new Vector2(
+							(i as Item).Position.X + (i as Item).Width / 2 - PickUpPrompt.Width/2,
+							(i as Item).Position.Y - PickUpPrompt.Height);
+						PickUpPrompt.Hidden = false;
+						if (Input.PreviousState.IsKeyDown(Input.KeyBindings["PickUp"]) && Input.CurrentState.IsKeyUp(Input.KeyBindings["PickUp"]))
+						{
+							RemoveItem(i as Item);
+							player.InventoryManager.AddItem(i as Item);
+						}
+					}
                 }
             }
+			if (!promptVisible)
+				PickUpPrompt.Hidden = true;
         }
 
 		/// <summary>

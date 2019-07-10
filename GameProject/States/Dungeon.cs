@@ -115,10 +115,11 @@ namespace GameProject.States
 			collisionSprites.Add(wall);
             collisionSprites.Add(endWall);
 
-            //foreach (var x in enemies)
-            //    movingComponents.Add(x);
+			//foreach (var x in enemies)
+			//    movingComponents.Add(x);
 
-            movingComponents.Add(player);
+			movingComponents.Add(PickUpPrompt);
+			movingComponents.Add(player);
 
             pausedComponents = new List<Component>
             {

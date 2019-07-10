@@ -64,6 +64,7 @@ namespace GameProject.States
 
 			movingComponents = new List<Component>(optionalEntrances)
 			{
+				PickUpPrompt,
 				player,
 			};
 

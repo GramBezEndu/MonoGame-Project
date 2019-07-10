@@ -47,9 +47,9 @@ namespace GameProject.Sprites
             MainSprite = mainSprite;
             InteractButton = interactButton;
             player = p;
-            //Set interaction button position based on entrance position
-            //Width: middle of the button is in the middle of entrance
-            //Height: right above the entrance 
+            //Set interaction button position based on sprite position
+            //Width: middle of the button is in the middle of the sprite
+            //Height: right above the sprite 
             var middlePositionEntrance = new Vector2(
                 MainSprite.Position.X + MainSprite.Width / 2,
                 MainSprite.Position.Y - interactButton.Height);

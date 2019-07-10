@@ -89,7 +89,8 @@ namespace GameProject.States
 
 			movingComponents = new List<Component>()
 			{
-				GoBackDoor
+				GoBackDoor,
+				PickUpPrompt
 			};
 
             foreach (var x in mysteriousChests)
