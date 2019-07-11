@@ -25,7 +25,7 @@ namespace GameProject
 		{
 			spriteBatch.Draw(texture,
 				Position,
-				new Rectangle((int)Position.X, (int)Position.Y, (int)(texture.Width * CurrentStamina / MaxStamina), (int)(texture.Height)),
+				new Rectangle(0, 0, (int)(texture.Width * CurrentStamina / MaxStamina), (int)(texture.Height)),
 				Color.White,
 				0f,
 				Vector2.Zero,

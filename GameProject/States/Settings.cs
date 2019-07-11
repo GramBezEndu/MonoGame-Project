@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Controls;
 using GameProject.Sprites;
@@ -83,6 +84,14 @@ namespace GameProject.States
 			bindingNow = new List<bool>(new bool[game.Input.KeyBindings.Count]);
 
 			staticComponents.AddRange(keybindsButtons);
+
+
+			//Add a music volume slider
+			staticComponents.Add(new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], font, g.Scale)
+			{
+				Position = new Vector2(0.5f * g.Width, 0.2f * g.Height)
+			}
+			);
 
 			//Add a restore to defaults button
 			staticComponents.Add(new Button(buttonTexture, font, game.Scale)
@@ -170,6 +179,7 @@ namespace GameProject.States
 			var test = Input.KeyBindings.Where(i => Input.KeyBindings.Any(t => t.Key != i.Key && t.Value == i.Value)).ToDictionary(i => i.Key, i => i.Value);
 			if (test.Count > 0)
 				return false;
+			//Check for not assigned values
 			foreach (var x in game.Input.KeyBindings)
 			{
 				if (x.Value == null)
@@ -188,9 +198,10 @@ namespace GameProject.States
 			base.Update(gameTime);
 			foreach (var c in staticComponents)
 				c.Update(gameTime);
-			//Check if user pressed keybind
+			//Should we check for keybind?
 			if(bindingNow.Contains(true))
 			{
+				//Check if user pressed keybind
 				var key = Input.FirstPressedkey();
 				if (key == null)
 					return;
