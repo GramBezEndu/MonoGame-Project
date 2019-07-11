@@ -18,7 +18,7 @@ namespace GameProject.States
 		List<Button> keybindsButtons = new List<Button>();
         List<string> inputKeybindStrings = new List<string>();
 		/// <summary>
-		/// Represents if any key (and which one) is waiting to be binded
+		/// Represents if any key (and which one by the index) is waiting to be binded
 		/// </summary>
 		List<bool> bindingNow;
 
@@ -128,10 +128,6 @@ namespace GameProject.States
 			}
 			else
 				throw new Exception("Keybind not found");
-			//while (game.Input.CurrentState.GetPressedKeys().Length == 0)
-			//{
-
-			//}
 		}
 
 		private void Back(object sender, EventArgs e)
@@ -141,7 +137,8 @@ namespace GameProject.States
 			{
 				game.ChangeState(new MainMenu(game, graphicsDevice, content));
 			}
-			//If not, we restore keybindings to default
+			//We should display a window with message that current settings are not correct
+			//Now we just restore keybindings to default
 			else
 			{
 				RestoreToDefaults(null, null);
@@ -169,7 +166,11 @@ namespace GameProject.States
 		/// </summary>
 		public bool ValidateKeys()
 		{
-			foreach(var x in game.Input.KeyBindings)
+			//Check for duplicates
+			var test = Input.KeyBindings.Where(i => Input.KeyBindings.Any(t => t.Key != i.Key && t.Value == i.Value)).ToDictionary(i => i.Key, i => i.Value);
+			if (test.Count > 0)
+				return false;
+			foreach (var x in game.Input.KeyBindings)
 			{
 				if (x.Value == null)
 					return false;
@@ -187,6 +188,20 @@ namespace GameProject.States
 			base.Update(gameTime);
 			foreach (var c in staticComponents)
 				c.Update(gameTime);
+			//Check if user pressed keybind
+			if(bindingNow.Contains(true))
+			{
+				var key = Input.FirstPressedkey();
+				if (key == null)
+					return;
+				else
+				{
+					int index = bindingNow.IndexOf(true);
+					game.Input.KeyBindings[inputKeybindStrings[index]] = key;
+					keybindsButtons[index].Text = key.ToString();
+					bindingNow[index] = false;
+				}
+			}
 		}
 	}
 }

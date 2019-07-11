@@ -61,6 +61,19 @@ namespace GameProject
 				{"FastSlot3",Keys.D3 },
 			};
 		}
+
+		/// <summary>
+		/// Returns first pressed key in current state
+		/// </summary>
+		/// <returns></returns>
+		public Keys? FirstPressedkey()
+		{
+			if (CurrentState.GetPressedKeys().Length == 0)
+				return null;
+			else
+				return CurrentState.GetPressedKeys()[0];
+		}
+
 		public void Save()
 		{
 			throw new NotImplementedException();
