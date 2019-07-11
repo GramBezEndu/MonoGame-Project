@@ -14,6 +14,7 @@ namespace GameProject.Sprites
 		{
 			DamageMin = 2;
 			DamageMax = 4;
+			distancePerFrame = 9f * game.Scale;
 		}
 	}
 }

@@ -108,6 +108,7 @@
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Items\WizardBreastplate.cs" />
     <Compile Include="Items\WizardHelmet.cs" />
+    <Compile Include="Controls\Message.cs" />
     <Compile Include="Sprites\Archer.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Game1.cs" />
