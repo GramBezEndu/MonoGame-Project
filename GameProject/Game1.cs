@@ -105,7 +105,7 @@ namespace GameProject
 			//Loop songs
 			MediaPlayer.IsRepeating = true;
 			//Default volume for songs
-			MediaPlayer.Volume = 0.2f;
+			MediaPlayer.Volume = 0.5f;
 			graphics.PreferredBackBufferWidth = 1280; //1600
 			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;

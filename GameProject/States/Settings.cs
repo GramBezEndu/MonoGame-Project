@@ -23,8 +23,10 @@ namespace GameProject.States
 		/// </summary>
 		List<bool> bindingNow;
 
-        ///Represents max font width (from input keybinds strings), so buttons can be placed correctly
-        Vector2 size = new Vector2(0, 0);
+		Slider musicVolume;
+
+		///Represents max font width (from input keybinds strings), so buttons can be placed correctly
+		Vector2 size = new Vector2(0, 0);
         public Settings(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
 			var background = content.Load<Texture2D>("Background");
@@ -85,13 +87,22 @@ namespace GameProject.States
 
 			staticComponents.AddRange(keybindsButtons);
 
-
-			//Add a music volume slider
-			staticComponents.Add(new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], font, g.Scale)
+			//Add a music volume slider + text component
+			var musicVolumeText = new Text(font, "Music volume: ")
 			{
 				Position = new Vector2(0.5f * g.Width, 0.2f * g.Height)
-			}
-			);
+			};
+
+			staticComponents.Add(musicVolumeText);
+
+			musicVolume = new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], font, g.Scale)
+			{
+				Position = new Vector2(musicVolumeText.Position.X + musicVolumeText.Width, musicVolumeText.Position.Y),
+				Click = ChangeMusicVolume,
+				CurrentValue = MediaPlayer.Volume
+			};
+
+			staticComponents.Add(musicVolume);
 
 			//Add a restore to defaults button
 			staticComponents.Add(new Button(buttonTexture, font, game.Scale)
@@ -103,8 +114,14 @@ namespace GameProject.States
 			);
 		}
 
+		private void ChangeMusicVolume(object sender, EventArgs e)
+		{
+			MediaPlayer.Volume = (sender as Slider).CurrentValue;
+		}
+
 		private void RestoreToDefaults(object sender, EventArgs e)
 		{
+			//Restore keybindings
 			game.Input.RestoreToDefaults();
 			for (int i = 0; i < game.Input.KeyBindings.Count; i++)
 			{
@@ -113,6 +130,10 @@ namespace GameProject.States
 				//Reset bindingNow list
 				bindingNow[i] = false;
 			}
+			//Restore music volume
+			MediaPlayer.Volume = 0.5f;
+			musicVolume.CurrentValue = 0.5f;
+
 		}
 
 		private void ChangeKeybind(object sender, EventArgs e)

@@ -12,6 +12,7 @@ namespace GameProject.Controls
 {
 	public class Slider : Sprite
 	{
+		public EventHandler Click { get; set; }
 		Texture2D SliderFilled;
 		Text HowMuchBarFilled;
 		float maxValue = 1f;
@@ -86,6 +87,7 @@ namespace GameProject.Controls
 					int width = (int)positionRelated.X;
 
 					CurrentValue = (float)Math.Round(((float)width / this.Width), 2);
+					Click?.Invoke(this, new EventArgs());
 				}
 			}
 		}
