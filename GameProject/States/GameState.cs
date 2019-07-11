@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Animations;
 using GameProject.Items;
+using GameProject.Controls;
 
 namespace GameProject.States
 {
@@ -401,6 +402,20 @@ namespace GameProject.States
 		public void SpawnProjectile(Projectile projectile)
 		{
 			movingComponentsToSpawn.Add(projectile);
+		}
+
+		/// <summary>
+		/// Creates a new message
+		/// Note: Old messages are not being removed from uiComponents now
+		/// </summary>
+		/// <param name="msg"></param>
+		public void CreateMessage(string msg)
+		{
+			uiComponents.Add(new Message(game, graphicsDevice, Font, msg)
+			{
+				Position = new Vector2(0, 0.8f * game.Height)
+			}
+			);
 		}
 	}
 }

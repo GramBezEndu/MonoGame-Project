@@ -301,6 +301,7 @@ namespace GameProject.States
 			};
 			AddCommonPlayerUiComponents();
 			AddStaminaBarUi();
+			//CreateMessage("Test message");
 		}
 
 		private void ExitClick(object sender, EventArgs e)
