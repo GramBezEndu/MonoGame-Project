@@ -20,6 +20,7 @@ namespace GameProject.Sprites
 		public Dictionary<string, Animation> animations { get; protected set; }
 		protected Vector2 position;
 		public Vector2 Velocity;
+		public bool FlipHorizontally { get; set; }
 		//protected Vector2 position;
 		public float Scale { get; set; }
 		//public Vector2 Velocity { get; set; }
@@ -115,7 +116,12 @@ namespace GameProject.Sprites
 			if(!Hidden)
 			{
 				if (texture != null)
-					spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+				{
+					if(FlipHorizontally)
+						spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0f);
+					else
+						spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+				}
 				else if (animationManager != null)
 					animationManager.Draw(spriteBatch);
 				else

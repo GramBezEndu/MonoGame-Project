@@ -37,7 +37,7 @@ namespace GameProject.Sprites
 				}
 				else
 				{
-					Velocity = new Vector2(-distancePerFrame, 0);
+					Velocity = new Vector2(distancePerFrame, 0);
 				}
 				Position += Velocity;
 			}
