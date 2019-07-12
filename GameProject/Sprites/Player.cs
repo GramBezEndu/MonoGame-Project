@@ -68,6 +68,7 @@ namespace GameProject.Sprites
 		{
 			if (!IsDead)
 			{
+				base.Update(gameTime);
 				//Health regen
 				if (HealthToRestore > 0)
 					HealthRegenTimer.Enabled = true;

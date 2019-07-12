@@ -257,13 +257,25 @@ namespace GameProject.Sprites
 			else if (IsDead)
 				animationManager.Play(animations["Die"]);
 			else if (Velocity.X > 0)
-				animationManager.Play(animations["WalkRight"]);
+			{
+				FlipHorizontally = false;
+				animationManager.Play(animations["Walk"]);
+			}
 			else if (Velocity.X < 0)
-				animationManager.Play(animations["WalkLeft"]);
+			{
+				FlipHorizontally = true;
+				animationManager.Play(animations["Walk"]);
+			}
 			else if (blockingRight)
-				animationManager.Play(animations["BlockRight"]);
+			{
+				FlipHorizontally = false;
+				animationManager.Play(animations["Block"]);
+			}
 			else if (blockingLeft)
-				animationManager.Play(animations["BlockLeft"]);
+			{
+				FlipHorizontally = true;
+				animationManager.Play(animations["Block"]);
+			}
 			else if (blockingUp)
 				animationManager.Play(animations["BlockUp"]);
 			else if (fastAttacking)

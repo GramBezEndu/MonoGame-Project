@@ -88,7 +88,7 @@ namespace GameProject.Sprites
 		/// <summary>
 		///Check if player is close (in agro range [we check for X axis only]) then perform action (probably run to player)
 		/// </summary>
-		public void IsPlayerClose(Player p)
+		public virtual void IsPlayerClose(Player p)
 		{
 			if (IsDead)
 				return;
@@ -178,7 +178,7 @@ namespace GameProject.Sprites
 
 		public override void Update(GameTime gameTime)
 		{
-			AttackTimer.Update(gameTime);
+			AttackTimer?.Update(gameTime);
 			IsPlayerClose(player);
 			if (Health <= 0)
 			{

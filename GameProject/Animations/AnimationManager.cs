@@ -13,6 +13,7 @@ namespace GameProject.Animations
 	{
 		public Animation animation;
 		private float millisecondsTimer;
+		public bool FlipHorizontally { get; set; }
 		public Vector2 Position { get; set; }
 		/// <summary>
 		/// If not declared, animation manager will play first animation from dictionary
@@ -24,7 +25,24 @@ namespace GameProject.Animations
 		}
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(animation.Texture,
+			if(FlipHorizontally)
+			{
+				spriteBatch.Draw(animation.Texture,
+				Position,
+				new Rectangle(animation.CurrentFrame * animation.FrameWidth,
+					0,
+					animation.FrameWidth,
+					animation.FrameHeight),
+				Color.White,
+				0f,
+				Vector2.Zero,
+				animation.Scale,
+				SpriteEffects.FlipHorizontally,
+				0f);
+			}
+			else
+			{
+				spriteBatch.Draw(animation.Texture,
 				Position,
 				new Rectangle(animation.CurrentFrame * animation.FrameWidth,
 					0,
@@ -36,12 +54,8 @@ namespace GameProject.Animations
 				animation.Scale,
 				SpriteEffects.None,
 				0f);
-			////skalowanie tutaj
-			//spriteBatch.Draw(
-			//	animation.Texture,
-			//	Position,
-			//	new Rectangle(animation.CurrentFrame * animation.FrameWidth, 0, animation.FrameWidth, animation.FrameHeight),
-			//	Color.White);
+			}
+
 		}
 		public void Play(Animation a)
 		{

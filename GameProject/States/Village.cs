@@ -229,10 +229,8 @@ namespace GameProject.States
 							{"Die", new Animation(Textures["Die"], 3, game.Scale)},
 							{"Dead", new Animation(Textures["Dead"], 1, game.Scale)},
 							{"Idle", new Animation(content.Load<Texture2D>("Warrior"), 1, game.Scale) },
-							{"WalkRight", new Animation(content.Load<Texture2D>("WalkRight"), 3, game.Scale)},
-							{"WalkLeft", new Animation(content.Load<Texture2D>("WalkLeft"), 3, game.Scale) },
-							{"BlockRight", new Animation(content.Load<Texture2D>("BlockRight"), 1, game.Scale) },
-							{"BlockLeft", new Animation(content.Load<Texture2D>("BlockLeft"), 1, game.Scale) },
+							{"Walk", new Animation(content.Load<Texture2D>("Walk"), 3, game.Scale)},
+							{"Block", new Animation(content.Load<Texture2D>("Block"), 1, game.Scale) },
 							{"BlockUp", new Animation(content.Load<Texture2D>("BlockUp"), 1, game.Scale) },
 							{"FastAttack", new Animation(content.Load<Texture2D>("WarriorFastAttack"), 3, game.Scale, 0.1f) },
 							{"NormalAttack", new Animation(content.Load<Texture2D>("WarriorNormalAttack"), 3, game.Scale, 0.2f) }

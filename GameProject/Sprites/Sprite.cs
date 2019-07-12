@@ -110,6 +110,12 @@ namespace GameProject.Sprites
 		public override void Update(GameTime gameTime)
 		{
 			//regular sprite does not require any update
+
+			//Animated sprites -> check if sprite is should be flipped horizontally
+			if(animationManager != null)
+			{
+				animationManager.FlipHorizontally = this.FlipHorizontally;
+			}
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
