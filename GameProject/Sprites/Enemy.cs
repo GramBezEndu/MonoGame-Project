@@ -178,6 +178,7 @@ namespace GameProject.Sprites
 
 		public override void Update(GameTime gameTime)
 		{
+			base.Update(gameTime);
 			AttackTimer?.Update(gameTime);
 			IsPlayerClose(player);
 			if (Health <= 0)

@@ -68,9 +68,18 @@ namespace GameProject.Sprites
 				animationManager.Play(animations["Die"]);
 			else if (isAttacking)
 				animationManager.Play(animations["Attack"]);
-			//If enemy is moving
-			else if (Velocity != Vector2.Zero)
+			//Moving right
+			else if (Velocity.X > 0)
+			{
+				FlipHorizontally = false;
 				animationManager.Play(animations["Run"]);
+			}
+			//Moving left
+			else if (Velocity.X < 0)
+			{
+				FlipHorizontally = true;
+				animationManager.Play(animations["Run"]);
+			}
 			else
 				animationManager.Play(animations["Idle"]);
 		}
