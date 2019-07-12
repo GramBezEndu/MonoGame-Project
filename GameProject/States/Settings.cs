@@ -168,15 +168,13 @@ namespace GameProject.States
 				game.ChangeState(new MainMenu(game, graphicsDevice, content));
 			}
 			//We should display a window with message that current settings are not correct
-			//Now we just restore keybindings to default
 			else
 			{
-				RestoreToDefaults(null, null);
-				game.ChangeState(new MainMenu(game, graphicsDevice, content));
+				CreateMessage("Selected keybindings are not correct. Make sure there is no duplicates or not assigned keys.");
 			}
 		}
 
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale)
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			spriteBatch.Begin();
 			foreach (var c in staticComponents)
@@ -188,6 +186,7 @@ namespace GameProject.States
                 //Should be done with on Y with Max(font.MeasureString, button.Y) (needs a fix later)
 				spriteBatch.DrawString(font, inputKeybindStrings[i], new Vector2(0.255f*game.Width, 0.05f * game.Height + i * keybindsButtons[i].Height), Color.Black);
 			}
+			Message?.Draw(gameTime, spriteBatch);
 			spriteBatch.End();
 		}
 

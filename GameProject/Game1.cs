@@ -205,7 +205,7 @@ namespace GameProject
 			GraphicsDevice.Clear(Color.Black);
 
 			// TODO: Add your drawing code here
-			currentState.Draw(gameTime, spriteBatch, Scale);
+			currentState.Draw(gameTime, spriteBatch);
             //Create new sprite batch for version info + debug display
             spriteBatch.Begin();
             if (Debugger.IsAttached)

@@ -39,19 +39,25 @@ namespace GameProject.Controls
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			if (displayTimer.CurrentTime >= 0)
+			if(!Hidden)
 			{
-				spriteBatch.Draw(backgroundTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-				base.Draw(gameTime, spriteBatch);
+				if (displayTimer.CurrentTime >= 0)
+				{
+					spriteBatch.Draw(backgroundTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+					base.Draw(gameTime, spriteBatch);
+				}
 			}
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			//Enable timer on first update
-			if (displayTimer.Enabled == false)
-				displayTimer.Start();
-			displayTimer.Update(gameTime);
+			if(!Hidden)
+			{
+				//Enable timer on first update
+				if (displayTimer.Enabled == false)
+					displayTimer.Start();
+				displayTimer.Update(gameTime);
+			}
 		}
 	}
 }

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using GameProject.Controls;
 
 namespace GameProject
 {
@@ -35,6 +36,11 @@ namespace GameProject
 		public Dictionary<string, Texture2D> SkeletonArcherTextures = new Dictionary<string, Texture2D>();
 
 		public Dictionary<string, Song> Songs = new Dictionary<string, Song>();
+
+		/// <summary>
+		/// Current message that is displayed
+		/// </summary>
+		public Message Message;
 
 		/// <summary>
 		/// Loads textures from main directory to Textures dictionary
@@ -118,11 +124,36 @@ namespace GameProject
         public virtual void Update(GameTime gameTime)
 		{
 			Input.Update(gameTime);
+			//Add message to display if there is any
+			AddMessage();
 		}
-		public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale);
+
+		public virtual void AddMessage()
+		{
+			if(Message != null)
+			{
+				IEnumerable<Component> msg = staticComponents.Where(x => x is Message);
+				foreach(var m in msg)
+				{
+					m.Hidden = true;
+				}
+				staticComponents.Add(Message);
+				Message = null;
+			}
+		}
+
+		public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 		/// <summary>
 		/// Remove not needed resources etc.
 		/// </summary>
 		public abstract void PostUpdate();
+
+		public void CreateMessage(string msg)
+		{
+			Message = new Message(game, graphicsDevice, Font, msg)
+			{
+				Position = new Vector2(0, 0.8f * game.Height)
+			};
+		}
 	}
 }

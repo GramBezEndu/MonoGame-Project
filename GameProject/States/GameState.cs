@@ -86,6 +86,8 @@ namespace GameProject.States
             RemoveMovingComponents();
             //Pick up items
             PickUpItems();
+			//Add message to display if there is any
+			AddMessage();
         }
 
         private void SpawnMovingComponents()
@@ -404,18 +406,18 @@ namespace GameProject.States
 			movingComponentsToSpawn.Add(projectile);
 		}
 
-		/// <summary>
-		/// Creates a new message
-		/// Note: Old messages are not being removed from uiComponents now
-		/// </summary>
-		/// <param name="msg"></param>
-		public void CreateMessage(string msg)
+		public override void AddMessage()
 		{
-			uiComponents.Add(new Message(game, graphicsDevice, Font, msg)
+			if (Message != null)
 			{
-				Position = new Vector2(0, 0.8f * game.Height)
+				IEnumerable<Component> msg = staticComponents.Where(x => x is Message);
+				foreach (var m in msg)
+				{
+					m.Hidden = true;
+				}
+				uiComponents.Add(Message);
+				Message = null;
 			}
-			);
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace GameProject.States
 			game.ChangeState(new MainMenu(game, graphicsDevice, content));
 		}
 
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale)
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			spriteBatch.Begin();
 			foreach (var c in staticComponents)

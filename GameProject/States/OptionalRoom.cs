@@ -152,7 +152,7 @@ namespace GameProject.States
 			game.Exit();
 		}
 
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale)
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			//Static background batch
 			spriteBatch.Begin();

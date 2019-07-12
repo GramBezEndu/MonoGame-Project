@@ -319,7 +319,7 @@ namespace GameProject.States
 			player.gameState = newState;
         }
 
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, float scale)
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 				//Static Textures["VillageBackground"] batch
 				spriteBatch.Begin();
