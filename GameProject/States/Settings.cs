@@ -46,7 +46,7 @@ namespace GameProject.States
                 },
                 new Sprite(settingsTexture, g.Scale)
                 {
-                    Position = new Vector2(1f/4f*game.Width, 0.03f*game.Height)
+                    Position = new Vector2(1f/4f*Game.Width, 0.03f*Game.Height)
                 },
                 new Button(buttonTexture, buttonFont, g.Scale)
                 {
@@ -57,7 +57,7 @@ namespace GameProject.States
             };
 
             //Make keybinds strings
-            foreach (var s in game.Input.KeyBindings)
+            foreach (var s in Game.Input.KeyBindings)
             {
 				string actualString = s.Key.ToString();
 				inputKeybindStrings.Add(actualString);
@@ -68,12 +68,12 @@ namespace GameProject.States
 			var tempButton = new Button(buttonTexture, font, g.Scale);
 
             //Make keybinds buttons (need to set correct Y still)
-            for (int i = 0; i < game.Input.KeyBindings.Count; i++)
+            for (int i = 0; i < Game.Input.KeyBindings.Count; i++)
             {
                 keybindsButtons.Add(new Button(buttonTexture, font, g.Scale)
                 {
-                    Position = new Vector2(0.255f * game.Width + size.X, 0.033f * game.Height + i*tempButton.Height),
-                    Text = game.Input.KeyBindings.ElementAt(i).Value.ToString(),
+                    Position = new Vector2(0.255f * Game.Width + size.X, 0.033f * Game.Height + i*tempButton.Height),
+                    Text = Game.Input.KeyBindings.ElementAt(i).Value.ToString(),
 					Click = ChangeKeybind
                 }
                 );
@@ -84,13 +84,13 @@ namespace GameProject.States
 			{
 				staticComponents.Add(new Text(font, inputKeybindStrings[i])
 				{
-					Position = new Vector2(0.255f * game.Width, 0.05f * game.Height + i * keybindsButtons[i].Height)
+					Position = new Vector2(0.255f * Game.Width, 0.05f * Game.Height + i * keybindsButtons[i].Height)
 				}
 				);	
 			}
 
 			//Make a list of bools (default false)
-			bindingNow = new List<bool>(new bool[game.Input.KeyBindings.Count]);
+			bindingNow = new List<bool>(new bool[Game.Input.KeyBindings.Count]);
 
 			staticComponents.AddRange(keybindsButtons);
 
@@ -112,7 +112,7 @@ namespace GameProject.States
 			staticComponents.Add(musicVolume);
 
 			//Add a restore to defaults button
-			staticComponents.Add(new Button(buttonTexture, font, game.Scale)
+			staticComponents.Add(new Button(buttonTexture, font, Game.Scale)
 			{
 				Position = new Vector2(0.7f * g.Width, 0.9f * g.Height),
 				Text = "Restore to defaults",
@@ -140,12 +140,12 @@ namespace GameProject.States
 			if((sender as Checkbox).Checked)
 			{
 				//Change to fullscreen
-				game.SetFullscreen();
+				Game.SetFullscreen();
 			}
 			else
 			{
 				//Change to windowed mode
-				game.SetWindowedMode();
+				Game.SetWindowedMode();
 			}
 		}
 
@@ -157,11 +157,11 @@ namespace GameProject.States
 		private void RestoreToDefaults(object sender, EventArgs e)
 		{
 			//Restore keybindings
-			game.Input.RestoreToDefaults();
-			for (int i = 0; i < game.Input.KeyBindings.Count; i++)
+			Game.Input.RestoreToDefaults();
+			for (int i = 0; i < Game.Input.KeyBindings.Count; i++)
 			{
 				//Update strings in keybinds buttons
-				keybindsButtons[i].Text = game.Input.KeyBindings.ElementAt(i).Value.ToString();
+				keybindsButtons[i].Text = Game.Input.KeyBindings.ElementAt(i).Value.ToString();
 				//Reset bindingNow list
 				bindingNow[i] = false;
 			}
@@ -185,9 +185,9 @@ namespace GameProject.States
 
 			int index = keybindsButtons.IndexOf(button);
 
-			if (game.Input.KeyBindings.ContainsKey(inputKeybindStrings[index]))
+			if (Game.Input.KeyBindings.ContainsKey(inputKeybindStrings[index]))
 			{
-				game.Input.KeyBindings[inputKeybindStrings[index]] = null;
+				Game.Input.KeyBindings[inputKeybindStrings[index]] = null;
 				bindingNow[index] = true;
 				keybindsButtons[index].Text = "Press any key";
 			}
@@ -200,7 +200,7 @@ namespace GameProject.States
 			//If selected keys by player are ok we can go back to Main Menu
 			if(ValidateKeys())
 			{
-				game.ChangeState(new MainMenu(game, graphicsDevice, content));
+				Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
 			}
 			//We should display a window with message that current settings are not correct
 			else
@@ -227,7 +227,7 @@ namespace GameProject.States
 			if (test.Count > 0)
 				return false;
 			//Check for not assigned values
-			foreach (var x in game.Input.KeyBindings)
+			foreach (var x in Game.Input.KeyBindings)
 			{
 				if (x.Value == null)
 					return false;
@@ -255,7 +255,7 @@ namespace GameProject.States
 				else
 				{
 					int index = bindingNow.IndexOf(true);
-					game.Input.KeyBindings[inputKeybindStrings[index]] = key;
+					Game.Input.KeyBindings[inputKeybindStrings[index]] = key;
 					keybindsButtons[index].Text = key.ToString();
 					bindingNow[index] = false;
 				}

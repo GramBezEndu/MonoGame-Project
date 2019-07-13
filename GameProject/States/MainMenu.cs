@@ -56,17 +56,17 @@ namespace GameProject.States
 
 		private void CreditsState(object sender, EventArgs e)
 		{
-			game.ChangeState(new Credits(game, graphicsDevice, content));
+			Game.ChangeState(new Credits(Game, graphicsDevice, content));
 		}
 
 		private void SettingsState(object sender, EventArgs e)
 		{
-			game.ChangeState(new Settings(game, graphicsDevice, content));
+			Game.ChangeState(new Settings(Game, graphicsDevice, content));
 		}
 
 		private void PlayClick(object sender, EventArgs e)
 		{
-			game.ChangeState(new Play(game, graphicsDevice, content));
+			Game.ChangeState(new Play(Game, graphicsDevice, content));
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -90,7 +90,7 @@ namespace GameProject.States
 		}
 		private void QuitGame(object sender, EventArgs e)
 		{
-			game.Exit();
+			Game.Exit();
 		}
 	}
 }

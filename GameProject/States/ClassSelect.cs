@@ -57,12 +57,12 @@ namespace GameProject.States
 
 		private void ArcherClick(object sender, EventArgs e)
 		{
-			game.ChangeState(new Village(game, graphicsDevice, content, PlayerClasses.Archer));
+			Game.ChangeState(new Village(Game, graphicsDevice, content, PlayerClasses.Archer));
 		}
 
 		private void WarriorClick(object sender, EventArgs e)
 		{
-			game.ChangeState(new Village(game, graphicsDevice, content, PlayerClasses.Warrior));
+			Game.ChangeState(new Village(Game, graphicsDevice, content, PlayerClasses.Warrior));
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

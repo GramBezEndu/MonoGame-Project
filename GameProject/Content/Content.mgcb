@@ -1928,6 +1928,12 @@
 /processorParam:TextureFormat=Color
 /build:SliderFilled.png
 
+#begin Songs/Death.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Songs/Death.mp3
+
 #begin Songs/MainMenu.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

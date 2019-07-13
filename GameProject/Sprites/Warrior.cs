@@ -11,6 +11,7 @@ using GameProject.Inventory;
 using System.Diagnostics;
 using GameProject.Items;
 using GameProject.States;
+using GameProject.Controls;
 
 namespace GameProject.Sprites
 {
@@ -34,11 +35,6 @@ namespace GameProject.Sprites
 			animations["NormalAttack"].OnAnimationEnd = OnNormalAttackEnd;
 			animations["Die"].OnAnimationEnd = Dead;
 			attackRange = 40f * scale;
-		}
-
-		private void Dead(object sender, EventArgs e)
-		{
-			DyingAnimationFinished = true;
 		}
 
 		private void OnNormalAttackEnd(object sender, EventArgs e)

@@ -31,19 +31,19 @@ namespace GameProject.States
             dungeonLevelText = String.Format("Dungeon Level {0}", currentLevel);
             player = p;
 			//Reset player position
-            player.Position = new Vector2(0.05f * game.Width, 0.6f * game.Height);
+            player.Position = new Vector2(0.05f * Game.Width, 0.6f * Game.Height);
 
             //Roll a level width
-            levelWidth = g.Random.Next((currentLevel + 10) / 5, (currentLevel + 10) / 2) * game.Width;
+            levelWidth = g.Random.Next((currentLevel + 10) / 5, (currentLevel + 10) / 2) * Game.Width;
 
 			//Place next level entrance at the end
 			nextLevelEntrance = new Door(
-                game,
+                Game,
                 this,
                 new Sprite(Textures["DungeonEntrance"], g.Scale)
 
 				{
-                    Position = new Vector2(levelWidth, 0.55f * game.Height)
+                    Position = new Vector2(levelWidth, 0.55f * Game.Height)
                 },
                 new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale),
                 player);
@@ -54,9 +54,9 @@ namespace GameProject.States
 			};
 
 			//Spawn shopkeeper, blacksmith & Statue of Gods at the end of the level
-			SpawnShopkeeper(new Vector2(levelWidth - 0.68f * game.Width, 0.59f * game.Height));
-			SpawnBlacksmith(new Vector2(levelWidth - 0.43f * game.Width, 0.5f * game.Height));
-			SpawnStatueOfGods(new Vector2(levelWidth - 0.22f * game.Width, 0.65f * game.Height));
+			SpawnShopkeeper(new Vector2(levelWidth - 0.68f * Game.Width, 0.59f * Game.Height));
+			SpawnBlacksmith(new Vector2(levelWidth - 0.43f * Game.Width, 0.5f * Game.Height));
+			SpawnStatueOfGods(new Vector2(levelWidth - 0.22f * Game.Width, 0.65f * Game.Height));
 
 			//Draw optional rooms quantity
 			optionalRoomsQuantity = g.Random.Next(0, currentLevel / 2);
@@ -67,7 +67,7 @@ namespace GameProject.States
             {
                 var temp = new Sprite(Textures["OptionalEntrance"], g.Scale)
                 {
-                    Position = new Vector2(g.Random.Next(0, levelWidth), 0.55f * game.Height)
+                    Position = new Vector2(g.Random.Next(0, levelWidth), 0.55f * Game.Height)
                 };
                 var temp2 = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale);
 
@@ -103,13 +103,13 @@ namespace GameProject.States
             //Wall at beginning of level
             Sprite wall = new Sprite(Textures["Wall"], g.Scale)
             {
-                Position = new Vector2(-0.5f* game.Width, 0)
+                Position = new Vector2(-0.5f* Game.Width, 0)
             };
 
             //Wall at the end of the level
             Sprite endWall = new Sprite(Textures["Wall2"], g.Scale)
             {
-                Position = new Vector2(levelWidth + 0.1f * game.Width, 0)
+                Position = new Vector2(levelWidth + 0.1f * Game.Width, 0)
             };
 
 			collisionSprites.Add(wall);
@@ -153,12 +153,12 @@ namespace GameProject.States
 
         private void ExitClick(object sender, EventArgs e)
 		{
-			game.Exit();
+			Game.Exit();
 		}
 
 		private void MainMenuClick(object sender, EventArgs e)
 		{
-			game.ChangeState(new MainMenu(game, graphicsDevice, content));
+			Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -189,7 +189,7 @@ namespace GameProject.States
 			if (dungeonLevelStringTimer > 0)
 			{
                 float halfTextWidth = Font.MeasureString(dungeonLevelText).X/2;
-				spriteBatch.DrawString(Font, dungeonLevelText, new Vector2(game.Width / 2 - halfTextWidth, game.Height / 3), Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+				spriteBatch.DrawString(Font, dungeonLevelText, new Vector2(Game.Width / 2 - halfTextWidth, Game.Height / 3), Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
 				//spriteBatch.DrawString(font, currentLevel.ToString(), new Vector2(game.Width / 2, game.Height / 2), Color.Red);
 			}
 			//paused UI
@@ -237,7 +237,7 @@ namespace GameProject.States
                 }
 				foreach (var ui in uiComponents)
 					ui.Update(gameTime);
-				camera.Follow(game, player);
+				camera.Follow(Game, player);
 			}
 			else
 			{
@@ -249,13 +249,13 @@ namespace GameProject.States
 		{
 			GameState newState = optionalRooms[i];
 			optionalRooms[i].Enter(player);
-			game.ChangeState(newState);
+			Game.ChangeState(newState);
 			player.gameState = newState;
 		}
 		private void NextDungeonLevel()
 		{
-			GameState newState = new Dungeon(game, graphicsDevice, content, player, currentLevel + 1);
-			game.ChangeState(newState);
+			GameState newState = new Dungeon(Game, graphicsDevice, content, player, currentLevel + 1);
+			Game.ChangeState(newState);
 			player.gameState = newState;
 		}
 	}

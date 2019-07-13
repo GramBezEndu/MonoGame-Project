@@ -17,7 +17,7 @@ namespace GameProject
     {
         protected ContentManager content;
         public GraphicsDevice graphicsDevice { get; protected set; }
-        protected Game1 game;
+        public Game1 Game { get; protected set; }
         public Input Input { get; private set; }
         protected List<Component> staticComponents;
         /// <summary>
@@ -95,9 +95,9 @@ namespace GameProject
         public State(Game1 g, GraphicsDevice gd, ContentManager c)
         {
             content = c;
-            game = g;
+            Game = g;
             graphicsDevice = gd;
-            Input = game.Input;
+            Input = Game.Input;
             LoadKeyTextures();
             LoadTextures();
 			LoadSkeletonArcherTextures();
@@ -150,7 +150,7 @@ namespace GameProject
 
 		public void CreateMessage(string msg)
 		{
-			Message = new Message(game, graphicsDevice, Font, msg);
+			Message = new Message(Game, graphicsDevice, Font, msg);
 		}
 	}
 }

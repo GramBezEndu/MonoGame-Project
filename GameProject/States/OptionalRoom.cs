@@ -33,7 +33,7 @@ namespace GameProject.States
                 this,
                 new Sprite(optionalEntranceTexture, g.Scale)
                 {
-            	    Position = new Vector2(1.05f*game.Width, 0.55f * game.Height)
+            	    Position = new Vector2(1.05f*Game.Width, 0.55f * Game.Height)
                 },
                 new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], g.Scale),
                 player);
@@ -55,7 +55,7 @@ namespace GameProject.States
 				//Mysterious chest
                 else if (value <= 85)
                 {
-                    SpawnMysteriousChest(new Vector2(0.5f * game.Width, 0.82f * game.Height));
+                    SpawnMysteriousChest(new Vector2(0.5f * Game.Width, 0.82f * Game.Height));
                 }
 				//Boss not added yet -> equals with empty room
                 else
@@ -74,7 +74,7 @@ namespace GameProject.States
                 //Treasure chest
                 else
                 {
-                    SpawnMysteriousChest(new Vector2(0.5f* game.Width, 0.65f*game.Height));
+                    SpawnMysteriousChest(new Vector2(0.5f* Game.Width, 0.65f*Game.Height));
                 }
 			}
 
@@ -98,13 +98,13 @@ namespace GameProject.States
 
 			collisionSprites.Add(new Sprite(Textures["Wall"], g.Scale)
 			{
-				Position = new Vector2(-0.5f* game.Width,0)
+				Position = new Vector2(-0.5f* Game.Width,0)
 			}
 			);
 
 			collisionSprites.Add(new Sprite(Textures["Wall2"], g.Scale)
 			{
-				Position = new Vector2(1.2f * game.Width, 0)
+				Position = new Vector2(1.2f * Game.Width, 0)
 			}
 );
 
@@ -144,12 +144,12 @@ namespace GameProject.States
 
 		private void MainMenuClick(object sender, EventArgs e)
 		{
-			game.ChangeState(new MainMenu(game, graphicsDevice, content));
+			Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
 		}
 
 		private void ExitClick(object sender, EventArgs e)
 		{
-			game.Exit();
+			Game.Exit();
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -207,13 +207,13 @@ namespace GameProject.States
                     player.Position = OldPlayerPosition;
 					player.gameState = dungeonLevel;
 					//We can change state now
-                    game.ChangeState(dungeonLevel);
+                    Game.ChangeState(dungeonLevel);
 
                     return;
                 }
 				foreach (var ui in uiComponents)
 					ui.Update(gameTime);
-				camera.Follow(game, player);
+				camera.Follow(Game, player);
 			}
 			else
 			{
@@ -227,7 +227,7 @@ namespace GameProject.States
 			//Assign old position
 			OldPlayerPosition = player.Position;
 			//change the position in new state
-			this.player.Position = new Vector2(0.1f * game.Width, 0.6f * game.Height);
+			this.player.Position = new Vector2(0.1f * Game.Width, 0.6f * Game.Height);
 		}
 	}
 }

@@ -106,17 +106,17 @@ namespace GameProject.States
 			//skeleton warrior animations
 			var animations = new Dictionary<string, Animation>()
 			{
-				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
-				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Attack"), 3, game.Scale, 0.2f) },
-				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, game.Scale, 0.5f) },
-				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale) },
-				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, game.Scale) }
+				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, Game.Scale) },
+				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Attack"), 3, Game.Scale, 0.2f) },
+				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, Game.Scale, 0.5f) },
+				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, Game.Scale) },
+				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, Game.Scale) }
 			};
 			for (int i = 0; i < 3; i++)
             {
-                enemies.Add(new SkeletonWarrior(game, this, Font, (animations), player)
+                enemies.Add(new SkeletonWarrior(Game, this, Font, (animations), player)
                 {
-                    Position = new Vector2((0.7f + i * 0.1f) * game.Width, 0.6f * game.Height),
+                    Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
                 });
             }
         }
@@ -129,19 +129,19 @@ namespace GameProject.States
 			//skeleton warrior animations
 			var warriorAnimations = new Dictionary<string, Animation>()
 			{
-				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, game.Scale) },
-				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Attack"), 3, game.Scale, 0.2f) },
-				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, game.Scale, 0.5f) },
-				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, game.Scale) },
-				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, game.Scale) }
+				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Idle"), 1, Game.Scale) },
+				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Attack"), 3, Game.Scale, 0.2f) },
+				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Run"), 3, Game.Scale, 0.5f) },
+				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Die"), 3, Game.Scale) },
+				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Warrior/Dead"), 1, Game.Scale) }
 			};
 			var archerAnimations = new Dictionary<string, Animation>()
 			{
-				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Archer/Idle"), 1, game.Scale) },
-				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Archer/Attack"), 3, game.Scale, 0.2f) },
-				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Archer/Run"), 3, game.Scale, 0.5f) },
-				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Archer/Die"), 3, game.Scale) },
-				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Archer/Dead"), 1, game.Scale) }
+				{"Idle", new Animation(content.Load<Texture2D>("Skeleton/Archer/Idle"), 1, Game.Scale) },
+				{"Attack", new Animation(content.Load<Texture2D>("Skeleton/Archer/Attack"), 3, Game.Scale, 0.2f) },
+				{"Run", new Animation(content.Load<Texture2D>("Skeleton/Archer/Run"), 3, Game.Scale, 0.5f) },
+				{"Die", new Animation(content.Load<Texture2D>("Skeleton/Archer/Die"), 3, Game.Scale) },
+				{"Dead", new Animation(content.Load<Texture2D>("Skeleton/Archer/Dead"), 1, Game.Scale) }
 			};
 
 			for (int i = 0; i < 3; i++)
@@ -149,17 +149,17 @@ namespace GameProject.States
 				//Middle - archer
 				if(i == 1)
 				{
-					enemies.Add(new SkeletonArcher(game, this, Font, (archerAnimations), player)
+					enemies.Add(new SkeletonArcher(Game, this, Font, (archerAnimations), player)
 					{
-						Position = new Vector2((0.7f + i * 0.1f) * game.Width, 0.6f * game.Height),
+						Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
 					});
 				}
 				//Warrior
 				else
 				{
-					enemies.Add(new SkeletonWarrior(game, this, Font, (warriorAnimations), player)
+					enemies.Add(new SkeletonWarrior(Game, this, Font, (warriorAnimations), player)
 					{
-						Position = new Vector2((0.7f + i * 0.1f) * game.Width, 0.6f * game.Height),
+						Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
 					});
 				}
 			}
@@ -169,55 +169,55 @@ namespace GameProject.States
 		{
 			var shopkeeperAnimations = new Dictionary<string, Animation>()
 			{
-				{"Idle", new Animation(content.Load<Texture2D>("Shopkeeper"), 1, game.Scale) },
+				{"Idle", new Animation(content.Load<Texture2D>("Shopkeeper"), 1, Game.Scale) },
 			};
 			var shopkeeperSprite = new Sprite(shopkeeperAnimations)
 			{
 				Position = position
 			};
-			var shopkeeperButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
-			movingComponents.Add(new Shopkeeper(game, this, shopkeeperSprite, shopkeeperButton, player));
+			var shopkeeperButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], Game.Scale);
+			movingComponents.Add(new Shopkeeper(Game, this, shopkeeperSprite, shopkeeperButton, player));
 		}
 
 		protected void SpawnBlacksmith(Vector2 posiition)
 		{
 			var blackSmithAnimations = new Dictionary<string, Animation>()
 			{
-				{"Idle", new Animation(content.Load<Texture2D>("Blacksmith"), 3, game.Scale) },
+				{"Idle", new Animation(content.Load<Texture2D>("Blacksmith"), 3, Game.Scale) },
 			};
 			var blacksmithSprite = new Sprite(blackSmithAnimations)
 			{
 				Position = posiition
 			};
-			var blacksmithButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
-			movingComponents.Add(new Blacksmith(game, this, blacksmithSprite, blacksmithButton, player));
-			movingComponents.Add(new Sprite(Textures["box"], game.Scale)
+			var blacksmithButton = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], Game.Scale);
+			movingComponents.Add(new Blacksmith(Game, this, blacksmithSprite, blacksmithButton, player));
+			movingComponents.Add(new Sprite(Textures["box"], Game.Scale)
 			{
-				Position = new Vector2(posiition.X, posiition.Y + 0.21f*game.Height)
+				Position = new Vector2(posiition.X, posiition.Y + 0.21f*Game.Height)
 			});
-			movingComponents.Add(new Sprite(Textures["Anvil"], game.Scale)
+			movingComponents.Add(new Sprite(Textures["Anvil"], Game.Scale)
 			{
-				Position = new Vector2(posiition.X, posiition.Y + 0.11f * game.Height)
+				Position = new Vector2(posiition.X, posiition.Y + 0.11f * Game.Height)
 			});
 		}
 
 		protected void SpawnStatueOfGods(Vector2 position)
 		{
-			var Statue = new Sprite(Textures["StatueOfGods"], game.Scale)
+			var Statue = new Sprite(Textures["StatueOfGods"], Game.Scale)
 			{
 				Position = position
 			};
-			var button = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale);
-			movingComponents.Add(new StatueOfGods(game, this, Statue, button, player));
+			var button = new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], Game.Scale);
+			movingComponents.Add(new StatueOfGods(Game, this, Statue, button, player));
 		}
 		protected void SpawnTrainingDummy(Vector2 position)
 		{
 			var trainingDummyAnimations = new Dictionary<string, Animation>()
 			{
-				{"Idle", new Animation(Textures["TrainingDummy"], 1, game.Scale)}
+				{"Idle", new Animation(Textures["TrainingDummy"], 1, Game.Scale)}
 			};
 
-			enemies.Add(new TrainingDummy(game, this, Font, trainingDummyAnimations, player)
+			enemies.Add(new TrainingDummy(Game, this, Font, trainingDummyAnimations, player)
 			{
 				Position = position
 			}
@@ -228,11 +228,11 @@ namespace GameProject.States
         {
             var animations = new Dictionary<string, Animation>()
             {
-                {"MysteriousChest", new Animation(content.Load<Texture2D>("MysteriousChest"), 1, game.Scale) },
-                {"MysteriousChestOpen", new Animation(content.Load<Texture2D>("MysteriousChestOpen"), 2, game.Scale) },
-                {"MysteriousChestOpened", new Animation(content.Load<Texture2D>("MysteriousChestOpened"), 1, game.Scale) }
+                {"MysteriousChest", new Animation(content.Load<Texture2D>("MysteriousChest"), 1, Game.Scale) },
+                {"MysteriousChestOpen", new Animation(content.Load<Texture2D>("MysteriousChestOpen"), 2, Game.Scale) },
+                {"MysteriousChestOpened", new Animation(content.Load<Texture2D>("MysteriousChestOpened"), 1, Game.Scale) }
             };
-            mysteriousChests.Add(new MysteriousChest(game,
+            mysteriousChests.Add(new MysteriousChest(Game,
                 this,
                 new Sprite(animations)
                 {
@@ -242,7 +242,7 @@ namespace GameProject.States
                 //{
                 //    Position = position
                 //},
-                new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], game.Scale),
+                new Sprite(Keys[Input.KeyBindings["Interact"].ToString()], Game.Scale),
                 player));
         }
         /// <summary>
@@ -360,15 +360,15 @@ namespace GameProject.States
 				//if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
 				if(player.IsTouching(e))
 				{
-					int dmg = game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1+ player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
+					int dmg = Game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1+ player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
 						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
 					//Check if critical strike was drawn
-					int criticalStrike = game.RandomPercent();
+					int criticalStrike = Game.RandomPercent();
 					//Was critical
 					if (criticalStrike <= player.InventoryManager.EquipmentManager.Attributes["CriticalStrikeChance"] * 100)
 					{
 						float multiplier = 1f;
-						multiplier = game.RandomCriticalMultiplier();
+						multiplier = Game.RandomCriticalMultiplier();
 						dmg = (int)(dmg * multiplier);
 						//Deal damage to enemy
 						e.GetDamage(dmg, true);
@@ -394,7 +394,7 @@ namespace GameProject.States
 				//if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
 				if (player.IsTouching(e))
 				{
-					int dmg = game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
+					int dmg = Game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
 						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
 					e.GetDamage(dmg, false);
 				}

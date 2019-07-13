@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using GameProject.Animations;
 using GameProject.States;
 using GameProject.Inventory;
+using GameProject.Controls;
 
 namespace GameProject.Sprites
 {
@@ -26,6 +27,20 @@ namespace GameProject.Sprites
 			moveDistance = baseMoveDistance;
 			sprintDistance = baseSprintDistance;
 			gameState = currentGameState;
+		}
+
+		protected virtual void Dead(object sender, EventArgs e)
+		{
+			DyingAnimationFinished = true;
+			List<Component> deathComponents = new List<Component>();
+			var text = new Text(gameState.Font, "YOU DIED")
+			{
+				Color = Color.Red,
+			};
+			text.Position = new Vector2(gameState.Game.Width / 2 - text.Width / 2, gameState.Game.Height / 2 - text.Height / 2);
+
+			deathComponents.Add(text);
+			gameState.AddUiElements(deathComponents);
 		}
 
 		protected Input input;
@@ -110,6 +125,7 @@ namespace GameProject.Sprites
 		protected void Die()
 		{
 			IsDead = true;
+			gameState.Game.ChangeBackgroundSong(gameState.Songs["Death"]);
 		}
 
 		private void HealthRegen(GameTime gameTime)

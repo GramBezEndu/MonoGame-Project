@@ -36,7 +36,7 @@ namespace GameProject.States
 
 		private void MainMenuState(object sender, EventArgs e)
 		{
-			game.ChangeState(new MainMenu(game, graphicsDevice, content));
+			Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

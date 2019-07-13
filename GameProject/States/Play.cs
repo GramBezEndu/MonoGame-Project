@@ -52,12 +52,12 @@ namespace GameProject.States
 
 		private void MainMenuState(object sender, EventArgs e)
 		{
-			game.ChangeState(new MainMenu(game, graphicsDevice, content));
+			Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
 		}
 
 		private void NewGameClick(object sender, EventArgs e)
 		{
-			game.ChangeState(new ClassSelect(game, graphicsDevice, content));
+			Game.ChangeState(new ClassSelect(Game, graphicsDevice, content));
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
