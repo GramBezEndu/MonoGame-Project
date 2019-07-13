@@ -150,10 +150,7 @@ namespace GameProject
 
 		public void CreateMessage(string msg)
 		{
-			Message = new Message(game, graphicsDevice, Font, msg)
-			{
-				Position = new Vector2(0, 0.8f * game.Height)
-			};
+			Message = new Message(game, graphicsDevice, Font, msg);
 		}
 	}
 }

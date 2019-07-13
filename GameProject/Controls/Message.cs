@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameProject.Sprites;
 
 namespace GameProject.Controls
 {
@@ -18,6 +19,7 @@ namespace GameProject.Controls
 		/// </summary>
 		GameTimer displayTimer;
 		Texture2D backgroundTexture;
+		Sprite backgroundSprite;
 		public Message(Game1 g, GraphicsDevice gd, SpriteFont font, string message) : base(font, message)
 		{
 			Color = Color.White;
@@ -32,9 +34,16 @@ namespace GameProject.Controls
 			for (int i = 0; i < data.Length; i++)
 			{
 				//Multiply by less than 1 to make it a bit transparent
-				data[i] = Color.Black * 0.5f;
+				data[i] = Color.Black * 0.9f;
 			}
 			backgroundTexture.SetData(data);
+			backgroundSprite = new Sprite(backgroundTexture, 1f);
+			//Set the position of background sprite
+			backgroundSprite.Position = new Vector2(0, 0.8f * g.Height);
+			Vector2 textSize = font.MeasureString(message);
+			//Set the position of text
+			this.Position = new Vector2(backgroundSprite.Position.X + backgroundSprite.Width / 2 - textSize.X / 2,
+				backgroundSprite.Position.Y + backgroundSprite.Height/2 - textSize.Y / 2);
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -43,7 +52,7 @@ namespace GameProject.Controls
 			{
 				if (displayTimer.CurrentTime >= 0)
 				{
-					spriteBatch.Draw(backgroundTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+					backgroundSprite.Draw(gameTime, spriteBatch);
 					base.Draw(gameTime, spriteBatch);
 				}
 			}

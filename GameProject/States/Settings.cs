@@ -63,12 +63,13 @@ namespace GameProject.States
             //Make keybinds strings
             foreach (var s in game.Input.KeyBindings)
             {
-                inputKeybindStrings.Add(s.Key.ToString());
-                Vector2 currentSize = font.MeasureString(s.Key.ToString());
+				string actualString = s.Key.ToString();
+				inputKeybindStrings.Add(actualString);
+                Vector2 currentSize = font.MeasureString(actualString);
                 size.X = Math.Max(size.X, currentSize.X);
             }
 
-            var tempButton = new Button(buttonTexture, font, g.Scale);
+			var tempButton = new Button(buttonTexture, font, g.Scale);
 
             //Make keybinds buttons (need to set correct Y still)
             for (int i = 0; i < game.Input.KeyBindings.Count; i++)
@@ -81,6 +82,16 @@ namespace GameProject.States
                 }
                 );
             }
+
+			//Iterate over strings and make Text components
+			for (int i = 0; i < inputKeybindStrings.Count; i++)
+			{
+				staticComponents.Add(new Text(font, inputKeybindStrings[i])
+				{
+					Position = new Vector2(0.255f * game.Width, 0.05f * game.Height + i * keybindsButtons[i].Height)
+				}
+				);	
+			}
 
 			//Make a list of bools (default false)
 			bindingNow = new List<bool>(new bool[game.Input.KeyBindings.Count]);
@@ -179,14 +190,6 @@ namespace GameProject.States
 			spriteBatch.Begin();
 			foreach (var c in staticComponents)
 				c.Draw(gameTime, spriteBatch);
-
-            //Iterate over string and draw in correct position (they might be "Text" components, maybe want to change it later)
-			for(int i=0;i<inputKeybindStrings.Count;i++)
-			{
-                //Should be done with on Y with Max(font.MeasureString, button.Y) (needs a fix later)
-				spriteBatch.DrawString(font, inputKeybindStrings[i], new Vector2(0.255f*game.Width, 0.05f * game.Height + i * keybindsButtons[i].Height), Color.Black);
-			}
-			Message?.Draw(gameTime, spriteBatch);
 			spriteBatch.End();
 		}
 
