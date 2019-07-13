@@ -6,6 +6,7 @@ using GameProject.States;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 namespace GameProject
 {
@@ -106,7 +107,7 @@ namespace GameProject
 			MediaPlayer.IsRepeating = true;
 			//Default volume for songs
 			MediaPlayer.Volume = 0.5f;
-			graphics.HardwareModeSwitch = false;
+			graphics.HardwareModeSwitch = true;
 			graphics.PreferredBackBufferWidth = 1280; //1600
 			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;
@@ -143,7 +144,15 @@ namespace GameProject
 				graphics.IsFullScreen = true;
 				graphics.PreferredBackBufferWidth = 1280;
 				graphics.PreferredBackBufferHeight = 720;
-				//graphics.ToggleFullScreen();
+
+				//Workaround for fullscreen issue where:
+				//First swap to fullscreen mode does not work properly
+				//But next swaps to fullscreen do not generate this issue
+				IntPtr hWnd = this.Window.Handle;
+				var control = System.Windows.Forms.Control.FromHandle(hWnd);
+				var form = control.FindForm();
+				form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+				form.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 				graphics.ApplyChanges();
 			}
 		}
@@ -176,7 +185,7 @@ namespace GameProject
 			Random = new Random();
 			//Load input from file here
 			Input = new Input();
-			currentState = new MainMenu(this, graphics.GraphicsDevice, Content);
+			currentState = new GameProject.States.MainMenu(this, graphics.GraphicsDevice, Content);
 
 			base.Initialize();
 		}
