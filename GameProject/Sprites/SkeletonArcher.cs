@@ -30,14 +30,14 @@ namespace GameProject.Sprites
 			isAttacking = false;
 			if(player.Position.X <= Position.X)
 			{
-				gameState.SpawnProjectile(new SkeletonArrow(game, player, gameState.SkeletonArcherTextures["ArcherArrow"], Scale, false)
+				gameState.SpawnProjectile(new SkeletonArrow(game, player, gameState.SkeletonArcherTextures["ArcherArrow"], Scale, true)
 				{
 					Position = new Vector2(this.Position.X, this.Position.Y + this.Height / 2)
 				});
 			}
 			else
 			{
-				gameState.SpawnProjectile(new SkeletonArrow(game, player, gameState.SkeletonArcherTextures["ArcherArrow"], Scale, true)
+				gameState.SpawnProjectile(new SkeletonArrow(game, player, gameState.SkeletonArcherTextures["ArcherArrow"], Scale, false)
 				{
 					Position = new Vector2(this.Position.X, this.Position.Y + this.Height / 2)
 				});

@@ -108,8 +108,8 @@ namespace GameProject
 			//Default volume for songs
 			MediaPlayer.Volume = 0.5f;
 			graphics.HardwareModeSwitch = true;
-			graphics.PreferredBackBufferWidth = 1280; //1600
-			graphics.PreferredBackBufferHeight = 720; //900
+			graphics.PreferredBackBufferWidth = 1600; //1600
+			graphics.PreferredBackBufferHeight = 900; //900
 			IsMouseVisible = true;
 			//Fullscreen check (will only work for 16:9 monitors)
 			if (false)
@@ -142,8 +142,8 @@ namespace GameProject
 			{
 				var x = GraphicsAdapter.DefaultAdapter.SupportedDisplayModes;
 				graphics.IsFullScreen = true;
-				graphics.PreferredBackBufferWidth = 1280;
-				graphics.PreferredBackBufferHeight = 720;
+				graphics.PreferredBackBufferWidth = 1600;
+				graphics.PreferredBackBufferHeight = 900;
 
 				//Workaround for fullscreen issue where:
 				//First swap to fullscreen mode does not work properly
