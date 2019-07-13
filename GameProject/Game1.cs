@@ -106,6 +106,7 @@ namespace GameProject
 			MediaPlayer.IsRepeating = true;
 			//Default volume for songs
 			MediaPlayer.Volume = 0.5f;
+			graphics.HardwareModeSwitch = false;
 			graphics.PreferredBackBufferWidth = 1280; //1600
 			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;
@@ -121,9 +122,46 @@ namespace GameProject
 			Width = graphics.PreferredBackBufferWidth;
 			Height = graphics.PreferredBackBufferHeight;
 			Scale = (float)Width / LogicalWidth;
+			graphics.ApplyChanges();
             //Note:
             //Game is caped at 60fps but slower frame rate means slower player movement
             //Handling this issue is not included yet
+		}
+
+		/// <summary>
+		/// Sets fullscreen mode
+		/// </summary>
+		public void SetFullscreen()
+		{
+			if(graphics.IsFullScreen)
+			{
+				return;
+			}
+			else
+			{
+				var x = GraphicsAdapter.DefaultAdapter.SupportedDisplayModes;
+				graphics.IsFullScreen = true;
+				graphics.PreferredBackBufferWidth = 1280;
+				graphics.PreferredBackBufferHeight = 720;
+				//graphics.ToggleFullScreen();
+				graphics.ApplyChanges();
+			}
+		}
+
+		/// <summary>
+		/// Sets windowed mode
+		/// </summary>
+		public void SetWindowedMode()
+		{
+			if (!graphics.IsFullScreen)
+			{
+				return;
+			}
+			else
+			{
+				graphics.IsFullScreen = false;
+				graphics.ApplyChanges();
+			}
 		}
 
 		/// <summary>

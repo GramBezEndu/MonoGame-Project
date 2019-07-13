@@ -54,10 +54,6 @@ namespace GameProject.States
                 Position = new Vector2(0.01f * g.Width, 0.9f * g.Height),
                 Click = Back
                 },
-                new Checkbox(c1, c2, g.Scale)
-                {
-                    Position = new Vector2(0.55f*game.Width, 0.6f*game.Height)
-                }
             };
 
             //Make keybinds strings
@@ -123,6 +119,34 @@ namespace GameProject.States
 				Click = RestoreToDefaults
 			}
 			);
+
+			//Add a fullscreen checkbox + text
+			var fullscreenText = new Text(font, "Fullscreen")
+			{
+				Position = new Vector2(musicVolumeText.Position.X, musicVolumeText.Position.Y + 2*musicVolumeText.Height)
+			};
+
+			staticComponents.Add(fullscreenText);
+			var fullscreenCheckBox = new Checkbox(c1, c2, g.Scale)
+			{
+				Position = new Vector2(fullscreenText.Position.X + fullscreenText.Width, fullscreenText.Position.Y),
+				Click = ChangeWindowMode
+			};
+			staticComponents.Add(fullscreenCheckBox);
+		}
+
+		private void ChangeWindowMode(object sender, EventArgs e)
+		{
+			if((sender as Checkbox).Checked)
+			{
+				//Change to fullscreen
+				game.SetFullscreen();
+			}
+			else
+			{
+				//Change to windowed mode
+				game.SetWindowedMode();
+			}
 		}
 
 		private void ChangeMusicVolume(object sender, EventArgs e)

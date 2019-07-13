@@ -10,6 +10,9 @@ using GameProject.Sprites;
 
 namespace GameProject.Controls
 {
+	/// <summary>
+	/// Should be written using animations
+	/// </summary>
     public class Checkbox : Sprite
     {
         MouseState currentState;
@@ -18,6 +21,7 @@ namespace GameProject.Controls
         Texture2D _checkboxChecked;
         public bool Checked = false;
         bool isHovering;
+		public EventHandler Click { get; set; }
         public Checkbox(Texture2D checkbox, Texture2D checkboxChecked, float scale) : base(checkbox, scale)
         {
             _checkbox = checkbox;
@@ -59,6 +63,7 @@ namespace GameProject.Controls
                         Checked = true;
                         texture = _checkboxChecked;
                     }
+					Click?.Invoke(this, new EventArgs());
                 }
             }
         }
