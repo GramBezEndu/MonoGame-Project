@@ -185,13 +185,15 @@ namespace GameProject.Sprites
 			//Missing item
 			if (upgradeSlots[0].Item == null || upgradeSlots[1].Item == null)
 			{
-				//Message: one of required slots is missing
+				//Message:
+				GameState.CreateMessage("There is no item in atleast one of the slots");
 				return;
 			}
 			//Need to take upgraded item first
 			if (upgradeSlots[2].Item != null)
 			{
 				//Message: you need to take upgraded item first
+				GameState.CreateMessage("You need to take upgraded item before starting another upgrade");
 				return;
 			}
 			//Scroll checking
@@ -203,6 +205,7 @@ namespace GameProject.Sprites
 				if (type2 != type1)
 				{
 					//Message: You can't fuse Legendary Scroll with Normal Scroll
+					GameState.CreateMessage("It is not possible to fuse Legendary Scroll with Normal Scroll");
 					return;
 				}
 				UpgradeNormalScrolls();
@@ -213,11 +216,12 @@ namespace GameProject.Sprites
 				if (type2 != type1)
 				{
 					//Message: You can't fuse Legendary Scroll with Normal Scroll
+					GameState.CreateMessage("It is not possible to fuse Legendary Scroll with Normal Scroll");
 					return;
 				}
 				UpgradeLegendaryScrolls();
 			}
-			//Check if it is equipment upgrade (not done yet)
+			//Check if it is equipment upgrade (adding scrolls)
 			else
 			{
 				//Any upgradeable item in slot one
@@ -254,6 +258,7 @@ namespace GameProject.Sprites
 					//Message: You can't upgrade this item
 					return;
 				}
+				//TODO: We should check if it is a equipment upgrade with resources (bones etc.)
 			}
 		}
 
@@ -265,6 +270,7 @@ namespace GameProject.Sprites
 			if(player.Gold < UpgradeCost)
 			{
 				//Message: Not enough gold
+				GameState.CreateMessage("You don't have enough gold for upgrade");
 				return;
 			}
 			player.Gold -= UpgradeCost;
@@ -288,6 +294,7 @@ namespace GameProject.Sprites
 			if (player.Gold < UpgradeCost)
 			{
 				//Message: Not enough gold
+				GameState.CreateMessage("You don't have enough gold for upgrade");
 				return;
 			}
 			player.Gold -= UpgradeCost;

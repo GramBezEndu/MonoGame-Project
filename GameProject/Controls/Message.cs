@@ -23,7 +23,7 @@ namespace GameProject.Controls
 		public Message(Game1 g, GraphicsDevice gd, SpriteFont font, string message) : base(font, message)
 		{
 			Color = Color.White;
-			displayTimer = new GameTimer(5f);
+			displayTimer = new GameTimer(4f);
 			//Background size = whole width, 20% height of the screen size
 			int[] size = new int[2];
 			size[0] = g.Width;

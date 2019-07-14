@@ -205,7 +205,7 @@ namespace GameProject.States
 			//We should display a window with message that current settings are not correct
 			else
 			{
-				CreateMessage("Selected keybindings are not correct. Make sure there is no duplicates or not assigned keys.");
+				CreateMessage("Selected keybindings are not correct. Make sure there is no duplicates or not assigned actions.");
 			}
 		}
 

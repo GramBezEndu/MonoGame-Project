@@ -39,7 +39,8 @@ namespace GameProject.States
 			var wizardButton = new Button(classCard, buttonFont, g.Scale)
 			{
 				Position = new Vector2(0.73f * g.Width, 0.2f * g.Height),
-				Text = "Wizard (coming soon)"
+				Text = "Wizard",
+				Click = WizardClick
 			};
 			staticComponents = new List<Component>
 			{
@@ -53,6 +54,11 @@ namespace GameProject.States
 				archerFigureSprite,
 				wizardButton
 			};
+		}
+
+		private void WizardClick(object sender, EventArgs e)
+		{
+			CreateMessage("Character unavailable");
 		}
 
 		private void ArcherClick(object sender, EventArgs e)
