@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using GameProject.Controls;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GameProject
 {
@@ -36,6 +37,8 @@ namespace GameProject
 		public Dictionary<string, Texture2D> SkeletonArcherTextures = new Dictionary<string, Texture2D>();
 
 		public Dictionary<string, Song> Songs = new Dictionary<string, Song>();
+
+		public Dictionary<string, SoundEffect> SoundEffects = new Dictionary<string, SoundEffect>();
 
 		/// <summary>
 		/// Current message that is displayed
@@ -92,6 +95,20 @@ namespace GameProject
 			}
 		}
 
+		public void LoadSoundEffects()
+		{
+			DirectoryInfo directoryInfo = new DirectoryInfo(content.RootDirectory + "/Sounds/");
+			if (!directoryInfo.Exists)
+				throw new DirectoryNotFoundException();
+			FileInfo[] files = directoryInfo.GetFiles("*.*");
+			foreach (FileInfo file in files)
+			{
+				string key = Path.GetFileNameWithoutExtension(file.Name);
+				//Keys[key] = content.Load<Texture2D>(directoryInfo.ToString() + key);
+				SoundEffects[key] = content.Load<SoundEffect>(Directory.GetCurrentDirectory() + "/Content/Sounds/" + key);
+			}
+		}
+
         public State(Game1 g, GraphicsDevice gd, ContentManager c)
         {
             content = c;
@@ -102,6 +119,7 @@ namespace GameProject
             LoadTextures();
 			LoadSkeletonArcherTextures();
 			LoadSongs();
+			LoadSoundEffects();
             Font = content.Load<SpriteFont>("Font");
         }
         /// <summary>
@@ -150,7 +168,7 @@ namespace GameProject
 
 		public void CreateMessage(string msg)
 		{
-			Message = new Message(Game, graphicsDevice, Font, msg);
+			Message = new Message(Game, graphicsDevice, Font, msg, SoundEffects["MessageNotification"]);
 		}
 	}
 }

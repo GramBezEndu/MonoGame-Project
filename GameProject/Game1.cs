@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GameProject
 {
@@ -107,6 +108,8 @@ namespace GameProject
 			MediaPlayer.IsRepeating = true;
 			//Default volume for songs
 			MediaPlayer.Volume = 0.5f;
+			//Default volume for sfx
+			SoundEffect.MasterVolume = 0.5f;
 			graphics.HardwareModeSwitch = true;
 			graphics.PreferredBackBufferWidth = 1600; //1600
 			graphics.PreferredBackBufferHeight = 900; //900

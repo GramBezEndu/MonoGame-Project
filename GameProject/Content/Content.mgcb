@@ -1940,6 +1940,12 @@
 /processorParam:Quality=Best
 /build:Songs/MainMenu.mp3
 
+#begin Sounds/MessageNotification.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/MessageNotification.wav
+
 #begin Stamina.png
 /importer:TextureImporter
 /processor:TextureProcessor

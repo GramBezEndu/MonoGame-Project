@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameProject.Sprites;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GameProject.Controls
 {
@@ -20,10 +21,12 @@ namespace GameProject.Controls
 		GameTimer displayTimer;
 		Texture2D backgroundTexture;
 		Sprite backgroundSprite;
-		public Message(Game1 g, GraphicsDevice gd, SpriteFont font, string message) : base(font, message)
+		SoundEffect notificationSound;
+		public Message(Game1 g, GraphicsDevice gd, SpriteFont font, string message, SoundEffect notification) : base(font, message)
 		{
 			Color = Color.White;
 			displayTimer = new GameTimer(4f);
+			notificationSound = notification;
 			//Background size = whole width, 20% height of the screen size
 			int[] size = new int[2];
 			size[0] = g.Width;
@@ -62,9 +65,12 @@ namespace GameProject.Controls
 		{
 			if(!Hidden)
 			{
-				//Enable timer on first update
+				//Enable timer on first update and play sound notification
 				if (displayTimer.Enabled == false)
+				{
 					displayTimer.Start();
+					notificationSound.Play();
+				}
 				displayTimer.Update(gameTime);
 			}
 		}
