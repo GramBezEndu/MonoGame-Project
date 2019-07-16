@@ -22,22 +22,24 @@ namespace GameProject.Controls
 		Texture2D backgroundTexture;
 		Sprite backgroundSprite;
 		SoundEffect notificationSound;
-		public Message(Game1 g, GraphicsDevice gd, SpriteFont font, string message, SoundEffect notification) : base(font, message)
+		Input Input;
+		public Message(Game1 g, GraphicsDevice gd, Input i, SpriteFont font, string message, SoundEffect notification) : base(font, message)
 		{
 			Color = Color.White;
 			displayTimer = new GameTimer(4f);
 			notificationSound = notification;
-			//Background size = whole width, 20% height of the screen size
+			Input = i;
+			//Background size = whole width, 10% height of the screen size for each line
 			int[] size = new int[2];
 			size[0] = g.Width;
 			size[1] = (int)(g.Height * 0.1f);
 			backgroundTexture = new Texture2D(gd, size[0], size[1]);
 			Color[] data = new Color[size[0] * size[1]];
 			//Paint every pixel
-			for (int i = 0; i < data.Length; i++)
+			for (int j = 0; j < data.Length; j++)
 			{
 				//Multiply by less than 1 to make it a bit transparent
-				data[i] = Color.Black * 0.9f;
+				data[j] = Color.Black * 0.9f;
 			}
 			backgroundTexture.SetData(data);
 			backgroundSprite = new Sprite(backgroundTexture, 1f);
@@ -53,7 +55,7 @@ namespace GameProject.Controls
 		{
 			if(!Hidden)
 			{
-				if (displayTimer.CurrentTime >= 0)
+				if (displayTimer.Enabled && displayTimer.CurrentTime >= 0)
 				{
 					backgroundSprite.Draw(gameTime, spriteBatch);
 					base.Draw(gameTime, spriteBatch);
@@ -70,6 +72,12 @@ namespace GameProject.Controls
 				{
 					displayTimer.Start();
 					notificationSound.Play();
+				}
+				//Check if user skipped message
+				if (Input.CurrentState.IsKeyDown(Input.KeyBindings["SkipMessage"].GetValueOrDefault()) && Input.PreviousState.IsKeyUp(Input.KeyBindings["SkipMessage"].GetValueOrDefault()))
+				{
+					//Setting hidden to true has the same effect like deleting message
+					Hidden = true;
 				}
 				displayTimer.Update(gameTime);
 			}

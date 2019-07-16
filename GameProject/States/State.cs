@@ -168,7 +168,7 @@ namespace GameProject
 
 		public void CreateMessage(string msg)
 		{
-			Message = new Message(Game, graphicsDevice, Font, msg, SoundEffects["MessageNotification"]);
+			Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
 		}
 	}
 }

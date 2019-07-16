@@ -33,6 +33,7 @@ namespace GameProject
 				{"FastSlot1",Keys.D1 },
 				{"FastSlot2",Keys.D2 },
 				{"FastSlot3",Keys.D3 },
+				{"SkipMessage",Keys.Enter }
 			};
 		}
 		public void Update(GameTime gameTime)
@@ -59,6 +60,7 @@ namespace GameProject
 				{"FastSlot1",Keys.D1 },
 				{"FastSlot2",Keys.D2 },
 				{"FastSlot3",Keys.D3 },
+				{"SkipMessage",Keys.Enter }
 			};
 		}
 
