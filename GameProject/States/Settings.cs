@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Controls;
 using GameProject.Sprites;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GameProject.States
 {
@@ -24,6 +25,7 @@ namespace GameProject.States
 		List<bool> bindingNow;
 
 		Slider musicVolume;
+		Slider sfxVolume;
 
 		///Represents max font width (from input keybinds strings), so buttons can be placed correctly
 		Vector2 size = new Vector2(0, 0);
@@ -95,7 +97,7 @@ namespace GameProject.States
 			staticComponents.AddRange(keybindsButtons);
 
 			//Add a music volume slider + text component
-			var musicVolumeText = new Text(font, "Music volume: ")
+			var musicVolumeText = new Text(font, "Music volume ")
 			{
 				Position = new Vector2(0.5f * g.Width, 0.2f * g.Height)
 			};
@@ -111,6 +113,22 @@ namespace GameProject.States
 
 			staticComponents.Add(musicVolume);
 
+			//Add a sound volume slider + text component
+			var sfxVolumeText = new Text(font, "Sfx volume ")
+			{
+				Position = new Vector2(musicVolumeText.Position.X, musicVolumeText.Position.Y + 2 * musicVolumeText.Height)
+			};
+
+			staticComponents.Add(sfxVolumeText);
+
+			sfxVolume = new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], font, g.Scale)
+			{
+				Position = new Vector2(sfxVolumeText.Position.X + sfxVolumeText.Width, sfxVolumeText.Position.Y),
+				Click = ChangeSfxVolume,
+				CurrentValue = SoundEffect.MasterVolume
+			};
+
+			staticComponents.Add(sfxVolume);
 			//Add a restore to defaults button
 			staticComponents.Add(new Button(buttonTexture, font, Game.Scale)
 			{
@@ -123,16 +141,22 @@ namespace GameProject.States
 			//Add a fullscreen checkbox + text
 			var fullscreenText = new Text(font, "Fullscreen")
 			{
-				Position = new Vector2(musicVolumeText.Position.X, musicVolumeText.Position.Y + 2*musicVolumeText.Height)
+				Position = new Vector2(sfxVolumeText.Position.X, sfxVolumeText.Position.Y + 2*sfxVolumeText.Height)
 			};
 
 			staticComponents.Add(fullscreenText);
+
 			var fullscreenCheckBox = new Checkbox(c1, c2, g.Scale)
 			{
 				Position = new Vector2(fullscreenText.Position.X + fullscreenText.Width, fullscreenText.Position.Y),
 				Click = ChangeWindowMode
 			};
 			staticComponents.Add(fullscreenCheckBox);
+		}
+
+		private void ChangeSfxVolume(object sender, EventArgs e)
+		{
+			SoundEffect.MasterVolume = (sender as Slider).CurrentValue;
 		}
 
 		private void ChangeWindowMode(object sender, EventArgs e)
@@ -168,7 +192,9 @@ namespace GameProject.States
 			//Restore music volume
 			MediaPlayer.Volume = 0.5f;
 			musicVolume.CurrentValue = 0.5f;
-
+			//Restore sfx volume
+			SoundEffect.MasterVolume = 0.5f;
+			sfxVolume.CurrentValue = 0.5f;
 		}
 
 		private void ChangeKeybind(object sender, EventArgs e)

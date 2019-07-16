@@ -34,12 +34,14 @@ namespace GameProject.States
 				new Button(buttonTexture,buttonFont,g.Scale)
 				{
 					Text = "Load Game",
-					Position = new Vector2(0.01f*g.Width, 0.7f*g.Height)
+					Position = new Vector2(0.01f*g.Width, 0.7f*g.Height),
+					Click = LoadGameClick
 				},
 				new Button(buttonTexture,buttonFont,g.Scale)
 				{
 					Text = "Delete Game",
-					Position = new Vector2(0.01f*g.Width, 0.8f*g.Height)
+					Position = new Vector2(0.01f*g.Width, 0.8f*g.Height),
+					Click = DeleteGameClick
 				},
 				new Button(buttonTexture,buttonFont,g.Scale)
 				{
@@ -48,6 +50,16 @@ namespace GameProject.States
 					Click = MainMenuState
 				}
 			};
+		}
+
+		private void DeleteGameClick(object sender, EventArgs e)
+		{
+			CreateMessage("Option unavailable");
+		}
+
+		private void LoadGameClick(object sender, EventArgs e)
+		{
+			CreateMessage("Option unavailable");
 		}
 
 		private void MainMenuState(object sender, EventArgs e)

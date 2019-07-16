@@ -12,11 +12,11 @@ namespace GameProject.Controls
 {
 	public class Slider : Sprite
 	{
+		public const float MaxValue = 1f;
+		public const float MinValue = 0f;
 		public EventHandler Click { get; set; }
 		Texture2D SliderFilled;
 		Text HowMuchBarFilled;
-		float maxValue = 1f;
-		float minValue = 0f;
 		public float CurrentValue
 		{
 			get => _currentValue;
@@ -37,7 +37,7 @@ namespace GameProject.Controls
 
 		public void SetPercentage()
 		{
-			percentage = string.Format("{0}%", (CurrentValue / Math.Abs(maxValue - minValue)) * 100);
+			percentage = string.Format("{0}%", (CurrentValue / Math.Abs(MaxValue - MinValue)) * 100);
 		}
 
 
@@ -61,7 +61,7 @@ namespace GameProject.Controls
 				//Draws how much slider is filled
 				spriteBatch.Draw(SliderFilled,
 					Position,
-					new Rectangle(0, 0, (int)(SliderFilled.Width * CurrentValue / Math.Abs(maxValue - minValue)), SliderFilled.Height),
+					new Rectangle(0, 0, (int)(SliderFilled.Width * CurrentValue / Math.Abs(MaxValue - MinValue)), SliderFilled.Height),
 					Color.White,
 					0f,
 					Vector2.Zero,
