@@ -33,6 +33,10 @@ namespace GameProject.Controls
 			}
 		}
 
+		/// <summary>
+		/// Returns the largest width of text (so we can set correct arrow selector button position)
+		/// </summary>
+		/// <returns></returns>
 		private int SetOptionsPosition()
 		{
 			int totalheight = 0;
@@ -69,14 +73,6 @@ namespace GameProject.Controls
 			//Selected option is always visible
 			Options[0].Hidden = false;
 
-			//Get the largest width of text (so we can set correct arrow selector button position)
-			int width = 0;
-			foreach (var t in Options)
-			{
-				if (t.Width > width)
-					width = t.Width;
-			}
-
 			ArrowSelector = new Button(arrowSelectorTexture, font, Scale);
 			ArrowSelector.Click = ExpandOrHide;
 		}
@@ -87,12 +83,19 @@ namespace GameProject.Controls
 			int index = Options.FindIndex(x => x == sender);
 			if(index == -1)
 				throw new Exception("SelectableList: selected value is not in the list");
-			if(index == 0)
+			//Hide list after click
+			Hide();
+			if (index == 0)
 			{
-				//User clicked on first element (currently selected) -> perform no action
+				//User clicked on first element (currently selected) -> perform no further action
 				return;
 			}
-			Hide();
+			SwapElements(0, index);
+		}
+
+		private void SwapElements(int index1, int index2)
+		{
+			//Vector2 pos = Options[index1].Position;
 		}
 
 		private void ExpandOrHide(object sender, EventArgs e)
