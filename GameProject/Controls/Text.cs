@@ -27,7 +27,7 @@ namespace GameProject.Controls
             }
         }
         public Color Color { get; set; }
-        private SpriteFont Font { get; set; }
+        protected SpriteFont Font { get; set; }
         public Text(SpriteFont font, string message)
         {
             Color = Color.Black;

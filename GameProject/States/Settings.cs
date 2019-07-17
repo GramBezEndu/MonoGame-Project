@@ -152,6 +152,28 @@ namespace GameProject.States
 				Click = ChangeWindowMode
 			};
 			staticComponents.Add(fullscreenCheckBox);
+
+			//Add a resolution list + text
+			var resolutionText = new Text(font, "Resolution")
+			{
+				Position = new Vector2(fullscreenText.Position.X, fullscreenText.Position.Y + 3 * fullscreenText.Height)
+			};
+
+			staticComponents.Add(resolutionText);
+
+			List<string> Resolutions = new List<string>()
+			{
+				"1920 x 1080",
+				"1600 x 900",
+				"1280 x 720"
+			};
+
+			var resolutionList = new SelectableList(Input, Textures["ArrowSelector"], g.Scale, font, Resolutions)
+			{
+				Position = new Vector2(resolutionText.Position.X + resolutionText.Width, resolutionText.Position.Y)
+			};
+
+			staticComponents.Add(resolutionList);
 		}
 
 		private void ChangeSfxVolume(object sender, EventArgs e)

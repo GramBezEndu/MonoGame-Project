@@ -46,8 +46,10 @@
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\Checkbox.cs" />
+    <Compile Include="Controls\SelectableList.cs" />
     <Compile Include="Controls\Slider.cs" />
     <Compile Include="Controls\Text.cs" />
+    <Compile Include="Controls\TextButton.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Health.cs" />
     <Compile Include="HealthBar.cs" />
