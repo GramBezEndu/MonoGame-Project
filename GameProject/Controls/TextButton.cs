@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameProject.Controls
 {
-	class TextButton : Text
+	public class TextButton : Text, ICloneable
 	{
 		Input Input;
 		public Color HoveringColor { get; set; } = Color.Red;
@@ -43,19 +43,27 @@ namespace GameProject.Controls
 
 		public override void Update(GameTime gameTime)
 		{
-			base.Update(gameTime);
-			var mouseRectangle = new Rectangle(Input.CurrentMouseState.X, Input.CurrentMouseState.Y, 1, 1);
-
-			IsHovering = false;
-
-			if (mouseRectangle.Intersects(Rectangle))
+			if(!Hidden)
 			{
-				IsHovering = true;
-				if (Input.CurrentMouseState.LeftButton == ButtonState.Released && Input.PreviousMouseState.LeftButton == ButtonState.Pressed)
+				base.Update(gameTime);
+				var mouseRectangle = new Rectangle(Input.CurrentMouseState.X, Input.CurrentMouseState.Y, 1, 1);
+
+				IsHovering = false;
+
+				if (mouseRectangle.Intersects(Rectangle))
 				{
-					Click?.Invoke(this, new EventArgs());
+					IsHovering = true;
+					if (Input.CurrentMouseState.LeftButton == ButtonState.Released && Input.PreviousMouseState.LeftButton == ButtonState.Pressed)
+					{
+						Click?.Invoke(this, new EventArgs());
+					}
 				}
 			}
+		}
+
+		public object Clone()
+		{
+			return MemberwiseClone();
 		}
 	}
 }

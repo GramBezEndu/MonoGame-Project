@@ -13,9 +13,13 @@ namespace GameProject.Controls
 	{
 		Button ArrowSelector;
 		/// <summary>
-		/// Note: First element of the list contains Selected Option
+		/// List of all options
 		/// </summary>
 		List<TextButton> Options = new List<TextButton>();
+		/// <summary>
+		/// Currently selected option
+		/// </summary>
+		public TextButton SelectedOption { get; private set; }
 		bool Expanded;
 		private Vector2 _position;
 
@@ -39,12 +43,13 @@ namespace GameProject.Controls
 		/// <returns></returns>
 		private int SetOptionsPosition()
 		{
-			int totalheight = 0;
-			int maxWidth = 0;
-			for(int i=0;i<Options.Count;i++)
+			SelectedOption.Position = new Vector2(this.Position.X, this.Position.Y);
+			int extraHeight = SelectedOption.Height;
+			int maxWidth = SelectedOption.Width;
+			for (int i=0;i<Options.Count;i++)
 			{
-				Options[i].Position = new Vector2(this.Position.X, this.Position.Y + totalheight);
-				totalheight += Options[i].Height;
+				Options[i].Position = new Vector2(this.Position.X, this.Position.Y + extraHeight);
+				extraHeight += Options[i].Height;
 				if (Options[i].Width > maxWidth)
 					maxWidth = Options[i].Width;
 			}
@@ -71,7 +76,8 @@ namespace GameProject.Controls
 			}
 
 			//Selected option is always visible
-			Options[0].Hidden = false;
+			SelectedOption = (TextButton)Options[0].Clone();
+			SelectedOption.Hidden = false;
 
 			ArrowSelector = new Button(arrowSelectorTexture, font, Scale);
 			ArrowSelector.Click = ExpandOrHide;
@@ -80,22 +86,31 @@ namespace GameProject.Controls
 		//TODO: Finish this method
 		private void SetSelectedValue(object sender, EventArgs e)
 		{
-			int index = Options.FindIndex(x => x == sender);
-			if(index == -1)
-				throw new Exception("SelectableList: selected value is not in the list");
 			//Hide list after click
 			Hide();
-			if (index == 0)
+
+			int index = Options.FindIndex(x => x == sender);
+			//Element is not in the list -> so it should be currently selected option
+			if(index == -1)
 			{
-				//User clicked on first element (currently selected) -> perform no further action
-				return;
+				if((sender as TextButton).Message == SelectedOption.Message)
+				{
+					//User clicked on first element (currently selected) -> perform no further action
+					return;
+				}
+				else
+				{
+					throw new Exception("SelectableList: selected value is not in the list");
+				}
 			}
-			SwapElements(0, index);
+			ChangeCurrentlySelected(index);
 		}
 
-		private void SwapElements(int index1, int index2)
+		private void ChangeCurrentlySelected(int index)
 		{
-			//Vector2 pos = Options[index1].Position;
+			SelectedOption = (TextButton)Options[index].Clone();
+			SelectedOption.Hidden = false;
+			SelectedOption.Position = new Vector2(this.Position.X, this.Position.Y);
 		}
 
 		private void ExpandOrHide(object sender, EventArgs e)
@@ -112,18 +127,17 @@ namespace GameProject.Controls
 
 		private void Expand()
 		{
+			//Make every option visible
 			foreach (var o in Options)
-			{
 				o.Hidden = false;
-			}
 			Expanded = true;
 		}
 
 		private void Hide()
 		{
-			for(int i=1;i<Options.Count;i++)
+			foreach (var o in Options)
 			{
-				Options[i].Hidden = true;
+				o.Hidden = true;
 			}
 			Expanded = false;
 		}
@@ -135,6 +149,7 @@ namespace GameProject.Controls
 				foreach (var o in Options)
 					o.Draw(gameTime, spriteBatch);
 				ArrowSelector.Draw(gameTime, spriteBatch);
+				SelectedOption.Draw(gameTime, spriteBatch);
 			}
 		}
 
@@ -145,6 +160,7 @@ namespace GameProject.Controls
 				ArrowSelector.Update(gameTime);
 				foreach (var b in Options)
 					b.Update(gameTime);
+				SelectedOption.Update(gameTime);
 			}
 		}
 	}
