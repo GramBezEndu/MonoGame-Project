@@ -170,10 +170,28 @@ namespace GameProject.States
 
 			var resolutionList = new SelectableList(Input, Textures["ArrowSelector"], g.Scale, font, Resolutions)
 			{
-				Position = new Vector2(resolutionText.Position.X + resolutionText.Width, resolutionText.Position.Y)
+				Position = new Vector2(resolutionText.Position.X + resolutionText.Width, resolutionText.Position.Y),
+				OnValueChange = ChangeResolution
 			};
 
 			staticComponents.Add(resolutionList);
+		}
+
+		private void ChangeResolution(object sender, EventArgs e)
+		{
+			//Get the resolution from SelectedOption message
+			string msg = (sender as SelectableList).SelectedOption?.Message;
+			msg.Replace(" ", string.Empty);
+
+			string[] Resolutions = msg.Split('x');
+			int width = Int32.Parse(Resolutions[0]);
+			int height = Int32.Parse(Resolutions[1]);
+
+			if(Game.Width != width && Game.Height != height)
+			{
+				Game.ChangeResolution(width, height);
+				Game.ChangeState(new Settings(Game, Game.GraphicsDevice, content));
+			}
 		}
 
 		private void ChangeSfxVolume(object sender, EventArgs e)

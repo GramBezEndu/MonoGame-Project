@@ -99,6 +99,26 @@ namespace GameProject
 			return 2f + rnd;
 		}
 
+		public void ChangeResolution(int width, int height)
+		{
+			if(Math.Round((float)width/height, 2) != 1.78)
+			{
+				throw new Exception("Only 16:9 resolutions");
+			}
+			//Do not switch to the same resolution
+			if(width == Width && Height == height)
+			{
+				return;
+			}
+			Width = width;
+			Height = height;
+			//recalculate scale
+			Scale = (float)Width / LogicalWidth;
+			graphics.PreferredBackBufferWidth = Width;
+			graphics.PreferredBackBufferHeight = Height;
+			graphics.ApplyChanges();
+		}
+
 		public Game1()
 		{
 			Window.Title = "Defeat The Vapula";
@@ -145,8 +165,6 @@ namespace GameProject
 			{
 				var x = GraphicsAdapter.DefaultAdapter.SupportedDisplayModes;
 				graphics.IsFullScreen = true;
-				graphics.PreferredBackBufferWidth = 1600;
-				graphics.PreferredBackBufferHeight = 900;
 
 				//Workaround for fullscreen issue where:
 				//First swap to fullscreen mode does not work properly

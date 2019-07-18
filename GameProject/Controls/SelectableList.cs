@@ -21,6 +21,7 @@ namespace GameProject.Controls
 		/// </summary>
 		public TextButton SelectedOption { get; private set; }
 		bool Expanded;
+		public EventHandler OnValueChange { get; set; }
 		private Vector2 _position;
 
 		public Vector2 Position
@@ -104,6 +105,7 @@ namespace GameProject.Controls
 				}
 			}
 			ChangeCurrentlySelected(index);
+			OnValueChange?.Invoke(this, new EventArgs());
 		}
 
 		private void ChangeCurrentlySelected(int index)
