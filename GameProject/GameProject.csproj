@@ -46,6 +46,7 @@
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\Checkbox.cs" />
+    <Compile Include="Controls\MovingText.cs" />
     <Compile Include="Controls\SelectableList.cs" />
     <Compile Include="Controls\Slider.cs" />
     <Compile Include="Controls\Text.cs" />

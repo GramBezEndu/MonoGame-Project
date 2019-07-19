@@ -36,6 +36,7 @@ namespace GameProject.Sprites
 					throw new Exception("This unit is not ranged, you can not assign attackRange value");
 			}
 		}
+		List<MovingText> DamageReceived = new List<MovingText>();
 		protected bool isAttacking;
 		/// <summary>
 		/// Enemy is able to attack every N seconds (stated in this timer)
@@ -47,16 +48,6 @@ namespace GameProject.Sprites
 		public bool IsDead { get; protected set; }
 		protected bool DyingAnimationFinished;
 		private SpriteFont font;
-		/// <summary>
-		/// For how long we will be displaying how much damage enemy received
-		/// </summary>
-		private const float DamageReceivedTime = 1f;
-		/// <summary>
-		/// Timer to display how much damage enemy received
-		/// </summary>
-		private GameTimer DamageReceiveTimer = new GameTimer(1f);
-		private int lastDamageReceived = 0;
-		private bool lastDamageCriticalHit;
 		public bool AgroActivated { get; private set; }
 		public int Health { get; protected set; } = Int32.MaxValue;
 		/// <summary>
@@ -179,13 +170,14 @@ namespace GameProject.Sprites
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+			foreach (var x in DamageReceived)
+				x.Update(gameTime);
 			AttackTimer?.Update(gameTime);
 			IsPlayerClose(player);
 			if (Health <= 0)
 			{
 				IsDead = true;
 			}
-			DamageReceiveTimer.Update(gameTime);
 			animationManager.Update(gameTime);
 			PlayAnimations();
 			Position += Velocity;
@@ -194,23 +186,8 @@ namespace GameProject.Sprites
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			base.Draw(gameTime, spriteBatch);
-			//Draw damage recieved from player
-
-			//If there is time left - draw
-			if (DamageReceiveTimer.Enabled && DamageReceiveTimer.CurrentTime > 0)
-			{
-				string dmgReceived = "-" + lastDamageReceived.ToString();
-				Vector2 size = font.MeasureString(dmgReceived);
-				if (lastDamageCriticalHit)
-					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width / 2 - size.X / 2, this.Position.Y), Color.Gold);
-				else
-					spriteBatch.DrawString(font, "-" + lastDamageReceived.ToString(), new Vector2(this.Position.X + this.Width / 2 - size.X / 2, this.Position.Y), Color.DarkRed);
-			}
-			//There is no time left - turn off timer and set lastDamageDealt to 0
-			else if (DamageReceiveTimer.Enabled && DamageReceiveTimer.CurrentTime <= 0)
-			{
-				DamageReceiveTimer.Reset();
-			}
+			foreach (var x in DamageReceived)
+				x.Draw(gameTime, spriteBatch);
 		}
 
 		protected virtual void Attack(object sender, EventArgs e)
@@ -230,10 +207,22 @@ namespace GameProject.Sprites
 			if (IsDead)
 				return;
 			Health -= dmg;
-			lastDamageReceived = dmg;
-			lastDamageCriticalHit = criticalHit;
 			AgroActivated = true;
-			DamageReceiveTimer.Start();
+			string dmgReceived = "-" + dmg.ToString(); 
+			Vector2 size = font.MeasureString(dmgReceived);
+			var text = new MovingText(game, font, dmgReceived)
+			{
+				Position = new Vector2(this.Position.X + this.Width / 2 - size.X / 2, this.Position.Y)
+			};
+			if(criticalHit)
+			{
+				text.Color = Color.Gold;
+			}
+			else
+			{
+				text.Color = Color.DarkRed;
+			}
+			DamageReceived.Add(text);
 		}
 	}
 }
