@@ -29,7 +29,7 @@ namespace GameProject.Sprites
 		public Warrior(GameState currentGameState, Dictionary<string, Animation> a, Input i, float scale, SpriteFont debugFont) : base(currentGameState, a, i, scale)
 		{
 			animations = a;
-			animationManager = new AnimationManager(a.First().Value);
+			animationManager = new AnimationManager(this, a.First().Value);
 			debuggerFont = debugFont;
 			animations["FastAttack"].OnAnimationEnd = OnFastAttackEnd;
 			animations["NormalAttack"].OnAnimationEnd = OnNormalAttackEnd;

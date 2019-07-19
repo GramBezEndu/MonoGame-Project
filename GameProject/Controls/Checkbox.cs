@@ -7,26 +7,20 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
+using GameProject.Animations;
 
 namespace GameProject.Controls
 {
-	/// <summary>
-	/// Should be written using animations
-	/// </summary>
     public class Checkbox : Sprite
     {
-        MouseState currentState;
-        MouseState previousState;
-        Texture2D _checkbox;
-        Texture2D _checkboxChecked;
+		Input Input;
+
         public bool Checked = false;
         bool isHovering;
 		public EventHandler Click { get; set; }
-        public Checkbox(Texture2D checkbox, Texture2D checkboxChecked, float scale) : base(checkbox, scale)
+        public Checkbox(Input i, Dictionary<string, Animation> a) : base(a)
         {
-            _checkbox = checkbox;
-            _checkboxChecked = checkboxChecked;
-
+			Input = i;
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -35,14 +29,11 @@ namespace GameProject.Controls
             if (isHovering)
                 color = Color.Gray;
 
-            spriteBatch.Draw(texture, Position, null, color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+			base.Draw(gameTime, spriteBatch);
         }
         public override void Update(GameTime gameTime)
         {
-            previousState = currentState;
-            currentState = Mouse.GetState();
-
-            var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
+            var mouseRectangle = new Rectangle(Input.CurrentMouseState.Position.X, Input.CurrentMouseState.Position.Y, 1, 1);
 
             isHovering = false;
 
@@ -50,22 +41,29 @@ namespace GameProject.Controls
             {
                 isHovering = true;
 
-                if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
+                if (Input.CurrentMouseState.LeftButton == ButtonState.Released && Input.PreviousMouseState.LeftButton == ButtonState.Pressed)
                 {
-                    //Set correct texture
+					//Change flag
                     if (Checked)
                     {
                         Checked = false;
-                        texture = _checkbox;
                     }
                     else
                     {
                         Checked = true;
-                        texture = _checkboxChecked;
                     }
 					Click?.Invoke(this, new EventArgs());
                 }
             }
+			PlayAnimations();
         }
+
+		private void PlayAnimations()
+		{
+			if (Checked)
+				animationManager.Play(animations["CheckboxChecked"]);
+			else
+				animationManager.Play(animations["Checkbox"]);
+		}
     }
 }

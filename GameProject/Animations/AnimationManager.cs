@@ -6,26 +6,28 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using GameProject.Sprites;
 
 namespace GameProject.Animations
 {
 	public class AnimationManager
 	{
+		Sprite Sprite;
 		public Animation animation;
 		private float millisecondsTimer;
-		public bool FlipHorizontally { get; set; }
 		public Vector2 Position { get; set; }
 		/// <summary>
 		/// If not declared, animation manager will play first animation from dictionary
 		/// </summary>
 		/// <param name="a"></param>
-		public AnimationManager(Animation a)
+		public AnimationManager(Sprite spriteReference, Animation a)
 		{
 			animation = a;
+			Sprite = spriteReference;
 		}
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			if(FlipHorizontally)
+			if(Sprite.FlipHorizontally)
 			{
 				spriteBatch.Draw(animation.Texture,
 				Position,
@@ -33,7 +35,7 @@ namespace GameProject.Animations
 					0,
 					animation.FrameWidth,
 					animation.FrameHeight),
-				Color.White,
+				Sprite.Color,
 				0f,
 				Vector2.Zero,
 				animation.Scale,
@@ -48,7 +50,7 @@ namespace GameProject.Animations
 					0,
 					animation.FrameWidth,
 					animation.FrameHeight),
-				Color.White,
+				Sprite.Color,
 				0f,
 				Vector2.Zero,
 				animation.Scale,

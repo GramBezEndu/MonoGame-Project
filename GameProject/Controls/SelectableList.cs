@@ -108,6 +108,23 @@ namespace GameProject.Controls
 			OnValueChange?.Invoke(this, new EventArgs());
 		}
 
+		/// <summary>
+		/// Sets which option is selected
+		/// </summary>
+		/// <param name="msg"></param>
+		public void ChangeSelectedOption(string msg)
+		{
+			for(int i=0;i<Options.Count;i++)
+			{
+				if(msg == Options[i].Message)
+				{
+					ChangeCurrentlySelected(i);
+					return;
+				}
+			}
+			throw new Exception("Option not found in available options");
+		}
+
 		private void ChangeCurrentlySelected(int index)
 		{
 			SelectedOption = (TextButton)Options[index].Clone();

@@ -16,7 +16,7 @@ namespace GameProject.Sprites
 		public Archer(GameState currentGameState, Dictionary<string, Animation> a, Input i,  float scale) : base(currentGameState, a, i, scale)
 		{
 			animations = a;
-			animationManager = new AnimationManager(a.First().Value);
+			animationManager = new AnimationManager(this, a.First().Value);
 		}
 		public override void Update(GameTime gameTime)
 		{

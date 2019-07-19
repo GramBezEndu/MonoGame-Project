@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using GameProject.Controls;
 using GameProject.Sprites;
 using Microsoft.Xna.Framework.Audio;
+using GameProject.Animations;
 
 namespace GameProject.States
 {
@@ -146,10 +147,17 @@ namespace GameProject.States
 
 			staticComponents.Add(fullscreenText);
 
-			var fullscreenCheckBox = new Checkbox(c1, c2, g.Scale)
+			var checkboxAnimations = new Dictionary<string, Animation>()
+			{
+				{"CheckboxChecked", new Animation(Textures["CheckboxChecked"], 1, Game.Scale) },
+				{"Checkbox", new Animation(Textures["Checkbox"], 1, Game.Scale) },
+			};
+
+			var fullscreenCheckBox = new Checkbox(Input, checkboxAnimations)
 			{
 				Position = new Vector2(fullscreenText.Position.X + fullscreenText.Width, fullscreenText.Position.Y),
-				Click = ChangeWindowMode
+				Click = ChangeWindowMode,
+				Checked = Game.graphics.IsFullScreen
 			};
 			staticComponents.Add(fullscreenCheckBox);
 
@@ -173,6 +181,10 @@ namespace GameProject.States
 				Position = new Vector2(resolutionText.Position.X + resolutionText.Width, resolutionText.Position.Y),
 				OnValueChange = ChangeResolution
 			};
+
+			string actualRes = String.Format("{0} x {1}", Game.Width, Game.Height);
+
+			resolutionList.ChangeSelectedOption(actualRes);
 
 			staticComponents.Add(resolutionList);
 		}

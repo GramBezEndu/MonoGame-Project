@@ -20,6 +20,7 @@ namespace GameProject.Sprites
 		public Dictionary<string, Animation> animations { get; protected set; }
 		protected Vector2 position;
 		public Vector2 Velocity;
+		public Color Color { get; set; } = Color.White;
 		public bool FlipHorizontally { get; set; }
 		//protected Vector2 position;
 		public float Scale { get; set; }
@@ -50,7 +51,7 @@ namespace GameProject.Sprites
 		public Sprite(Dictionary<string,Animation> a)
 		{
 			animations = a.ToDictionary(x => x.Key, x => (Animation)x.Value.Clone());
-			animationManager = new AnimationManager(a.First().Value);
+			animationManager = new AnimationManager(this, a.First().Value);
             //Set scale even if there are animations (the scale will equal scale of first animation, so you should provide same scale for every animation)
             Scale = animations.First().Value.Scale;
 		}
@@ -110,12 +111,6 @@ namespace GameProject.Sprites
 		public override void Update(GameTime gameTime)
 		{
 			//regular sprite does not require any update
-
-			//Animated sprites -> check if sprite is should be flipped horizontally
-			if(animationManager != null)
-			{
-				animationManager.FlipHorizontally = this.FlipHorizontally;
-			}
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
@@ -124,9 +119,9 @@ namespace GameProject.Sprites
 				if (texture != null)
 				{
 					if(FlipHorizontally)
-						spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0f);
+						spriteBatch.Draw(texture, Position, null, Color, 0f, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0f);
 					else
-						spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+						spriteBatch.Draw(texture, Position, null, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
 				}
 				else if (animationManager != null)
 					animationManager.Draw(spriteBatch);

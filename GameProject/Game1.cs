@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Audio;
+using System.Threading;
 
 namespace GameProject
 {
@@ -16,7 +17,7 @@ namespace GameProject
 	/// </summary>
 	public class Game1 : Game
 	{
-		GraphicsDeviceManager graphics;
+		public GraphicsDeviceManager graphics { get; private set; }
 		SpriteBatch spriteBatch;
 		const int LogicalWidth = 1600;
 		const int LogicalHeight = 900;
@@ -123,6 +124,7 @@ namespace GameProject
 		{
 			Window.Title = "Defeat The Vapula";
 			graphics = new GraphicsDeviceManager(this);
+			Window.ClientSizeChanged += OnResize;
 			Content.RootDirectory = "Content";
 			//Loop songs
 			MediaPlayer.IsRepeating = true;
@@ -152,6 +154,12 @@ namespace GameProject
             //Handling this issue is not included yet
 		}
 
+		private void OnResize(object sender, EventArgs e)
+		{
+			//throw new NotImplementedException();
+			//int x = 10;
+		}
+
 		/// <summary>
 		/// Sets fullscreen mode
 		/// </summary>
@@ -164,16 +172,30 @@ namespace GameProject
 			else
 			{
 				var x = GraphicsAdapter.DefaultAdapter.SupportedDisplayModes;
+				//graphics.HardwareModeSwitch = true;
+				//graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				//graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+				//graphics.PreferredBackBufferWidth = Width;
+				//graphics.PreferredBackBufferHeight = Height;
 				graphics.IsFullScreen = true;
+				//this.Window.IsBorderless = false;
+
+				//graphics.PreferredBackBufferWidth = Width;
+				//graphics.PreferredBackBufferHeight = Height;
+
 
 				//Workaround for fullscreen issue where:
 				//First swap to fullscreen mode does not work properly
 				//But next swaps to fullscreen do not generate this issue
-				IntPtr hWnd = this.Window.Handle;
-				var control = System.Windows.Forms.Control.FromHandle(hWnd);
-				var form = control.FindForm();
-				form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-				form.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+
+				//Note: This fix works for the first time,
+				//But later alt tabs are broken instead
+				//IntPtr hWnd = this.Window.Handle;
+				//var control = System.Windows.Forms.Control.FromHandle(hWnd);
+				//var form = control.FindForm();
+				//form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+				//form.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+
 				graphics.ApplyChanges();
 			}
 		}
@@ -190,7 +212,12 @@ namespace GameProject
 			else
 			{
 				graphics.IsFullScreen = false;
+				//graphics.PreferredBackBufferWidth = Width;
+				//graphics.PreferredBackBufferHeight = Height;
 				graphics.ApplyChanges();
+				//graphics.ToggleFullScreen();
+				//graphics.ApplyChanges();
+				//Thread.Sleep(500);
 			}
 		}
 
@@ -270,9 +297,14 @@ namespace GameProject
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.Black);
-
 			// TODO: Add your drawing code here
+			GraphicsDevice.Clear(Color.Black);
+			//if(graphics.PreferredBackBufferWidth != Width || graphics.PreferredBackBufferHeight != Height)
+			//{
+			//	graphics.PreferredBackBufferWidth = Width;
+			//	graphics.PreferredBackBufferHeight = Height;
+			//	graphics.ApplyChanges();
+			//}
 			currentState.Draw(gameTime, spriteBatch);
             //Create new sprite batch for version info + debug display
             spriteBatch.Begin();
@@ -282,7 +314,17 @@ namespace GameProject
 				spriteBatch.DrawString(font, "Debug Mode Enabled", new Vector2(0, 0), Color.Red);
 				spriteBatch.DrawString(font, "version: " + compilationDate.ToString(), new Vector2(0, 0.05f* Height), Color.Red);
 				spriteBatch.DrawString(font, "current state: " + currentState.ToString(), new Vector2(0, 0.1f * Height), Color.Red);
-            }
+				spriteBatch.DrawString(font, "graphics.HardwareModeSwitch: " + graphics.HardwareModeSwitch.ToString(), new Vector2(0, 0.15f * Height), Color.Red);
+				spriteBatch.DrawString(font, "graphics.IsFullScreen: " + graphics.IsFullScreen.ToString(), new Vector2(0, 0.2f * Height), Color.Red);
+				spriteBatch.DrawString(font, "graphics.Width: " + graphics.PreferredBackBufferWidth.ToString(), new Vector2(0, 0.25f * Height), Color.Red);
+				spriteBatch.DrawString(font, "graphics.Height: " + graphics.PreferredBackBufferHeight.ToString(), new Vector2(0, 0.3f * Height), Color.Red);
+				spriteBatch.DrawString(font, "Selected Width: " + Width.ToString(), new Vector2(0, 0.35f * Height), Color.Red);
+				spriteBatch.DrawString(font, "Selected Height: " + Height.ToString(), new Vector2(0, 0.4f * Height), Color.Red);
+				spriteBatch.DrawString(font, "Client Bounds Width: " + Window.ClientBounds.Width.ToString(), new Vector2(0, 0.45f * Height), Color.Red);
+				spriteBatch.DrawString(font, "Client Bounds Height: " + Window.ClientBounds.Height.ToString(), new Vector2(0, 0.5f * Height), Color.Red);
+				spriteBatch.DrawString(font, "Scale: " + Scale.ToString(), new Vector2(0, 0.55f * Height), Color.Red);
+				spriteBatch.DrawString(font, "Draw FPS: " + (1 / gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(0, 0.6f * Height), Color.Red); 
+			}
             spriteBatch.End();
 
             base.Draw(gameTime);
