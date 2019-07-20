@@ -10,14 +10,15 @@ namespace GameProject.Controls
 {
 	/// <summary>
 	/// Text moving up
+	/// Note: These objects are not being delted in State class now when they go off screen
 	/// </summary>
 	public class MovingText : Text
 	{
 		//GameTimer moveTime = new GameTimer(0.1f);
-		float distanceBase;
+		public float BaseDistance { get; set; }
 		public MovingText(Game1 g, SpriteFont font, string message) : base(font, message)
 		{
-			distanceBase = 5f * g.Scale;
+			BaseDistance = 5f * g.Scale;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -25,7 +26,7 @@ namespace GameProject.Controls
 			if(!Hidden)
 			{
 				base.Update(gameTime);
-				Position += new Vector2(0, -distanceBase);
+				Position += new Vector2(0, -BaseDistance);
 			}
 		}
 	}

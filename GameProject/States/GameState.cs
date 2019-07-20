@@ -39,6 +39,7 @@ namespace GameProject.States
 		public List<Sprite> collisionSprites { get; protected set; } = new List<Sprite>();
 		protected List<Enemy> enemies = new List<Enemy>();
         protected List<MysteriousChest> mysteriousChests = new List<MysteriousChest>();
+		//protected List<MovingText> PickedItemsText = new List<MovingText>();
 
 		/// <summary>
 		/// List of moving components that are waiting to be spawned on state (Items, projectiles etc.)
@@ -86,8 +87,6 @@ namespace GameProject.States
             RemoveMovingComponents();
             //Pick up items
             PickUpItems();
-			//Add message to display if there is any
-			AddMessage();
         }
 
         private void SpawnMovingComponents()
@@ -285,20 +284,28 @@ namespace GameProject.States
         protected void PickUpItems()
         {
 			bool promptVisible = false;
-            foreach(var i in movingComponents)
+            foreach(var i in movingComponents.ToList())
             {
                 if(i is Item)
                 {
-                    //Gold is pick up automaticly
+                    //Gold is picked up automaticly
                     if(i is GoldCoin)
                     {
                         if(player.IsTouching(i as Item))
                         {
                             RemoveItem(i as Item);
                             player.InventoryManager.AddItem(i as Item);
+							//Pick up gold text
+							string text = "+" + (i as GoldCoin).Quantity.ToString() + "g";
+							Vector2 size = Font.MeasureString(text);
+							movingComponents.Add(new MovingText(Game, Font, text)
+							{
+								Position = new Vector2(player.Position.X + player.Width/2 - size.X/2, player.Position.Y - size.Y),
+								Color = Color.Gold,
+								BaseDistance = 3f * Game.Scale
+							});
                         }
                     }
-					//We could display pick up button to make it more clear (default: Z)
                     //Else you have to use pick up key
                     else if(player.IsTouching(i as Item))
 					{
@@ -311,6 +318,23 @@ namespace GameProject.States
 						{
 							RemoveItem(i as Item);
 							player.InventoryManager.AddItem(i as Item);
+							//Pick up item text
+							string text = "";
+							if ((i as Item).IsStackable)
+							{
+								text = "+" + (i as Item).Name + " x" + (i as Item).Quantity.ToString();
+							}
+							else
+							{
+								text = "+" + (i as Item).Name;
+							}
+							Vector2 size = Font.MeasureString(text);
+							movingComponents.Add(new MovingText(Game, Font, text)
+							{
+								Position = new Vector2(player.Position.X + player.Width / 2 - size.X / 2, player.Position.Y - size.Y),
+								Color = Color.Green,
+								BaseDistance = 3f * Game.Scale
+							});
 						}
 					}
                 }

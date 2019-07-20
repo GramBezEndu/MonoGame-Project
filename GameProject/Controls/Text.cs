@@ -15,6 +15,10 @@ namespace GameProject.Controls
         public int Width { get; private set; }
         public int Height { get; private set; }
         public Vector2 Position { get; set; }
+		/// <summary>
+		/// You can apply any extra effect to text component using this method
+		/// </summary>
+		public EventHandler ExtraUpdate { get; set; }
         public string Message
         {
             get => _message;
@@ -36,7 +40,7 @@ namespace GameProject.Controls
         }
         public override void Update(GameTime gameTime)
         {
-            //
+			ExtraUpdate?.Invoke(this, new EventArgs());
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
