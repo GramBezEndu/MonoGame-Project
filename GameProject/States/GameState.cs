@@ -434,7 +434,7 @@ namespace GameProject.States
 		{
 			if (Message != null)
 			{
-				IEnumerable<Component> msg = staticComponents.Where(x => x is Message);
+				IEnumerable<Component> msg = uiComponents.Where(x => x is Message);
 				foreach (var m in msg)
 				{
 					m.Hidden = true;

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Items;
+using GameProject.States;
 
 namespace GameProject.Inventory
 {
@@ -17,14 +18,12 @@ namespace GameProject.Inventory
 		/// Trashcan sprite reference to delete items
 		/// </summary>
 		public Sprite Trashcan { get; set; }
-		public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		GameState GameState;
+		public InventorySlot(GameState gs, GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
-			//Message to display if you can't use/equip item
-
+			GameState = gs;
 			//Every inventory slot (and classes inherited from this class) are draggable
 			Draggable = true;
-			invalidUse = "You can't use this item";
-			SetInvalidUsageBackgroundSprite();
 		}
 
 		public override void Update(GameTime gameTime)
@@ -49,7 +48,7 @@ namespace GameProject.Inventory
 						if (result == true)
 							Item.Quantity -= 1;
 						else
-							invalidUseTime = 2f;
+							GameState.CreateMessage("You can't use this item");
 					}
 					else if (Item is Equippable)
 					{
@@ -57,7 +56,7 @@ namespace GameProject.Inventory
 						if (result == true)
 							Item.Quantity--;
 						else
-							invalidUseTime = 2f;
+							GameState.CreateMessage("You can't equip this item");
 					}
 				}
 			}

@@ -19,7 +19,7 @@ namespace GameProject.Sprites
 		private List<Component> slots = new List<Component>();
         public Shopkeeper(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
         {
-			var slotOne = new ShoppingSlot(gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Textures["Gold"], gs.Font, g.Scale)
+			var slotOne = new ShoppingSlot(gs, gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Textures["Gold"], gs.Font, g.Scale)
 			{
 				Prize = 30,
 				Hidden = true,
@@ -28,7 +28,7 @@ namespace GameProject.Sprites
 			};
 			//Set item to slot 1
 			slotOne.Item = new HealthPotion(gs.Textures["HealthPotion"], g.Scale);
-			var slotTwo = new ShoppingSlot(gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Textures["Gold"], gs.Font, g.Scale)
+			var slotTwo = new ShoppingSlot(gs, gs.graphicsDevice, p, gs.Textures["InventorySlot"], gs.Textures["Gold"], gs.Font, g.Scale)
 			{
 				Prize = 5000,
 				Hidden = true,

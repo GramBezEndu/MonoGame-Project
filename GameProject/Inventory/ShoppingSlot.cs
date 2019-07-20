@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Items;
+using GameProject.States;
 
 namespace GameProject.Inventory
 {
@@ -15,11 +16,10 @@ namespace GameProject.Inventory
 	{
 		public int Prize { get; set; }
 		private Sprite _goldIcon;
-		public ShoppingSlot(GraphicsDevice gd, Player p, Texture2D t, Texture2D goldIcon, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		GameState GameState;
+		public ShoppingSlot(GameState gs, GraphicsDevice gd, Player p, Texture2D t, Texture2D goldIcon, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
-			//Message to display if you can't buy item
-			invalidUse = "You can't buy this item";
-			SetInvalidUsageBackgroundSprite();
+			GameState = gs;
 			Prize = Int32.MaxValue;
 			//Rescaling goldIcon
 			_goldIcon = new Sprite(goldIcon, scale * 0.5f);
@@ -76,7 +76,7 @@ namespace GameProject.Inventory
 					}
 					else
 					{
-						invalidUseTime = 2f;
+						GameState.CreateMessage("You can't buy this item");
 					}
 				}
 			}
@@ -112,13 +112,6 @@ namespace GameProject.Inventory
 					}
 					if (Item.IsStackable)
 						spriteBatch.DrawString(font, Item.Quantity.ToString(), Position, Color.Black);
-				}
-				if (invalidUseTime > 0)
-				{
-					//It should be moved from here
-					_inavalidUseBackground.Position = this.Position;
-					_inavalidUseBackground.Draw(gameTime, spriteBatch);
-					spriteBatch.DrawString(font, invalidUse, Position, Color.Black);
 				}
 			}
 		}

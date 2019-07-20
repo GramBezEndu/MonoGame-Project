@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using GameProject.Sprites;
 using GameProject.Items;
 using GameProject.Inventory;
+using GameProject.States;
 
 namespace GameProject.Inventory
 {
@@ -19,8 +20,10 @@ namespace GameProject.Inventory
 		/// </summary>
 		private Input input;
 		private Player player;
-		public AccessSlotsManager(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, float scale, Vector2 position, Input i)
+		private GameState GameState;
+		public AccessSlotsManager(GameState gs, GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, float scale, Vector2 position, Input i)
 		{
+			GameState = gs;
 			input = i;
 			player = p;
 			//Make fast access slots
@@ -58,10 +61,14 @@ namespace GameProject.Inventory
 						return;
 					var item = fastAccessSlots[i].Item as Usable;
 					bool result = item.Use(player);
-					if (result == true)
+					if (result)
 					{
 						fastAccessSlots[i].Item.Quantity -= 1;
 						var debug = gameTime;
+					}
+					else
+					{
+						GameState.CreateMessage("You can't use this item");
 					}
 				}
 			}

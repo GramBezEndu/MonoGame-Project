@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Items;
 using GameProject.Inventory;
+using GameProject.States;
 
 namespace GameProject
 {
@@ -24,12 +25,14 @@ namespace GameProject
 		public bool Hidden { get; set; }
 		private List<InventorySlot> slots;
 		private Sprite Trashcan;
+		private GameState GameState;
 		/// <summary>
 		/// Initializes new inventory
 		/// </summary>
 		/// <param name="quantitySlots">How many slots will inventory have</param>
-		public InventoryManager(GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, Texture2D trashcan, SpriteFont f, int quantitySlots, Vector2 position, float scale) : base(inventoryTexture, scale)
+		public InventoryManager(GameState gs, GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, Texture2D trashcan, SpriteFont f, int quantitySlots, Vector2 position, float scale) : base(inventoryTexture, scale)
 		{
+			GameState = gs;
 			Hidden = true;
 			Position = position;
 			player = p;
@@ -57,7 +60,7 @@ namespace GameProject
 				for(int j=0;j<quanitySlotsInRow;j++)
 				{
 					slots.Add(
-						new InventorySlot(gd, player, slotTexture, f, scale)
+						new InventorySlot(gs, gd, player, slotTexture, f, scale)
 						{
 							Position = new Vector2(this.Position.X + (slotTexture.Width * Scale * j), this.Position.Y + (slotTexture.Height * Scale * i)),
 							Trashcan = this.Trashcan

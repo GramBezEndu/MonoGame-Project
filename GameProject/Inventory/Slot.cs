@@ -31,9 +31,9 @@ namespace GameProject.Inventory
 			get => _isDragging;
 			set
 			{
-				if(value == true && !Draggable)
+				if(!Draggable)
 				{
-						throw new Exception("This slot is not marked as draggable\n");
+					throw new Exception("This slot is not marked as draggable\n");
 				}
 				else
 				{
@@ -42,10 +42,6 @@ namespace GameProject.Inventory
 			}
 		}
 
-		/// <summary>
-		/// For how long text will be displayed after invalid item usage (in seconds)
-		/// </summary>
-		protected float invalidUseTime;
 		protected MouseState currentState;
 		protected MouseState previousState;
 		//If is hovering then 1. Gray out the slot 2. print item name and description if inventory slot contains item (it is done in Item drawing)
@@ -55,11 +51,7 @@ namespace GameProject.Inventory
 		//Generate background texture for displaying description
 		protected Texture2D descriptionBackground;
 		protected Sprite descriptionAndNameBackground;
-		protected Texture2D invalidUseTexture;
 
-
-		protected Sprite _inavalidUseBackground;
-		protected string invalidUse;
 		protected Item _item;
 
 		protected string UpgradedItemString;
@@ -142,32 +134,6 @@ namespace GameProject.Inventory
 			}
 		}
 
-		protected void SetInvalidUsageBackgroundSprite()
-		{
-			Vector2 size = font.MeasureString(invalidUse);
-			invalidUseTexture = new Texture2D(graphicsDevice, (int)size.X, (int)size.Y);
-			Color[] data = new Color[(int)size.X * (int)size.Y];
-			//Paint every pixel
-			for (int i = 0; i < data.Length; i++)
-			{
-				data[i] = Color.LemonChiffon;
-			}
-			//try
-			//{
-			invalidUseTexture.SetData(data);
-			//}
-			//catch
-			//{
-			//    throw new NotImplementedException();
-			//}
-			//Set sprite
-			Vector2 pos = this.Position;
-			_inavalidUseBackground = new Sprite(invalidUseTexture, 1f)
-			{
-				Position = pos
-			};
-		}
-
 		/// <summary>
 		/// Draw item description, item count and invalid usage message
 		/// Different colors are provided for item names (based on ability to upgrade item with scroll)
@@ -239,13 +205,6 @@ namespace GameProject.Inventory
 					//Fast inventory slot have different approach to this
 					DrawQuantity(spriteBatch);
 				}
-				if (invalidUseTime > 0)
-				{
-					//It should be moved from here
-					_inavalidUseBackground.Position = this.Position;
-					_inavalidUseBackground.Draw(gameTime, spriteBatch);
-					spriteBatch.DrawString(font, invalidUse, Position, Color.Black);
-				}
 			}
 		}
 
@@ -271,9 +230,6 @@ namespace GameProject.Inventory
 					isHovering = true;
 					DragAndDrop();
 				}
-				//Invalid use timer decrease if >0
-				if (invalidUseTime > 0)
-					invalidUseTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 			}
 			//Item could be used or equipped
 			if (Item?.Quantity <= 0)
