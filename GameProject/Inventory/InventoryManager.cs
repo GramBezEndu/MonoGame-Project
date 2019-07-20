@@ -60,7 +60,7 @@ namespace GameProject
 				for(int j=0;j<quanitySlotsInRow;j++)
 				{
 					slots.Add(
-						new InventorySlot(gs, gd, player, slotTexture, f, scale)
+						new InventorySlot(gd, player, slotTexture, f, scale)
 						{
 							Position = new Vector2(this.Position.X + (slotTexture.Width * Scale * j), this.Position.Y + (slotTexture.Height * Scale * i)),
 							Trashcan = this.Trashcan

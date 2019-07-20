@@ -192,27 +192,27 @@ namespace GameProject.States
 			{
 				EquipmentSlots = new List<InventorySlot>()
 							{
-								new ArcherHelmetSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new ArcherHelmetSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height)
 								},
-								new ArcherBreastplateSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new ArcherBreastplateSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new NecklaceSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new BootsSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new BootsSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + 3*Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new BowSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new BowSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{							
 									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new RingSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new RingSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
 								}
@@ -267,31 +267,31 @@ namespace GameProject.States
 			{
 				EquipmentSlots = new List<InventorySlot>()
 							{
-								new WarriorHelmetSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new WarriorHelmetSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height)
 								},
-								new WarriorBreastplateSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new WarriorBreastplateSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new NecklaceSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new BootsSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new BootsSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + 3*Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new SwordSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new SwordSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
 								},
-								new ShieldSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new ShieldSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 1*Textures["InventorySlot"].Height*Game.Scale),
 								},
-								new RingSlot(this, gd, player, Textures["InventorySlot"], Font, Game.Scale)
+								new RingSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
 									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
 								}

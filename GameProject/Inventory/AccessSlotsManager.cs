@@ -49,6 +49,7 @@ namespace GameProject.Inventory
 
 		public override void Update(GameTime gameTime)
 		{
+			GameState = player.gameState;
 			foreach (var s in fastAccessSlots)
 				s.Update(gameTime);
 			//Check if player pressed key to use item

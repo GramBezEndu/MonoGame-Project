@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameProject.Sprites;
 using GameProject.Items;
+using GameProject.States;
 
 namespace GameProject.Inventory
 {

@@ -13,7 +13,7 @@ namespace GameProject.Inventory
 	public class RingSlot : EquipmentSlot
 	{
 		public new Ring Item { get; set; }
-		public RingSlot(GameState gs, GraphicsDevice gd,Player p,Texture2D t, SpriteFont f, float scale) : base(gs, gd, p, t, f, scale)
+		public RingSlot(GraphicsDevice gd,Player p,Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
 		}
 	}

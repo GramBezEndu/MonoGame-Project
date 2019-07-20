@@ -13,7 +13,7 @@ namespace GameProject.Inventory
 	public class BowSlot : EquipmentSlot
 	{
 		public new Bow Item { get; set; }
-		public BowSlot(GameState gs, GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gs, gd, p, t, f, scale)
+		public BowSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
 		}
 	}

@@ -13,7 +13,7 @@ namespace GameProject.Inventory
 	public class ArcherBreastplateSlot : EquipmentSlot
 	{
 		public new ArcherBreastplateSlot Item { get; set; }
-		public ArcherBreastplateSlot(GameState gs, GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gs, gd, p, t, f, scale)
+		public ArcherBreastplateSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
 		}
 	}

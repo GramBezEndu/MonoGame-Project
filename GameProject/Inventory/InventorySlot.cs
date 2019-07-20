@@ -19,9 +19,10 @@ namespace GameProject.Inventory
 		/// </summary>
 		public Sprite Trashcan { get; set; }
 		GameState GameState;
-		public InventorySlot(GameState gs, GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
 		{
-			GameState = gs;
+			//Player has actual gameState, inventory slot could be created in different state
+			GameState = p.gameState;
 			//Every inventory slot (and classes inherited from this class) are draggable
 			Draggable = true;
 		}
@@ -29,6 +30,7 @@ namespace GameProject.Inventory
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+			this.GameState = player.gameState;
 			var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
 			if (mouseRectangle.Intersects(Rectangle))
 			{

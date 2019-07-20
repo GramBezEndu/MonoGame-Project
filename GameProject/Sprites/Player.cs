@@ -48,7 +48,7 @@ namespace GameProject.Sprites
 		protected float baseSprintDistance;
 		protected float moveDistance;
 		protected float sprintDistance;
-		//Game state reference to attack enemies
+		//Game state reference to attack enemies etc.
 		public GameState gameState;
 		protected bool canSprint = true;
 		protected bool CanMove = true;
