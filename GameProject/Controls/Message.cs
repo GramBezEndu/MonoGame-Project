@@ -23,6 +23,7 @@ namespace GameProject.Controls
 		Sprite backgroundSprite;
 		SoundEffect notificationSound;
 		Input Input;
+		Text SkipText;
 		public Message(Game1 g, GraphicsDevice gd, Input i, SpriteFont font, string message, SoundEffect notification) : base(font, message)
 		{
 			Color = Color.White;
@@ -49,6 +50,13 @@ namespace GameProject.Controls
 			//Set the position of text
 			this.Position = new Vector2(backgroundSprite.Position.X + backgroundSprite.Width / 2 - textSize.X / 2,
 				backgroundSprite.Position.Y + backgroundSprite.Height/2 - textSize.Y / 2);
+
+			//Create skip text
+			SkipText = new Text(font, String.Format("Skip [{0}]", Input.KeyBindings["SkipMessage"].GetValueOrDefault().ToString()))
+			{
+				Color = this.Color
+			};
+			SkipText.Position = new Vector2(g.Width - 2 * SkipText.Width, backgroundSprite.Position.Y + backgroundSprite.Height - SkipText.Height);
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -58,6 +66,7 @@ namespace GameProject.Controls
 				if (displayTimer.Enabled && displayTimer.CurrentTime >= 0)
 				{
 					backgroundSprite.Draw(gameTime, spriteBatch);
+					SkipText.Draw(gameTime, spriteBatch);
 					base.Draw(gameTime, spriteBatch);
 				}
 			}
@@ -80,6 +89,7 @@ namespace GameProject.Controls
 					Hidden = true;
 				}
 				displayTimer.Update(gameTime);
+				SkipText.Update(gameTime);
 			}
 		}
 	}
