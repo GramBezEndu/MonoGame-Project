@@ -9,6 +9,8 @@ using System.IO;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Audio;
 using System.Threading;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GameProject
 {
@@ -122,6 +124,10 @@ namespace GameProject
 
 		public Game1()
 		{
+			//Show dialog box on unhandled exceptions
+			Application.ThreadException += new ThreadExceptionEventHandler(UnhandledThreadException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
+
 			Window.Title = "Defeat The Vapula";
 			graphics = new GraphicsDeviceManager(this);
 			Window.ClientSizeChanged += OnResize;
@@ -150,14 +156,26 @@ namespace GameProject
 			Scale = (float)Width / LogicalWidth;
 			graphics.ApplyChanges();
             //Note:
-            //Game is caped at 60fps but slower frame rate means slower player movement
-            //Handling this issue is not included yet
+            //Game is caped at 60fps but slower frame rate means slower enemies, player and projectiles movement
+		}
+
+		private void UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			List<string> buttons = new List<string>() { "Ok" };
+			Microsoft.Xna.Framework.Input.MessageBox.Show("Unhandled error", (e.ExceptionObject as Exception).Message, buttons);
+			this.Exit();
+		}
+
+		private void UnhandledThreadException(object sender, ThreadExceptionEventArgs e)
+		{
+			List<string> buttons = new List<string>() { "Ok" };
+			Microsoft.Xna.Framework.Input.MessageBox.Show("Unhandled error", e.Exception.Message, buttons);
+			this.Exit();
 		}
 
 		private void OnResize(object sender, EventArgs e)
 		{
 			//throw new NotImplementedException();
-			//int x = 10;
 		}
 
 		/// <summary>
