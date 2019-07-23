@@ -48,6 +48,7 @@ namespace GameProject.Sprites
 						if(player.HealthBar.Health.CurrentHealth != player.HealthBar.Health.MaxHealth ||
 							(player as StaminaUser).StaminaBar.Stamina.CurrentStamina != (player as StaminaUser).StaminaBar.Stamina.MaxStamina)
 						{
+							GameState.CreateMessage("Your health and stamina was restored");
 							player.HealthBar.Health.CurrentHealth = player.HealthBar.Health.MaxHealth;
 							(player as StaminaUser).StaminaBar.Stamina.CurrentStamina = (player as StaminaUser).StaminaBar.Stamina.MaxStamina;
 						}
