@@ -76,7 +76,7 @@ namespace GameProject.Inventory
 					}
 					else
 					{
-						GameState.CreateMessage("You can't buy this item");
+						GameState.CreateMessage("You don't have enough gold");
 					}
 				}
 			}

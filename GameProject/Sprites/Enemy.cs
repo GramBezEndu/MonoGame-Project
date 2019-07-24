@@ -193,7 +193,7 @@ namespace GameProject.Sprites
 		protected virtual void Attack(object sender, EventArgs e)
 		{
 			isAttacking = false;
-			player.GetDamage(game.RandomNumber(damageMin, damageMax));
+			player.GetPhysicalDamage(game.RandomNumber(damageMin, damageMax));
 		}
 
 		/// <summary>
@@ -201,7 +201,7 @@ namespace GameProject.Sprites
 		/// </summary>
 		/// <param name="dmg"></param>
 		/// <param name="criticalHit"></param>
-		public void GetDamage(int dmg, bool criticalHit)
+		public void GetPhysicalDamage(int dmg, bool criticalHit)
 		{
 			//We do not want to attack a dead enemy
 			if (IsDead)

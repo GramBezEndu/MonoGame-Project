@@ -395,12 +395,12 @@ namespace GameProject.States
 						multiplier = Game.RandomCriticalMultiplier();
 						dmg = (int)(dmg * multiplier);
 						//Deal damage to enemy
-						e.GetDamage(dmg, true);
+						e.GetPhysicalDamage(dmg, true);
 					}
 					//Was not critical
 					else
 					{
-						e.GetDamage(dmg, false);
+						e.GetPhysicalDamage(dmg, false);
 					}
 				}
 			}
@@ -420,7 +420,7 @@ namespace GameProject.States
 				{
 					int dmg = Game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
 						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
-					e.GetDamage(dmg, false);
+					e.GetPhysicalDamage(dmg, false);
 				}
 			}
 		}
@@ -442,6 +442,23 @@ namespace GameProject.States
 				uiComponents.Add(Message);
 				Message = null;
 			}
+		}
+
+		/// <summary>
+		/// We're using the fact that Shopkeeper.Hidden = false when window is open
+		/// </summary>
+		/// <returns></returns>
+		public bool ShouldActivateShopkeeperTut()
+		{
+			for(int i=0;i<movingComponents.Count;i++)
+			{
+				if(movingComponents[i] is Shopkeeper)
+				{
+					if (movingComponents[i].Hidden == false)
+						return true;
+				}
+			}
+			return false;
 		}
 	}
 }

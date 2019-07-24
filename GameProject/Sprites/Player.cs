@@ -27,6 +27,7 @@ namespace GameProject.Sprites
 			moveDistance = baseMoveDistance;
 			sprintDistance = baseSprintDistance;
 			gameState = currentGameState;
+			TutorialManager = new TutorialManager(this);
 		}
 
 		protected virtual void Dead(object sender, EventArgs e)
@@ -79,6 +80,9 @@ namespace GameProject.Sprites
 
 		public InventoryManager InventoryManager { get; set; }
 		public HealthBar HealthBar { get; set; }
+
+		protected TutorialManager TutorialManager;
+
 		public override void Update(GameTime gameTime)
 		{
 			if (!IsDead)
@@ -90,8 +94,8 @@ namespace GameProject.Sprites
 				else
 					HealthRegenTimer.Enabled = false;
 				HealthRegen(gameTime);
-				////Update keyboard states (it is done now in State base class, which is more appropriate)
-				//input.Update(gameTime);
+				//Tutorial manager
+				TutorialManager.Update(gameTime);
 				//Hide/Show inventory (keyboard input)
 				HideShowInventory();
 				//Player movement (keyboard input)
@@ -159,7 +163,7 @@ namespace GameProject.Sprites
 		/// Get damage (for example from enemy), it recaltulates the damage based on player's damage reduction
 		/// </summary>
 		/// <param name="x"></param>
-		public void GetDamage(int x)
+		public void GetPhysicalDamage(int x)
 		{
 			if(!IsDead)
 			{

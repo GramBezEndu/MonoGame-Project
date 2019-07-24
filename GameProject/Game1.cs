@@ -163,14 +163,16 @@ namespace GameProject
 		{
 			List<string> buttons = new List<string>() { "Ok" };
 			Microsoft.Xna.Framework.Input.MessageBox.Show("Unhandled error", (e.ExceptionObject as Exception).Message, buttons);
-			this.Exit();
+			if(!Debugger.IsAttached)
+				this.Exit();
 		}
 
 		private void UnhandledThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			List<string> buttons = new List<string>() { "Ok" };
 			Microsoft.Xna.Framework.Input.MessageBox.Show("Unhandled error", e.Exception.Message, buttons);
-			this.Exit();
+			if (!Debugger.IsAttached)
+				this.Exit();
 		}
 
 		private void OnResize(object sender, EventArgs e)

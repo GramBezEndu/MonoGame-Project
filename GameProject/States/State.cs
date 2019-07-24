@@ -166,9 +166,15 @@ namespace GameProject
 		/// </summary>
 		public abstract void PostUpdate();
 
-		public void CreateMessage(string msg)
+		/// <summary>
+		/// Returns Created message
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public Message CreateMessage(string msg)
 		{
 			Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
+			return Message;
 		}
 	}
 }

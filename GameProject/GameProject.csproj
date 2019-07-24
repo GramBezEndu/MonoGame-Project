@@ -154,6 +154,9 @@
     <Compile Include="States\Village.cs" />
     <Compile Include="Sprites\Wizard.cs" />
     <Compile Include="StatisticsManager.cs" />
+    <Compile Include="TutorialManager.cs" />
+    <Compile Include="Tutorials\ShopkeeperTutorial.cs" />
+    <Compile Include="Tutorials\Tutorial.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
