@@ -23,6 +23,20 @@ namespace GameProject.Controls
 		Sprite backgroundSprite;
 		SoundEffect notificationSound;
 		Input Input;
+		private string skipTextString = "Skip ";
+
+		/// <summary>
+		/// Tutorial changes this string from "Skip " to "Next "
+		/// </summary>
+		public string SkipTextString
+		{
+			get => skipTextString;
+			set
+			{
+				skipTextString = value;
+				SkipText.Message = String.Format("{0}[{1}]", SkipTextString, Input.KeyBindings["SkipMessage"].GetValueOrDefault().ToString());
+			}
+		}
 		Text SkipText;
 		public Message(Game1 g, GraphicsDevice gd, Input i, SpriteFont font, string message, SoundEffect notification) : base(font, message)
 		{
@@ -52,7 +66,7 @@ namespace GameProject.Controls
 				backgroundSprite.Position.Y + backgroundSprite.Height/2 - textSize.Y / 2);
 
 			//Create skip text
-			SkipText = new Text(font, String.Format("Skip [{0}]", Input.KeyBindings["SkipMessage"].GetValueOrDefault().ToString()))
+			SkipText = new Text(font, String.Format("{0}[{1}]", SkipTextString, Input.KeyBindings["SkipMessage"].GetValueOrDefault().ToString()))
 			{
 				Color = this.Color
 			};

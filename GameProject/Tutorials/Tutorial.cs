@@ -47,6 +47,9 @@ namespace GameProject.Tutorials
 					if (MessageWasShown[actualMessageIndex] == false)
 					{
 						var actualMsg = GameState.CreateMessage(MessagesStrings[actualMessageIndex]);
+						//Change the text from "Skip " to "Next " if there are more incoming messages
+						if(actualMessageIndex + 1 < MessagesStrings.Count)
+							actualMsg.SkipTextString = "Next ";
 						Messages.Add(actualMsg);
 						MessageWasShown[actualMessageIndex] = true;
 					}
