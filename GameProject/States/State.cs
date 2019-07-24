@@ -168,10 +168,11 @@ namespace GameProject
 
 		/// <summary>
 		/// Returns Created message
+		/// tutorialMsg bool is used in override GameState
 		/// </summary>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public Message CreateMessage(string msg)
+		public virtual Message CreateMessage(string msg, bool tutorialMsg = false)
 		{
 			Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
 			return Message;

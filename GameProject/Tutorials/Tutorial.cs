@@ -41,12 +41,13 @@ namespace GameProject.Tutorials
 			CheckForActivation();
 			if(Activated)
 			{
+				GameState.IsDisplayingTutorial = true;
 				if (!Completed)
 				{
 					//If message was not shown yet
 					if (MessageWasShown[actualMessageIndex] == false)
 					{
-						var actualMsg = GameState.CreateMessage(MessagesStrings[actualMessageIndex]);
+						var actualMsg = GameState.CreateMessage(MessagesStrings[actualMessageIndex], true);
 						//Change the text from "Skip " to "Next " if there are more incoming messages
 						if(actualMessageIndex + 1 < MessagesStrings.Count)
 							actualMsg.SkipTextString = "Next ";
@@ -62,11 +63,17 @@ namespace GameProject.Tutorials
 					if (actualMessageIndex >= MessagesStrings.Count)
 					{
 						Completed = true;
+						GameState.IsDisplayingTutorial = false;
 					}
 				}
 			}
 		}
 
-		public abstract void CheckForActivation();
+		public virtual void CheckForActivation()
+		{
+			//Player is doing different tutorial right now, we do not allow to activate another tutorial
+			if (GameState.IsDisplayingTutorial)
+				return;
+		}
 	}
 }

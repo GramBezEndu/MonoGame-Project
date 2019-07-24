@@ -103,6 +103,8 @@ namespace GameProject.Controls
 					Hidden = true;
 				}
 				displayTimer.Update(gameTime);
+				if (displayTimer.CurrentTime <= 0)
+					Hidden = true;
 				SkipText.Update(gameTime);
 			}
 		}

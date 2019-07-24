@@ -55,6 +55,8 @@ namespace GameProject.States
 		/// </summary>
 		protected Sprite PickUpPrompt;
 
+		public bool IsDisplayingTutorial;
+
         //TODO: Update input in state, not in player
         public override void Update(GameTime gameTime)
         {
@@ -459,6 +461,25 @@ namespace GameProject.States
 				}
 			}
 			return false;
+		}
+
+		public override Message CreateMessage(string msg, bool tutorialMsg = false)
+		{
+			if(IsDisplayingTutorial)
+			{
+				if (tutorialMsg)
+				{
+					Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
+					return Message;
+				}
+				else
+					return null;
+			}
+			else
+			{
+				Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
+				return Message;
+			}
 		}
 	}
 }

@@ -16,6 +16,7 @@ namespace GameProject.Tutorials
 
 		public override void CheckForActivation()
 		{
+			base.CheckForActivation();
 			if(GameState.ShouldActivateShopkeeperTut() == true)
 				Activated = true;
 		}
