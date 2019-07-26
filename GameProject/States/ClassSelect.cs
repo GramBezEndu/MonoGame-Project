@@ -42,6 +42,13 @@ namespace GameProject.States
 				Text = "Wizard",
 				Click = WizardClick
 			};
+
+			var backButton = new Button(Textures["Button"], Font, g.Scale)
+			{
+				Position = new Vector2(0.01f * g.Width, 0.9f * g.Height),
+				Click = Back,
+				Text = "Back"
+			};
 			staticComponents = new List<Component>
 			{
 				new Sprite(background, g.Scale)
@@ -52,8 +59,14 @@ namespace GameProject.States
 				warriorFigureSprite,
 				archerButton,
 				archerFigureSprite,
-				wizardButton
+				wizardButton,
+				backButton
 			};
+		}
+
+		private void Back(object sender, EventArgs e)
+		{
+			Game.ChangeState(new Play(Game, Game.GraphicsDevice, Game.Content));
 		}
 
 		private void WizardClick(object sender, EventArgs e)

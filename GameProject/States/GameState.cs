@@ -24,7 +24,40 @@ namespace GameProject.States
 			{
 				Hidden = true
 			};
-        }
+			pausedComponents = new List<Component>
+			{
+				new Sprite(Textures["PauseBorder"], g.Scale)
+				{
+					Position = new Vector2(0, 0.63f * g.Height),
+				},
+				new Button(Textures["Button"], Font, g.Scale)
+				{
+				Text = "Main Menu",
+				Position = new Vector2(0.01f * g.Width, 0.7f * g.Height),
+				Click = MainMenuClick
+				},
+				new Button(Textures["Button"], Font, g.Scale)
+				{
+				Text = "Settings",
+				Position = new Vector2(0.01f * g.Width, 0.8f * g.Height),
+				Click = SettingsStage
+				},
+				new Button(Textures["Button"], Font, g.Scale)
+				{
+				Text = "Exit",
+				Position = new Vector2(0.01f * g.Width, 0.9f * g.Height),
+				Click = ExitClick
+				}
+			};
+		}
+
+		private void SettingsStage(object sender, EventArgs e)
+		{
+			throw new NotImplementedException();
+			Console.WriteLine("x");
+			//CreateMessage("Settings are only available in main menu");
+		}
+
 		//public static bool SpeedrunTimerEnabled = false;
 		//public static GameTimer SpeedrunTimer = new GameTimer(0f, true);
 		protected bool Paused { get; set; }
@@ -57,8 +90,18 @@ namespace GameProject.States
 
 		public bool IsDisplayingTutorial;
 
-        //TODO: Update input in state, not in player
-        public override void Update(GameTime gameTime)
+		private void ExitClick(object sender, EventArgs e)
+		{
+			Game.Exit();
+		}
+
+		private void MainMenuClick(object sender, EventArgs e)
+		{
+			Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
+		}
+
+		//TODO: Update input in state, not in player
+		public override void Update(GameTime gameTime)
         {
 			base.Update(gameTime);
             //Manage pause on button press

@@ -37,7 +37,7 @@ namespace GameProject.Controls
 				SkipText.Message = String.Format("{0}[{1}]", SkipTextString, Input.KeyBindings["SkipMessage"].GetValueOrDefault().ToString());
 			}
 		}
-		Text SkipText;
+		TextButton SkipText;
 		public Message(Game1 g, GraphicsDevice gd, Input i, SpriteFont font, string message, SoundEffect notification) : base(font, message)
 		{
 			Color = Color.White;
@@ -66,11 +66,17 @@ namespace GameProject.Controls
 				backgroundSprite.Position.Y + backgroundSprite.Height/2 - textSize.Y / 2);
 
 			//Create skip text
-			SkipText = new Text(font, String.Format("{0}[{1}]", SkipTextString, Input.KeyBindings["SkipMessage"].GetValueOrDefault().ToString()))
+			SkipText = new TextButton(Input, font, String.Format("{0}[{1}]", SkipTextString, Input.KeyBindings["SkipMessage"].GetValueOrDefault().ToString()))
 			{
-				Color = this.Color
+				Color = this.Color,
+				Click = Hide
 			};
 			SkipText.Position = new Vector2(g.Width - 2 * SkipText.Width, backgroundSprite.Position.Y + backgroundSprite.Height - SkipText.Height);
+		}
+
+		private void Hide(object sender, EventArgs e)
+		{
+			Hidden = true;
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

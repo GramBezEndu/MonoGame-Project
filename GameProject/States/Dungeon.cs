@@ -53,9 +53,9 @@ namespace GameProject.States
 				nextLevelEntrance,
 			};
 
-			//Spawn shopkeeper, blacksmith & Statue of Gods at the end of the level
-			SpawnShopkeeper(new Vector2(levelWidth - 0.68f * Game.Width, 0.59f * Game.Height));
-			SpawnBlacksmith(new Vector2(levelWidth - 0.43f * Game.Width, 0.5f * Game.Height));
+			//Spawn Statue of Gods at the end of the level
+			//SpawnShopkeeper(new Vector2(levelWidth - 0.68f * Game.Width, 0.59f * Game.Height));
+			//SpawnBlacksmith(new Vector2(levelWidth - 0.43f * Game.Width, 0.5f * Game.Height));
 			SpawnStatueOfGods(new Vector2(levelWidth - 0.22f * Game.Width, 0.65f * Game.Height));
 
 			//Draw optional rooms quantity
@@ -121,26 +121,6 @@ namespace GameProject.States
 			movingComponents.Add(PickUpPrompt);
 			movingComponents.Add(player);
 
-            pausedComponents = new List<Component>
-            {
-                new Sprite(Textures["PauseBorder"], g.Scale)
-				{
-                    Position = new Vector2(0, 0.63f * g.Height),
-                },
-                new Button(Textures["Button"], Font, g.Scale)
-				{
-                Text = "Main Menu",
-                Position = new Vector2(0.01f * g.Width, 0.7f * g.Height),
-                Click = MainMenuClick
-                },
-                new Button(Textures["Button"], Font, g.Scale)
-				{
-                Text = "Exit",
-                Position = new Vector2(0.01f * g.Width, 0.8f * g.Height),
-                Click = ExitClick
-                }
-            };
-
             if (player is StaminaUser)
             {
                 uiComponents.Add(player.InventoryManager);
@@ -150,16 +130,6 @@ namespace GameProject.States
             else
                 throw new NotImplementedException();
         }
-
-        private void ExitClick(object sender, EventArgs e)
-		{
-			Game.Exit();
-		}
-
-		private void MainMenuClick(object sender, EventArgs e)
-		{
-			Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
-		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{

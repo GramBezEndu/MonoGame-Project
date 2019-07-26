@@ -72,26 +72,6 @@ namespace GameProject.States
 			SpawnBlacksmith(new Vector2(0.52f * Game.Width, 0.33f * Game.Height));
 			SpawnTrainingDummy(new Vector2(0.7f * Game.Width, 0.4f * Game.Height));
 			SpawnStatueOfGods(new Vector2(0.9f * Game.Width, 0.47f * Game.Height));
-
-			pausedComponents = new List<Component>
-			{
-				new Sprite(Textures["PauseBorder"], g.Scale)
-				{
-					Position = new Vector2(0, 0.63f * g.Height),
-				},
-				new Button(Textures["Button"], Font, g.Scale)
-				{
-				Text = "Main Menu",
-				Position = new Vector2(0.01f * g.Width, 0.7f * g.Height),
-				Click = MainMenuClick
-				},
-				new Button(Textures["Button"], Font, g.Scale)
-				{
-				Text = "Exit",
-				Position = new Vector2(0.01f * g.Width, 0.8f * g.Height),
-				Click = ExitClick
-				}
-			};
 		}
 
 		private void AddCommonPlayerUiComponents()
@@ -300,16 +280,6 @@ namespace GameProject.States
 			AddCommonPlayerUiComponents();
 			AddStaminaBarUi();
 			//CreateMessage("Test message");
-		}
-
-		private void ExitClick(object sender, EventArgs e)
-		{
-			Game.Exit();
-		}
-
-		private void MainMenuClick(object sender, EventArgs e)
-		{
-			Game.ChangeState(new MainMenu(Game, graphicsDevice, content));
 		}
 
         private void NextState()
