@@ -14,7 +14,7 @@ namespace GameProject.Inventory
 {
 	public class EquipmentSlot : InventorySlot
 	{
-		public EquipmentSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public EquipmentSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, Vector2 scale) : base(gd, p, t, f, scale)
 		{
 
 		}

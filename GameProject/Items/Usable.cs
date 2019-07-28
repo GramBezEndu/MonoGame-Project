@@ -12,7 +12,7 @@ namespace GameProject
 {
 	public abstract class Usable : Item
 	{
-		public Usable(Texture2D t, float scale) : base(t, scale) { }
+		public Usable(Texture2D t, Vector2 scale) : base(t, scale) { }
 		public abstract bool Use(Player p);
 	}
 }

@@ -13,7 +13,7 @@ namespace GameProject.Inventory
 	public class ImprovementScrollSlot : DraggableSlot
 	{
 		public new ImprovementScroll Item { get; set; }
-		public ImprovementScrollSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public ImprovementScrollSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, Vector2 scale) : base(gd, p, t, f, scale)
 		{
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

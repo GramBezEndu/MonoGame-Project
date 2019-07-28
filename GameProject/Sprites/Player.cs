@@ -15,15 +15,12 @@ namespace GameProject.Sprites
 {
 	public abstract class Player : Sprite
 	{
-		//public Player(Texture2D t, float scale) : base(t, scale)
-		//{
-		//}
-		public Player(GameState currentGameState, Dictionary<string, Animation> a, Input i, float scale) : base(a)
+		public Player(GameState currentGameState, Dictionary<string, Animation> a, Input i, Vector2 scale) : base(a)
 		{
 			input = i;
 			//Scale player distance per step
-			baseMoveDistance = 1.5f * scale;
-			baseSprintDistance = 3.75f * scale;
+			baseMoveDistance = 1.5f * scale.X;
+			baseSprintDistance = 3.75f * scale.X;
 			moveDistance = baseMoveDistance;
 			sprintDistance = baseSprintDistance;
 			gameState = currentGameState;

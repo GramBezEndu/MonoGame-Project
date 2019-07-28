@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameProject.Items
@@ -29,7 +30,7 @@ namespace GameProject.Items
                 }
             }
         }
-        public ImprovementScroll(Game1 g, Texture2D t, float scale) : base(t, scale)
+        public ImprovementScroll(Game1 g, Texture2D t, Vector2 scale) : base(t, scale)
         {
             //Make sure it is float
             ImprovementPower = g.RandomNumber((int)Math.Round(MinPower * 100), (int)Math.Round(MaxPower * 100)) / 100f;

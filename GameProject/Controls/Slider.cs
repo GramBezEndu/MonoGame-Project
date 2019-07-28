@@ -44,7 +44,7 @@ namespace GameProject.Controls
 		SpriteFont Font;
 		Input input;
 
-		public Slider(Input i, Texture2D sliderBorder, Texture2D sliderFilled, SpriteFont f, float scale) : base(sliderBorder, scale)
+		public Slider(Input i, Texture2D sliderBorder, Texture2D sliderFilled, SpriteFont f, Vector2 scale) : base(sliderBorder, scale)
 		{
 			SliderFilled = sliderFilled;
 			SetPercentage();

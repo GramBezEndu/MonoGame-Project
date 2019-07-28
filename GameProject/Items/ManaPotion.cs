@@ -14,7 +14,7 @@ namespace GameProject.Items
 	{
 		private int maxCharges;
 		private int leftCharges;
-		public ManaPotion(Texture2D t, float scale) : base(t, scale)
+		public ManaPotion(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			texture = t;
 			//Rectangle = new Rectangle ((int)position.X, (int)position.Y, t.Width, t.Height);

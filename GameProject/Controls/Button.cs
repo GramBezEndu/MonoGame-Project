@@ -19,7 +19,7 @@ namespace GameProject.Controls
 		public EventHandler Click { get; set; }
 		public Color PenColor { get; set; }
 		public string Text { get; set; }
-		public Button(Texture2D t, SpriteFont f, float scale) : base(t,scale)
+		public Button(Texture2D t, SpriteFont f, Vector2 scale) : base(t,scale)
 		{
 			texture = t;
 			font = f;

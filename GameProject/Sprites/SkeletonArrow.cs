@@ -10,11 +10,11 @@ namespace GameProject.Sprites
 {
 	public class SkeletonArrow : EnemyProjectile
 	{
-		public SkeletonArrow(Game1 game, Player p, Texture2D t, float scale, bool rotatedLeft = true) : base(game, p, t, scale, rotatedLeft)
+		public SkeletonArrow(Game1 game, Player p, Texture2D t, Vector2 scale, bool rotatedLeft = true) : base(game, p, t, scale, rotatedLeft)
 		{
 			DamageMin = 2;
 			DamageMax = 4;
-			distancePerFrame = 9f * game.Scale;
+			distancePerFrame = 9f * game.Scale.X;
 			if (rotatedLeft == false)
 				this.FlipHorizontally = true;
 		}

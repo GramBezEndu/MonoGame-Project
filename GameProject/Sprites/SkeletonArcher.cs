@@ -19,7 +19,7 @@ namespace GameProject.Sprites
 			animations["Attack"].OnAnimationEnd = Attack;
 			animations["Die"].OnAnimationEnd = Die;
 			Melee = false;
-			attackRange = 450f * g.Scale;
+			attackRange = 450f * g.Scale.X;
 			damageMin = 2;
 			damageMax = 4;
 			AttackTimer = new GameTimer(2, true);

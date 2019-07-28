@@ -18,10 +18,10 @@ namespace GameProject.Sprites
 		protected int DamageMin;
 		protected int DamageMax;
 		protected Game1 Game;
-		public Projectile(Game1 game, Texture2D t, float scale, bool rotatedLeft) : base(t, scale)
+		public Projectile(Game1 game, Texture2D t, Vector2 scale, bool rotatedLeft) : base(t, scale)
 		{
 			RotatedLeft = rotatedLeft;
-			distancePerFrame = 1f * game.Scale;
+			distancePerFrame = 1f * game.Scale.X;
 			DamageMin = 1;
 			DamageMax = 1;
 			Game = game;

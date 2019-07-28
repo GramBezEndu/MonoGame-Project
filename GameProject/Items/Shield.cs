@@ -15,7 +15,7 @@ namespace GameProject.Items
 		public float BlockingDamageReduction { get; set; }
 		public int MaxDurability { get; set; }
 		public int CurrentDurability { get; set; }
-		public Shield(Texture2D t, float scale) : base(t, scale)
+		public Shield(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 		}
 		public override bool Equip(Player p)

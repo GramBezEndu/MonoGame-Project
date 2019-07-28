@@ -73,8 +73,8 @@ namespace GameProject.Sprites
 			game = g;
 			gameState = gs;
 			player = p;
-			agroRange = 800f * g.Scale;
-			runStepDistance = 2.5f * g.Scale;
+			agroRange = 800f * g.Scale.X;
+			runStepDistance = 2.5f * g.Scale.X;
 		}
 		/// <summary>
 		///Check if player is close (in agro range [we check for X axis only]) then perform action (probably run to player)

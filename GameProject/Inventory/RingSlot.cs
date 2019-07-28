@@ -7,13 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 using GameProject.Items;
 using GameProject.Sprites;
 using GameProject.States;
+using Microsoft.Xna.Framework;
 
 namespace GameProject.Inventory
 {
 	public class RingSlot : EquipmentSlot
 	{
 		public new Ring Item { get; set; }
-		public RingSlot(GraphicsDevice gd,Player p,Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public RingSlot(GraphicsDevice gd,Player p,Texture2D t, SpriteFont f, Vector2 scale) : base(gd, p, t, f, scale)
 		{
 		}
 	}

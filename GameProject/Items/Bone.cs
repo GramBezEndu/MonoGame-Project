@@ -10,7 +10,7 @@ namespace GameProject.Items
 {
     public class Bone : Item
     {
-        public Bone(Texture2D t, float scale) : base(t, scale)
+        public Bone(Texture2D t, Vector2 scale) : base(t, scale)
         {
             IsStackable = true;
             Name = "Bone";

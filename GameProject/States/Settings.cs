@@ -173,7 +173,12 @@ namespace GameProject.States
 			{
 				"1920 x 1080",
 				"1600 x 900",
-				"1280 x 720"
+				"1280 x 720",
+				"1680 x 1050",
+				"1600 x 1200",
+				"1600 x 1024",
+				"1024 x 768",
+				"800 x 600",
 			};
 
 			var resolutionList = new SelectableList(Input, Textures["ArrowSelector"], g.Scale, font, Resolutions)

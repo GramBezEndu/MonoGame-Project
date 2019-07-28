@@ -60,6 +60,7 @@ namespace GameProject.States
 
 		//public static bool SpeedrunTimerEnabled = false;
 		//public static GameTimer SpeedrunTimer = new GameTimer(0f, true);
+		public static SpeedrunTimer SpeedrunTimer;
 		protected bool Paused { get; set; }
 		protected KeyboardState PreviousState { get; set; }
 		protected KeyboardState CurrentState { get; set; }
@@ -115,6 +116,8 @@ namespace GameProject.States
             //Note: If the window has no focus, we should automaticly pause the game
 			if(!Paused)
 			{
+				//Update speedrun timer
+				SpeedrunTimer.Update(gameTime);
 				//Update enemies
 				foreach (var e in enemies)
 				{
@@ -347,7 +350,7 @@ namespace GameProject.States
 							{
 								Position = new Vector2(player.Position.X + player.Width/2 - size.X/2, player.Position.Y - size.Y),
 								Color = Color.Gold,
-								BaseDistance = 3f * Game.Scale
+								BaseDistance = 3f * Game.Scale.Y
 							});
                         }
                     }
@@ -378,7 +381,7 @@ namespace GameProject.States
 							{
 								Position = new Vector2(player.Position.X + player.Width / 2 - size.X / 2, player.Position.Y - size.Y),
 								Color = Color.Green,
-								BaseDistance = 3f * Game.Scale
+								BaseDistance = 3f * Game.Scale.X
 							});
 						}
 					}

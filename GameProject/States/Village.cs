@@ -178,23 +178,23 @@ namespace GameProject.States
 								},
 								new ArcherBreastplateSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new BootsSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + 3*Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + 3*Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new BowSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{							
-									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new RingSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale.Y)
 								}
 							}
 			};
@@ -253,33 +253,36 @@ namespace GameProject.States
 								},
 								new WarriorBreastplateSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new NecklaceSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new BootsSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + 3*Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.075f * Game.Width, 0.07f * Game.Height + 3*Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new SwordSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.025f * Game.Width, 0.07f * Game.Height + Textures["InventorySlot"].Height*Game.Scale.Y)
 								},
 								new ShieldSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 1*Textures["InventorySlot"].Height*Game.Scale),
+									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 1*Textures["InventorySlot"].Height*Game.Scale.Y),
 								},
 								new RingSlot(gd, player, Textures["InventorySlot"], Font, Game.Scale)
 								{
-									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale)
+									Position = new Vector2(0.125f * Game.Width, 0.07f * Game.Height + 2*Textures["InventorySlot"].Height*Game.Scale.Y)
 								}
 							}
 			};
 			AddCommonPlayerUiComponents();
 			AddStaminaBarUi();
 			//CreateMessage("Test message");
+			//Starting location -> create speedrun timer
+			SpeedrunTimer = new SpeedrunTimer(Font);
+			uiComponents.Add(SpeedrunTimer);
 		}
 
         private void NextState()

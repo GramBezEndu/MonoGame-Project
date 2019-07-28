@@ -23,9 +23,9 @@ namespace GameProject.Sprites
 		public Color Color { get; set; } = Color.White;
 		public bool FlipHorizontally { get; set; }
 		//protected Vector2 position;
-		public float Scale { get; set; }
+		public Vector2 Scale { get; set; }
 		//public Vector2 Velocity { get; set; }
-		public Sprite(Texture2D t, float scale)
+		public Sprite(Texture2D t, Vector2 scale)
 		{
 			texture = t;
 			Scale = scale;
@@ -73,9 +73,9 @@ namespace GameProject.Sprites
 			get
 			{
 				if (texture != null)
-					return (int)(texture.Height * Scale);
+					return (int)(texture.Height * Scale.Y);
 				else if (animationManager != null)
-					return (int)(animationManager.animation.FrameHeight * animationManager.animation.Scale);
+					return (int)(animationManager.animation.FrameHeight * animationManager.animation.Scale.Y);
 				else throw new Exception("Invalid sprite");
 			}
 		}
@@ -87,9 +87,9 @@ namespace GameProject.Sprites
 			get
 			{
 				if (texture != null)
-					return (int)(texture.Width * Scale);
+					return (int)(texture.Width * Scale.X);
 				else if (animationManager != null)
-					return (int)(animationManager.animation.FrameWidth * animationManager.animation.Scale);
+					return (int)(animationManager.animation.FrameWidth * animationManager.animation.Scale.X);
 				else throw new Exception("Invalid sprite");
 			}
 		}
@@ -102,9 +102,9 @@ namespace GameProject.Sprites
 			get
 			{
 				if (texture != null)
-					return new Rectangle((int)Position.X, (int)Position.Y, (int)(texture.Width * Scale), (int)(texture.Height * Scale));
+					return new Rectangle((int)Position.X, (int)Position.Y, (int)(texture.Width * Scale.X), (int)(texture.Height * Scale.Y));
 				else if (animationManager != null)
-					return new Rectangle((int)Position.X, (int)Position.Y, (int)(animationManager.animation.FrameWidth * animationManager.animation.Scale), (int)(animationManager.animation.FrameHeight * animationManager.animation.Scale));
+					return new Rectangle((int)Position.X, (int)Position.Y, (int)(animationManager.animation.FrameWidth * animationManager.animation.Scale.X), (int)(animationManager.animation.FrameHeight * animationManager.animation.Scale.Y));
 				else throw new Exception("Invalid rectangle sprite");
 			}
 		}

@@ -13,7 +13,7 @@ namespace GameProject
 	public class StaminaBar : Sprite
 	{
 		public Stamina Stamina { get; set; }
-		public StaminaBar(Texture2D staminaBorderTexture, Texture2D staminaTexture, SpriteFont font, Vector2 position, float scale) : base(staminaBorderTexture, scale)
+		public StaminaBar(Texture2D staminaBorderTexture, Texture2D staminaTexture, SpriteFont font, Vector2 position, Vector2 scale) : base(staminaBorderTexture, scale)
 		{
 			Position = position;
 			Stamina = new Stamina(staminaTexture, font, scale)

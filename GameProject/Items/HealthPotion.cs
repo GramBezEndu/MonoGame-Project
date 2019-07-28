@@ -14,7 +14,7 @@ namespace GameProject
 	{
 		private int maxRestore;
 		//private int leftRestore;
-		public HealthPotion(Texture2D t, float scale) : base(t, scale)
+		public HealthPotion(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			texture = t;
 			//Rectangle = new Rectangle ((int)position.X, (int)position.Y, t.Width, t.Height);

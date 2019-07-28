@@ -11,7 +11,7 @@ namespace GameProject.Items
 {
     public class LifeFruit : Usable
     {
-        public LifeFruit(Texture2D t, float scale) : base(t, scale)
+        public LifeFruit(Texture2D t, Vector2 scale) : base(t, scale)
         {
             IsStackable = true;
             Name = "Life fruit";

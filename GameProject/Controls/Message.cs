@@ -57,7 +57,8 @@ namespace GameProject.Controls
 				data[j] = Color.Black * 0.9f;
 			}
 			backgroundTexture.SetData(data);
-			backgroundSprite = new Sprite(backgroundTexture, 1f);
+			//Scale for background sprite will always be 1f, 1f
+			backgroundSprite = new Sprite(backgroundTexture, new Vector2(1f, 1f));
 			//Set the position of background sprite
 			backgroundSprite.Position = new Vector2(0, 0.8f * g.Height);
 			Vector2 textSize = font.MeasureString(message);

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using GameProject.Sprites;
 using GameProject.Inventory;
 using System.Text.RegularExpressions;
+using Microsoft.Xna.Framework;
 
 namespace GameProject.Items
 {
@@ -19,7 +20,7 @@ namespace GameProject.Items
 		//public float DamageReduction { get; set; }
 		//public float MagicDamageReduction { get; set; }
 		//public float MovementSpeed { get; set; }
-		public Equippable(Texture2D t, float scale) : base(t, scale)
+		public Equippable(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			//All equippable items can not be deleted unless stated different in class (now: rings and necklaces can be deleted)
 			CanBeDeleted = false;

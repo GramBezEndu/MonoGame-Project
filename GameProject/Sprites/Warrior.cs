@@ -26,7 +26,7 @@ namespace GameProject.Sprites
 		private SpriteFont debuggerFont;
 		private int fastAttackCounter = 0;
 		private int normalAttackCounter = 0;
-		public Warrior(GameState currentGameState, Dictionary<string, Animation> a, Input i, float scale, SpriteFont debugFont) : base(currentGameState, a, i, scale)
+		public Warrior(GameState currentGameState, Dictionary<string, Animation> a, Input i, Vector2 scale, SpriteFont debugFont) : base(currentGameState, a, i, scale)
 		{
 			animations = a;
 			animationManager = new AnimationManager(this, a.First().Value);
@@ -34,7 +34,7 @@ namespace GameProject.Sprites
 			animations["FastAttack"].OnAnimationEnd = OnFastAttackEnd;
 			animations["NormalAttack"].OnAnimationEnd = OnNormalAttackEnd;
 			animations["Die"].OnAnimationEnd = Dead;
-			attackRange = 40f * scale;
+			attackRange = 40f * scale.X;
 		}
 
 		private void OnNormalAttackEnd(object sender, EventArgs e)

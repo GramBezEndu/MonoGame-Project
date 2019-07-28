@@ -65,7 +65,7 @@ namespace GameProject.Controls
 			}
 		}
 
-		public SelectableList(Input input, Texture2D arrowSelectorTexture, float Scale, SpriteFont font, List<string> options)
+		public SelectableList(Input input, Texture2D arrowSelectorTexture, Vector2 scale, SpriteFont font, List<string> options)
 		{
 			for (int i = 0; i < options.Count; i++)
 			{
@@ -80,7 +80,7 @@ namespace GameProject.Controls
 			SelectedOption = (TextButton)Options[0].Clone();
 			SelectedOption.Hidden = false;
 
-			ArrowSelector = new Button(arrowSelectorTexture, font, Scale);
+			ArrowSelector = new Button(arrowSelectorTexture, font, scale);
 			ArrowSelector.Click = ExpandOrHide;
 		}
 

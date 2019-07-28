@@ -15,7 +15,7 @@ namespace GameProject
 		public int MaxStamina { get; set; }
 		public int CurrentStamina { get; set; }
 		private SpriteFont font;
-		public Stamina(Texture2D healthTexture, SpriteFont f, float scale) : base(healthTexture, scale)
+		public Stamina(Texture2D healthTexture, SpriteFont f, Vector2 scale) : base(healthTexture, scale)
 		{
 			font = f;
 			MaxStamina = 100;

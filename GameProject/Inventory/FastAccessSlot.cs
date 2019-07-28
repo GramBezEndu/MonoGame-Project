@@ -15,7 +15,7 @@ namespace GameProject.Inventory
 	public class FastAccessSlot : DraggableSlot
 	{
 		private Slot actualSlot;
-		public FastAccessSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public FastAccessSlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, Vector2 scale) : base(gd, p, t, f, scale)
 		{
 
 		}

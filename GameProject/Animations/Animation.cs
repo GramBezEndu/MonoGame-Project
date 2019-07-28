@@ -18,9 +18,9 @@ namespace GameProject.Animations
 		public int FrameWidth { get { return (int)(Texture.Width/FrameCount); } }
 		public Texture2D Texture { get; set; }
 		public bool IsLooping { get; set; }
-		public float Scale { get; set; }
+		public Vector2 Scale { get; set; }
 		public EventHandler OnAnimationEnd { get; set; }
-		public Animation(Texture2D texture, int frameCount, float scale, float frameTime = 0.3f, bool looping = true)
+		public Animation(Texture2D texture, int frameCount, Vector2 scale, float frameTime = 0.3f, bool looping = true)
 		{
 			Texture = texture;
 			FrameCount = frameCount;

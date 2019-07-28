@@ -16,7 +16,7 @@ namespace GameProject
 	{
 		private int _quantity;
 
-		public Item(Texture2D t, float scale) : base(t, scale)
+		public Item(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			Name = "Not assigned name";
 			_quantity = 1;

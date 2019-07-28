@@ -21,7 +21,7 @@ namespace GameProject.Inventory
 		private Input input;
 		private Player player;
 		private GameState GameState;
-		public AccessSlotsManager(GameState gs, GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, float scale, Vector2 position, Input i)
+		public AccessSlotsManager(GameState gs, GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Vector2 scale, Vector2 position, Input i)
 		{
 			GameState = gs;
 			input = i;

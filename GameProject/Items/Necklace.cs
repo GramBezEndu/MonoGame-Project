@@ -7,12 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 using GameProject.Items;
 using GameProject.Sprites;
 using GameProject.Inventory;
+using Microsoft.Xna.Framework;
 
 namespace GameProject.Items
 {
 	public abstract class Necklace : Equippable
 	{
-		public Necklace(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(t, scale)
+		public Necklace(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			CanBeDeleted = true;
 		}

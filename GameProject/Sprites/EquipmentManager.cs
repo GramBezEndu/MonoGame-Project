@@ -15,7 +15,7 @@ namespace GameProject.Sprites
 		public Dictionary<string, float> Attributes = new Dictionary<string, float>();
 		public StatisticsManager StatisticsManager {get; set;}
 		public List<InventorySlot> EquipmentSlots { get; set; }
-		public EquipmentManager(Texture2D t, Texture2D slotTexture, SpriteFont font, Vector2 position, float scale) : base(t, scale)
+		public EquipmentManager(Texture2D t, Texture2D slotTexture, SpriteFont font, Vector2 position, Vector2 scale) : base(t, scale)
 		{
 			Position = position;
 			StatisticsManager = new StatisticsManager(this, t, font, scale)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GameProject.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using GameProject.Inventory;
+using Microsoft.Xna.Framework;
 
 namespace GameProject.Items
 {
@@ -22,7 +23,7 @@ namespace GameProject.Items
 		/// <param name="f"></param>
 		/// <param name="t"></param>
 		/// <param name="scale"></param>
-		public UpgradeableWithScroll(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, float scale) : base(t, scale)
+		public UpgradeableWithScroll(GraphicsDevice gd, Player p, Texture2D slotTexture, SpriteFont f, Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			ImprovementScrollSlot = new ImprovementScrollSlot(gd, p, slotTexture, f, scale);
 		}

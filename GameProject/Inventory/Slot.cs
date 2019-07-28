@@ -57,7 +57,7 @@ namespace GameProject.Inventory
 		protected string UpgradedItemString;
 		private bool _isDragging;
 
-		public Slot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(t, scale)
+		public Slot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, Vector2 scale) : base(t, scale)
 		{
 			font = f;
 			player = p;
@@ -127,7 +127,8 @@ namespace GameProject.Inventory
 				descriptionBackground.SetData(data);
 				//Set sprite
 				Vector2 pos = new Vector2(Position.X, Position.Y + Height);
-				descriptionAndNameBackground = new Sprite(descriptionBackground, 1f)
+				//Scale always 1f, 1f
+				descriptionAndNameBackground = new Sprite(descriptionBackground, new Vector2(1f, 1f))
 				{
 					Position = pos
 				};

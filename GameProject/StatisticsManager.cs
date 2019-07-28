@@ -16,7 +16,7 @@ namespace GameProject
 	{
 		private SpriteFont font;
 		private EquipmentManager equipmentManager;
-		public StatisticsManager(EquipmentManager eq, Texture2D t, SpriteFont f, float scale) : base(t, scale)
+		public StatisticsManager(EquipmentManager eq, Texture2D t, SpriteFont f, Vector2 scale) : base(t, scale)
 		{
 			equipmentManager = eq;
 			font = f;

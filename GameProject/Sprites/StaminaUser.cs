@@ -18,7 +18,7 @@ namespace GameProject
 		//Restore x stamina every tick
 		int staminaRegen = 5;
 		public StaminaBar StaminaBar { get; set; }
-		public StaminaUser(GameState currentGameState, Dictionary<string, Animation> a, Input i, float scale) : base(currentGameState, a, i, scale) { }
+		public StaminaUser(GameState currentGameState, Dictionary<string, Animation> a, Input i, Vector2 scale) : base(currentGameState, a, i, scale) { }
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);

@@ -18,7 +18,7 @@ namespace GameProject.Controls
 		public float BaseDistance { get; set; }
 		public MovingText(Game1 g, SpriteFont font, string message) : base(font, message)
 		{
-			BaseDistance = 5f * g.Scale;
+			BaseDistance = 5f * g.Scale.X;
 		}
 
 		public override void Update(GameTime gameTime)

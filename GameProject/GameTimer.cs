@@ -16,7 +16,7 @@ namespace GameProject
 		/// </summary>
 		public float Interval { get; set; }
 		/// <summary>
-		/// Current time, if current time is equal or less than 0, action should be performed
+		/// Current time in seconds, if current time is equal or less than 0, action should be performed
 		/// </summary>
 		public float CurrentTime { get; set; }
 		public bool Enabled { get; set; }

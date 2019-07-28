@@ -30,7 +30,7 @@ namespace GameProject
 		/// Initializes new inventory
 		/// </summary>
 		/// <param name="quantitySlots">How many slots will inventory have</param>
-		public InventoryManager(GameState gs, GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, Texture2D trashcan, SpriteFont f, int quantitySlots, Vector2 position, float scale) : base(inventoryTexture, scale)
+		public InventoryManager(GameState gs, GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, Texture2D trashcan, SpriteFont f, int quantitySlots, Vector2 position, Vector2 scale) : base(inventoryTexture, scale)
 		{
 			GameState = gs;
 			Hidden = true;
@@ -40,9 +40,9 @@ namespace GameProject
 			font = f;
 			Trashcan = new Sprite(trashcan, scale)
 			{
-				Position = new Vector2(Position.X + 0.01f * inventoryTexture.Width * scale, Position.Y + 0.75f * inventoryTexture.Height * scale)
+				Position = new Vector2(Position.X + 0.01f * inventoryTexture.Width * scale.X, Position.Y + 0.75f * inventoryTexture.Height * scale.Y)
 			};
-			goldTexturePos = new Vector2(Position.X + 0.6f * inventoryTexture.Width * scale, Position.Y + 0.8f * inventoryTexture.Height * scale);
+			goldTexturePos = new Vector2(Position.X + 0.6f * inventoryTexture.Width * scale.X, Position.Y + 0.8f * inventoryTexture.Height * scale.Y);
 			goldCountTextPos = new Vector2(goldTexturePos.X * 1.035f, goldTexturePos.Y * 1.025f);
 			slots = new List<InventorySlot>();
 			//How many slots we want to have in a row
@@ -62,7 +62,7 @@ namespace GameProject
 					slots.Add(
 						new InventorySlot(gd, player, slotTexture, f, scale)
 						{
-							Position = new Vector2(this.Position.X + (slotTexture.Width * Scale * j), this.Position.Y + (slotTexture.Height * Scale * i)),
+							Position = new Vector2(this.Position.X + (slotTexture.Width * Scale.X * j), this.Position.Y + (slotTexture.Height * Scale.Y * i)),
 							Trashcan = this.Trashcan
 						}
 					);

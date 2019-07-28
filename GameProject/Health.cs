@@ -15,7 +15,7 @@ namespace GameProject
 		public int MaxHealth { get; set; }
 		public int CurrentHealth { get; set; }
 		private SpriteFont font;
-		public Health(Texture2D healthTexture, SpriteFont f, float scale) : base(healthTexture, scale)
+		public Health(Texture2D healthTexture, SpriteFont f, Vector2 scale) : base(healthTexture, scale)
 		{
 			font = f;
 			MaxHealth = 20;

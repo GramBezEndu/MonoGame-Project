@@ -12,7 +12,7 @@ namespace GameProject.Items
 {
 	public abstract class Ring : Equippable
 	{
-		public Ring(Texture2D t, float scale) : base(t, scale)
+		public Ring(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			CanBeDeleted = true;
 		}

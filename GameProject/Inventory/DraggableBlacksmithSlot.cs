@@ -14,7 +14,7 @@ namespace GameProject.Inventory
 	public class DraggableBlacksmithSlot : DraggableSlot
 	{
 		Blacksmith blacksmith;
-		public DraggableBlacksmithSlot(Blacksmith b, GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public DraggableBlacksmithSlot(Blacksmith b, GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, Vector2 scale) : base(gd, p, t, f, scale)
 		{
 			blacksmith = b;
 		}

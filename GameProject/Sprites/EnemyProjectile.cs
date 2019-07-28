@@ -11,7 +11,7 @@ namespace GameProject.Sprites
 	public abstract class EnemyProjectile : Projectile
 	{
 		protected Player player;
-		public EnemyProjectile(Game1 game, Player p, Texture2D t, float scale, bool rotatedLeft) : base(game, t, scale, rotatedLeft)
+		public EnemyProjectile(Game1 game, Player p, Texture2D t, Vector2 scale, bool rotatedLeft) : base(game, t, scale, rotatedLeft)
 		{
 			player = p;
 		}

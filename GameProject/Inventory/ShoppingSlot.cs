@@ -17,7 +17,7 @@ namespace GameProject.Inventory
 		public int Prize { get; set; }
 		private Sprite _goldIcon;
 		GameState GameState;
-		public ShoppingSlot(GameState gs, GraphicsDevice gd, Player p, Texture2D t, Texture2D goldIcon, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public ShoppingSlot(GameState gs, GraphicsDevice gd, Player p, Texture2D t, Texture2D goldIcon, SpriteFont f, Vector2 scale) : base(gd, p, t, f, scale)
 		{
 			GameState = gs;
 			Prize = Int32.MaxValue;
@@ -53,8 +53,8 @@ namespace GameProject.Inventory
 					data[i] = Color.LemonChiffon;
 				}
 				descriptionBackground.SetData(data);
-				//Set sprite
-				descriptionAndNameBackground = new Sprite(descriptionBackground, 1f)
+				//Set sprite (scale always 1f, 1f)
+				descriptionAndNameBackground = new Sprite(descriptionBackground, new Vector2(1f, 1f))
 				{
 					Position = pos
 				};

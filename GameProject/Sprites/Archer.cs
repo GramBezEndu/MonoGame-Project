@@ -13,7 +13,7 @@ namespace GameProject.Sprites
 {
 	public class Archer : StaminaUser
 	{
-		public Archer(GameState currentGameState, Dictionary<string, Animation> a, Input i,  float scale) : base(currentGameState, a, i, scale)
+		public Archer(GameState currentGameState, Dictionary<string, Animation> a, Input i,  Vector2 scale) : base(currentGameState, a, i, scale)
 		{
 			animations = a;
 			animationManager = new AnimationManager(this, a.First().Value);

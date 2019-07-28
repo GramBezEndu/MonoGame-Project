@@ -19,7 +19,7 @@ namespace GameProject.Inventory
 		/// </summary>
 		public Sprite Trashcan { get; set; }
 		GameState GameState;
-		public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, float scale) : base(gd, p, t, f, scale)
+		public InventorySlot(GraphicsDevice gd, Player p, Texture2D t, SpriteFont f, Vector2 scale) : base(gd, p, t, f, scale)
 		{
 			//Player has actual gameState, inventory slot could be created in different state
 			GameState = p.gameState;

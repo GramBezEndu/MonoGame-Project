@@ -10,7 +10,7 @@ namespace GameProject.Items
 {
 	public class StartingShield : Shield
 	{
-		public StartingShield(Texture2D t, float scale) : base(t, scale)
+		public StartingShield(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 			BlockingDamageReduction = 0.4f;
 			MaxDurability = 100;

@@ -26,15 +26,33 @@ namespace GameProject
 		/// <summary>
 		/// Actual screen width
 		/// </summary>
-		public int Width { get; private set; }
+		public int Width
+		{
+			get
+			{
+				return graphics.PreferredBackBufferWidth;
+			}
+		}
 		/// <summary>
 		/// Actual screen height
 		/// </summary>
-		public int Height { get; private set; }
+		public int Height
+		{
+			get
+			{
+				return graphics.PreferredBackBufferHeight;
+			}
+		}
 		/// <summary>
 		/// Scaling objects
 		/// </summary>
-		public float Scale { get; private set; }
+		public Vector2 Scale
+		{
+			get
+			{
+				return new Vector2((float)Width/LogicalWidth, (float)Height/LogicalHeight);
+			}
+		}
 
         State currentState;
 		State nextState;
@@ -104,21 +122,17 @@ namespace GameProject
 
 		public void ChangeResolution(int width, int height)
 		{
-			if(Math.Round((float)width/height, 2) != 1.78)
-			{
-				throw new Exception("Only 16:9 resolutions");
-			}
+			//if(Math.Round((float)width/height, 2) != 1.78)
+			//{
+			//	throw new Exception("Only 16:9 resolutions");
+			//}
 			//Do not switch to the same resolution
 			if(width == Width && Height == height)
 			{
 				return;
 			}
-			Width = width;
-			Height = height;
-			//recalculate scale
-			Scale = (float)Width / LogicalWidth;
-			graphics.PreferredBackBufferWidth = Width;
-			graphics.PreferredBackBufferHeight = Height;
+			graphics.PreferredBackBufferWidth = width;
+			graphics.PreferredBackBufferHeight = height;
 			graphics.ApplyChanges();
 		}
 
@@ -151,9 +165,6 @@ namespace GameProject
 				//graphics.PreferredBackBufferHeight = 800;
 				graphics.IsFullScreen = true;
 			}
-			Width = graphics.PreferredBackBufferWidth;
-			Height = graphics.PreferredBackBufferHeight;
-			Scale = (float)Width / LogicalWidth;
 			graphics.ApplyChanges();
 			//Note:
 			//Game is caped at 60fps but slower frame rate means slower enemies, player and projectiles movement

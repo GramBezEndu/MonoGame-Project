@@ -15,7 +15,7 @@ namespace GameProject
 		public Health Health { get; set; }
 		//private Texture2D healthTexture;
 		//private Rectangle healthRectangle;
-		public HealthBar(Texture2D healthBarBorder, Texture2D healthTexture, SpriteFont font, Vector2 position, float scale) : base(healthBarBorder, scale)
+		public HealthBar(Texture2D healthBarBorder, Texture2D healthTexture, SpriteFont font, Vector2 position, Vector2 scale) : base(healthBarBorder, scale)
 		{
 			Position = position;
 			Health = new Health(healthTexture, font, scale)
