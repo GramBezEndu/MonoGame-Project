@@ -155,8 +155,8 @@ namespace GameProject
 			Height = graphics.PreferredBackBufferHeight;
 			Scale = (float)Width / LogicalWidth;
 			graphics.ApplyChanges();
-            //Note:
-            //Game is caped at 60fps but slower frame rate means slower enemies, player and projectiles movement
+			//Note:
+			//Game is caped at 60fps but slower frame rate means slower enemies, player and projectiles movement
 		}
 
 		private void UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -253,8 +253,7 @@ namespace GameProject
 			Random = new Random();
 			//Load input from file here
 			Input = new Input();
-			currentState = new GameProject.States.MainMenu(this, graphics.GraphicsDevice, Content);
-
+			currentState = new GameProject.States.LogoState(this, graphics.GraphicsDevice, Content);
 			base.Initialize();
 		}
 
@@ -319,16 +318,17 @@ namespace GameProject
 		{
 			// TODO: Add your drawing code here
 			GraphicsDevice.Clear(Color.Black);
+			currentState.Draw(gameTime, spriteBatch);
 			//if(graphics.PreferredBackBufferWidth != Width || graphics.PreferredBackBufferHeight != Height)
 			//{
 			//	graphics.PreferredBackBufferWidth = Width;
 			//	graphics.PreferredBackBufferHeight = Height;
 			//	graphics.ApplyChanges();
 			//}
-			currentState.Draw(gameTime, spriteBatch);
-            //Create new sprite batch for version info + debug display
-            spriteBatch.Begin();
-            if (Debugger.IsAttached)
+			//Begin new sprite batch for debug info
+			spriteBatch.Begin();
+
+			if (Debugger.IsAttached)
             {
 				DateTime compilationDate = new FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime;
 				spriteBatch.DrawString(font, "Debug Mode Enabled", new Vector2(0, 0), Color.Red);
