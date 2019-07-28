@@ -25,7 +25,7 @@ namespace GameProject.Sprites
 				if (this.IsTouching(player))
 				{
 					int dmg = Game.RandomNumber(DamageMin, DamageMax);
-					player.GetPhysicalDamage(dmg);
+					player.GetDamage(dmg);
 					Hidden = true;
 				}
 			}

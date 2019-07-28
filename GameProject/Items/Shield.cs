@@ -13,8 +13,6 @@ namespace GameProject.Items
 	public abstract class Shield : Equippable
 	{
 		public float BlockingDamageReduction { get; set; }
-		public int MaxDurability { get; set; }
-		public int CurrentDurability { get; set; }
 		public Shield(Texture2D t, Vector2 scale) : base(t, scale)
 		{
 		}

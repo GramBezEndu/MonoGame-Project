@@ -17,8 +17,6 @@ namespace GameProject.Items
 		/// Contains every possible equippable item attribute
 		/// </summary>
 		public Dictionary<string, float> Attributes = new Dictionary<string, float>();
-		//public float DamageReduction { get; set; }
-		//public float MagicDamageReduction { get; set; }
 		//public float MovementSpeed { get; set; }
 		public Equippable(Texture2D t, Vector2 scale) : base(t, scale)
 		{
@@ -28,7 +26,6 @@ namespace GameProject.Items
 			Attributes.Add("DamageMin", 0);
 			Attributes.Add("DamageMax", 0);
 			Attributes.Add("DamageReduction", 0f);
-			Attributes.Add("MagicDamageReduction", 0f);
 			//Movement speed bonus
 			Attributes.Add("MovementSpeed", 0f);
 			Attributes.Add("CriticalStrikeChance", 0f);

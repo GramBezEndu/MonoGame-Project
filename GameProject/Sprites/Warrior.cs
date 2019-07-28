@@ -66,7 +66,7 @@ namespace GameProject.Sprites
 		{
 			if (Keyboard.GetState().IsKeyDown(input.KeyBindings["DodgeBlock"].GetValueOrDefault()))
 			{
-				//Check if warrior has shield equipped (with more than 0 durability), we need to check it every time
+				//Check if warrior has shield equipped, we need to check it every time
 				bool equippedShield = false;
 				foreach (InventorySlot i in InventoryManager.EquipmentManager.EquipmentSlots)
 				{
@@ -74,13 +74,12 @@ namespace GameProject.Sprites
 					{
 						if (i.Item != null)
 						{
-							if ((i.Item as Shield).CurrentDurability > 0)
-								equippedShield = true;
+							equippedShield = true;
 						}
 						break;
 					}
 				}
-				//Allow blocking if shield is equipped and it has more than 0 durability
+				//Allow blocking if shield is equipped
 				if (equippedShield)
 				{
 					//Right Block

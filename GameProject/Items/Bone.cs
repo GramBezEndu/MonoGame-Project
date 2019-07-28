@@ -15,7 +15,7 @@ namespace GameProject.Items
             IsStackable = true;
             Name = "Bone";
             Description = "Common drop from skeleton monsters.\n"
-            + "Used to upgrade gear.";
+            + "Used to craft legendary gear.";
         }
     }
 }

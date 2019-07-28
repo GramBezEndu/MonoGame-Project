@@ -129,6 +129,17 @@ namespace GameProject.States
             }
             else
                 throw new NotImplementedException();
+
+			//100% chance for normal boss
+			if(level == 10)
+			{
+
+			}
+			//100% chance for mysterious chest
+			else if(level % 10 == 0)
+			{
+				SpawnMysteriousChest(new Vector2(levelWidth - 0.4f * Game.Width, 0.82f * Game.Height));
+			}
         }
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

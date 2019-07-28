@@ -38,7 +38,6 @@ namespace GameProject
 			string damageStr = "Damage: " + equipmentManager.Attributes["DamageMin"].ToString() + '-' + equipmentManager.Attributes["DamageMax"].ToString();
 			string criticalStrikeChanceStr = "Critical Strike Chance: " + equipmentManager.Attributes["CriticalStrikeChance"] * 100 + "%";
 			string damageReductionStr = "Damage reduction: " + equipmentManager.Attributes["DamageReduction"] * 100 + "%";
-			string magicDamangeReductionStr = "Magic damage reduction: " + equipmentManager.Attributes["MagicDamageReduction"] * 100 + "%";
 			string movementSpeedBonusStr = "Movement speed bonus: " + equipmentManager.Attributes["MovementSpeed"] * 100 + "%";
 			string bonusDamage = "Bonus damage: " + equipmentManager.Attributes["BonusDamage"] * 100 + "%";
 
@@ -50,9 +49,6 @@ namespace GameProject
 
 			spriteBatch.DrawString(font, damageReductionStr, new Vector2(this.Position.X, this.Position.Y + size.Y), Color.Black);
 			size += font.MeasureString(damageReductionStr);
-
-			spriteBatch.DrawString(font, magicDamangeReductionStr, new Vector2(this.Position.X, this.Position.Y + size.Y), Color.Black);
-			size += font.MeasureString(magicDamangeReductionStr);
 
 			spriteBatch.DrawString(font, movementSpeedBonusStr, new Vector2(this.Position.X, this.Position.Y + size.Y), Color.Black);
 			size += font.MeasureString(movementSpeedBonusStr);

@@ -316,6 +316,13 @@ namespace GameProject
 			//If the window has no focus, we do not update
 			if(this.IsActive)
 				currentState.Update(gameTime);
+			else
+			{
+				if(currentState is GameState)
+				{
+					(currentState as GameState).Paused = true;
+				}
+			}
 
 			currentState.PostUpdate();
 			base.Update(gameTime);

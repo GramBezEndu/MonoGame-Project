@@ -160,7 +160,7 @@ namespace GameProject.Sprites
 		/// Get damage (for example from enemy), it recaltulates the damage based on player's damage reduction
 		/// </summary>
 		/// <param name="x"></param>
-		public void GetPhysicalDamage(int x)
+		public void GetDamage(int x)
 		{
 			if(!IsDead)
 			{

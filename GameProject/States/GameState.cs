@@ -61,7 +61,7 @@ namespace GameProject.States
 		//public static bool SpeedrunTimerEnabled = false;
 		//public static GameTimer SpeedrunTimer = new GameTimer(0f, true);
 		public static SpeedrunTimer SpeedrunTimer;
-		protected bool Paused { get; set; }
+		public bool Paused { get; set; }
 		protected KeyboardState PreviousState { get; set; }
 		protected KeyboardState CurrentState { get; set; }
 		protected Camera camera;
@@ -443,12 +443,12 @@ namespace GameProject.States
 						multiplier = Game.RandomCriticalMultiplier();
 						dmg = (int)(dmg * multiplier);
 						//Deal damage to enemy
-						e.GetPhysicalDamage(dmg, true);
+						e.GetDamage(dmg, true);
 					}
 					//Was not critical
 					else
 					{
-						e.GetPhysicalDamage(dmg, false);
+						e.GetDamage(dmg, false);
 					}
 				}
 			}
@@ -468,7 +468,7 @@ namespace GameProject.States
 				{
 					int dmg = Game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
 						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
-					e.GetPhysicalDamage(dmg, false);
+					e.GetDamage(dmg, false);
 				}
 			}
 		}

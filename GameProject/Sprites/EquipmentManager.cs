@@ -25,7 +25,6 @@ namespace GameProject.Sprites
 
 			//Attributes copy from equippable
 			Attributes.Add("DamageReduction", 0f);
-			Attributes.Add("MagicDamageReduction", 0f);
 			//Movement speed bonus
 			Attributes.Add("MovementSpeed", 0f);
 			Attributes.Add("CriticalStrikeChance", 0f);
@@ -67,7 +66,6 @@ namespace GameProject.Sprites
 					eq.Item.Update(gameTime);
 					TempDictionary["DamageReduction"] += (eq.Item as Equippable).Attributes["DamageReduction"];
 					TempDictionary["MovementSpeed"] += (eq.Item as Equippable).Attributes["MovementSpeed"];
-					TempDictionary["MagicDamageReduction"] += (eq.Item as Equippable).Attributes["MagicDamageReduction"];
 					TempDictionary["DamageMin"] += (eq.Item as Equippable).Attributes["DamageMin"];
 					TempDictionary["DamageMax"] += (eq.Item as Equippable).Attributes["DamageMax"];
 					TempDictionary["CriticalStrikeChance"] += (eq.Item as Equippable).Attributes["CriticalStrikeChance"];
