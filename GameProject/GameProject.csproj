@@ -143,7 +143,8 @@
     <Compile Include="Sprites\StaminaUser.cs" />
     <Compile Include="States\ClassSelect.cs" />
     <Compile Include="States\Credits.cs" />
-    <Compile Include="States\Dungeon.cs" />
+    <Compile Include="States\DungeonLobby.cs" />
+    <Compile Include="States\SkeletonDungeon.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\LogoState.cs" />
     <Compile Include="States\MainMenu.cs" />

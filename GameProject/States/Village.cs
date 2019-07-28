@@ -47,7 +47,7 @@ namespace GameProject.States
 				},
 			};
 
-			var dungeonEntrance = new Sprite(Textures["DungeonEntrance"], g.Scale)
+			var dungeonEntrance = new Sprite(Textures["DungeonLobbyEntrance"], g.Scale)
 			{
 				Position = new Vector2(1.113f * Game.Width, 0.4f * Game.Height)
 			};
@@ -287,7 +287,7 @@ namespace GameProject.States
 
         private void NextState()
         {
-			GameState newState = new Dungeon(Game, Game.GraphicsDevice, Game.Content, player);
+			GameState newState = new DungeonLobby(Game, Game.GraphicsDevice, Game.Content, player);
 			Game.ChangeState(newState);
 			player.gameState = newState;
         }

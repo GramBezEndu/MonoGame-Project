@@ -15,9 +15,9 @@ namespace GameProject.States
 	public class OptionalRoom : GameState
 	{
 		Door GoBackDoor;
-		Dungeon dungeonLevel;
+		SkeletonDungeon dungeonLevel;
 		public Vector2 OldPlayerPosition { get; set; }
-		public OptionalRoom(Game1 g, GraphicsDevice gd, ContentManager c, Player p, int level, Dungeon gameLevel) : base(g, gd, c)
+		public OptionalRoom(Game1 g, GraphicsDevice gd, ContentManager c, Player p, int level, SkeletonDungeon gameLevel) : base(g, gd, c)
 		{
 			#region variables
 			var background = content.Load<Texture2D>("OptionalRoomBackground");
