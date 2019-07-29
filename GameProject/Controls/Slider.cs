@@ -76,18 +76,21 @@ namespace GameProject.Controls
 
 		public override void Update(GameTime gameTime)
 		{
-			var mouseRectangle = new Rectangle(input.CurrentMouseState.X, input.CurrentMouseState.Y, 1, 1);
-			if (mouseRectangle.Intersects(Rectangle))
+			if(!Hidden)
 			{
-				Vector2 mousePos = new Vector2(input.CurrentMouseState.X, input.CurrentMouseState.Y);
-				//Left mouse button is pressed
-				if (input.CurrentMouseState.LeftButton == ButtonState.Pressed)
+				var mouseRectangle = new Rectangle(input.CurrentMouseState.X, input.CurrentMouseState.Y, 1, 1);
+				if (mouseRectangle.Intersects(Rectangle))
 				{
-					Vector2 positionRelated = mousePos - this.Position;
-					int width = (int)positionRelated.X;
+					Vector2 mousePos = new Vector2(input.CurrentMouseState.X, input.CurrentMouseState.Y);
+					//Left mouse button is pressed
+					if (input.CurrentMouseState.LeftButton == ButtonState.Pressed)
+					{
+						Vector2 positionRelated = mousePos - this.Position;
+						int width = (int)positionRelated.X;
 
-					CurrentValue = (float)Math.Round(((float)width / this.Width), 2);
-					Click?.Invoke(this, new EventArgs());
+						CurrentValue = (float)Math.Round(((float)width / this.Width), 2);
+						Click?.Invoke(this, new EventArgs());
+					}
 				}
 			}
 		}

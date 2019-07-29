@@ -17,7 +17,6 @@ namespace GameProject.States
 {
 	public class Settings : State
 	{
-		SpriteFont font;
 		List<Button> keybindsButtons = new List<Button>();
         List<string> inputKeybindStrings = new List<string>();
 		/// <summary>
@@ -30,122 +29,101 @@ namespace GameProject.States
 
 		///Represents max font width (from input keybinds strings), so buttons can be placed correctly
 		Vector2 size = new Vector2(0, 0);
+
+		List<Component> keybindingsComponents = new List<Component>();
+		List<Component> gameplayComponents = new List<Component>();
+		List<Component> audioComponents = new List<Component>();
+		List<Component> videoComponents = new List<Component>();
+
         public Settings(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
-			var background = content.Load<Texture2D>("Background");
-			var buttonTexture = content.Load<Texture2D>("Button");
-			var buttonFont = content.Load<SpriteFont>("Font");
-			var settingsTexture = content.Load<Texture2D>("BackgroundBig");
-			var keyBorderTexture = content.Load<Texture2D>("SettingsBorder");
-            var c1 = content.Load<Texture2D>("Checkbox");
-            var c2 = content.Load<Texture2D>("CheckboxChecked");
-			font = content.Load<SpriteFont>("Font");
+			//Shared components
+			CreateSharedComponents();
 
-            staticComponents = new List<Component>
-            {
-                new Sprite(background, g.Scale)
-                {
-                    Position = new Vector2(0,0)
-                },
-                new Sprite(settingsTexture, g.Scale)
-                {
-                    Position = new Vector2(1f/4f*Game.Width, 0.03f*Game.Height)
-                },
-                new Button(buttonTexture, buttonFont, g.Scale)
-                {
-                Text = "Back",
-                Position = new Vector2(0.01f * g.Width, 0.9f * g.Height),
-                Click = Back
-                },
-            };
+			//Categories buttons
+			CreateCategoriesButtons();
 
-            //Make keybinds strings
-            foreach (var s in Game.Input.KeyBindings)
-            {
+			//Keybindings components
+			CreateKeybindingsComponents();
+
+			//Gameplay components
+			CreateGameplayComponents();
+
+			//Audio components
+			CreateAudioComponents();
+
+			//Video components
+			CreateVideoComponents();
+
+			//On default show keybindings components
+			ShowKeybindingsComponents(this, new EventArgs());
+		}
+
+		private void CreateKeybindingsComponents()
+		{
+			//Make keybinds strings
+			foreach (var s in Game.Input.KeyBindings)
+			{
 				string actualString = s.Key.ToString();
 				inputKeybindStrings.Add(actualString);
-                Vector2 currentSize = font.MeasureString(actualString);
-                size.X = Math.Max(size.X, currentSize.X);
-            }
+				Vector2 currentSize = Font.MeasureString(actualString);
+				size.X = Math.Max(size.X, currentSize.X);
+			}
 
-			var tempButton = new Button(buttonTexture, font, g.Scale);
+			var tempButton = new Button(Textures["Button"], Font, Game.Scale);
 
-            //Make keybinds buttons (need to set correct Y still)
-            for (int i = 0; i < Game.Input.KeyBindings.Count; i++)
-            {
-                keybindsButtons.Add(new Button(buttonTexture, font, g.Scale)
-                {
-                    Position = new Vector2(0.255f * Game.Width + size.X, 0.033f * Game.Height + i*tempButton.Height),
-                    Text = Game.Input.KeyBindings.ElementAt(i).Value.ToString(),
+			//Make keybinds buttons (need to set correct Y still)
+			for (int i = 0; i < Game.Input.KeyBindings.Count; i++)
+			{
+				keybindsButtons.Add(new Button(Textures["Button"], Font, Game.Scale)
+				{
+					Position = new Vector2(0.255f * Game.Width + size.X, 0.09f * Game.Height + i * tempButton.Height),
+					Text = Game.Input.KeyBindings.ElementAt(i).Value.ToString(),
 					Click = ChangeKeybind
-                }
-                );
-            }
+				}
+				);
+			}
 
 			//Iterate over strings and make Text components
 			for (int i = 0; i < inputKeybindStrings.Count; i++)
 			{
-				staticComponents.Add(new Text(font, inputKeybindStrings[i])
+				keybindingsComponents.Add(new Text(Font, inputKeybindStrings[i])
 				{
-					Position = new Vector2(0.255f * Game.Width, 0.05f * Game.Height + i * keybindsButtons[i].Height)
+					Position = new Vector2(0.255f * Game.Width, 0.107f * Game.Height + i * keybindsButtons[i].Height)
 				}
-				);	
+				);
 			}
 
 			//Make a list of bools (default false)
 			bindingNow = new List<bool>(new bool[Game.Input.KeyBindings.Count]);
 
-			staticComponents.AddRange(keybindsButtons);
+			keybindingsComponents.AddRange(keybindsButtons);
 
-			//Add a music volume slider + text component
-			var musicVolumeText = new Text(font, "Music volume ")
+			staticComponents.AddRange(keybindingsComponents);
+		}
+
+		private void CreateGameplayComponents()
+		{
+			//Add a speedrun timer checkbox + text
+			var speedrunTimerText = new Text(Font, "Speedrun timer")
 			{
-				Position = new Vector2(0.5f * g.Width, 0.2f * g.Height)
+				Position = new Vector2(0.5f * Game.Width, 0.5f * Game.Height)
 			};
 
-			staticComponents.Add(musicVolumeText);
+			gameplayComponents.Add(speedrunTimerText);
 
-			musicVolume = new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], font, g.Scale)
-			{
-				Position = new Vector2(musicVolumeText.Position.X + musicVolumeText.Width, musicVolumeText.Position.Y),
-				Click = ChangeMusicVolume,
-				CurrentValue = MediaPlayer.Volume
-			};
+			staticComponents.AddRange(gameplayComponents);
+		}
 
-			staticComponents.Add(musicVolume);
-
-			//Add a sound volume slider + text component
-			var sfxVolumeText = new Text(font, "Sfx volume ")
-			{
-				Position = new Vector2(musicVolumeText.Position.X, musicVolumeText.Position.Y + 2 * musicVolumeText.Height)
-			};
-
-			staticComponents.Add(sfxVolumeText);
-
-			sfxVolume = new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], font, g.Scale)
-			{
-				Position = new Vector2(sfxVolumeText.Position.X + sfxVolumeText.Width, sfxVolumeText.Position.Y),
-				Click = ChangeSfxVolume,
-				CurrentValue = SoundEffect.MasterVolume
-			};
-
-			staticComponents.Add(sfxVolume);
-			//Add a restore to defaults button
-			staticComponents.Add(new Button(buttonTexture, font, Game.Scale)
-			{
-				Position = new Vector2(0.7f * g.Width, 0.9f * g.Height),
-				Text = "Restore to defaults",
-				Click = RestoreToDefaults
-			}
-			);
-
+		private void CreateVideoComponents()
+		{
 			//Add a fullscreen checkbox + text
-			var fullscreenText = new Text(font, "Fullscreen")
+			var fullscreenText = new Text(Font, "Fullscreen")
 			{
-				Position = new Vector2(sfxVolumeText.Position.X, sfxVolumeText.Position.Y + 2*sfxVolumeText.Height)
+				Position = new Vector2(0.5f * Game.Width, 0.5f * Game.Height)
 			};
 
-			staticComponents.Add(fullscreenText);
+			videoComponents.Add(fullscreenText);
 
 			var checkboxAnimations = new Dictionary<string, Animation>()
 			{
@@ -159,15 +137,15 @@ namespace GameProject.States
 				Click = ChangeWindowMode,
 				Checked = Game.graphics.IsFullScreen
 			};
-			staticComponents.Add(fullscreenCheckBox);
+			videoComponents.Add(fullscreenCheckBox);
 
 			//Add a resolution list + text
-			var resolutionText = new Text(font, "Resolution")
+			var resolutionText = new Text(Font, "Resolution")
 			{
 				Position = new Vector2(fullscreenText.Position.X, fullscreenText.Position.Y + 3 * fullscreenText.Height)
 			};
 
-			staticComponents.Add(resolutionText);
+			videoComponents.Add(resolutionText);
 
 			List<string> Resolutions = new List<string>()
 			{
@@ -181,7 +159,7 @@ namespace GameProject.States
 				"800 x 600",
 			};
 
-			var resolutionList = new SelectableList(Input, Textures["ArrowSelector"], g.Scale, font, Resolutions)
+			var resolutionList = new SelectableList(Input, Textures["ArrowSelector"], Game.Scale, Font, Resolutions)
 			{
 				Position = new Vector2(resolutionText.Position.X + resolutionText.Width, resolutionText.Position.Y),
 				OnValueChange = ChangeResolution
@@ -191,7 +169,156 @@ namespace GameProject.States
 
 			resolutionList.ChangeSelectedOption(actualRes);
 
-			staticComponents.Add(resolutionList);
+			videoComponents.Add(resolutionList);
+
+			staticComponents.AddRange(videoComponents);
+		}
+
+		private void CreateAudioComponents()
+		{
+			//Add a music volume slider + text component
+			var musicVolumeText = new Text(Font, "Music volume ")
+			{
+				Position = new Vector2(0.5f * Game.Width, 0.2f * Game.Height)
+			};
+
+			audioComponents.Add(musicVolumeText);
+
+			musicVolume = new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], Font, Game.Scale)
+			{
+				Position = new Vector2(musicVolumeText.Position.X + musicVolumeText.Width, musicVolumeText.Position.Y),
+				Click = ChangeMusicVolume,
+				CurrentValue = MediaPlayer.Volume
+			};
+
+			audioComponents.Add(musicVolume);
+
+			//Add a sound volume slider + text component
+			var sfxVolumeText = new Text(Font, "Sfx volume ")
+			{
+				Position = new Vector2(musicVolumeText.Position.X, musicVolumeText.Position.Y + 2 * musicVolumeText.Height)
+			};
+
+			audioComponents.Add(sfxVolumeText);
+
+			sfxVolume = new Slider(Input, Textures["SliderBorder"], Textures["SliderFilled"], Font, Game.Scale)
+			{
+				Position = new Vector2(sfxVolumeText.Position.X + sfxVolumeText.Width, sfxVolumeText.Position.Y),
+				Click = ChangeSfxVolume,
+				CurrentValue = SoundEffect.MasterVolume
+			};
+
+			audioComponents.Add(sfxVolume);
+
+			staticComponents.AddRange(audioComponents);
+		}
+
+		private void CreateSharedComponents()
+		{
+			staticComponents = new List<Component>
+			{
+				new Sprite(Textures["Background"], Game.Scale)
+				{
+					Position = new Vector2(0,0)
+				},
+				new Sprite(Textures["BackgroundBig"], Game.Scale)
+				{
+					Position = new Vector2(1f/4f*Game.Width, 0.03f*Game.Height)
+				},
+				new Button(Textures["Button"], Font, Game.Scale)
+				{
+				Text = "Back",
+				Position = new Vector2(0.01f * Game.Width, 0.9f * Game.Height),
+				Click = Back
+				},
+				new Button(Textures["Button"], Font, Game.Scale)
+				{
+				Position = new Vector2(0.7f * Game.Width, 0.9f * Game.Height),
+				Text = "Restore to defaults",
+				Click = RestoreToDefaults
+				},
+			};
+		}
+
+		private void CreateCategoriesButtons()
+		{
+			var keybindingsSettingButton = new Button(Textures["Button"], Font, Game.Scale)
+			{
+				Text = "Keybindings",
+				Position = new Vector2(0.255f * Game.Width, 0.033f * Game.Height),
+				Click = ShowKeybindingsComponents
+			};
+			var gameplaySettingButton = new Button(Textures["Button"], Font, Game.Scale)
+			{
+				Text = "Gameplay",
+				Position = new Vector2(keybindingsSettingButton.Position.X + keybindingsSettingButton.Width, keybindingsSettingButton.Position.Y),
+				Click = ShowGameplayComponents
+			};
+			var audioSettingButton = new Button(Textures["Button"], Font, Game.Scale)
+			{
+				Text = "Audio",
+				Position = new Vector2(gameplaySettingButton.Position.X + gameplaySettingButton.Width, gameplaySettingButton.Position.Y),
+				Click = ShowAudioComponents
+			};
+			var videoSettingsButton = new Button(Textures["Button"], Font, Game.Scale)
+			{
+				Text = "Video",
+				Position = new Vector2(audioSettingButton.Position.X + audioSettingButton.Width, audioSettingButton.Position.Y),
+				Click = ShowVideoComponents
+			};
+
+			staticComponents.Add(keybindingsSettingButton);
+			staticComponents.Add(gameplaySettingButton);
+			staticComponents.Add(audioSettingButton);
+			staticComponents.Add(videoSettingsButton);
+		}
+
+		private void ShowKeybindingsComponents(object sender, EventArgs e)
+		{
+			foreach (var c in keybindingsComponents)
+				c.Hidden = false;
+			foreach (var c in gameplayComponents)
+				c.Hidden = true;
+			foreach (var c in audioComponents)
+				c.Hidden = true;
+			foreach (var c in videoComponents)
+				c.Hidden = true;
+		}
+
+		private void ShowGameplayComponents(object sender, EventArgs e)
+		{
+			foreach (var c in keybindingsComponents)
+				c.Hidden = true;
+			foreach (var c in gameplayComponents)
+				c.Hidden = false;
+			foreach (var c in audioComponents)
+				c.Hidden = true;
+			foreach (var c in videoComponents)
+				c.Hidden = true;
+		}
+
+		private void ShowVideoComponents(object sender, EventArgs e)
+		{
+			foreach (var c in keybindingsComponents)
+				c.Hidden = true;
+			foreach (var c in gameplayComponents)
+				c.Hidden = true;
+			foreach (var c in audioComponents)
+				c.Hidden = true;
+			foreach (var c in videoComponents)
+				c.Hidden = false;
+		}
+
+		private void ShowAudioComponents(object sender, EventArgs e)
+		{
+			foreach (var c in keybindingsComponents)
+				c.Hidden = true;
+			foreach (var c in gameplayComponents)
+				c.Hidden = true;
+			foreach (var c in audioComponents)
+				c.Hidden = false;
+			foreach (var c in videoComponents)
+				c.Hidden = true;
 		}
 
 		private void ChangeResolution(object sender, EventArgs e)
