@@ -25,13 +25,17 @@ namespace GameProject
 		public bool Hidden { get; set; }
 		private List<InventorySlot> slots;
 		private Sprite Trashcan;
+		private Sprite HealthAndStaminaBackground;
 		private GameState GameState;
+		private Game1 Game;
 		/// <summary>
 		/// Initializes new inventory
+		/// Note: It should not inherit from Sprite, needs a channge
 		/// </summary>
 		/// <param name="quantitySlots">How many slots will inventory have</param>
-		public InventoryManager(GameState gs, GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, Texture2D trashcan, SpriteFont f, int quantitySlots, Vector2 position, Vector2 scale) : base(inventoryTexture, scale)
+		public InventoryManager(Game1 g, GameState gs, GraphicsDevice gd, Player p, Texture2D inventoryTexture, Texture2D slotTexture, Texture2D gold, Texture2D trashcan, SpriteFont f, int quantitySlots, Vector2 position, Vector2 scale) : base(inventoryTexture, scale)
 		{
+			Game = g;
 			GameState = gs;
 			Hidden = true;
 			Position = position;
@@ -68,10 +72,13 @@ namespace GameProject
 					);
 				}
 			}
+			HealthAndStaminaBackground = new Sprite(gs.Textures["HealthAndStaminaBackground"], scale);
+			HealthAndStaminaBackground.Position = new Vector2(0, Game.Height - HealthAndStaminaBackground.Height);
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			//Access slots are always visible
+			//Access slots and health+stamina background are always visible
+			HealthAndStaminaBackground.Draw(gameTime, spriteBatch);
 			AccessSlotsManager.Draw(gameTime, spriteBatch);
 
 			if (!Hidden)
@@ -96,6 +103,7 @@ namespace GameProject
 			//It might be incorrect later, watch out! (InventorySlot Update() now checks only for player input and item Use() or Equip() so it's correct, but if you want to update here Item it won't be correct)
 			if (!Hidden)
 			{
+				HealthAndStaminaBackground.Update(gameTime);
 				EquipmentManager.Update(gameTime);
 				foreach (var s in slots)
 					s.Update(gameTime);

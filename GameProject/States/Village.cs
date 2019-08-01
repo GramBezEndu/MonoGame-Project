@@ -151,7 +151,7 @@ namespace GameProject.States
 			{
 				Position = new Vector2(0.05f * Game.Width, 0.4f * Game.Height)
 			};
-			player.InventoryManager = new InventoryManager(this, gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * Game.Width, 0.05f * Game.Height), Game.Scale);
+			player.InventoryManager = new InventoryManager(Game, this, gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * Game.Width, 0.05f * Game.Height), Game.Scale);
 			//Create AccessSlotsManager
 			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(this, gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * Game.Width, 0.8f * Game.Height), Input);
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * Game.Width, 0.9f * Game.Height), Game.Scale);
@@ -219,7 +219,7 @@ namespace GameProject.States
 			{
 				Position = new Vector2(0.05f * Game.Width, 0.4f * Game.Height)
 			};
-			player.InventoryManager = new InventoryManager(this, gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * Game.Width, 0.05f * Game.Height), Game.Scale);
+			player.InventoryManager = new InventoryManager(Game, this, gd, player, Textures["Inventory"], Textures["InventorySlot"], Textures["Gold"], Textures["Trashcan"], Font, inventorySlots, new Vector2(0.55f * Game.Width, 0.05f * Game.Height), Game.Scale);
 			//Create AccessSlotsManager
 			player.InventoryManager.AccessSlotsManager = new AccessSlotsManager(this, gd, player, Textures["InventorySlot"], Font, g.Scale, new Vector2(0.03f * Game.Width, 0.8f * Game.Height), Input);
 			player.HealthBar = new HealthBar(Textures["HealthBarBorder"], Textures["Health"], Font, new Vector2(0.03f * Game.Width, 0.9f * Game.Height), Game.Scale);

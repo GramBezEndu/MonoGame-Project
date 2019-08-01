@@ -199,8 +199,6 @@ namespace GameProject.States
 					c.Update(gameTime);
 				foreach (var mc in movingComponents)
 					mc.Update(gameTime);
-                //Need seperate list, you can't update optional entrance before updating input which is updated in player
-                //Need to rethink this concept
                 foreach (var oe in optionalEntrances)
                     oe.Update(gameTime);
 				for(int i=0;i<optionalEntrances.Count;i++)

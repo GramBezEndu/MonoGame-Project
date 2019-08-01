@@ -110,6 +110,8 @@ namespace GameProject.States
 						return;
 					}
 				}
+				foreach (var ui in uiComponents)
+					ui.Update(gameTime);
 				camera.Follow(Game, player);
 			}
 			else

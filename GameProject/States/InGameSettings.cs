@@ -18,7 +18,7 @@ namespace GameProject.States
 
 		protected override void ShowVideoComponents(object sender, EventArgs e)
 		{
-			this.CreateMessage("Video settings are available only from Main Menu");
+			this.CreateMessage("Video settings are available through from Main Menu");
 		}
 
 		protected override void Back(object sender, EventArgs e)
