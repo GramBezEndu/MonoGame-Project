@@ -426,10 +426,21 @@ namespace GameProject.Sprites
 			player.activeSlots = null;
 		}
 
+		/// <summary>
+		/// Hides components and adds items that are left in slots to player's inventory
+		/// </summary>
 		protected override void Hide()
 		{
 			base.Hide();
 			HideWindows();
+			foreach(var i in upgradeSlots)
+			{
+				if(i.Item != null)
+				{
+					player.InventoryManager.AddItem((Item)i.Item.Clone());
+					i.Item = null;
+				}
+			}
 		}
 
 		public override void Update(GameTime gameTime)

@@ -39,32 +39,29 @@ namespace GameProject.Tutorials
 		public override void Update(GameTime gameTime)
 		{
 			CheckForActivation();
-			if(Activated)
+			if(Activated && !Completed)
 			{
 				GameState.IsDisplayingTutorial = true;
-				if (!Completed)
+				//If message was not shown yet
+				if (MessageWasShown[actualMessageIndex] == false)
 				{
-					//If message was not shown yet
-					if (MessageWasShown[actualMessageIndex] == false)
-					{
-						var actualMsg = GameState.CreateMessage(MessagesStrings[actualMessageIndex], true);
-						//Change the text from "Skip " to "Next " if there are more incoming messages
-						if(actualMessageIndex + 1 < MessagesStrings.Count)
-							actualMsg.SkipTextString = "Next ";
-						Messages.Add(actualMsg);
-						MessageWasShown[actualMessageIndex] = true;
-					}
-					//Switch to next message (when message timer ended or message was skipped)
-					if (Messages[actualMessageIndex].Hidden == true)
-					{
-						actualMessageIndex += 1;
-					}
-					//End of messages -> every message ENDED
-					if (actualMessageIndex >= MessagesStrings.Count)
-					{
-						Completed = true;
-						GameState.IsDisplayingTutorial = false;
-					}
+					var actualMsg = GameState.CreateMessage(MessagesStrings[actualMessageIndex], true);
+					//Change the text from "Skip " to "Next " if there are more incoming messages
+					if(actualMessageIndex + 1 < MessagesStrings.Count)
+						actualMsg.SkipTextString = "Next ";
+					Messages.Add(actualMsg);
+					MessageWasShown[actualMessageIndex] = true;
+				}
+				//Switch to next message (when message timer ended or message was skipped)
+				if (Messages[actualMessageIndex].Hidden == true)
+				{
+					actualMessageIndex += 1;
+				}
+				//End of messages -> every message ENDED
+				if (actualMessageIndex >= MessagesStrings.Count)
+				{
+					Completed = true;
+					GameState.IsDisplayingTutorial = false;
 				}
 			}
 		}
