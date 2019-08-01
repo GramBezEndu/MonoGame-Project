@@ -72,6 +72,8 @@ namespace GameProject.States
 			SpawnBlacksmith(new Vector2(0.52f * Game.Width, 0.33f * Game.Height));
 			SpawnTrainingDummy(new Vector2(0.7f * Game.Width, 0.4f * Game.Height));
 			SpawnStatueOfGods(new Vector2(0.9f * Game.Width, 0.47f * Game.Height));
+
+			Game.ChangeBackgroundSong(Songs["Village"]);
 		}
 
 		private void AddCommonPlayerUiComponents()

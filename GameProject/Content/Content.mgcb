@@ -2000,6 +2000,18 @@
 /processorParam:Quality=Best
 /build:Songs/MainMenu.mp3
 
+#begin Songs/SkeletonDungeon.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Songs/SkeletonDungeon.mp3
+
+#begin Songs/Village.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Songs/Village.mp3
+
 #begin Sounds/MessageNotification.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

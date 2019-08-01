@@ -60,6 +60,8 @@ namespace GameProject.States
 
 			collisionSprites.Add(wall);
 			collisionSprites.Add(endWall);
+
+			Game.ChangeBackgroundSong(null);
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

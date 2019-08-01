@@ -74,6 +74,12 @@ namespace GameProject
 			//We do not allow to change song to the same song
 			if (IsThisSongPlaying(song))
 				return;
+			//If parameter is null we stop playing music
+			if (song == null)
+			{
+				MediaPlayer.Stop();
+				return;
+			}
 			nextBackgroundSong = song;
 		}
 		
