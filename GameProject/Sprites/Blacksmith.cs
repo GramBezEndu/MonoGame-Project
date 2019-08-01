@@ -14,11 +14,7 @@ namespace GameProject.Sprites
 {
 	public class Blacksmith : InteractableSpriteWithWindows
 	{
-		//UiElements list -> base components
-
-		List<Component> addingScrollComponents = new List<Component>();
-
-		List<Component> scrollUpgradeComponents = new List<Component>();
+		//UiElements list -> window components
 
 		/// <summary>
 		/// List of improvements slots (used in upgrade) method
@@ -30,135 +26,46 @@ namespace GameProject.Sprites
 		public int UpgradeCost { get; set; } = 0;
 		public Text UpgradeCostText { get; set; }
 
-		List<Component> shieldRepairComponents = new List<Component>();
-
 		public Blacksmith(Game1 g, GameState gs, Sprite mainSprite, Sprite interactButton, Player p) : base(g, gs, mainSprite, interactButton, p)
 		{
 			MainWindowAddElements(g, gs);
 
-			//Note: Fused scroll adding and scroll upgrade to one window
-			//Shield Repair window is now disabled because repair feature might get removed
-			////Extra window 1
-			//ScrollAddingWindow(g, gs);
-			////Extra window 2
-			//ShieldRepairWindow(g, gs);
-			//Extra window 3
-			ScrollUpgradeWindow(g, gs);
-
-			//Apply changes to state
+			//Add components to state
 			gs.AddUiElements(UiElements);
-			//gs.AddUiElements(addingScrollComponents);
-			gs.AddUiElements(scrollUpgradeComponents);
-			//gs.AddUiElements(shieldRepairComponents);
 		}
 
 		private void MainWindowAddElements(Game1 g, GameState gs)
 		{
-			//Add special elements to window
-			Vector2 pos = background.Position;
-
-			var scrollUpgrade = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Position = pos,
-				//It could be "Joining scrolls" or sth like that
-				Text = "Upgrade",
-				Click = ActivateScrollUpgradeWindow,
-				Hidden = true
-			};
-			UiElements.Add(scrollUpgrade);
-
-			//var addScroll = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			//{
-			//	Position = pos,
-			//	Text = "Add Scroll",
-			//	Hidden = true,
-			//	Click = ActivateScrollAddingWindow
-			//};
-			//UiElements.Add(addScroll);
-			//pos += new Vector2(0, addScroll.Height);
-
-			//pos += new Vector2(0, scrollUpgrade.Height);
-			//var shieldRepair = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			//{
-			//	Position = pos,
-			//	Text = "Shield repair",
-			//	Click = ActivateRepairShieldWindow,
-			//	Hidden = true
-			//};
-			//UiElements.Add(shieldRepair);
-		}
-
-		private void ScrollAddingWindow(Game1 g, GameState gs)
-		{
-			var backgroundWindow = new Sprite(gs.Textures["Inventory"], g.Scale)
-			{
-				Hidden = true
-			};
-			backgroundWindow.Position = new Vector2(g.Width / 2 - backgroundWindow.Width / 2, g.Height / 2 - backgroundWindow.Height / 2);
-			addingScrollComponents.Add(backgroundWindow);
-			var exitButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Text = "Exit",
-				Hidden = true,
-				Click = HideWindow
-			};
-			exitButton.Position = new Vector2(backgroundWindow.Position.X, backgroundWindow.Rectangle.Bottom - exitButton.Height);
-			addingScrollComponents.Add(exitButton);
-
-			var upgradeCostDisplay = new Text(gs.Font, String.Format("Upgrade cost: {0}", UpgradeCost))
-			{
-				Hidden = true,
-			};
-			upgradeCostDisplay.Position = new Vector2(exitButton.Position.X, exitButton.Position.Y - upgradeCostDisplay.Height);
-			addingScrollComponents.Add(upgradeCostDisplay);
-		}
-
-		private void ScrollUpgradeWindow(Game1 g, GameState gs)
-		{
-			var scrollUpgradeBackground = new Sprite(gs.Textures["Inventory"], g.Scale)
-			{
-				Hidden = true
-			};
-			scrollUpgradeBackground.Position = new Vector2(g.Width / 2 - scrollUpgradeBackground.Width / 2, g.Height / 2 - scrollUpgradeBackground.Height / 2);
-			scrollUpgradeComponents.Add(scrollUpgradeBackground);
-			var exitButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Text = "Exit",
-				Hidden = true,
-				Click = HideWindow
-			};
-			exitButton.Position = new Vector2(scrollUpgradeBackground.Position.X, scrollUpgradeBackground.Rectangle.Bottom - exitButton.Height);
-			scrollUpgradeComponents.Add(exitButton);
-
 			var improvementSlotOne = new DraggableBlacksmithSlot(this, gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
 			{
-				Position = scrollUpgradeBackground.Position,
+				Position = background.Position,
 				Hidden = true
 			};
-			scrollUpgradeComponents.Add(improvementSlotOne);
+			UiElements.Add(improvementSlotOne);
 			upgradeSlots.Add(improvementSlotOne);
 
 			var improvementSlotTwo = new DraggableBlacksmithSlot(this, gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
 			{
-				Position = new Vector2(scrollUpgradeBackground.Position.X + improvementSlotOne.Width, scrollUpgradeBackground.Position.Y),
+				Position = new Vector2(background.Position.X + improvementSlotOne.Width, background.Position.Y),
 				Hidden = true
 			};
-			scrollUpgradeComponents.Add(improvementSlotTwo);
+			UiElements.Add(improvementSlotTwo);
 			upgradeSlots.Add(improvementSlotTwo);
 
-			var arrow = new Sprite(gs.Textures["Arrow"], g.Scale)
+			var arrow = new Button(gs.Textures["Arrow"], gs.Font, g.Scale)
 			{
-				Position = new Vector2(scrollUpgradeBackground.Position.X + improvementSlotOne.Width + improvementSlotTwo.Width, scrollUpgradeBackground.Position.Y),
-				Hidden = true
+				Position = new Vector2(background.Position.X + improvementSlotOne.Width + improvementSlotTwo.Width, background.Position.Y),
+				Hidden = true,
+				Click = Upgrade
 			};
-			scrollUpgradeComponents.Add(arrow);
+			UiElements.Add(arrow);
 
 			var improvementSlotThree = new DraggableBlacksmithSlot(this, gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
 			{
 				Position = new Vector2(arrow.Position.X + arrow.Width, arrow.Position.Y),
 				Hidden = true
 			};
-			scrollUpgradeComponents.Add(improvementSlotThree);
+			UiElements.Add(improvementSlotThree);
 			upgradeSlots.Add(improvementSlotThree);
 
 
@@ -167,17 +74,7 @@ namespace GameProject.Sprites
 				Hidden = true,
 			};
 			UpgradeCostText.Position = new Vector2(improvementSlotOne.Position.X, improvementSlotOne.Position.Y + improvementSlotOne.Height);
-			scrollUpgradeComponents.Add(UpgradeCostText);
-
-			var upgradeButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Position = new Vector2(UpgradeCostText.Position.X, UpgradeCostText.Position.Y + UpgradeCostText.Height),
-				Text = "Upgrade",
-				Hidden = true,
-				Click = Upgrade
-			};
-
-			scrollUpgradeComponents.Add(upgradeButton);
+			UiElements.Add(UpgradeCostText);
 		}
 
 		private void Upgrade(object sender, EventArgs e)
@@ -340,90 +237,14 @@ namespace GameProject.Sprites
 			upgradeSlots[1].Item = null;
 		}
 
-		private void ShieldRepairWindow(Game1 g, GameState gs)
-		{
-			var shieldRepairWindow = new Sprite(gs.Textures["Inventory"], g.Scale)
-			{
-				Hidden = true
-			};
-			shieldRepairWindow.Position = new Vector2(g.Width / 2 - shieldRepairWindow.Width / 2, g.Height / 2 - shieldRepairWindow.Height / 2);
-			shieldRepairComponents.Add(shieldRepairWindow);
-			var exitButton = new Button(gs.Textures["Button"], gs.Font, g.Scale)
-			{
-				Text = "Exit",
-				Hidden = true,
-				Click = HideWindow
-			};
-			exitButton.Position = new Vector2(shieldRepairWindow.Position.X, shieldRepairWindow.Rectangle.Bottom - exitButton.Height);
-			shieldRepairComponents.Add(exitButton);
-		}
-
-		private void ActivateRepairShieldWindow(object sender, EventArgs e)
-		{
-			//Hide every element
-			//Note: We can note call Hide() here because it enables interact button and sets player.IsUsingWindow flag to false
-			HideWindows();
-			//Display elements from correct component list only
-			foreach (var c in shieldRepairComponents)
-			{
-				c.Hidden = false;
-			}
-		}
-
-		private void ActivateScrollUpgradeWindow(object sender, EventArgs e)
-		{
-			//Hide every element
-			//Note: We can note call Hide() here because it enables interact button and sets player.IsUsingWindow flag to false
-			HideWindows();
-			//Display elements from correct component list only
-			foreach (var c in scrollUpgradeComponents)
-			{
-				c.Hidden = false;
-			}
-			player.activeSlots = upgradeSlots;
-		}
-
-		private void ActivateScrollAddingWindow(object sender, EventArgs e)
-		{
-			//Hide every element
-			//Note: We can note call Hide() here because it enables interact button and sets player.IsUsingWindow flag to false
-			HideWindows();
-			//Display elements from correct component list only
-			foreach (var c in addingScrollComponents)
-			{
-				c.Hidden = false;
-			}
-		}
-
-		private void HideWindows()
-		{
-			foreach (var c in UiElements)
-			{
-				c.Hidden = true;
-			}
-			foreach (var c in addingScrollComponents)
-			{
-				c.Hidden = true;
-			}
-			foreach (var c in scrollUpgradeComponents)
-			{
-				c.Hidden = true;
-			}
-			foreach (var c in shieldRepairComponents)
-			{
-				c.Hidden = true;
-			}
-		}
-
 		/// <summary>
-		/// Hides all blacksmith's components -> calls Hide() method and resets activeSlots
+		/// Hides all blacksmith's components -> calls Hide() method
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void HideWindow(object sender, EventArgs e)
 		{
 			Hide();
-			player.activeSlots = null;
 		}
 
 		/// <summary>
@@ -432,7 +253,6 @@ namespace GameProject.Sprites
 		protected override void Hide()
 		{
 			base.Hide();
-			HideWindows();
 			foreach(var i in upgradeSlots)
 			{
 				if(i.Item != null)
@@ -441,6 +261,7 @@ namespace GameProject.Sprites
 					i.Item = null;
 				}
 			}
+			player.activeSlots = null;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -472,6 +293,12 @@ namespace GameProject.Sprites
 		private void PlayAnimations()
 		{
 			MainSprite.animationManager.Play(MainSprite.animations["Idle"]);
+		}
+
+		protected override void OnActivate()
+		{
+			base.OnActivate();
+			player.activeSlots = upgradeSlots;
 		}
 	}
 }

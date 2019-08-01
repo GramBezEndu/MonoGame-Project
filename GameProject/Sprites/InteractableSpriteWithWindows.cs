@@ -49,27 +49,30 @@ namespace GameProject.Sprites
                 ui.Hidden = Hidden;
             player.UsingWindow = false;
         }
+
         public override void Update(GameTime gameTime)
         {
             //We do not display (and do not allow clicks) on Interact button if window is opened
             if (Hidden)
                 base.Update(gameTime);
+			//Update UiElements
+			if(!Hidden)
+			{
+				foreach (var c in UiElements)
+					c.Update(gameTime);
+			}
             //Close automatically window if player is too far away (too far away -> not touching main sprite now)
             if (!Hidden && !player.IsTouching(MainSprite))
                 Hide();
         }
-        /// <summary>
-        /// Call when closing window with ui elements
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected virtual void OnClose(object sender, EventArgs e)
+		/// <summary>
+		/// Called when closing window with ui elements trough button
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		protected virtual void OnClose(object sender, EventArgs e)
         {
-            Hidden = true;
-            foreach (var ui in UiElements)
-                ui.Hidden = Hidden;
-            //Allow attacking!
-            player.UsingWindow = false;
+			Hide();
         }
         protected override void OnActivate()
         {
