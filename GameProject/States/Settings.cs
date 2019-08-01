@@ -17,23 +17,23 @@ namespace GameProject.States
 {
 	public class Settings : State
 	{
-		List<Button> keybindsButtons = new List<Button>();
-        List<string> inputKeybindStrings = new List<string>();
+		protected List<Button> keybindsButtons = new List<Button>();
+		protected List<string> inputKeybindStrings = new List<string>();
 		/// <summary>
 		/// Represents if any key (and which one by the index) is waiting to be binded
 		/// </summary>
-		List<bool> bindingNow;
+		protected List<bool> bindingNow;
 
-		Slider musicVolume;
-		Slider sfxVolume;
+		protected Slider musicVolume;
+		protected Slider sfxVolume;
 
 		///Represents max font width (from input keybinds strings), so buttons can be placed correctly
-		Vector2 size = new Vector2(0, 0);
+		protected Vector2 size = new Vector2(0, 0);
 
-		List<Component> keybindingsComponents = new List<Component>();
-		List<Component> gameplayComponents = new List<Component>();
-		List<Component> audioComponents = new List<Component>();
-		List<Component> videoComponents = new List<Component>();
+		protected List<Component> keybindingsComponents = new List<Component>();
+		protected List<Component> gameplayComponents = new List<Component>();
+		protected List<Component> audioComponents = new List<Component>();
+		protected List<Component> videoComponents = new List<Component>();
 
         public Settings(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
@@ -297,7 +297,7 @@ namespace GameProject.States
 				c.Hidden = true;
 		}
 
-		private void ShowVideoComponents(object sender, EventArgs e)
+		protected virtual void ShowVideoComponents(object sender, EventArgs e)
 		{
 			foreach (var c in keybindingsComponents)
 				c.Hidden = true;
@@ -405,7 +405,7 @@ namespace GameProject.States
 				throw new Exception("Keybind not found");
 		}
 
-		private void Back(object sender, EventArgs e)
+		protected virtual void Back(object sender, EventArgs e)
 		{
 			//If selected keys by player are ok we can go back to Main Menu
 			if(ValidateKeys())

@@ -24,11 +24,18 @@ namespace GameProject.States
 			{
 				Hidden = true
 			};
+
+			var pausedBorder = new Sprite(Textures["PauseBorder"], g.Scale);
+			pausedBorder.Position = new Vector2(0, Game.Height - pausedBorder.Height);
+
 			pausedComponents = new List<Component>
 			{
-				new Sprite(Textures["PauseBorder"], g.Scale)
+				pausedBorder,
+				new Button(Textures["Button"], Font, g.Scale)
 				{
-					Position = new Vector2(0, 0.63f * g.Height),
+				Text = "Back",
+				Position = new Vector2(0.01f * g.Width, 0.6f * g.Height),
+				Click = Back
 				},
 				new Button(Textures["Button"], Font, g.Scale)
 				{
@@ -51,11 +58,14 @@ namespace GameProject.States
 			};
 		}
 
+		private void Back(object sender, EventArgs e)
+		{
+			Paused = false;
+		}
+
 		private void SettingsStage(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
-			Console.WriteLine("x");
-			//CreateMessage("Settings are only available in main menu");
+			Game.ChangeState(new InGameSettings(this, Game, Game.GraphicsDevice, Game.Content));
 		}
 
 		//public static bool SpeedrunTimerEnabled = false;

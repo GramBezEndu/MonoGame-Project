@@ -144,6 +144,7 @@
     <Compile Include="States\ClassSelect.cs" />
     <Compile Include="States\Credits.cs" />
     <Compile Include="States\DungeonLobby.cs" />
+    <Compile Include="States\InGameSettings.cs" />
     <Compile Include="States\SkeletonDungeon.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\LogoState.cs" />
