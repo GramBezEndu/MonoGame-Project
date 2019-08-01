@@ -20,7 +20,7 @@ namespace GameProject
 		{
 			Player = p;
 			GameState = Player.gameState;
-			Tutorials = new List<Tutorial>() { new ShopkeeperTutorial(GameState) };
+			Tutorials = new List<Tutorial>() { new ShopkeeperTutorial(GameState), new StatueOfGodsTutorial(GameState) };
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{

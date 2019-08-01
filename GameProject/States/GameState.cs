@@ -502,23 +502,6 @@ namespace GameProject.States
 			}
 		}
 
-		/// <summary>
-		/// We're using the fact that Shopkeeper.Hidden = false when window is open
-		/// </summary>
-		/// <returns></returns>
-		public bool ShouldActivateShopkeeperTut()
-		{
-			for(int i=0;i<movingComponents.Count;i++)
-			{
-				if(movingComponents[i] is Shopkeeper)
-				{
-					if (movingComponents[i].Hidden == false)
-						return true;
-				}
-			}
-			return false;
-		}
-
 		public override Message CreateMessage(string msg, bool tutorialMsg = false)
 		{
 			if(IsDisplayingTutorial)
@@ -537,5 +520,38 @@ namespace GameProject.States
 				return Message;
 			}
 		}
+
+		#region Tutorials
+		/// <summary>
+		/// We're using the fact that Shopkeeper.Hidden = false when window is open
+		/// </summary>
+		/// <returns></returns>
+		public bool ShouldActivateShopkeeperTut()
+		{
+			for (int i = 0; i < movingComponents.Count; i++)
+			{
+				if (movingComponents[i] is Shopkeeper)
+				{
+					if (movingComponents[i].Hidden == false)
+						return true;
+				}
+			}
+			return false;
+		}
+
+		public bool ShouldActivateStatueTut()
+		{
+			foreach(var mc in movingComponents)
+			{
+				if(mc is StatueOfGods)
+				{
+					var statue = mc as StatueOfGods;
+					if (player.IsTouching(statue.MainSprite))
+						return true;
+				}
+			}
+			return false;
+		}
 	}
+	#endregion
 }
