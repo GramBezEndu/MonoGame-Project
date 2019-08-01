@@ -539,6 +539,23 @@ namespace GameProject.States
 			return false;
 		}
 
+		/// <summary>
+		/// We're using the fact that Blacksmith.Hidden = false when window is open
+		/// </summary>
+		/// <returns></returns>
+		public bool ShouldActivateBlacksmithTut()
+		{
+			for (int i = 0; i < movingComponents.Count; i++)
+			{
+				if (movingComponents[i] is Blacksmith)
+				{
+					if (movingComponents[i].Hidden == false)
+						return true;
+				}
+			}
+			return false;
+		}
+
 		public bool ShouldActivateStatueTut()
 		{
 			foreach(var mc in movingComponents)
@@ -547,6 +564,20 @@ namespace GameProject.States
 				{
 					var statue = mc as StatueOfGods;
 					if (player.IsTouching(statue.MainSprite))
+						return true;
+				}
+			}
+			return false;
+		}
+
+		public bool ShouldActivateAttackingTut()
+		{
+			foreach (var e in enemies)
+			{
+				if (e is TrainingDummy)
+				{
+					var dummy = e as TrainingDummy;
+					if (player.IsTouching(dummy))
 						return true;
 				}
 			}

@@ -31,6 +31,21 @@ namespace GameProject.Tutorials
 			MessageWasShown = new List<bool>(new bool[messages.Count]);
 		}
 
+		public Tutorial(GameState gs)
+		{
+			GameState = gs;
+		}
+
+		/// <summary>
+		/// Call this method in constructor to initialize tutorial messages if you don't want to use constructor with List of strings
+		/// </summary>
+		/// <param name="messages"></param>
+		public void InitializeMessages(List<string> messages)
+		{
+			MessagesStrings = messages;
+			MessageWasShown = new List<bool>(new bool[messages.Count]);
+		}
+
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			//throw new NotImplementedException();
@@ -38,8 +53,10 @@ namespace GameProject.Tutorials
 
 		public override void Update(GameTime gameTime)
 		{
-			CheckForActivation();
-			if(Activated && !Completed)
+			//Set the flag to activated
+			if (ShouldActivate())
+				Activated = true;
+			if (Activated && !Completed)
 			{
 				GameState.IsDisplayingTutorial = true;
 				//If message was not shown yet
@@ -66,11 +83,13 @@ namespace GameProject.Tutorials
 			}
 		}
 
-		public virtual void CheckForActivation()
+		public virtual bool ShouldActivate()
 		{
 			//Player is doing different tutorial right now, we do not allow to activate another tutorial
 			if (GameState.IsDisplayingTutorial)
-				return;
+				return false;
+			else
+				return true;
 		}
 	}
 }

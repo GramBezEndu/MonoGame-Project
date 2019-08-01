@@ -14,11 +14,14 @@ namespace GameProject.Tutorials
 		{
 		}
 
-		public override void CheckForActivation()
+		public override bool ShouldActivate()
 		{
-			base.CheckForActivation();
-			if(GameState.ShouldActivateShopkeeperTut() == true)
-				Activated = true;
+			if (base.ShouldActivate() == false)
+				return false;
+			else if (GameState.ShouldActivateShopkeeperTut())
+				return true;
+			else
+				return false;
 		}
 	}
 }

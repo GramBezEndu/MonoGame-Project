@@ -16,12 +16,21 @@ namespace GameProject
 		GameState GameState;
 		Player Player;
 		List<Tutorial> Tutorials;
+
 		public TutorialManager(Player p)
 		{
 			Player = p;
 			GameState = Player.gameState;
-			Tutorials = new List<Tutorial>() { new ShopkeeperTutorial(GameState), new StatueOfGodsTutorial(GameState) };
+			Tutorials = new List<Tutorial>()
+			{
+				new ShopkeeperTutorial(GameState),
+				new BlacksmithTutorial(GameState),
+				new StatueOfGodsTutorial(GameState, p),
+			};
+			if (p is Warrior)
+				Tutorials.Add(new WarriorAttackingTutorial(GameState));
 		}
+
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			//throw new NotImplementedException();
@@ -29,7 +38,7 @@ namespace GameProject
 
 		public override void Update(GameTime gameTime)
 		{
-			//Update current game state to tutorials
+			//Update current game state in tutorials
 			GameState = Player.gameState;
 			foreach (var t in Tutorials)
 			{

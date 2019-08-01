@@ -4,22 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameProject.States;
+using GameProject.Sprites;
 
 namespace GameProject.Tutorials
 {
 	public class StatueOfGodsTutorial : Tutorial
 	{
-		public StatueOfGodsTutorial(GameState gs) : 
-			base(gs, new List<string>() { "This statue will restore your health and stamina when there's no enemies on stage", "You can also use it so save your progress" })
+		public StatueOfGodsTutorial(GameState gs, Player p) : 
+			base(gs)
 		{
-			
+			if (p is StaminaUser)
+			{
+				InitializeMessages(new List<string>()
+				{ "This statue will restore your health and stamina when there's no enemies nearby",
+					"You can also use it so save your progress" }
+				);
+			}
+			else if (p is ManaUser)
+			{
+				InitializeMessages(new List<string>()
+				{ "This statue will restore your health and mana when there's no enemies nearby",
+					"You can also use it so save your progress" }
+				);
+			}
+			else
+				throw new Exception("Invalid character type");
 		}
 
-		public override void CheckForActivation()
+		public override bool ShouldActivate()
 		{
-			base.CheckForActivation();
-			if (GameState.ShouldActivateStatueTut() == true)
-				Activated = true;
+			if (base.ShouldActivate() == false)
+				return false;
+			else if(GameState.ShouldActivateStatueTut())
+				return true;
+			else
+				return false;
 		}
 	}
 }

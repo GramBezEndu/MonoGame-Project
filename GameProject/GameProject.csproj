@@ -159,9 +159,11 @@
     <Compile Include="Sprites\Wizard.cs" />
     <Compile Include="StatisticsManager.cs" />
     <Compile Include="TutorialManager.cs" />
+    <Compile Include="Tutorials\BlacksmithTutorial.cs" />
     <Compile Include="Tutorials\ShopkeeperTutorial.cs" />
     <Compile Include="Tutorials\StatueOfGodsTutorial.cs" />
     <Compile Include="Tutorials\Tutorial.cs" />
+    <Compile Include="Tutorials\WarriorAttackingTutorial.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

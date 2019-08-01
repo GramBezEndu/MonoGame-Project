@@ -41,7 +41,7 @@ namespace GameProject.Controls
 		public Message(Game1 g, GraphicsDevice gd, Input i, SpriteFont font, string message, SoundEffect notification) : base(font, message)
 		{
 			Color = Color.White;
-			displayTimer = new GameTimer(4f);
+			displayTimer = new GameTimer(8f);
 			notificationSound = notification;
 			Input = i;
 			//Background size = whole width, 10% height of the screen size for each line
