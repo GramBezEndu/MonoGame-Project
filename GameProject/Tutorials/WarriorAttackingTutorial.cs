@@ -12,7 +12,7 @@ namespace GameProject.Tutorials
 		public WarriorAttackingTutorial(GameState gs) : base(gs, new List<string>()
 		{
 			"As a warrior you can use two types of attacks: Fast Attack (Left Mouse Button) and Normal Attack (Right Mouse Button)",
-			"Fast Attack consumes more Stamina than Normal Attack and has no chance for Critical Strike",
+			"Fast Attack consumes more Stamina and has no chance for Critical Strike",
 			"Plan your attacks wisely to gain advantage in fights"
 		})
 		{

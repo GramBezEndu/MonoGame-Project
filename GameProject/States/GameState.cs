@@ -126,8 +126,6 @@ namespace GameProject.States
             //Note: If the window has no focus, we should automaticly pause the game
 			if(!Paused)
 			{
-				//Update speedrun timer
-				SpeedrunTimer.Update(gameTime);
 				//Update enemies
 				foreach (var e in enemies)
 				{
@@ -582,6 +580,14 @@ namespace GameProject.States
 				}
 			}
 			return false;
+		}
+
+		public bool ShouldActivateInventoryTut()
+		{
+			if (player.InventoryManager.Hidden == false)
+				return true;
+			else
+				return false;
 		}
 	}
 	#endregion

@@ -73,6 +73,7 @@ namespace GameProject.Inventory
 					{
 						player.InventoryManager.AddItem(this.Item);
 						player.Gold -= Prize;
+						GameState.SoundEffects["ShopkeeperBuy"].Play();
 					}
 					else
 					{

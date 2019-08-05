@@ -26,6 +26,7 @@ namespace GameProject
 				new ShopkeeperTutorial(GameState),
 				new BlacksmithTutorial(GameState),
 				new StatueOfGodsTutorial(GameState, p),
+				new InventoryTutorial(GameState)
 			};
 			if (p is Warrior)
 				Tutorials.Add(new WarriorAttackingTutorial(GameState));

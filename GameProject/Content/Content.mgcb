@@ -2018,6 +2018,12 @@
 /processorParam:Quality=Best
 /build:Sounds/MessageNotification.wav
 
+#begin Sounds/ShopkeeperBuy.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/ShopkeeperBuy.wav
+
 #begin Stamina.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -139,6 +139,8 @@ namespace GameProject.States
 			}
 			AddCommonPlayerUiComponents();
 			AddManaBarUi();
+			SpeedrunTimer = new SpeedrunTimer(Font);
+			uiComponents.Add(SpeedrunTimer);
 		}
 
 		private void CreateArcher(Game1 g, GraphicsDevice gd, int inventorySlots)
@@ -202,6 +204,8 @@ namespace GameProject.States
 			};
 			AddCommonPlayerUiComponents();
 			AddStaminaBarUi();
+			SpeedrunTimer = new SpeedrunTimer(Font);
+			uiComponents.Add(SpeedrunTimer);
 		}
 
 		private void CreateWarrior(Game1 g, GraphicsDevice gd, int inventorySlots)

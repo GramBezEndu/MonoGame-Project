@@ -160,6 +160,7 @@
     <Compile Include="StatisticsManager.cs" />
     <Compile Include="TutorialManager.cs" />
     <Compile Include="Tutorials\BlacksmithTutorial.cs" />
+    <Compile Include="Tutorials\InventoryTutorial.cs" />
     <Compile Include="Tutorials\ShopkeeperTutorial.cs" />
     <Compile Include="Tutorials\StatueOfGodsTutorial.cs" />
     <Compile Include="Tutorials\Tutorial.cs" />
