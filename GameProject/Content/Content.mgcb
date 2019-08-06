@@ -1808,6 +1808,30 @@
 /processorParam:TextureFormat=Color
 /build:PurificationStone.png
 
+#begin Questionmark.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Questionmark.png
+
+#begin RecipeBook.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:RecipeBook.png
+
 #begin SettingsBorder.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2023,6 +2047,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/ShopkeeperBuy.wav
+
+#begin Sounds/SwordSlashFast.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SwordSlashFast.wav
 
 #begin Stamina.png
 /importer:TextureImporter

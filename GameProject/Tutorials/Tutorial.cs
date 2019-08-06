@@ -63,6 +63,7 @@ namespace GameProject.Tutorials
 				if (MessageWasShown[actualMessageIndex] == false)
 				{
 					var actualMsg = GameState.CreateMessage(MessagesStrings[actualMessageIndex], true);
+					actualMsg.Dispose += OnDispose;
 					//Change the text from "Skip " to "Next " if there are more incoming messages
 					if(actualMessageIndex + 1 < MessagesStrings.Count)
 						actualMsg.SkipTextString = "Next ";
@@ -81,6 +82,29 @@ namespace GameProject.Tutorials
 					GameState.IsDisplayingTutorial = false;
 				}
 			}
+		}
+		/// <summary>
+		/// If message was disposed (which means tutorial was interupted for example by entering another stage [includes going into InGameSettings)
+		/// then reset the tutorial
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnDispose(object sender, EventArgs e)
+		{
+			Reset();
+		}
+
+		/// <summary>
+		/// Resets the tutorial so it can be activated and shown again
+		/// </summary>
+		public void Reset()
+		{
+			GameState.IsDisplayingTutorial = false;
+			actualMessageIndex = 0;
+			MessageWasShown = new List<bool>(new bool[MessagesStrings.Count]);
+			Messages = new List<Message>();
+			Activated = false;
+			Completed = false;
 		}
 
 		public virtual bool ShouldActivate()

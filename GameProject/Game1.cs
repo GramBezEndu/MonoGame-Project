@@ -93,6 +93,7 @@ namespace GameProject
 
 		public void ChangeState(State state)
 		{
+			currentState.DisposeMessages();
 			nextState = state;
 		}
 
@@ -367,7 +368,9 @@ namespace GameProject
 				spriteBatch.DrawString(font, "Client Bounds Width: " + Window.ClientBounds.Width.ToString(), new Vector2(0, 0.45f * Height), Color.Red);
 				spriteBatch.DrawString(font, "Client Bounds Height: " + Window.ClientBounds.Height.ToString(), new Vector2(0, 0.5f * Height), Color.Red);
 				spriteBatch.DrawString(font, "Scale: " + Scale.ToString(), new Vector2(0, 0.55f * Height), Color.Red);
-				spriteBatch.DrawString(font, "Draw FPS: " + (1 / gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(0, 0.6f * Height), Color.Red); 
+				spriteBatch.DrawString(font, "Draw FPS: " + (1 / gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(0, 0.6f * Height), Color.Red);
+				if(currentState is GameState)
+					spriteBatch.DrawString(font, "Displaying tutorial: " + (currentState as GameState).IsDisplayingTutorial, new Vector2(0, 0.7f * Height), Color.Red);
 			}
             spriteBatch.End();
 

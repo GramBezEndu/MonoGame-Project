@@ -26,6 +26,12 @@ namespace GameProject.Controls
 		private string skipTextString = "Skip ";
 
 		/// <summary>
+		/// If message was disposed and it is tutorial message then we want to cancel the tutorial
+		/// </summary>
+		public bool WasDisposed;
+		public EventHandler Dispose;
+
+		/// <summary>
 		/// Tutorial changes this string from "Skip " to "Next "
 		/// </summary>
 		public string SkipTextString
@@ -73,6 +79,8 @@ namespace GameProject.Controls
 				Click = Hide
 			};
 			SkipText.Position = new Vector2(g.Width - 2 * SkipText.Width, backgroundSprite.Position.Y + backgroundSprite.Height - SkipText.Height);
+
+			Dispose += OnDispose;
 		}
 
 		private void Hide(object sender, EventArgs e)
@@ -95,7 +103,7 @@ namespace GameProject.Controls
 
 		public override void Update(GameTime gameTime)
 		{
-			if(!Hidden)
+			if (!Hidden)
 			{
 				//Enable timer on first update and play sound notification
 				if (displayTimer.Enabled == false)
@@ -114,6 +122,12 @@ namespace GameProject.Controls
 					Hidden = true;
 				SkipText.Update(gameTime);
 			}
+		}
+
+		public void OnDispose(object sender, EventArgs e)
+		{
+			WasDisposed = true;
+			Hidden = true;
 		}
 	}
 }

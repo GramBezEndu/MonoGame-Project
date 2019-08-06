@@ -9,6 +9,7 @@ using GameProject.States;
 using GameProject.Controls;
 using GameProject.Inventory;
 using GameProject.Items;
+using GameProject.Tutorials;
 
 namespace GameProject.Sprites
 {
@@ -75,6 +76,44 @@ namespace GameProject.Sprites
 			};
 			UpgradeCostText.Position = new Vector2(improvementSlotOne.Position.X, improvementSlotOne.Position.Y + improvementSlotOne.Height);
 			UiElements.Add(UpgradeCostText);
+
+			var recipeButton = new Button(gs.Textures["RecipeBook"], gs.Font, g.Scale)
+			{
+				Hidden = true,
+				Position = new Vector2(UpgradeCostText.Position.X, UpgradeCostText.Position.Y + UpgradeCostText.Height)
+			};
+			UiElements.Add(recipeButton);
+
+			var recipeText = new Text(gs.Font, "Show recipes")
+			{
+				Hidden = true,
+			};
+			recipeText.Position = new Vector2(recipeButton.Position.X + recipeButton.Width, recipeButton.Position.Y + recipeButton.Height/2 - recipeText.Height/2);
+			UiElements.Add(recipeText);
+
+			var questionmark = new Button(gs.Textures["Questionmark"], gs.Font, g.Scale)
+			{
+				Hidden = true,
+				Position = new Vector2(recipeButton.Position.X, recipeButton.Position.Y + recipeButton.Height),
+				Click = RepeatTutorial
+			};
+			UiElements.Add(questionmark);
+
+			var showTutorialText = new Text(gs.Font, "Show tutorial")
+			{
+				Hidden = true,
+			};
+			showTutorialText.Position = new Vector2(questionmark.Position.X + questionmark.Width, questionmark.Position.Y + questionmark.Height / 2 - showTutorialText.Height / 2);
+			UiElements.Add(showTutorialText);
+		}
+
+		private void RepeatTutorial(object sender, EventArgs e)
+		{
+			var blacksmithTutorial =  player.TutorialManager.Tutorials.First(s => s is BlacksmithTutorial);
+			if(blacksmithTutorial != null)
+			{
+				blacksmithTutorial.Reset();
+			}
 		}
 
 		private void Upgrade(object sender, EventArgs e)

@@ -15,7 +15,7 @@ namespace GameProject
 	{
 		GameState GameState;
 		Player Player;
-		List<Tutorial> Tutorials;
+		public List<Tutorial> Tutorials;
 
 		public TutorialManager(Player p)
 		{

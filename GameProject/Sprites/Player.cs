@@ -78,7 +78,7 @@ namespace GameProject.Sprites
 		public InventoryManager InventoryManager { get; set; }
 		public HealthBar HealthBar { get; set; }
 
-		protected TutorialManager TutorialManager;
+		public TutorialManager TutorialManager;
 
 		public override void Update(GameTime gameTime)
 		{

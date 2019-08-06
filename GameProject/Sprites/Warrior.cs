@@ -242,6 +242,7 @@ namespace GameProject.Sprites
 					StaminaBar.Stamina.CurrentStamina -= 10;
 					fastAttacking = true;
 					fastAttackCounter++;
+					gameState.SoundEffects["SwordSlashFast"].Play();
 				}
 			}
         }

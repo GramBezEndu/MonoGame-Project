@@ -22,7 +22,7 @@ namespace GameProject.States
 					Position = new Vector2(0, 0)
 				}
 			};
-			stateTimer = new GameTimer(3f);
+			stateTimer = new GameTimer(2.5f);
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{

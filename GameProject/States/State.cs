@@ -177,5 +177,18 @@ namespace GameProject
 			Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
 			return Message;
 		}
+
+		/// <summary>
+		/// Should be called before changing state
+		/// Important for tutorials
+		/// </summary>
+		public virtual void DisposeMessages()
+		{
+			IEnumerable<Component> msg = staticComponents.Where(x => x is Message);
+			foreach (var m in msg)
+			{
+				(m as Message).Dispose?.Invoke(this, new EventArgs());
+			}
+		}
 	}
 }

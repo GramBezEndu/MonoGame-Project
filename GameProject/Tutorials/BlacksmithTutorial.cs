@@ -14,7 +14,8 @@ namespace GameProject.Tutorials
 			"Blacksmith can make new equipment for you",
 			"He can also fuse improvements scrolls to make them more powerful",
 			"He can also attach scrolls to {Green} items and remove them if you have Purification Stone",
-			"Some people say his prices are high, but he's very talented - he can do any order in few seconds!"
+			"If you want to order anything, just drag items to slots and click on Red Arrow",
+			//"Some people say his prices are high, but he's very talented - he can do any order in few seconds!"
 		}) 
 		{
 

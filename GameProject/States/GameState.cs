@@ -33,15 +33,9 @@ namespace GameProject.States
 				pausedBorder,
 				new Button(Textures["Button"], Font, g.Scale)
 				{
-				Text = "Back",
-				Position = new Vector2(0.01f * g.Width, 0.6f * g.Height),
-				Click = Back
-				},
-				new Button(Textures["Button"], Font, g.Scale)
-				{
-				Text = "Main Menu",
+				Text = "Continue",
 				Position = new Vector2(0.01f * g.Width, 0.7f * g.Height),
-				Click = MainMenuClick
+				Click = Continue
 				},
 				new Button(Textures["Button"], Font, g.Scale)
 				{
@@ -51,14 +45,14 @@ namespace GameProject.States
 				},
 				new Button(Textures["Button"], Font, g.Scale)
 				{
-				Text = "Exit",
+				Text = "Main Menu",
 				Position = new Vector2(0.01f * g.Width, 0.9f * g.Height),
-				Click = ExitClick
-				}
+				Click = MainMenuClick
+				},
 			};
 		}
 
-		private void Back(object sender, EventArgs e)
+		private void Continue(object sender, EventArgs e)
 		{
 			Paused = false;
 		}
@@ -99,12 +93,7 @@ namespace GameProject.States
 		/// </summary>
 		protected Sprite PickUpPrompt;
 
-		public bool IsDisplayingTutorial;
-
-		private void ExitClick(object sender, EventArgs e)
-		{
-			Game.Exit();
-		}
+		public bool IsDisplayingTutorial = false;
 
 		private void MainMenuClick(object sender, EventArgs e)
 		{
@@ -516,6 +505,20 @@ namespace GameProject.States
 			{
 				Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
 				return Message;
+			}
+		}
+
+		/// <summary>
+		/// Should be called before changing state
+		/// Important for tutorials
+		/// </summary>
+		public override void DisposeMessages()
+		{
+			IEnumerable<Component> msg = uiComponents.Where(x => x is Message);
+			foreach (var m in msg)
+			{
+				if(!m.Hidden)
+					(m as Message).Dispose?.Invoke(this, new EventArgs());
 			}
 		}
 
