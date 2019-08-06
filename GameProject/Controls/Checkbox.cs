@@ -24,38 +24,44 @@ namespace GameProject.Controls
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var color = Color.White;
+			if(!Hidden)
+			{
+				var color = Color.White;
 
-            if (isHovering)
-                color = Color.Gray;
+				if (isHovering)
+					color = Color.Gray;
 
-			base.Draw(gameTime, spriteBatch);
+				base.Draw(gameTime, spriteBatch);
+			}
         }
         public override void Update(GameTime gameTime)
         {
-            var mouseRectangle = new Rectangle(Input.CurrentMouseState.Position.X, Input.CurrentMouseState.Position.Y, 1, 1);
+			if(!Hidden)
+			{
+				var mouseRectangle = new Rectangle(Input.CurrentMouseState.Position.X, Input.CurrentMouseState.Position.Y, 1, 1);
 
-            isHovering = false;
+				isHovering = false;
 
-            if (mouseRectangle.Intersects(Rectangle))
-            {
-                isHovering = true;
+				if (mouseRectangle.Intersects(Rectangle))
+				{
+					isHovering = true;
 
-                if (Input.CurrentMouseState.LeftButton == ButtonState.Released && Input.PreviousMouseState.LeftButton == ButtonState.Pressed)
-                {
-					//Change flag
-                    if (Checked)
-                    {
-                        Checked = false;
-                    }
-                    else
-                    {
-                        Checked = true;
-                    }
-					Click?.Invoke(this, new EventArgs());
-                }
-            }
-			PlayAnimations();
+					if (Input.CurrentMouseState.LeftButton == ButtonState.Released && Input.PreviousMouseState.LeftButton == ButtonState.Pressed)
+					{
+						//Change flag
+						if (Checked)
+						{
+							Checked = false;
+						}
+						else
+						{
+							Checked = true;
+						}
+						Click?.Invoke(this, new EventArgs());
+					}
+				}
+				PlayAnimations();
+			}
         }
 
 		private void PlayAnimations()

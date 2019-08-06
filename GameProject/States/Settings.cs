@@ -35,6 +35,9 @@ namespace GameProject.States
 		protected List<Component> audioComponents = new List<Component>();
 		protected List<Component> videoComponents = new List<Component>();
 
+		public static bool EnableTutorials = true;
+		public static bool EnableSpeedrunTimer = false;
+
         public Settings(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
 			//Shared components
@@ -104,15 +107,54 @@ namespace GameProject.States
 
 		private void CreateGameplayComponents()
 		{
+			//checkbox animations
+			var checkboxAnimations = new Dictionary<string, Animation>()
+			{
+				{"CheckboxChecked", new Animation(Textures["CheckboxChecked"], 1, Game.Scale) },
+				{"Checkbox", new Animation(Textures["Checkbox"], 1, Game.Scale) },
+			};
 			//Add a speedrun timer checkbox + text
 			var speedrunTimerText = new Text(Font, "Speedrun timer")
 			{
 				Position = new Vector2(0.5f * Game.Width, 0.5f * Game.Height)
 			};
 
+			var speedrunTimerCheckbox = new Checkbox(Input, checkboxAnimations)
+			{
+				Position = new Vector2(speedrunTimerText.Position.X + speedrunTimerText.Width, speedrunTimerText.Position.Y),
+				Click = EnableDisableSpeedrunTimer,
+				Checked = EnableSpeedrunTimer
+			};
+
 			gameplayComponents.Add(speedrunTimerText);
+			gameplayComponents.Add(speedrunTimerCheckbox);
+
+			//Add a Enable tutorials checkbox + text
+			var tutorialsText = new Text(Font, "Tutorials")
+			{
+				Position = new Vector2(0.5f * Game.Width, speedrunTimerText.Position.Y + speedrunTimerText.Height)
+			};
+
+			var tutorialsCheckbox = new Checkbox(Input, checkboxAnimations)
+			{
+				Position = new Vector2(tutorialsText.Position.X + tutorialsText.Width, tutorialsText.Position.Y),
+				Click = EnableDisableTutorials,
+				Checked = EnableTutorials
+			};
+			gameplayComponents.Add(tutorialsText);
+			gameplayComponents.Add(tutorialsCheckbox);
 
 			staticComponents.AddRange(gameplayComponents);
+		}
+
+		private void EnableDisableSpeedrunTimer(object sender, EventArgs e)
+		{
+			EnableSpeedrunTimer = !EnableSpeedrunTimer;
+		}
+
+		private void EnableDisableTutorials(object sender, EventArgs e)
+		{
+			EnableTutorials = !EnableTutorials;
 		}
 
 		private void CreateVideoComponents()

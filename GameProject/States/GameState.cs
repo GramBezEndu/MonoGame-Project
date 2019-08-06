@@ -62,8 +62,6 @@ namespace GameProject.States
 			Game.ChangeState(new InGameSettings(this, Game, Game.GraphicsDevice, Game.Content));
 		}
 
-		//public static bool SpeedrunTimerEnabled = false;
-		//public static GameTimer SpeedrunTimer = new GameTimer(0f, true);
 		public static SpeedrunTimer SpeedrunTimer;
 		public bool Paused { get; set; }
 		protected KeyboardState PreviousState { get; set; }
@@ -104,6 +102,8 @@ namespace GameProject.States
 		public override void Update(GameTime gameTime)
         {
 			base.Update(gameTime);
+			//Hide/show speedrun timer
+			SpeedrunTimer.Hidden = !Settings.EnableSpeedrunTimer;
             //Manage pause on button press
             if (Input.CurrentState.IsKeyDown(Input.KeyBindings["Pause"].GetValueOrDefault()) && Input.PreviousState.IsKeyUp(Input.KeyBindings["Pause"].GetValueOrDefault()))
             {

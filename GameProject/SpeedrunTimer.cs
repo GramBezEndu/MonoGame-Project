@@ -36,13 +36,10 @@ namespace GameProject
 
 		public override void Update(GameTime gameTime)
 		{
-			if(!Hidden)
-			{
-				CurrentTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-				//Update timer string
-				timer.Message = CurrentTime.ToString();
-				timer.Update(gameTime);
-			}
+			CurrentTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+			//Update timer string
+			timer.Message = CurrentTime.ToString();
+			timer.Update(gameTime);
 		}
 	}
 }
