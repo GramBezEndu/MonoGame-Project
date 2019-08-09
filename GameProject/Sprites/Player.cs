@@ -229,10 +229,6 @@ namespace GameProject.Sprites
 		//	else
 		//		animationManager.Play(animations["Idle"]);
 		//}
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-		{
-			animationManager.Draw(spriteBatch);
-		}
 		//public void CreateEquipmentSlots()
 		//{
 		//	this.InventoryManager.EquipmentManager.S

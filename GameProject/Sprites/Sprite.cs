@@ -24,6 +24,11 @@ namespace GameProject.Sprites
 		public bool FlipHorizontally { get; set; }
 		//protected Vector2 position;
 		public Vector2 Scale { get; set; }
+
+		public bool ShowRectangle { get; set; }
+		protected GraphicsDevice graphicsDevice;
+		protected Texture2D rectangleTexture;
+
 		//public Vector2 Velocity { get; set; }
 		public Sprite(Texture2D t, Vector2 scale)
 		{
@@ -55,6 +60,43 @@ namespace GameProject.Sprites
             //Set scale even if there are animations (the scale will equal scale of first animation, so you should provide same scale for every animation)
             Scale = animations.First().Value.Scale;
 		}
+
+		/// <summary>
+		/// Call this method if you want to draw sprite's rectnagle
+		/// </summary>
+		public void EnableSpriteRectangleDrawing(GraphicsDevice gd)
+		{
+			graphicsDevice = gd;
+			SetSpriteRectangle();
+			ShowRectangle = true;
+		}
+
+		private void SetSpriteRectangle()
+		{
+			var data = new List<Color>();
+
+			for (int y = 0; y < Height; y++)
+			{
+				for (int x = 0; x < Width; x++)
+				{
+					if (y == 0 || // On the top
+						x == 0 || // On the left
+						y == Height - 1 || // on the bottom
+						x == Width - 1) // on the right
+					{
+						data.Add(Color.Red); // white
+					}
+					else
+					{
+						data.Add(Color.Transparent);
+					}
+				}
+			}
+
+			rectangleTexture = new Texture2D(graphicsDevice, Width, Height);
+			rectangleTexture.SetData<Color>(data.ToArray());
+		}
+
 		public Vector2 Position
 		{
 			get { return position; }
@@ -116,6 +158,7 @@ namespace GameProject.Sprites
 		{
 			if(!Hidden)
 			{
+				//Sprite section
 				if (texture != null)
 				{
 					if(FlipHorizontally)
@@ -124,10 +167,16 @@ namespace GameProject.Sprites
 						spriteBatch.Draw(texture, Position, null, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
 				}
 				else if (animationManager != null)
+				{
 					animationManager.Draw(spriteBatch);
+				}
 				else
 					throw new Exception("Invalid sprite");
-				//spriteBatch.Draw()
+				//Rectangle section
+				if(ShowRectangle)
+				{
+					spriteBatch.Draw(rectangleTexture, Position, Color.White);
+				}
 			}
 		}
 
@@ -173,16 +222,6 @@ namespace GameProject.Sprites
                 return true;
             else
                 return false;
-			//if (IsTouchingRight(sprite))
-			//	return true;
-			//if (IsTouchingLeft(sprite))
-			//	return true;
-			//if (IsTouchingTop(sprite))
-			//	return true;
-			//if (IsTouchingBottom(sprite))
-			//	return true;
-			//else
-			//	return false;
 		}
 
 		#endregion

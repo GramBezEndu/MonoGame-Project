@@ -11,6 +11,7 @@ using GameProject.Animations;
 using GameProject.Items;
 using GameProject.Inventory;
 using GameProject.Controls;
+using System.Diagnostics;
 
 namespace GameProject.States
 {
@@ -35,6 +36,11 @@ namespace GameProject.States
 		{
 			int inventorySlots = 12;
 			CreatePlayer(g, gd, playerClass, inventorySlots);
+
+			if (Debugger.IsAttached)
+			{
+				player.EnableSpriteRectangleDrawing(gd);
+			}
 
 			AddCommonItemsToPlayer();
 
