@@ -13,7 +13,7 @@ namespace GameProject
 	public class ScrollUpgradeRecipe : Recipe
 	{
 		public ScrollUpgradeRecipe(Game1 g, GameState gs, Vector2 pos) :
-			base(g, gs, pos, new Texture2D[3] { gs.Textures["ImprovementScroll"], gs.Textures["ImprovementScroll"], gs.Textures["ImprovementScroll"] }, 0) 
+			base(g, gs, pos, "Improvement Scroll Upgrade", new Texture2D[3] { gs.Textures["ImprovementScroll"], gs.Textures["ImprovementScroll"], gs.Textures["ImprovementScroll"] }, 0) 
 		{
 
 		}

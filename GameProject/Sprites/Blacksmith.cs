@@ -75,23 +75,7 @@ namespace GameProject.Sprites
 			RecipeWindow.Add(back);
 
 			//Improvement scroll upgrade
-			var scrollUpgradeButton = new Button(GameState.Textures["ArrowSelector"], GameState.Font, game.Scale)
-			{
-				Hidden = true,
-				Position = background.Position,
-				Click = HideShowImprovementScrollUpgrade
-			};
-			RecipeWindow.Add(scrollUpgradeButton);
-
-			var scrollUpgradeText = new TextButton(game.Input, GameState.Font, "Improvement Scroll Upgrade")
-			{
-				Hidden = true,
-				Position = new Vector2(scrollUpgradeButton.Position.X + scrollUpgradeButton.Width, scrollUpgradeButton.Position.Y),
-				Click = HideShowImprovementScrollUpgrade
-			};
-			RecipeWindow.Add(scrollUpgradeText);
-
-			Recipe scrollUpgradeRecipe = new ScrollUpgradeRecipe(game, GameState, new Vector2(scrollUpgradeText.Position.X, scrollUpgradeText.Rectangle.Bottom))
+			Recipe scrollUpgradeRecipe = new ScrollUpgradeRecipe(game, GameState, background.Position)
 			{
 				Hidden = true,
 			};
@@ -99,38 +83,12 @@ namespace GameProject.Sprites
 			recipes.Add("scrollUpgrade", scrollUpgradeRecipe);
 
 			//Legendary improvement scroll upgrade
-			var legendaryScrollUpgradeButton = new Button(GameState.Textures["ArrowSelector"], GameState.Font, game.Scale)
-			{
-				Hidden = true,
-				Position = new Vector2(scrollUpgradeButton.Position.X, scrollUpgradeButton.Rectangle.Bottom),
-				Click = HideShowLegendaryImprovementScrollUpgrade
-			};
-			RecipeWindow.Add(legendaryScrollUpgradeButton);
-
-			var legendaryScrollUpgradeText = new TextButton(game.Input, GameState.Font, "Legendary Improvement Scroll Upgrade")
-			{
-				Hidden = true,
-				Position = new Vector2(legendaryScrollUpgradeButton.Position.X + legendaryScrollUpgradeButton.Width, legendaryScrollUpgradeButton.Position.Y),
-				Click = HideShowLegendaryImprovementScrollUpgrade
-			};
-			RecipeWindow.Add(legendaryScrollUpgradeText);
-
-			Recipe legendaryScrollUpgradeRecipe = new LegendaryScrollUpgradeRecipe(game, GameState, new Vector2(legendaryScrollUpgradeText.Position.X, legendaryScrollUpgradeText.Rectangle.Bottom))
+			Recipe legendaryScrollUpgradeRecipe = new LegendaryScrollUpgradeRecipe(game, GameState, new Vector2(scrollUpgradeRecipe.Position.X, scrollUpgradeRecipe.Position.Y + scrollUpgradeRecipe.Height))
 			{
 				Hidden = true,
 			};
 
 			recipes.Add("legendaryScrollUpgrade", legendaryScrollUpgradeRecipe);
-		}
-
-		private void HideShowLegendaryImprovementScrollUpgrade(object sender, EventArgs e)
-		{
-			recipes["legendaryScrollUpgrade"].Hidden = !recipes["legendaryScrollUpgrade"].Hidden;
-		}
-
-		private void HideShowImprovementScrollUpgrade(object sender, EventArgs e)
-		{
-			recipes["scrollUpgrade"].Hidden = !recipes["scrollUpgrade"].Hidden;
 		}
 
 		private void HideRecipeWindow(object sender, EventArgs e)
@@ -225,9 +183,12 @@ namespace GameProject.Sprites
 		{
 			foreach (var c in RecipeWindow)
 				c.Hidden = false;
-			//Hide all recipes when opening the window
+			//Hide context recipes when opening the window (but not the whole recipe)
 			foreach (var c in recipes.Values)
-				c.Hidden = true;
+			{
+				c.Hidden = false;
+				c.HideRecipe();
+			}
 		}
 
 		private void RepeatTutorial(object sender, EventArgs e)
