@@ -17,11 +17,21 @@ namespace GameProject.Sprites
 	{
 		//UiElements list -> window components
 
+		List<Component> RecipeWindow = new List<Component>();
+		
 		/// <summary>
 		/// List of improvements slots (used in upgrade) method
 		/// Note: They are added in scrollUpgradedComponents, they're used just for object reference
 		/// </summary>
 		List<DraggableSlot> upgradeSlots = new List<DraggableSlot>();
+
+		/// <summary>
+		/// Contains list of all recepies (without text and buttons
+		/// Keys:
+		/// scrollUpgrade
+		/// legendaryScrollUpgrade
+		/// </summary>
+		Dictionary<string, List<Component>> recipes = new Dictionary<string, List<Component>>();
 
 		public int PreviousUpgradeCost { get; set; }
 		public int UpgradeCost { get; set; } = 0;
@@ -31,8 +41,87 @@ namespace GameProject.Sprites
 		{
 			MainWindowAddElements(g, gs);
 
+			RecipeWindowAddElements();
+
 			//Add components to state
 			gs.AddUiElements(UiElements);
+			gs.AddUiElements(RecipeWindow);
+			foreach(var list in recipes.Values)
+			{
+				gs.AddUiElements(list);
+			}
+		}
+
+		private void RecipeWindowAddElements()
+		{
+			//Background
+			var background = new Sprite(GameState.Textures["BackgroundBig"], game.Scale)
+			{
+				Hidden = true,
+			};
+
+			background.Position = new Vector2(game.Width /2 - background.Width/2, game.Height/2 - background.Height/2);
+
+			RecipeWindow.Add(background);
+
+			//Back button
+			var back = new Button(GameState.Textures["Button"], GameState.Font, game.Scale)
+			{
+				Hidden = true,
+				Click = HideRecipeWindow,
+				Text = "Back"
+			};
+			back.Position = new Vector2(background.Position.X, background.Position.Y + background.Height - back.Height);
+			RecipeWindow.Add(back);
+
+			//Improvement scroll upgrade
+			var scrollUpgradeButton = new Button(GameState.Textures["ArrowSelector"], GameState.Font, game.Scale)
+			{
+				Hidden = true,
+				Position = background.Position,
+				Click = HideShowImprovementScrollUpgrade
+			};
+			RecipeWindow.Add(scrollUpgradeButton);
+
+			var scrollUpgradeText = new TextButton(game.Input, GameState.Font, "Improvement Scrolll Upgrade")
+			{
+				Hidden = true,
+				Position = new Vector2(scrollUpgradeButton.Position.X + scrollUpgradeButton.Width, scrollUpgradeButton.Position.Y),
+				Click = HideShowImprovementScrollUpgrade
+			};
+			RecipeWindow.Add(scrollUpgradeText);
+
+			//Slots
+			List<Component> scrollUpgradeComponents = new List<Component>();
+			var scrollUpgradeSlot = new Sprite(GameState.Textures["InventorySlot"], game.Scale)
+			{
+				Hidden = true,
+				Position = new Vector2(scrollUpgradeText.Position.X, scrollUpgradeText.Rectangle.Bottom),
+			};
+			scrollUpgradeComponents.Add(scrollUpgradeSlot);
+
+			var scrollUpgradeSlotTwo = new Sprite(GameState.Textures["InventorySlot"], game.Scale)
+			{
+				Hidden = true,
+				Position = new Vector2(scrollUpgradeSlot.Rectangle.Right, scrollUpgradeSlot.Position.Y),
+			};
+			scrollUpgradeComponents.Add(scrollUpgradeSlotTwo);
+
+			recipes.Add("scrollUpgrade", scrollUpgradeComponents);
+		}
+
+		private void HideShowImprovementScrollUpgrade(object sender, EventArgs e)
+		{
+			foreach(var c in recipes["scrollUpgrade"])
+			{
+				c.Hidden = !c.Hidden;
+			}
+		}
+
+		private void HideRecipeWindow(object sender, EventArgs e)
+		{
+			foreach (var c in RecipeWindow)
+				c.Hidden = true;
 		}
 
 		private void MainWindowAddElements(Game1 g, GameState gs)
@@ -80,7 +169,8 @@ namespace GameProject.Sprites
 			var recipeButton = new Button(gs.Textures["RecipeBook"], gs.Font, g.Scale)
 			{
 				Hidden = true,
-				Position = new Vector2(UpgradeCostText.Position.X, UpgradeCostText.Position.Y + UpgradeCostText.Height)
+				Position = new Vector2(UpgradeCostText.Position.X, UpgradeCostText.Position.Y + UpgradeCostText.Height),
+				Click = ShowRecipeWindow
 			};
 			UiElements.Add(recipeButton);
 
@@ -105,6 +195,12 @@ namespace GameProject.Sprites
 			};
 			showTutorialText.Position = new Vector2(questionmark.Position.X + questionmark.Width, questionmark.Position.Y + questionmark.Height / 2 - showTutorialText.Height / 2);
 			UiElements.Add(showTutorialText);
+		}
+
+		private void ShowRecipeWindow(object sender, EventArgs e)
+		{
+			foreach (var c in RecipeWindow)
+				c.Hidden = false;
 		}
 
 		private void RepeatTutorial(object sender, EventArgs e)
