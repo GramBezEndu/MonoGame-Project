@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddScrollRecipe.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationManager.cs" />
     <Compile Include="Camera\Camera.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Controls\Message.cs" />
     <Compile Include="LegendaryScrollUpgradeRecipe.cs" />
     <Compile Include="Recipe.cs" />
+    <Compile Include="RemoveScrollRecipe.cs" />
     <Compile Include="ScrollUpgradeRecipe.cs" />
     <Compile Include="SpeedrunTimer.cs" />
     <Compile Include="Sprites\Archer.cs" />

@@ -92,7 +92,7 @@ namespace GameProject
 
 			if (cost != 0)
 			{
-				recipeComponents.Add(new Text(gs.Font, cost.ToString())
+				recipeComponents.Add(new Text(gs.Font, "Cost: " + cost.ToString() + "g")
 				{
 					Position = new Vector2(slots[0].Position.X, slots[0].Rectangle.Bottom)
 				});

@@ -30,6 +30,8 @@ namespace GameProject.Sprites
 		/// Keys:
 		/// scrollUpgrade
 		/// legendaryScrollUpgrade
+		/// addScroll
+		/// removeScroll
 		/// </summary>
 		Dictionary<string, Recipe> recipes = new Dictionary<string, Recipe>();
 
@@ -89,6 +91,21 @@ namespace GameProject.Sprites
 			};
 
 			recipes.Add("legendaryScrollUpgrade", legendaryScrollUpgradeRecipe);
+
+			//Add scroll recipe
+			Recipe addScrollRecipe = new AddScrollRecipe(game, GameState, new Vector2(legendaryScrollUpgradeRecipe.Position.X, legendaryScrollUpgradeRecipe.Position.Y + legendaryScrollUpgradeRecipe.Height))
+			{
+				Hidden = true,
+			};
+
+			recipes.Add("addScroll", addScrollRecipe);
+			//Remove scroll recipe
+			Recipe removeScrollRecipe = new RemoveScrollRecipe(game, GameState, new Vector2(addScrollRecipe.Position.X, addScrollRecipe.Position.Y + addScrollRecipe.Height))
+			{
+				Hidden = true,
+			};
+
+			recipes.Add("remvoeScroll", removeScrollRecipe);
 		}
 
 		private void HideRecipeWindow(object sender, EventArgs e)
