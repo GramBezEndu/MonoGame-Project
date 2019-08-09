@@ -416,6 +416,12 @@ namespace GameProject.States
                 uiComponents.Add(c);
             }
         }
+
+		public void AddUiElement(Component c)
+		{
+			uiComponents.Add(c);
+		}
+
 		/// <summary>
 		/// Call this function WHEN PLAYER IS PERFORMING ATTACK (we check for X axis only now)
 		/// </summary>

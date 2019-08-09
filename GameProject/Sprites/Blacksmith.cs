@@ -31,7 +31,7 @@ namespace GameProject.Sprites
 		/// scrollUpgrade
 		/// legendaryScrollUpgrade
 		/// </summary>
-		Dictionary<string, List<Component>> recipes = new Dictionary<string, List<Component>>();
+		Dictionary<string, Recipe> recipes = new Dictionary<string, Recipe>();
 
 		public int PreviousUpgradeCost { get; set; }
 		public int UpgradeCost { get; set; } = 0;
@@ -46,9 +46,9 @@ namespace GameProject.Sprites
 			//Add components to state
 			gs.AddUiElements(UiElements);
 			gs.AddUiElements(RecipeWindow);
-			foreach(var list in recipes.Values)
+			foreach(var recipe in recipes.Values)
 			{
-				gs.AddUiElements(list);
+				gs.AddUiElement(recipe);
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace GameProject.Sprites
 			};
 			RecipeWindow.Add(scrollUpgradeButton);
 
-			var scrollUpgradeText = new TextButton(game.Input, GameState.Font, "Improvement Scrolll Upgrade")
+			var scrollUpgradeText = new TextButton(game.Input, GameState.Font, "Improvement Scroll Upgrade")
 			{
 				Hidden = true,
 				Position = new Vector2(scrollUpgradeButton.Position.X + scrollUpgradeButton.Width, scrollUpgradeButton.Position.Y),
@@ -91,36 +91,53 @@ namespace GameProject.Sprites
 			};
 			RecipeWindow.Add(scrollUpgradeText);
 
-			//Slots
-			List<Component> scrollUpgradeComponents = new List<Component>();
-			var scrollUpgradeSlot = new Sprite(GameState.Textures["InventorySlot"], game.Scale)
+			Recipe scrollUpgradeRecipe = new ScrollUpgradeRecipe(game, GameState, new Vector2(scrollUpgradeText.Position.X, scrollUpgradeText.Rectangle.Bottom))
 			{
 				Hidden = true,
-				Position = new Vector2(scrollUpgradeText.Position.X, scrollUpgradeText.Rectangle.Bottom),
 			};
-			scrollUpgradeComponents.Add(scrollUpgradeSlot);
 
-			var scrollUpgradeSlotTwo = new Sprite(GameState.Textures["InventorySlot"], game.Scale)
+			recipes.Add("scrollUpgrade", scrollUpgradeRecipe);
+
+			//Legendary improvement scroll upgrade
+			var legendaryScrollUpgradeButton = new Button(GameState.Textures["ArrowSelector"], GameState.Font, game.Scale)
 			{
 				Hidden = true,
-				Position = new Vector2(scrollUpgradeSlot.Rectangle.Right, scrollUpgradeSlot.Position.Y),
+				Position = new Vector2(scrollUpgradeButton.Position.X, scrollUpgradeButton.Rectangle.Bottom),
+				Click = HideShowLegendaryImprovementScrollUpgrade
 			};
-			scrollUpgradeComponents.Add(scrollUpgradeSlotTwo);
+			RecipeWindow.Add(legendaryScrollUpgradeButton);
 
-			recipes.Add("scrollUpgrade", scrollUpgradeComponents);
+			var legendaryScrollUpgradeText = new TextButton(game.Input, GameState.Font, "Legendary Improvement Scroll Upgrade")
+			{
+				Hidden = true,
+				Position = new Vector2(legendaryScrollUpgradeButton.Position.X + legendaryScrollUpgradeButton.Width, legendaryScrollUpgradeButton.Position.Y),
+				Click = HideShowLegendaryImprovementScrollUpgrade
+			};
+			RecipeWindow.Add(legendaryScrollUpgradeText);
+
+			Recipe legendaryScrollUpgradeRecipe = new LegendaryScrollUpgradeRecipe(game, GameState, new Vector2(legendaryScrollUpgradeText.Position.X, legendaryScrollUpgradeText.Rectangle.Bottom))
+			{
+				Hidden = true,
+			};
+
+			recipes.Add("legendaryScrollUpgrade", legendaryScrollUpgradeRecipe);
+		}
+
+		private void HideShowLegendaryImprovementScrollUpgrade(object sender, EventArgs e)
+		{
+			recipes["legendaryScrollUpgrade"].Hidden = !recipes["legendaryScrollUpgrade"].Hidden;
 		}
 
 		private void HideShowImprovementScrollUpgrade(object sender, EventArgs e)
 		{
-			foreach(var c in recipes["scrollUpgrade"])
-			{
-				c.Hidden = !c.Hidden;
-			}
+			recipes["scrollUpgrade"].Hidden = !recipes["scrollUpgrade"].Hidden;
 		}
 
 		private void HideRecipeWindow(object sender, EventArgs e)
 		{
 			foreach (var c in RecipeWindow)
+				c.Hidden = true;
+			foreach (var c in recipes.Values)
 				c.Hidden = true;
 		}
 
@@ -158,6 +175,13 @@ namespace GameProject.Sprites
 			UiElements.Add(improvementSlotThree);
 			upgradeSlots.Add(improvementSlotThree);
 
+			var improvementSlotFour = new DraggableBlacksmithSlot(this, gs.graphicsDevice, player, gs.Textures["InventorySlot"], gs.Font, g.Scale)
+			{
+				Position = new Vector2(improvementSlotThree.Rectangle.Right, improvementSlotThree.Position.Y),
+				Hidden = true
+			};
+			UiElements.Add(improvementSlotFour);
+			upgradeSlots.Add(improvementSlotFour);
 
 			UpgradeCostText = new Text(gs.Font, String.Format("Upgrade cost: {0}", UpgradeCost))
 			{
@@ -201,6 +225,9 @@ namespace GameProject.Sprites
 		{
 			foreach (var c in RecipeWindow)
 				c.Hidden = false;
+			//Hide all recipes when opening the window
+			foreach (var c in recipes.Values)
+				c.Hidden = true;
 		}
 
 		private void RepeatTutorial(object sender, EventArgs e)
