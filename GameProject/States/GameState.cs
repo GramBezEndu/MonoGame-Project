@@ -12,6 +12,7 @@ using GameProject.Sprites;
 using GameProject.Animations;
 using GameProject.Items;
 using GameProject.Controls;
+using System.Diagnostics;
 
 namespace GameProject.States
 {
@@ -158,10 +159,13 @@ namespace GameProject.States
 			};
 			for (int i = 0; i < 3; i++)
             {
-                enemies.Add(new SkeletonWarrior(Game, this, Font, (animations), player)
-                {
-                    Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
-                });
+				var skeletonWarrior = new SkeletonWarrior(Game, this, Font, (animations), player)
+				{
+					Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
+				};
+				if(Debugger.IsAttached)
+					skeletonWarrior.EnableSpriteRectangleDrawing(graphicsDevice);
+				enemies.Add(skeletonWarrior);
             }
         }
 
@@ -193,18 +197,24 @@ namespace GameProject.States
 				//Middle - archer
 				if(i == 1)
 				{
-					enemies.Add(new SkeletonArcher(Game, this, Font, (archerAnimations), player)
+					var skeletonArcher = new SkeletonArcher(Game, this, Font, (archerAnimations), player)
 					{
 						Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
-					});
+					};
+					if(Debugger.IsAttached)
+						skeletonArcher.EnableSpriteRectangleDrawing(graphicsDevice);
+					enemies.Add(skeletonArcher);
 				}
 				//Warrior
 				else
 				{
-					enemies.Add(new SkeletonWarrior(Game, this, Font, (warriorAnimations), player)
+					var skeletonWarrior = new SkeletonWarrior(Game, this, Font, (warriorAnimations), player)
 					{
 						Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
-					});
+					};
+					if(Debugger.IsAttached)
+						skeletonWarrior.EnableSpriteRectangleDrawing(graphicsDevice);
+					enemies.Add(skeletonWarrior);
 				}
 			}
 		}
