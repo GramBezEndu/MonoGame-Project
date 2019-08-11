@@ -79,6 +79,11 @@ namespace GameProject.States
 			SpawnTrainingDummy(new Vector2(0.7f * Game.Width, 0.4f * Game.Height));
 			SpawnStatueOfGods(new Vector2(0.9f * Game.Width, 0.47f * Game.Height));
 
+			if(Debugger.IsAttached)
+			{
+
+			}
+
 			Game.ChangeBackgroundSong(Songs["Village"]);
 		}
 

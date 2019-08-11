@@ -21,8 +21,8 @@ namespace GameProject
 	{
 		public GraphicsDeviceManager graphics { get; private set; }
 		SpriteBatch spriteBatch;
-		const int LogicalWidth = 1600;
-		const int LogicalHeight = 900;
+		const int LogicalWidth = 1920;
+		const int LogicalHeight = 1080;
 		/// <summary>
 		/// Actual screen width
 		/// </summary>

@@ -63,8 +63,8 @@ namespace GameProject.Controls
 					Position,
 					new Rectangle(0, 0, (int)(SliderFilled.Width * CurrentValue / Math.Abs(MaxValue - MinValue)), SliderFilled.Height),
 					Color.White,
-					0f,
-					Vector2.Zero,
+					rotation,
+					Origin,
 					Scale,
 					SpriteEffects.None,
 					0f);
@@ -85,7 +85,7 @@ namespace GameProject.Controls
 					//Left mouse button is pressed
 					if (input.CurrentMouseState.LeftButton == ButtonState.Pressed)
 					{
-						Vector2 positionRelated = mousePos - this.Position;
+						Vector2 positionRelated = mousePos - new Vector2(this.Position.X - (this.Origin.X * this.Scale.X), this.Position.Y - (this.Origin.Y *this.Scale.Y));
 						int width = (int)positionRelated.X;
 
 						CurrentValue = (float)Math.Round(((float)width / this.Width), 2);

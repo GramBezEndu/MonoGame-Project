@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using GameProject.Sprites;
+using System.Diagnostics;
 
 namespace GameProject.States
 {
@@ -19,10 +20,13 @@ namespace GameProject.States
 			{
 				new Sprite(Textures["Logo"], g.Scale)
 				{
-					Position = new Vector2(0, 0)
+					Position = new Vector2(g.Width/2, g.Height/2)
 				}
 			};
 			stateTimer = new GameTimer(2.5f);
+
+			if (Debugger.IsAttached)
+				EnableViewingStaticComponentsRectangle(gd);
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{

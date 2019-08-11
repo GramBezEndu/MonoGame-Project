@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using GameProject.Controls;
 using Microsoft.Xna.Framework.Audio;
+using System.Diagnostics;
+using GameProject.Sprites;
 
 namespace GameProject
 {
@@ -176,6 +178,20 @@ namespace GameProject
 		{
 			Message = new Message(Game, graphicsDevice, Input, Font, msg, SoundEffects["MessageNotification"]);
 			return Message;
+		}
+
+		public void EnableViewingStaticComponentsRectangle(GraphicsDevice gd)
+		{
+			if (Debugger.IsAttached)
+			{
+				foreach (var x in staticComponents)
+				{
+					if (x is Sprite)
+					{
+						(x as Sprite).EnableSpriteRectangleDrawing(gd);
+					}
+				}
+			}
 		}
 
 		/// <summary>

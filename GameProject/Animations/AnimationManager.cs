@@ -36,8 +36,8 @@ namespace GameProject.Animations
 					animation.FrameWidth,
 					animation.FrameHeight),
 				Sprite.Color,
-				0f,
-				Vector2.Zero,
+				animation.Rotation,
+				animation.Origin,
 				animation.Scale,
 				SpriteEffects.FlipHorizontally,
 				0f);
@@ -51,8 +51,8 @@ namespace GameProject.Animations
 					animation.FrameWidth,
 					animation.FrameHeight),
 				Sprite.Color,
-				0f,
-				Vector2.Zero,
+				animation.Rotation,
+				animation.Origin,
 				animation.Scale,
 				SpriteEffects.None,
 				0f);

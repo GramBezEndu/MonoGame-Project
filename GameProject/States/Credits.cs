@@ -19,19 +19,26 @@ namespace GameProject.States
 			var buttonTexture = content.Load<Texture2D>("Button");
 			var buttonFont = content.Load<SpriteFont>("Font");
 
-			staticComponents = new List<Component>
+			staticComponents = new List<Component>();
+
+			staticComponents.Add(new Sprite(background, g.Scale)
 			{
-				new Sprite(background, g.Scale)
-				{
-					Position = new Vector2(0,0)
-				},
-				new Button(buttonTexture,buttonFont,g.Scale)
-				{
-					Text = "Back",
-					Position = new Vector2(0.01f*g.Width, 0.9f*g.Height),
-					Click = MainMenuState
-				}
+				Position = new Vector2(g.Width / 2, g.Height / 2)
+			});
+
+			var back = new Button(buttonTexture, buttonFont, g.Scale)
+			{
+				Text = "Back",
+				Click = MainMenuState
 			};
+
+			var interval = new Vector2(0, 0.02f * g.Height);
+
+			Vector2 pos = new Vector2(0.07f * g.Width, 0.63f * g.Height + 3* interval.Y + 3* back.Height);
+
+			back.Position = new Vector2(pos.X, pos.Y);
+
+			staticComponents.Add(back);
 		}
 
 		private void MainMenuState(object sender, EventArgs e)

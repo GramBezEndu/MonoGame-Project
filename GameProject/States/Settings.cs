@@ -12,6 +12,7 @@ using GameProject.Controls;
 using GameProject.Sprites;
 using Microsoft.Xna.Framework.Audio;
 using GameProject.Animations;
+using System.Diagnostics;
 
 namespace GameProject.States
 {
@@ -40,6 +41,9 @@ namespace GameProject.States
 
         public Settings(Game1 g, GraphicsDevice gd, ContentManager c) : base(g, gd, c)
 		{
+			//Initialize static components list
+			staticComponents = new List<Component>();
+
 			//Shared components
 			CreateSharedComponents();
 
@@ -60,6 +64,9 @@ namespace GameProject.States
 
 			//On default show keybindings components
 			ShowKeybindingsComponents(this, new EventArgs());
+
+			if (Debugger.IsAttached)
+				EnableViewingStaticComponentsRectangle(gd);
 		}
 
 		private void CreateKeybindingsComponents()
@@ -257,29 +264,36 @@ namespace GameProject.States
 
 		private void CreateSharedComponents()
 		{
-			staticComponents = new List<Component>
+			var interval = new Vector2(0, 0.02f * Game.Height);
+			staticComponents.Add(new Sprite(Textures["Background"], Game.Scale)
 			{
-				new Sprite(Textures["Background"], Game.Scale)
-				{
-					Position = new Vector2(0,0)
-				},
-				new Sprite(Textures["BackgroundBig"], Game.Scale)
-				{
-					Position = new Vector2(1f/4f*Game.Width, 0.03f*Game.Height)
-				},
-				new Button(Textures["Button"], Font, Game.Scale)
-				{
+				Position = new Vector2(Game.Width / 2f, Game.Height / 2f)
+			});
+
+			var settingsBackground = new Sprite(Textures["BackgroundBig"], Game.Scale);
+			settingsBackground.Position = new Vector2(1f / 4f * Game.Width + settingsBackground.Width / 2f, 0.03f * Game.Height + settingsBackground.Height / 2f);
+
+			var backButton = new Button(Textures["Button"], Font, Game.Scale)
+			{
 				Text = "Back",
-				Position = new Vector2(0.01f * Game.Width, 0.9f * Game.Height),
 				Click = Back
-				},
-				new Button(Textures["Button"], Font, Game.Scale)
-				{
-				Position = new Vector2(0.7f * Game.Width, 0.9f * Game.Height),
+			};
+			backButton.Position = new Vector2(0.07f * Game.Width, 0.63f * Game.Height + 3 * interval.Y + 3 * backButton.Height);
+
+			var restoreButton = new Button(Textures["Button"], Font, Game.Scale)
+			{
 				Text = "Restore to defaults",
 				Click = RestoreToDefaults
-				},
 			};
+			restoreButton.Position = new Vector2(0.77f * Game.Width, 0.63f * Game.Height + 3 * interval.Y + 3 * backButton.Height);
+
+			staticComponents.AddRange(new List<Component>()
+				{
+					settingsBackground,
+					backButton,
+					restoreButton
+				}
+			);
 		}
 
 		private void CreateCategoriesButtons()
