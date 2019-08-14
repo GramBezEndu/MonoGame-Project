@@ -135,6 +135,43 @@ namespace GameProject.States
             PickUpItems();
         }
 
+		public void EnableMovingComponentsRectangle(GraphicsDevice gd)
+		{
+			foreach(var mc in movingComponents)
+			{
+				if(mc is Sprite)
+				{
+					(mc as Sprite).EnableSpriteRectangleDrawing(gd);
+				}
+				else if(mc is InteractableSprite)
+				{
+					(mc as InteractableSprite).MainSprite.EnableSpriteRectangleDrawing(gd);
+				}
+			}
+		}
+
+		public void EnableUiComponentsRectangle(GraphicsDevice gd)
+		{
+			foreach (var ui in uiComponents)
+			{
+				if (ui is Sprite)
+				{
+					(ui as Sprite).EnableSpriteRectangleDrawing(gd);
+				}
+			}
+		}
+
+		public void EnableEnemiesRectangle(GraphicsDevice gd)
+		{
+			foreach (var e in enemies)
+			{
+				if (e is Enemy)
+				{
+					(e as Enemy).EnableSpriteRectangleDrawing(gd);
+				}
+			}
+		}
+
         private void SpawnMovingComponents()
         {
             foreach (Component i in movingComponentsToSpawn)
@@ -163,8 +200,6 @@ namespace GameProject.States
 				{
 					Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
 				};
-				if(Debugger.IsAttached)
-					skeletonWarrior.EnableSpriteRectangleDrawing(graphicsDevice);
 				enemies.Add(skeletonWarrior);
             }
         }
@@ -201,8 +236,6 @@ namespace GameProject.States
 					{
 						Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
 					};
-					if(Debugger.IsAttached)
-						skeletonArcher.EnableSpriteRectangleDrawing(graphicsDevice);
 					enemies.Add(skeletonArcher);
 				}
 				//Warrior
@@ -212,8 +245,6 @@ namespace GameProject.States
 					{
 						Position = new Vector2((0.7f + i * 0.1f) * Game.Width, 0.6f * Game.Height),
 					};
-					if(Debugger.IsAttached)
-						skeletonWarrior.EnableSpriteRectangleDrawing(graphicsDevice);
 					enemies.Add(skeletonWarrior);
 				}
 			}

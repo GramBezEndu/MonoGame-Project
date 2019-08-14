@@ -8,7 +8,7 @@ using GameProject.Animations;
 using GameProject.Items;
 using GameProject.Inventory;
 using GameProject.Controls;
-
+using System.Diagnostics;
 
 namespace GameProject.States
 {
@@ -142,6 +142,13 @@ namespace GameProject.States
 			}
 
 			Game.ChangeBackgroundSong(Songs["SkeletonDungeon"]);
+
+			if (Debugger.IsAttached)
+			{
+				EnableMovingComponentsRectangle(gd);
+				EnableUiComponentsRectangle(gd);
+				EnableEnemiesRectangle(gd);
+			}
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

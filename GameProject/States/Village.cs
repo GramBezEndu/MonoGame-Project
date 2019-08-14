@@ -80,6 +80,13 @@ namespace GameProject.States
 			SpawnStatueOfGods(new Vector2(0.9f * Game.Width, 0.47f * Game.Height));
 
 			Game.ChangeBackgroundSong(Songs["Village"]);
+
+			if (Debugger.IsAttached)
+			{
+				EnableMovingComponentsRectangle(gd);
+				EnableUiComponentsRectangle(gd);
+				EnableEnemiesRectangle(gd);
+			}
 		}
 
 		private void AddCommonPlayerUiComponents()
