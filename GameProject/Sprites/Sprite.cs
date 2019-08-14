@@ -29,6 +29,9 @@ namespace GameProject.Sprites
 		protected GraphicsDevice graphicsDevice;
 		protected Texture2D rectangleTexture;
 
+		protected float rotation = 0f;
+		public Vector2 Origin = Vector2.Zero;
+
 		//public Vector2 Velocity { get; set; }
 		public Sprite(Texture2D t, Vector2 scale)
 		{
@@ -71,7 +74,7 @@ namespace GameProject.Sprites
 			ShowRectangle = true;
 		}
 
-		private void SetSpriteRectangle()
+		public void SetSpriteRectangle()
 		{
 			var data = new List<Color>();
 

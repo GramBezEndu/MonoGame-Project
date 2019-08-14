@@ -63,7 +63,16 @@ namespace GameProject.Animations
 		{
 			if (a == animation)
 				return;
-			animation = a;
+			//The sprite's rectangle changed
+			if (a.FrameWidth != animation.FrameWidth || a.FrameHeight != animation.FrameHeight)
+			{
+				animation = a;
+				Sprite.SetSpriteRectangle();
+			}
+			else
+			{
+				animation = a;
+			}
 			animation.CurrentFrame = 0;
 			millisecondsTimer = 0f;
 		}
