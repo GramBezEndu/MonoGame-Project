@@ -120,7 +120,7 @@ namespace GameProject
 			LoadSkeletonArcherTextures();
 			LoadSongs();
 			LoadSoundEffects();
-            Font = content.Load<SpriteFont>("Font");
+			Font = g.Font;
         }
         /// <summary>
         /// Load all key textures

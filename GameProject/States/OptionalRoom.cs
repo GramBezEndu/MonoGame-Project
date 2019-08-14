@@ -21,7 +21,6 @@ namespace GameProject.States
 		{
 			#region variables
 			var background = content.Load<Texture2D>("OptionalRoomBackground");
-			var font = content.Load<SpriteFont>("Font");
 			var optionalEntranceTexture = content.Load<Texture2D>("OptionalEntrance");
 			var pauseBorderTexture = content.Load<Texture2D>("PauseBorder");
 			var buttonTexture = content.Load<Texture2D>("Button");

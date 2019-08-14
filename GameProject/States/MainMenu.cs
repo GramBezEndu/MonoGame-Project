@@ -18,7 +18,8 @@ namespace GameProject.States
 		{
 			var background = content.Load<Texture2D>("Background");
 			var buttonTexture = content.Load<Texture2D>("Button");
-			var buttonFont = content.Load<SpriteFont>("Font");
+
+			var test = new Text(Font, "Test String");
 
 			staticComponents = new List<Component>
 			{
@@ -26,30 +27,30 @@ namespace GameProject.States
 				{
 					Position = new Vector2(0,0)
 				},
-				new Button(buttonTexture,buttonFont,g.Scale)
+				new Button(buttonTexture, Font, g.Scale)
 				{
 					Text = "Play",
 					Position = new Vector2(0.01f*g.Width, 0.6f*g.Height),
 					Click = PlayClick
 				},
-				new Button(buttonTexture,buttonFont,g.Scale)
+				new Button(buttonTexture, Font ,g.Scale)
 				{
 					Text = "Settings",
 					Position = new Vector2(0.01f*g.Width, 0.7f*g.Height),
 					Click = SettingsState
 				},
-				new Button(buttonTexture,buttonFont,g.Scale)
+				new Button(buttonTexture, Font ,g.Scale)
 				{
 					Text = "Credits",
 					Position = new Vector2(0.01f*g.Width, 0.8f*g.Height),
 					Click = CreditsState
 				},
-				new Button(buttonTexture, buttonFont, g.Scale)
+				new Button(buttonTexture, Font, g.Scale)
 				{
 				Text = "Exit",
 				Position = new Vector2(0.01f * g.Width, 0.9f * g.Height),
 				Click = QuitGame
-				}
+				},
 			};
 			g.ChangeBackgroundSong(Songs["MainMenu"]);
 		}

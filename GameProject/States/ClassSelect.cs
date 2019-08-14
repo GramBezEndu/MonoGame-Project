@@ -17,8 +17,7 @@ namespace GameProject.States
 		{
 			var background = content.Load<Texture2D>("Background");
 			var classCard = content.Load<Texture2D>("ClassCard");
-			var buttonFont = content.Load<SpriteFont>("Font");
-			var warriorButton = new Button(classCard, buttonFont, g.Scale)
+			var warriorButton = new Button(classCard, Font, g.Scale)
 			{
 				Position = new Vector2(0.01f * g.Width, 0.2f * g.Height),
 				Text = "Warrior",
@@ -28,7 +27,7 @@ namespace GameProject.States
 			var warriorFigureSprite = new Sprite(warriorFigure, g.Scale);
 			warriorFigureSprite.Position = new Vector2(0.01f * g.Width + warriorButton.Width / 2 - warriorFigureSprite.Width / 2, 0.2f * g.Height);
 			var archerFigure = content.Load<Texture2D>("Archer");
-			var archerButton = new Button(classCard, buttonFont, g.Scale)
+			var archerButton = new Button(classCard, Font, g.Scale)
 			{
 				Position = new Vector2(0.37f * g.Width, 0.2f * g.Height),
 				Text = "Archer",
@@ -36,7 +35,7 @@ namespace GameProject.States
 			};
 			var archerFigureSprite = new Sprite(archerFigure, g.Scale);
 			archerFigureSprite.Position = new Vector2(0.37f * g.Width + archerButton.Width / 2 - archerFigureSprite.Width / 2, 0.2f * g.Height);
-			var wizardButton = new Button(classCard, buttonFont, g.Scale)
+			var wizardButton = new Button(classCard, Font, g.Scale)
 			{
 				Position = new Vector2(0.73f * g.Width, 0.2f * g.Height),
 				Text = "Wizard",

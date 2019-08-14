@@ -57,7 +57,7 @@ namespace GameProject
         State currentState;
 		State nextState;
 
-        SpriteFont font;
+        public SpriteFont Font { get; private set; }
 
 		public Random Random { get; private set; }
 
@@ -141,6 +141,7 @@ namespace GameProject
 			graphics.PreferredBackBufferWidth = width;
 			graphics.PreferredBackBufferHeight = height;
 			graphics.ApplyChanges();
+			LoadFont();
 		}
 
 		public Game1()
@@ -160,8 +161,8 @@ namespace GameProject
 			//Default volume for sfx
 			SoundEffect.MasterVolume = 0.5f;
 			graphics.HardwareModeSwitch = true;
-			graphics.PreferredBackBufferWidth = 1600; //1600
-			graphics.PreferredBackBufferHeight = 900; //900
+			graphics.PreferredBackBufferWidth = 1280; //1600
+			graphics.PreferredBackBufferHeight = 720; //900
 			IsMouseVisible = true;
 			//Fullscreen check (will only work for 16:9 monitors)
 			if (false)
@@ -195,7 +196,7 @@ namespace GameProject
 
 		private void OnResize(object sender, EventArgs e)
 		{
-			//throw new NotImplementedException();
+			//
 		}
 
 		/// <summary>
@@ -283,8 +284,49 @@ namespace GameProject
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("Font");
+
+			LoadFont();
 			// TODO: use this.Content to load your game content here
+		}
+
+		private void LoadFont()
+		{
+			if (Height == 1080)
+			{
+				Font = Content.Load<SpriteFont>("Fonts/Font19");
+			}
+			else if (Height == 900)
+			{
+				Font = Content.Load<SpriteFont>("Fonts/Font15");
+			}
+			else if (Height == 768)
+			{
+				Font = Content.Load<SpriteFont>("Fonts/Font13");
+			}
+			else if (Height == 720)
+			{
+				Font = Content.Load<SpriteFont>("Fonts/Font12");
+			}
+			//Try to load most appropriate font
+			else
+			{
+				if(Height > 1800)
+				{
+					Font = Content.Load<SpriteFont>("Fonts/Font19");
+				}
+				else if(Height < 1800 && Height > 900)
+				{
+					Font = Content.Load<SpriteFont>("Fonts/Font15");
+				}
+				else if(Height < 900 && Height > 768)
+				{
+					Font = Content.Load<SpriteFont>("Fonts/Font13");
+				}
+				else
+				{
+					Font = Content.Load<SpriteFont>("Fonts/Font12");
+				}
+			}
 		}
 
 		/// <summary>
@@ -356,21 +398,21 @@ namespace GameProject
 			if (Debugger.IsAttached)
             {
 				DateTime compilationDate = new FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime;
-				spriteBatch.DrawString(font, "Debug Mode Enabled", new Vector2(0, 0), Color.Red);
-				spriteBatch.DrawString(font, "version: " + compilationDate.ToString(), new Vector2(0, 0.05f* Height), Color.Red);
-				spriteBatch.DrawString(font, "current state: " + currentState.ToString(), new Vector2(0, 0.1f * Height), Color.Red);
-				spriteBatch.DrawString(font, "graphics.HardwareModeSwitch: " + graphics.HardwareModeSwitch.ToString(), new Vector2(0, 0.15f * Height), Color.Red);
-				spriteBatch.DrawString(font, "graphics.IsFullScreen: " + graphics.IsFullScreen.ToString(), new Vector2(0, 0.2f * Height), Color.Red);
-				spriteBatch.DrawString(font, "graphics.Width: " + graphics.PreferredBackBufferWidth.ToString(), new Vector2(0, 0.25f * Height), Color.Red);
-				spriteBatch.DrawString(font, "graphics.Height: " + graphics.PreferredBackBufferHeight.ToString(), new Vector2(0, 0.3f * Height), Color.Red);
-				spriteBatch.DrawString(font, "Selected Width: " + Width.ToString(), new Vector2(0, 0.35f * Height), Color.Red);
-				spriteBatch.DrawString(font, "Selected Height: " + Height.ToString(), new Vector2(0, 0.4f * Height), Color.Red);
-				spriteBatch.DrawString(font, "Client Bounds Width: " + Window.ClientBounds.Width.ToString(), new Vector2(0, 0.45f * Height), Color.Red);
-				spriteBatch.DrawString(font, "Client Bounds Height: " + Window.ClientBounds.Height.ToString(), new Vector2(0, 0.5f * Height), Color.Red);
-				spriteBatch.DrawString(font, "Scale: " + Scale.ToString(), new Vector2(0, 0.55f * Height), Color.Red);
-				spriteBatch.DrawString(font, "Draw FPS: " + (1 / gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(0, 0.6f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "Debug Mode Enabled", new Vector2(0, 0), Color.Red);
+				spriteBatch.DrawString(Font, "version: " + compilationDate.ToString(), new Vector2(0, 0.05f* Height), Color.Red);
+				spriteBatch.DrawString(Font, "current state: " + currentState.ToString(), new Vector2(0, 0.1f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "graphics.HardwareModeSwitch: " + graphics.HardwareModeSwitch.ToString(), new Vector2(0, 0.15f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "graphics.IsFullScreen: " + graphics.IsFullScreen.ToString(), new Vector2(0, 0.2f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "graphics.Width: " + graphics.PreferredBackBufferWidth.ToString(), new Vector2(0, 0.25f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "graphics.Height: " + graphics.PreferredBackBufferHeight.ToString(), new Vector2(0, 0.3f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "Selected Width: " + Width.ToString(), new Vector2(0, 0.35f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "Selected Height: " + Height.ToString(), new Vector2(0, 0.4f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "Client Bounds Width: " + Window.ClientBounds.Width.ToString(), new Vector2(0, 0.45f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "Client Bounds Height: " + Window.ClientBounds.Height.ToString(), new Vector2(0, 0.5f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "Scale: " + Scale.ToString(), new Vector2(0, 0.55f * Height), Color.Red);
+				spriteBatch.DrawString(Font, "Draw FPS: " + (1 / gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(0, 0.6f * Height), Color.Red);
 				if(currentState is GameState)
-					spriteBatch.DrawString(font, "Displaying tutorial: " + (currentState as GameState).IsDisplayingTutorial, new Vector2(0, 0.7f * Height), Color.Red);
+					spriteBatch.DrawString(Font, "Displaying tutorial: " + (currentState as GameState).IsDisplayingTutorial, new Vector2(0, 0.7f * Height), Color.Red);
 			}
             spriteBatch.End();
 

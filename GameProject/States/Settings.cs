@@ -189,17 +189,39 @@ namespace GameProject.States
 
 			videoComponents.Add(resolutionText);
 
+			//List of resolutions
 			List<string> Resolutions = new List<string>()
 			{
 				"1920 x 1080",
 				"1600 x 900",
+				"1366 x 768",
+				"1366 x 760",
 				"1280 x 720",
-				"1680 x 1050",
-				"1600 x 1200",
-				"1600 x 1024",
-				"1024 x 768",
-				"800 x 600",
+				//"1680 x 1050",
+				//"1600 x 1200",
+				//"1600 x 1024",
+				//"1024 x 768",
+				//"800 x 600",
 			};
+
+			//Remove not supported resolutions
+			var supportedResolutions = GraphicsAdapter.DefaultAdapter.SupportedDisplayModes;
+
+			foreach (var res in Resolutions.ToList())
+			{
+				string temp = res;
+				res.Replace(" ", string.Empty);
+
+				string[] currentResolution = res.Split('x');
+				int width = Int32.Parse(currentResolution[0]);
+				int height = Int32.Parse(currentResolution[1]);
+
+				//This display mode is not supported
+				if(!supportedResolutions.Any(x => x.Width == width && x.Height == height))
+				{
+					Resolutions.Remove(res);
+				}
+			}
 
 			var resolutionList = new SelectableList(Input, Textures["ArrowSelector"], Game.Scale, Font, Resolutions)
 			{
