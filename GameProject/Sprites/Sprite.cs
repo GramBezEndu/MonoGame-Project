@@ -74,6 +74,24 @@ namespace GameProject.Sprites
 			ShowRectangle = true;
 		}
 
+		public void Rotate(int degrees)
+		{
+			if (texture != null)
+			{
+				Origin = new Vector2(Width / 2, Height / 2);
+				rotation = (float)((Math.PI / 180) * degrees);
+			}
+			else if (animationManager != null)
+			{
+				animationManager.animation.Origin = new Vector2(Width / 2, Height / 2);
+				animationManager.animation.Rotation = (float)((Math.PI / 180) * degrees);
+				Origin = animationManager.animation.Origin;
+				rotation = animationManager.animation.Rotation;
+			}
+			else
+				throw new Exception("Invalid sprite");
+		}
+
 		public void SetSpriteRectangle()
 		{
 			var data = new List<Color>();
@@ -147,9 +165,9 @@ namespace GameProject.Sprites
 			get
 			{
 				if (texture != null)
-					return new Rectangle((int)Position.X, (int)Position.Y, (int)(texture.Width * Scale.X), (int)(texture.Height * Scale.Y));
+					return new Rectangle((int)(Position.X - Origin.X), (int)(Position.Y - Origin.Y), (int)(texture.Width * Scale.X), (int)(texture.Height * Scale.Y));
 				else if (animationManager != null)
-					return new Rectangle((int)Position.X, (int)Position.Y, (int)(animationManager.animation.FrameWidth * animationManager.animation.Scale.X), (int)(animationManager.animation.FrameHeight * animationManager.animation.Scale.Y));
+					return new Rectangle((int)(Position.X - Origin.X), (int)(Position.Y - Origin.Y), (int)(animationManager.animation.FrameWidth * animationManager.animation.Scale.X), (int)(animationManager.animation.FrameHeight * animationManager.animation.Scale.Y));
 				else throw new Exception("Invalid rectangle sprite");
 			}
 		}
@@ -165,9 +183,9 @@ namespace GameProject.Sprites
 				if (texture != null)
 				{
 					if(FlipHorizontally)
-						spriteBatch.Draw(texture, Position, null, Color, 0f, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0f);
+						spriteBatch.Draw(texture, Position, null, Color, rotation, Origin, Scale, SpriteEffects.FlipHorizontally, 0f);
 					else
-						spriteBatch.Draw(texture, Position, null, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+						spriteBatch.Draw(texture, Position, null, Color, rotation, Origin, Scale, SpriteEffects.None, 0f);
 				}
 				else if (animationManager != null)
 				{
@@ -178,7 +196,7 @@ namespace GameProject.Sprites
 				//Rectangle section
 				if(ShowRectangle)
 				{
-					spriteBatch.Draw(rectangleTexture, Position, Color.White);
+					spriteBatch.Draw(rectangleTexture, Position, null, Color.White, rotation, Origin, new Vector2(1f, 1f), SpriteEffects.None, 0f);
 				}
 			}
 		}

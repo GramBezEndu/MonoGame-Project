@@ -79,6 +79,26 @@ namespace GameProject.States
 			SpawnTrainingDummy(new Vector2(0.7f * Game.Width, 0.4f * Game.Height));
 			SpawnStatueOfGods(new Vector2(0.9f * Game.Width, 0.47f * Game.Height));
 
+			var anim = new Dictionary<string, Animation>()
+			{
+				{"Idle", new Animation(Textures["Flower"], 1, g.Scale) }
+			};
+
+			var flower = new Sprite(Textures["Flower"], g.Scale)
+			{
+				Position = new Vector2(g.Width / 2, g.Height / 2)
+			};
+			flower.Rotate(60);
+
+			var flower2 = new Sprite(anim)
+			{
+				Position = new Vector2(g.Width / 2, g.Height / 2)
+			};
+			flower2.Rotate(60);
+
+			//movingComponents.Add(flower);
+			movingComponents.Add(flower2);
+
 			Game.ChangeBackgroundSong(Songs["Village"]);
 
 			if (Debugger.IsAttached)

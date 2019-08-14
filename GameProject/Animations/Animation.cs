@@ -20,6 +20,8 @@ namespace GameProject.Animations
 		public bool IsLooping { get; set; }
 		public Vector2 Scale { get; set; }
 		public EventHandler OnAnimationEnd { get; set; }
+		public float Rotation { get; set; } = 0f;
+		public Vector2 Origin = Vector2.Zero;
 		public Animation(Texture2D texture, int frameCount, Vector2 scale, float frameTime = 0.3f, bool looping = true)
 		{
 			Texture = texture;

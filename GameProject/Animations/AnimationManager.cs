@@ -36,8 +36,8 @@ namespace GameProject.Animations
 					animation.FrameWidth,
 					animation.FrameHeight),
 				Sprite.Color,
-				0f,
-				Vector2.Zero,
+				animation.Rotation,
+				animation.Origin,
 				animation.Scale,
 				SpriteEffects.FlipHorizontally,
 				0f);
@@ -51,8 +51,8 @@ namespace GameProject.Animations
 					animation.FrameWidth,
 					animation.FrameHeight),
 				Sprite.Color,
-				0f,
-				Vector2.Zero,
+				animation.Rotation,
+				animation.Origin,
 				animation.Scale,
 				SpriteEffects.None,
 				0f);
@@ -64,7 +64,7 @@ namespace GameProject.Animations
 			if (a == animation)
 				return;
 			//The sprite's rectangle changed
-			if (a.FrameWidth != animation.FrameWidth || a.FrameHeight != animation.FrameHeight)
+			if (Sprite.ShowRectangle && (a.FrameWidth != animation.FrameWidth || a.FrameHeight != animation.FrameHeight))
 			{
 				animation = a;
 				Sprite.SetSpriteRectangle();
