@@ -26,14 +26,10 @@ namespace GameProject.Sprites
 		List<DraggableSlot> upgradeSlots = new List<DraggableSlot>();
 
 		/// <summary>
-		/// Contains list of all recepies (without text and buttons
-		/// Keys:
-		/// scrollUpgrade
-		/// legendaryScrollUpgrade
-		/// addScroll
-		/// removeScroll
+		/// Contains list of all recepies
 		/// </summary>
-		Dictionary<string, Recipe> recipes = new Dictionary<string, Recipe>();
+		List<Recipe> recipes = new List<Recipe>();
+		List<int> recipesHeight = new List<int>();
 
 		public int PreviousUpgradeCost { get; set; }
 		public int UpgradeCost { get; set; } = 0;
@@ -48,7 +44,7 @@ namespace GameProject.Sprites
 			//Add components to state
 			gs.AddUiElements(UiElements);
 			gs.AddUiElements(RecipeWindow);
-			foreach(var recipe in recipes.Values)
+			foreach(var recipe in recipes)
 			{
 				gs.AddUiElement(recipe);
 			}
@@ -82,7 +78,7 @@ namespace GameProject.Sprites
 				Hidden = true,
 			};
 
-			recipes.Add("scrollUpgrade", scrollUpgradeRecipe);
+			recipes.Add(scrollUpgradeRecipe);
 
 			//Legendary improvement scroll upgrade
 			Recipe legendaryScrollUpgradeRecipe = new LegendaryScrollUpgradeRecipe(game, GameState, new Vector2(scrollUpgradeRecipe.Position.X, scrollUpgradeRecipe.Position.Y + scrollUpgradeRecipe.Height))
@@ -90,7 +86,7 @@ namespace GameProject.Sprites
 				Hidden = true,
 			};
 
-			recipes.Add("legendaryScrollUpgrade", legendaryScrollUpgradeRecipe);
+			recipes.Add(legendaryScrollUpgradeRecipe);
 
 			//Add scroll recipe
 			Recipe addScrollRecipe = new AddScrollRecipe(game, GameState, new Vector2(legendaryScrollUpgradeRecipe.Position.X, legendaryScrollUpgradeRecipe.Position.Y + legendaryScrollUpgradeRecipe.Height))
@@ -98,21 +94,45 @@ namespace GameProject.Sprites
 				Hidden = true,
 			};
 
-			recipes.Add("addScroll", addScrollRecipe);
+			recipes.Add(addScrollRecipe);
 			//Remove scroll recipe
 			Recipe removeScrollRecipe = new RemoveScrollRecipe(game, GameState, new Vector2(addScrollRecipe.Position.X, addScrollRecipe.Position.Y + addScrollRecipe.Height))
 			{
 				Hidden = true,
 			};
 
-			recipes.Add("remvoeScroll", removeScrollRecipe);
+			recipes.Add(removeScrollRecipe);
+
+			foreach(var r in recipes)
+			{
+				recipesHeight.Add(r.Height);
+			}
+		}
+
+		private void UpdateRecipePositions()
+		{
+			//Check if any recipe height changed
+			for(int i=0;i<recipesHeight.Count;i++)
+			{
+				//Recipe height changed
+				if(recipes[i].Height != recipesHeight[i])
+				{
+					int heightDifference = recipes[i].Height - recipesHeight[i];
+					for(int j=i+1;j<recipesHeight.Count;j++)
+					{
+						recipes[j].Position += new Vector2(0, heightDifference);
+					}
+					//Save new height
+					recipesHeight[i] = recipes[i].Height;
+				}
+			}
 		}
 
 		private void HideRecipeWindow(object sender, EventArgs e)
 		{
 			foreach (var c in RecipeWindow)
 				c.Hidden = true;
-			foreach (var c in recipes.Values)
+			foreach (var c in recipes)
 				c.Hidden = true;
 		}
 
@@ -201,7 +221,7 @@ namespace GameProject.Sprites
 			foreach (var c in RecipeWindow)
 				c.Hidden = false;
 			//Hide context recipes when opening the window (but not the whole recipe)
-			foreach (var c in recipes.Values)
+			foreach (var c in recipes)
 			{
 				c.Hidden = false;
 				c.HideRecipe();
@@ -428,6 +448,9 @@ namespace GameProject.Sprites
 			{
 				UpgradeCostText.Message = String.Format("Upgrade cost: {0}", UpgradeCost);
 			}
+
+			//Update recipes positions
+			UpdateRecipePositions();
 		}
 
 		private void PlayAnimations()

@@ -97,7 +97,7 @@ namespace GameProject.States
 			flower2.Rotate(60);
 
 			//movingComponents.Add(flower);
-			movingComponents.Add(flower2);
+			//movingComponents.Add(flower2);
 
 			Game.ChangeBackgroundSong(Songs["Village"]);
 
