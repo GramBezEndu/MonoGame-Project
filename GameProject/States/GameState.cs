@@ -474,7 +474,7 @@ namespace GameProject.States
 				//We should use player attack range here
 				//Now we use just IsTouching function
 				//if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
-				if(player.IsTouching(e))
+				if(player.MeleeAttackRectangle.GetValueOrDefault().Intersects(e.Rectangle))
 				{
 					int dmg = Game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1+ player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
 						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
@@ -504,12 +504,12 @@ namespace GameProject.States
 		{
 			foreach (var e in enemies)
 			{
-				//Enemy should be hit
-				//We should use player attack range here
-				//Now we use just IsTouching function
-				//if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
-				if (player.IsTouching(e))
-				{
+                //Enemy should be hit
+                //We should use player attack range here
+                //Now we use just IsTouching function
+                //if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
+                if (player.MeleeAttackRectangle.GetValueOrDefault().Intersects(e.Rectangle))
+                {
 					int dmg = Game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
 						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
 					e.GetDamage(dmg, false);

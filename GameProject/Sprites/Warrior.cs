@@ -40,16 +40,22 @@ namespace GameProject.Sprites
 		private void OnNormalAttackEnd(object sender, EventArgs e)
 		{
 			normalAttacking = false;
-			//animations["NormalAttack"].CurrentFrame = 0;
-			gameState.MeleeAttackWithCrit();
-		}
+
+            gameState.MeleeAttackWithCrit();
+
+            //Reset melee attack rectangle
+            MeleeAttackRectangle = null;
+        }
 
 		private void OnFastAttackEnd(object sender, EventArgs e)
 		{
 			fastAttacking = false;
-			//animations["FastAttack"].CurrentFrame = 0;
-			gameState.MeleeAttackWithoutCrit();
-		}
+
+            gameState.MeleeAttackWithoutCrit();
+
+            //Reset melee attack rectangle
+            MeleeAttackRectangle = null;
+        }
 
 		public override void Update(GameTime gameTime)
 		{
@@ -197,7 +203,14 @@ namespace GameProject.Sprites
 					StaminaBar.Stamina.CurrentStamina -= 5;
 					normalAttacking = true;
 					normalAttackCounter++;
-				}
+                    Vector2 size = new Vector2((int)(animations["NormalAttack"].FrameWidth * 0.3f), (int)(animations["NormalAttack"].FrameHeight * 0.3f));
+                    if(!FlipHorizontally)
+                        MeleeRectanglePosition = new Vector2((int)(this.Rectangle.Right - size.X), (int)(this.Position.Y + this.Width * 0.66f));
+                    else
+                        MeleeRectanglePosition = new Vector2((int)(this.Rectangle.Left), (int)(this.Position.Y + this.Width * 0.66f));
+                    MeleeAttackRectangle = new Rectangle((int)MeleeRectanglePosition.X, (int)MeleeRectanglePosition.Y, (int)(size.X), (int)(size.Y));
+                    SetMeleeAttackTexture();
+                }
 			}
 		}
 
@@ -243,7 +256,14 @@ namespace GameProject.Sprites
 					fastAttacking = true;
 					fastAttackCounter++;
 					gameState.SoundEffects["SwordSlashFast"].Play();
-				}
+                    Vector2 size = new Vector2((int)(animations["FastAttack"].FrameWidth * 0.3f), (int)(animations["FastAttack"].FrameHeight * 0.3f));
+                    if (!FlipHorizontally)
+                        MeleeRectanglePosition = new Vector2((int)(this.Rectangle.Right - size.X), (int)(this.Position.Y + this.Width * 0.66f));
+                    else
+                        MeleeRectanglePosition = new Vector2((int)(this.Rectangle.Left), (int)(this.Position.Y + this.Width * 0.66f));
+                    MeleeAttackRectangle = new Rectangle((int)MeleeRectanglePosition.X, (int)MeleeRectanglePosition.Y, (int)(size.X), (int)(size.Y));
+                    SetMeleeAttackTexture();
+                }
 			}
         }
 		protected override void PlayAnimations()

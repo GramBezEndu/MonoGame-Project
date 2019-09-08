@@ -10,6 +10,7 @@ using GameProject.Animations;
 using GameProject.States;
 using GameProject.Inventory;
 using GameProject.Controls;
+using System.Diagnostics;
 
 namespace GameProject.Sprites
 {
@@ -80,6 +81,10 @@ namespace GameProject.Sprites
 
 		public TutorialManager TutorialManager;
 
+        public Rectangle? MeleeAttackRectangle;
+        private Texture2D MeleeAttackTexture;
+        public Vector2 MeleeRectanglePosition;
+
 		public override void Update(GameTime gameTime)
 		{
 			if (!IsDead)
@@ -123,7 +128,25 @@ namespace GameProject.Sprites
 			}
 		}
 
-		protected void Die()
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            base.Draw(gameTime, spriteBatch);
+            //
+            if (Debugger.IsAttached)
+            {
+                if (MeleeAttackRectangle != null && MeleeAttackTexture != null)
+                {
+                    spriteBatch.Draw(MeleeAttackTexture, MeleeRectanglePosition, null, Color.Blue, rotation, Origin, new Vector2(1f, 1f), SpriteEffects.None, 0f);
+                }
+            }
+        }
+
+        public void SetMeleeAttackTexture()
+        {
+            MeleeAttackTexture = SetRectangleTextureForTexture(MeleeAttackRectangle.GetValueOrDefault());
+        }
+
+        protected void Die()
 		{
 			IsDead = true;
 			gameState.Game.ChangeBackgroundSong(gameState.Songs["Death"]);

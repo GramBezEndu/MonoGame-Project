@@ -105,7 +105,7 @@ namespace GameProject.Sprites
 						y == Height - 1 || // on the bottom
 						x == Width - 1) // on the right
 					{
-						data.Add(Color.Red); // white
+						data.Add(Color.Red);
 					}
 					else
 					{
@@ -117,6 +117,33 @@ namespace GameProject.Sprites
 			rectangleTexture = new Texture2D(graphicsDevice, Width, Height);
 			rectangleTexture.SetData<Color>(data.ToArray());
 		}
+
+        protected Texture2D SetRectangleTextureForTexture(Rectangle rectangle)
+        {
+            var data = new List<Color>();
+
+            for (int y = 0; y < rectangle.Height; y++)
+            {
+                for (int x = 0; x < rectangle.Width; x++)
+                {
+                    if (y == 0 || // On the top
+                        x == 0 || // On the left
+                        y == rectangle.Height - 1 || // on the bottom
+                        x == rectangle.Width - 1) // on the right
+                    {
+                        data.Add(Color.Red);
+                    }
+                    else
+                    {
+                        data.Add(Color.Transparent);
+                    }
+                }
+            }
+
+            var rectangleText = new Texture2D(graphicsDevice, rectangle.Width, rectangle.Height);
+            rectangleText.SetData<Color>(data.ToArray());
+            return rectangleText;
+        }
 
 		public Vector2 Position
 		{
@@ -202,6 +229,7 @@ namespace GameProject.Sprites
 		}
 
 		#region Collision
+        //Collision on rotated sprite's is not implemented
 		protected bool IsTouchingLeft(Sprite sprite)
 		{
 			return this.Rectangle.Right + this.Velocity.X > sprite.Rectangle.Left &&
