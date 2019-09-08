@@ -26,7 +26,12 @@ namespace GameProject.Sprites
 		private SpriteFont debuggerFont;
 		private int fastAttackCounter = 0;
 		private int normalAttackCounter = 0;
-		public Warrior(GameState currentGameState, Dictionary<string, Animation> a, Input i, Vector2 scale, SpriteFont debugFont) : base(currentGameState, a, i, scale)
+
+        public Rectangle? ShieldRectangle;
+        private Texture2D ShieldRectangleTexture;
+        public Vector2 ShieldRectanglePosition;
+
+        public Warrior(GameState currentGameState, Dictionary<string, Animation> a, Input i, Vector2 scale, SpriteFont debugFont) : base(currentGameState, a, i, scale)
 		{
 			animations = a;
 			animationManager = new AnimationManager(this, a.First().Value);
@@ -36,6 +41,33 @@ namespace GameProject.Sprites
 			animations["Die"].OnAnimationEnd = Dead;
 			attackRange = 40f * scale.X;
 		}
+
+        private void ApplyShieldRectangle()
+        {
+            if(blockingUp)
+            {
+                ShieldRectanglePosition = new Vector2(this.Position.X, this.Position.Y + 0.07f * this.Height);
+                ShieldRectangle = new Rectangle((int)ShieldRectanglePosition.X, (int)ShieldRectanglePosition.Y, (int)(animations["BlockUp"].FrameWidth * animations["BlockUp"].Scale.X), 1);
+                ShieldRectangleTexture = SetRectangleTextureForTexture(ShieldRectangle.GetValueOrDefault());
+            }
+            else if(blockingLeft)
+            {
+                ShieldRectanglePosition = new Vector2(this.Rectangle.Left + 0.08f * this.Width, this.Position.Y);
+                ShieldRectangle = new Rectangle((int)ShieldRectanglePosition.X, (int)ShieldRectanglePosition.Y, 1, (int)(animations["Block"].FrameHeight * animations["Block"].Scale.Y));
+                ShieldRectangleTexture = SetRectangleTextureForTexture(ShieldRectangle.GetValueOrDefault());
+            }
+            else if(blockingRight)
+            {
+                ShieldRectanglePosition = new Vector2(this.Rectangle.Right - 0.08f * this.Width, this.Position.Y);
+                ShieldRectangle = new Rectangle((int)ShieldRectanglePosition.X, (int)ShieldRectanglePosition.Y, 1, (int)(animations["Block"].FrameHeight * animations["Block"].Scale.Y));
+                ShieldRectangleTexture = SetRectangleTextureForTexture(ShieldRectangle.GetValueOrDefault());
+            }
+            //Not blocking = rectangle = null
+            else
+            {
+                ShieldRectangle = null;
+            }
+        }
 
 		private void OnNormalAttackEnd(object sender, EventArgs e)
 		{
@@ -60,6 +92,7 @@ namespace GameProject.Sprites
 			if(!IsDead)
 			{
 				ShieldBlocking();
+                ApplyShieldRectangle();
 				ManageAttacks(gameTime);
 				BlockMovementWhileAttackingAndShielding();
 			}
@@ -320,7 +353,9 @@ namespace GameProject.Sprites
 				spriteBatch.DrawString(debuggerFont, "Fast counter: " + fastAttackCounter.ToString(), new Vector2(0, 90), Color.Red);
 				spriteBatch.DrawString(debuggerFont, "Normal counter: " + normalAttackCounter.ToString(), new Vector2(0, 120), Color.Red);
 				spriteBatch.DrawString(debuggerFont, "Pos: " + Position.ToString(), new Vector2(0, 150), Color.Red);
-			}
+                if(ShieldRectangle != null && ShieldRectangleTexture != null)
+                    spriteBatch.Draw(ShieldRectangleTexture, ShieldRectanglePosition, null, Color.Blue, rotation, Origin, new Vector2(1f, 1f), SpriteEffects.None, 0f);
+            }
 		}
 	}
 }
