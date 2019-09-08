@@ -40,21 +40,19 @@ namespace GameProject.Sprites
 		private void OnNormalAttackEnd(object sender, EventArgs e)
 		{
 			normalAttacking = false;
-
-            gameState.MeleeAttackWithCrit();
-
             //Reset melee attack rectangle
             MeleeAttackRectangle = null;
+            //Reset attacked enemies
+            EnemiesAttacked = new List<Enemy>();
         }
 
 		private void OnFastAttackEnd(object sender, EventArgs e)
 		{
 			fastAttacking = false;
-
-            gameState.MeleeAttackWithoutCrit();
-
             //Reset melee attack rectangle
             MeleeAttackRectangle = null;
+            //Reset attacked enemies
+            EnemiesAttacked = new List<Enemy>();
         }
 
 		public override void Update(GameTime gameTime)
@@ -134,22 +132,33 @@ namespace GameProject.Sprites
 				CanMove = true;
 		}
 
-		/// <summary>
-		/// New attacking - left mouse button -> fast attack, right mouse button -> normal attack
-		/// </summary>
-		/// <param name="gameTime"></param>
-		private void ManageAttacks(GameTime gameTime)
-		{
-			//Left mouse is in pressed state
-			if (input.CurrentMouseState.LeftButton == ButtonState.Pressed)
-			{
-				SetFastAttack();
-			}
-			//Right mouse is in pressed state
-			else if (input.CurrentMouseState.RightButton == ButtonState.Pressed)
-			{
-				SetNormalAttack();
-			}
+        /// <summary>
+        /// New attacking - left mouse button -> fast attack, right mouse button -> normal attack
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void ManageAttacks(GameTime gameTime)
+        {
+            //Left mouse is in pressed state
+            if (input.CurrentMouseState.LeftButton == ButtonState.Pressed)
+            {
+                SetFastAttack();
+            }
+            //Right mouse is in pressed state
+            else if (input.CurrentMouseState.RightButton == ButtonState.Pressed)
+            {
+                SetNormalAttack();
+            }
+
+            if (normalAttacking)
+            {
+                var enemiesAttackedInThisFrame = gameState.MeleeAttackWithCrit(EnemiesAttacked);
+                EnemiesAttacked.AddRange(enemiesAttackedInThisFrame);
+            }
+            else if (fastAttacking)
+            {
+                var enemiesAttackedInThisFrame = gameState.MeleeAttackWithoutCrit(EnemiesAttacked);
+                EnemiesAttacked.AddRange(enemiesAttackedInThisFrame);
+            }
 		}
 		/// <summary>
 		/// Common attack requirements (sword equipped, not using shield, inventory not opened, any extra window not opened)

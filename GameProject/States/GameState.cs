@@ -74,7 +74,7 @@ namespace GameProject.States
 		protected List<Component> uiComponents = new List<Component>();
 		protected List<Component> pausedComponents;
 		public List<Sprite> collisionSprites { get; protected set; } = new List<Sprite>();
-		protected List<Enemy> enemies = new List<Enemy>();
+		public List<Enemy> enemies { get; protected set; } =  new List<Enemy>();
         protected List<MysteriousChest> mysteriousChests = new List<MysteriousChest>();
 		//protected List<MovingText> PickedItemsText = new List<MovingText>();
 
@@ -465,11 +465,16 @@ namespace GameProject.States
 
 		/// <summary>
 		/// Call this function WHEN PLAYER IS PERFORMING ATTACK (we check for X axis only now)
+        /// parameter: which enemies were already attacked
+        /// returns list of enemies that were attacked
 		/// </summary>
-		public void MeleeAttackWithCrit()
+		public List<Enemy> MeleeAttackWithCrit(List<Enemy> alreadyAttacked)
 		{
+            var enemiesAttacked = new List<Enemy>();
 			foreach(var e in enemies)
 			{
+                if (alreadyAttacked.Contains(e))
+                    continue;
 				//Enemy should be hit
 				//We should use player attack range here
 				//Now we use just IsTouching function
@@ -494,27 +499,33 @@ namespace GameProject.States
 					{
 						e.GetDamage(dmg, false);
 					}
+                    enemiesAttacked.Add(e);
 				}
 			}
+            return enemiesAttacked;
 		}
 		/// <summary>
 		/// Call this function WHEN PLAYER IS PERFORMING ATTACK (we check for X axis only now)
 		/// </summary>
-		public void MeleeAttackWithoutCrit()
+		public List<Enemy> MeleeAttackWithoutCrit(List<Enemy> alreadyAttacked)
 		{
+            var enemiesAttacked = new List<Enemy>();
 			foreach (var e in enemies)
 			{
                 //Enemy should be hit
                 //We should use player attack range here
                 //Now we use just IsTouching function
-                //if (player.Position.X > e.Position.X - player.attackRange && player.Position.X < e.Position.X + player.attackRange)
+                if (alreadyAttacked.Contains(e))
+                    continue;
                 if (player.MeleeAttackRectangle.GetValueOrDefault().Intersects(e.Rectangle))
                 {
 					int dmg = Game.RandomNumber((int)(player.InventoryManager.EquipmentManager.Attributes["DamageMin"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])),
 						(int)(player.InventoryManager.EquipmentManager.Attributes["DamageMax"] * (1 + player.InventoryManager.EquipmentManager.Attributes["BonusDamage"])));
 					e.GetDamage(dmg, false);
+                    enemiesAttacked.Add(e);
 				}
 			}
+            return enemiesAttacked;
 		}
 
 		public void SpawnProjectile(Projectile projectile)

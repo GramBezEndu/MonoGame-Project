@@ -84,6 +84,11 @@ namespace GameProject.Sprites
         public Rectangle? MeleeAttackRectangle;
         private Texture2D MeleeAttackTexture;
         public Vector2 MeleeRectanglePosition;
+        /// <summary>
+        /// List of enemies that were attacked with CURRENT MELEE attack
+        /// </summary>
+        protected List<Enemy> EnemiesAttacked = new List<Enemy>();
+        protected List<Enemy> AllEnemies = new List<Enemy>();
 
 		public override void Update(GameTime gameTime)
 		{
@@ -104,6 +109,8 @@ namespace GameProject.Sprites
 				Move();
 				//Check collision with walls etc.
 				CheckCollision();
+                //Update enemies list
+                AllEnemies = gameState.enemies;
 			}
 			//Play animations
 			animationManager.Update(gameTime);
